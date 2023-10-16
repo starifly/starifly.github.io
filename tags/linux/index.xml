@@ -1,62 +1,318 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>linux on starifly&#39;s Blog</title>
-    <link>http://starifly.github.io/tags/linux/</link>
-    <description>Recent content in linux on starifly&#39;s Blog</description>
+    <title>linux on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/linux/</link>
+    <description>Recent content in linux on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Sat, 30 May 2020 21:59:57 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
     
-	<atom:link href="http://starifly.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://starifly.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Linux中病毒后的处理过程</title>
-      <link>http://starifly.github.io/post/draft/virus-process-in-linux-system/</link>
-      <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate>
+    
+
       
-      <guid>http://starifly.github.io/post/draft/virus-process-in-linux-system/</guid>
-      <description>之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删</description>
-    </item>
-    
-    <item>
-      <title>Linux 中 profile，bashrc，bash_profile等的区别</title>
-      <link>http://starifly.github.io/post/profile-bashrc-bash_profile-in-linux/</link>
-      <pubDate>Fri, 17 Aug 2018 11:52:00 +0800</pubDate>
       
-      <guid>http://starifly.github.io/post/profile-bashrc-bash_profile-in-linux/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+      <item>
+        <title>Linux中病毒后的处理过程</title>
+        <link>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</link>
+        <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 30 May 2020 21:59:57 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</guid>
+        <description>之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删</description>
+        <content:encoded>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;删除定时任务及文件以及开机启动文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;进入以下目录&lt;code&gt;/etc/init.d/&lt;/code&gt;、&lt;code&gt;/etc/rc.d/rc#.d/&lt;/code&gt;、&lt;code&gt;/etc/cron.d&lt;/code&gt;、&lt;code&gt;/usr/lib/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/profile.d&lt;/code&gt;，并清理可疑文件。&lt;/p&gt;
+&lt;p&gt;确认文件&lt;code&gt;/etc/crontab&lt;/code&gt;中是否有定时任务。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;删除可疑执行文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;进入以下目录&lt;code&gt;/bin&lt;/code&gt;，&lt;code&gt;/sbin&lt;/code&gt;，&lt;code&gt;/usr/libexec/&lt;/code&gt;，并清理可疑文件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修复ssh认证文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;删除或修复&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查看etc目录下文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;查看&lt;code&gt;/etc&lt;/code&gt;目录下的文件是否被篡改或增加，比如&lt;code&gt;hosts&lt;/code&gt;文件。&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/heivy/article/details/50508354&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;记录一次linux病毒清除过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/daiyuhe/article/details/95683393&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;记录一次清除Linux挖矿病毒的经历(sysupdate, networkservice进程)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/eOQy1_rJdwdYcBZB0Mf-yg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;11个步骤完美排查Linux机器是否已经被入侵&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>linux</category>
+            
+          
+            
+              <category>centos</category>
+            
+          
+        
+        
+            
+              <category>[linux]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Linux 中 profile，bashrc，bash_profile等的区别</title>
+        <link>https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/</link>
+        <pubDate>Fri, 17 Aug 2018 11:52:00 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/</guid>
+        <description>&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。
+&lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
-
-&lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt;: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 &lt;code&gt;/etc/profile.d&lt;/code&gt; 目录的配置文件中收集 shell 的设置。如果你有对 &lt;code&gt;/etc/profile&lt;/code&gt; 有修改的话必须得 source 一下 你的修改才会生效，此修改对*每个用户*都生效。&lt;/p&gt;
-
+&lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt;: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 &lt;code&gt;/etc/profile.d&lt;/code&gt; 目录的配置文件中收集 shell 的设置。如果你有对 &lt;code&gt;/etc/profile&lt;/code&gt; 有修改的话必须得 source 一下 你的修改才会生效，此修改对&lt;em&gt;每个用户&lt;/em&gt;都生效。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;/etc/bashrc&lt;/code&gt;: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;~/.bash_profile&lt;/code&gt;: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。
+&lt;p&gt;&lt;code&gt;~/.bash_profile&lt;/code&gt;: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。&lt;br /&gt;
 此文件类似于 &lt;code&gt;/etc/profile&lt;/code&gt;，也是需要需要 source 才会生效，&lt;code&gt;/etc/profile&lt;/code&gt; 对所有用户生效，&lt;code&gt;~/.bash_profile&lt;/code&gt; 只对当前用户生效。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;~/.bashrc&lt;/code&gt;: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 &lt;code&gt;.bashrc&lt;/code&gt; 文件，在用户目录下）
+&lt;p&gt;&lt;code&gt;~/.bashrc&lt;/code&gt;: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 &lt;code&gt;.bashrc&lt;/code&gt; 文件，在用户目录下）&lt;br /&gt;
 此文件类似于 &lt;code&gt;/etc/bashrc&lt;/code&gt;，不需要重启就可以生效，重新打开一个 bash 即可生效，&lt;code&gt;/etc/bashrc&lt;/code&gt; 对所有用户新打开的 bash 都生效，但 &lt;code&gt;~/.bashrc&lt;/code&gt; 只对当前用户新打开的 bash 生效。&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;~/.bash_logout&lt;/code&gt;: 当每次退出系统(退出 bash shell)时，执行该文件。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 使用笔记</title>
-      <link>http://starifly.github.io/post/use-ubuntu-notes/</link>
-      <pubDate>Wed, 15 Aug 2018 22:25:03 +0800</pubDate>
+        <content:encoded>&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt;: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 &lt;code&gt;/etc/profile.d&lt;/code&gt; 目录的配置文件中收集 shell 的设置。如果你有对 &lt;code&gt;/etc/profile&lt;/code&gt; 有修改的话必须得 source 一下 你的修改才会生效，此修改对&lt;em&gt;每个用户&lt;/em&gt;都生效。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/etc/bashrc&lt;/code&gt;: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.bash_profile&lt;/code&gt;: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。&lt;br /&gt;
+此文件类似于 &lt;code&gt;/etc/profile&lt;/code&gt;，也是需要需要 source 才会生效，&lt;code&gt;/etc/profile&lt;/code&gt; 对所有用户生效，&lt;code&gt;~/.bash_profile&lt;/code&gt; 只对当前用户生效。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.bashrc&lt;/code&gt;: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 &lt;code&gt;.bashrc&lt;/code&gt; 文件，在用户目录下）&lt;br /&gt;
+此文件类似于 &lt;code&gt;/etc/bashrc&lt;/code&gt;，不需要重启就可以生效，重新打开一个 bash 即可生效，&lt;code&gt;/etc/bashrc&lt;/code&gt; 对所有用户新打开的 bash 都生效，但 &lt;code&gt;~/.bashrc&lt;/code&gt; 只对当前用户新打开的 bash 生效。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.bash_logout&lt;/code&gt;: 当每次退出系统(退出 bash shell)时，执行该文件。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt; 中设定的变量(全局)的可以作用于任何用户，而 &lt;code&gt;~/.bashrc&lt;/code&gt; 中设定的变量(局部)只能继承 &lt;code&gt;/etc/profile&lt;/code&gt; 中的变量，他们是&amp;quot;父子&amp;quot;关系。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.bash_profile&lt;/code&gt; 是交互式、login 方式进入 bash 运行的；&lt;br /&gt;
+&lt;code&gt;~/.bashrc&lt;/code&gt; 是交互式 non-login 方式进入 bash 运行的；&lt;/p&gt;
+&lt;p&gt;通常二者设置大致相同，所以通常前者会调用后者。&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/ithomer/article/details/6322892&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux 之 /etc/profile、~/.bash_profile 等几个文件的执行过程&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;</content:encoded>
+        <dc:creator>茶歇驿站</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>linux</category>
+            
+          
+            
+              <category>profile</category>
+            
+          
+            
+              <category>bashrc</category>
+            
+          
+        
+        
+            
+              <category>[linux]</category>
+            
+        
+        
+      </item>
       
-      <guid>http://starifly.github.io/post/use-ubuntu-notes/</guid>
-      <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
-    </item>
+      <item>
+        <title>Ubuntu 使用笔记</title>
+        <link>https://starifly.github.io/posts/use-ubuntu-notes/</link>
+        <pubDate>Wed, 15 Aug 2018 22:25:03 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/use-ubuntu-notes/</guid>
+        <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;使用-git-pull-遇到问题&#34;&gt;使用 git pull 遇到问题&lt;/h2&gt;
+&lt;p&gt;提示&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Agent admitted failure to sign using the key.
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;图形界面编辑配置文件&#34;&gt;图形界面编辑配置文件&lt;/h2&gt;
+&lt;p&gt;安装 dconf-editor。&lt;/p&gt;
+&lt;h2 id=&#34;配置-exchange&#34;&gt;配置 Exchange&lt;/h2&gt;
+&lt;p&gt;为 ThunderBird 安装插件 ExQuilla，有时被墙。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://mesquilla.net/exquilla-currentrelease-tb-linux.xpi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://mesquilla.net/exquilla-currentrelease-tb-linux.xpi&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装和配置-jdk&#34;&gt;安装和配置 JDK&lt;/h2&gt;
+&lt;p&gt;在 Terminal 运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:webupd8team/java
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install oracle-java8-installer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vim /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/jvm/java-8-oracle
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JRE_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/jre
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLASSPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;.:&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/lib:&lt;span class=&#34;nv&#34;&gt;$JRE_HOME&lt;/span&gt;/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$JRE_HOME&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置-adt&#34;&gt;配置 adt&lt;/h2&gt;
+&lt;p&gt;安装兼容 32 位 adb 运行的环境&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加路径到 $PATH 环境变量，修改 /etc/profile 或 ~/.profile 等皆可。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export ANDROID_SDK_HOME=/home/mzlogin/android/sdk
+export PATH=$ANDROID_SDK_HOME/platform-tools:$ANDROID_SDK_HOME/tools:$PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-svn-图形前端-rabbitvcs&#34;&gt;安装 SVN 图形前端 RabbitVCS&lt;/h2&gt;
+&lt;p&gt;在 Terminal 运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:rabbitvcs/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install rabbitvcs-nautilus3 rabbitvcs-thunar rabbitvcs-gedit rabbitvcs-cli
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;创建-eclipse-快捷方式&#34;&gt;创建 eclipse 快捷方式&lt;/h2&gt;
+&lt;p&gt;/usr/share/applications 里新建 Eclipse.desktop，填如下内容：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Desktop Entry]
+Name=Eclipse
+Comment=Launch Eclipse
+Exec=/home/mzlogin/android/eclipse/eclipse
+Icon=/home/mzlogin/android/eclipse/icon.xpm
+StartupNotify=true
+Terminal=false
+Type=Application
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-xmind&#34;&gt;安装 XMind&lt;/h2&gt;
+&lt;p&gt;到 XMind 官网下载安装包，然后 ：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg --ignore-depends&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;lame,libwebkitgtk-1.0-0 -i xmind-linux-3.5.0.201410310637_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;切换输入法&#34;&gt;切换输入法&lt;/h2&gt;
+&lt;p&gt;添加一个英文，一个五笔，将切换到上一个源和下一个源的快捷键分别设为左和右 Shift，这样就可以使用左右 Shift 在中英之间来回切换了。&lt;/p&gt;
+&lt;p&gt;安装 im-switch 会导致语言支持被移除，恢复用 &lt;code&gt;sudo apt-get install language-selector-gnome&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;消除启动-gvim-在-terminal-中的警告&#34;&gt;消除启动 gVim 在 terminal 中的警告&lt;/h2&gt;
+&lt;p&gt;安装 vim-gnome 后运行 gVim 会提示：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GLib-GObject-WARNING **: Attempt to add property GnomeProgram::sm-connect after class was initialised
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;改为安装 vim-gtk 就好了。&lt;/p&gt;
+&lt;h2 id=&#34;解决-ibus-五笔候选词水平显示和个数的问题&#34;&gt;解决 ibus 五笔候选词水平显示和个数的问题&lt;/h2&gt;
+&lt;p&gt;修改 /usr/share/ibus-table/tables/wubi-jidian86.db 的 ime 表里的 orientation（水平 0 垂直 1）和 select_keys（有几个选择键就有几个项，从下面代码可知用 &lt;code&gt;,&lt;/code&gt; 分隔）。&lt;/p&gt;
+&lt;p&gt;/usr/share/ibus-tables/engine/tabsqlitedb.py 中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_page_size&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_select_keys&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;将-caps-lock-映射为-ctrl&#34;&gt;将 Caps Lock 映射为 Ctrl&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安装 Gnome Tweak Tool&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install gnome-tweak-tool
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开 tweak-tool，找到「打字」－「大写锁定键行为」，选择「将 CapsLock 作为额外的 Ctrl」&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;参考 
+
+&lt;a href=&#34;http://askubuntu.com/questions/462021/how-do-i-turn-caps-lock-into-an-extra-control-key&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://askubuntu.com/questions/462021/how-do-i-turn-caps-lock-into-an-extra-control-key&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;将个人文件夹下文件夹名改为英文&#34;&gt;将个人文件夹下文件夹名改为英文&lt;/h2&gt;
+&lt;p&gt;~ 目录下的「桌面」和「文档」等文件夹是中文，在 Terminal 下输入很不方便，将其改为英文的方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 ~/.config/user-dirs.dirs，将其中的中文改掉：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;XDG_DESKTOP_DIR=&amp;#34;$HOME/desktop&amp;#34;
+XDG_DOWNLOAD_DIR=&amp;#34;$HOME/downloads&amp;#34;
+XDG_TEMPLATES_DIR=&amp;#34;$HOME/templates&amp;#34;
+XDG_PUBLICSHARE_DIR=&amp;#34;$HOME/public&amp;#34;
+XDG_DOCUMENTS_DIR=&amp;#34;$HOME/documents&amp;#34;
+XDG_MUSIC_DIR=&amp;#34;$HOME/music&amp;#34;
+XDG_PICTURES_DIR=&amp;#34;$HOME/pictures&amp;#34;
+XDG_VIDEOS_DIR=&amp;#34;$HOME/videos&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在文件管理器中将 HOME 目录下的中文文件夹名改成与上面的配置对应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;输入与&#34;&gt;输入「」与『』&lt;/h2&gt;
+&lt;p&gt;极点五笔中文输入状态下，按 [] 即输入「」，按 {} 即输入『』。&lt;/p&gt;
+&lt;h2 id=&#34;virtualbox-里-ubuntu-分辨率无法调整&#34;&gt;VirtualBox 里 Ubuntu 分辨率无法调整&lt;/h2&gt;
+&lt;p&gt;Ubuntu 14.04 LTS 在 VirtualBox 中刚安装完时，分辨率只有 640*480 一种选项，无法调整。&lt;/p&gt;
+&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 xdiagnose&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;勾选 Debug 下的所有选项&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装增强功能&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;然后：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /media/&amp;lt;username&amp;gt;/VBOXADDITIONS_X.X.XX_XXXXX
+sudo ./VBoxLinuxAdditions.run
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;（注意把 username 替换成自己的，VBOXADDITIONS 后面的 X 换成具体版本号）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;与-win7-共享-ssh-key&#34;&gt;与 Win7 共享 SSH key&lt;/h2&gt;
+&lt;p&gt;如下步骤适用于在 Ubuntu 上使用从 Win7 拷贝的 SSH key，反之应该也一样能用。&lt;/p&gt;
+&lt;p&gt;创建 ~/.ssh 目录，确认其权限为 0700，将 Windows %userprofile%/.ssh 下的 id_rsa 和 id_rsa.pub 文件拷贝到 ~/.ssh 目录下，权限分别改为 0600 和 0644。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mzlogin@ubuntu:~$ ll ~/.ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;total &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;drwx------  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;4096&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 01:03 ./
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;drwxr-xr-x &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;4096&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 01:02 ../
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-------  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;1679&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-r--r--  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin  &lt;span class=&#34;m&#34;&gt;399&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded>
+        <dc:creator>码志</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>linux</category>
+            
+          
+            
+              <category>ubuntu</category>
+            
+          
+        
+        
+            
+              <category>[linux]</category>
+            
+        
+        
+      </item>
+      
+
     
   </channel>
 </rss>

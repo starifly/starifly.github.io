@@ -1,0 +1,36 @@
+{{ define "main" }}
+<main class="main">
+  <style>
+      .not-found p a[href^="http"]::after {
+          content: "";
+      }
+      .not-found p {
+          font-size: 1.3rem;
+          margin-top: 0;
+          margin-bottom: 2rem;
+          letter-spacing: 0.1rem;
+      }
+      .not-found button {
+          display: inline-block;
+          margin-top: 2rem;
+          padding: 0.8rem 1rem;
+          border: 3px solid #595959;
+          background: transparent;
+          font-size: 1.11rem;
+          color: #595959;
+          text-decoration: none;
+          cursor: pointer;
+          font-weight: bolder;
+      }
+  </style>
+  <div class="not-found">
+    <img style="max-width: 150px" src="/logo.webp">
+    <h1 class="h1 title">500 服务器繁忙</h1>
+    <p>
+        抱歉，当前时间服务器繁忙，可能正在维护中，请稍等片刻，
+            您也可以尝试访问我的其他网站，谢谢
+    </p>
+  </div>
+</main>
+{{ partial "script/home-script" . }}
+{{ end }}

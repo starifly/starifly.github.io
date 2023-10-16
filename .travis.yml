@@ -1,0 +1,34 @@
+language: python
+dist: trusty
+sudo: false
+
+notifications:
+  email:
+    recipients:
+      - ${U_EMAIL}
+    on_success: never # default: change
+    on_failure: never # default: always
+
+python: 3.6
+git:
+    depth: 1
+
+install:
+  - curl -sSL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz | tar -xzv hugo
+  - pip install pygments
+
+script:
+  - ./hugo
+
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    on:
+        branch: master
+    local_dir: public
+    repo: ${GH_REF}
+    # fqdn: <custom-domain-if-needed>
+    target_branch: master
+    email: ${U_EMAIL}
+    name: ${U_NAME}

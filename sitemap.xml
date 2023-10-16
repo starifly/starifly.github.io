@@ -1,483 +1,234 @@
-<?xml-stylesheet type="text/xsl" href="http://starifly.github.io/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://starifly.github.io/categories/</loc>
+    <loc>https://starifly.github.io/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/draft/virus-process-in-linux-system/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/centos/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/linux/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/centos/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/linux/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/linux/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/linux/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/c/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/showcase/</loc>
+    <lastmod>2020-01-19T15:43:38+09:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/archive/</loc>
+    <lastmod>2019-10-19T11:44:14+09:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/friends/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/c/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/c/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/c/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/coroutine/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/coroutine/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/a-c-coroutine/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/a-c-coroutine/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/git-branch/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/git/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/categories/git/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/git-branch/</loc>
     <lastmod>2018-09-02T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/git/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/git-reset/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/git/</loc>
-    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/git-reset/</loc>
-    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/git-base/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/git-base/</loc>
     <lastmod>2018-09-08T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/git-add-difference/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/git-add-difference/</loc>
     <lastmod>2018-08-23T20:18:10+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/about/</loc>
-    <lastmod>2018-08-18T15:55:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2018-08-18T15:48:56+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/daily-notes/</loc>
-    <lastmod>2018-08-18T15:48:56+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/CI/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/ci/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/CI/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/ci/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/github/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/github/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/hugo/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/hugo/</loc>
     <lastmod>2018-08-18T12:18:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/webhook/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/webhook/</loc>
     <lastmod>2018-08-18T12:18:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/webhook-github-autodeploy/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/webhook-github-autodeploy/</loc>
     <lastmod>2018-08-18T12:18:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/hugo-deploy-script/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/hugo-deploy-script/</loc>
     <lastmod>2018-08-18T12:01:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/vim-tips/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/tips/</loc>
     <lastmod>2018-08-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/tips/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/vim/</loc>
     <lastmod>2018-08-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/vim/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/vim/</loc>
     <lastmod>2018-08-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/vim/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/vim-tips/</loc>
     <lastmod>2018-08-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/cross-compile/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/cross-compile/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/a-promising-cross-compile-framework/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/a-promising-cross-compile-framework/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/cmake/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/cmake/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/cmake/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/cmake/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/how-to-use-cmake-to-compile-static-library/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/how-to-use-cmake-to-compile-static-library/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/learning-something/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/learning/</loc>
     <lastmod>2018-08-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/learning/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/learning/</loc>
     <lastmod>2018-08-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/learning/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/learning-something/</loc>
     <lastmod>2018-08-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/blog/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/blog/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/blog/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/blog/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/github/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/github/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/https/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/https/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/using-https-with-custom-domain-name-on-github-pages/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/alfred/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/alfred/</loc>
     <lastmod>2018-08-17T11:58:38+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/tools/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/tools/</loc>
     <lastmod>2018-08-17T11:58:38+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/workflow/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/workflow/</loc>
     <lastmod>2018-08-17T11:58:38+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/alfred-workflow/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/alfred-workflow/</loc>
     <lastmod>2018-08-17T11:58:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/profile-bashrc-bash_profile-in-linux/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/bashrc/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/bashrc/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/profile/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/profile/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/DevOps/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/devops/</loc>
     <lastmod>2019-03-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/DevOps/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/devops/</loc>
     <lastmod>2019-03-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/what-the-hell-is-DevOps/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/what-the-hell-is-devops/</loc>
     <lastmod>2019-03-17T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/gitcafe/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/gitcafe/</loc>
     <lastmod>2018-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/use-webhook-automated-deploy-hugo/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</loc>
     <lastmod>2018-08-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/live-streaming-with-flv/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/live-streaming-with-flv/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/audio-video-tech-references/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/audio-video-tech-references/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/makefile/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/makefile/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/makefile/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/makefile/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/portable-Makefile-tutorial/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/portable-makefile-tutorial/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/clang/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/clang/</loc>
     <lastmod>2018-08-16T10:36:02+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/CMake-clang/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/cmake-clang/</loc>
     <lastmod>2018-08-16T10:36:02+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/Travis-basis/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/travis-basis/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/markdown/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/markdown/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/vim-markdown-toc/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/vim-markdown-toc/</loc>
     <lastmod>2018-08-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/use-ubuntu-notes/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/tags/ubuntu/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/tags/ubuntu/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/use-ubuntu-notes/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/git-intro/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/git-intro/</loc>
     <lastmod>2018-08-15T21:51:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/categories/markdown/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/categories/markdown/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/markdown-odd-skills/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/markdown-odd-skills/</loc>
     <lastmod>2018-08-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://starifly.github.io/post/my-first-post/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/posts/my-first-post/</loc>
     <lastmod>2018-08-15T14:33:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+  </url><url>
+    <loc>https://starifly.github.io/series/</loc>
+  </url><url>
+    <loc>https://starifly.github.io/about/</loc>
   </url>
-  
 </urlset>

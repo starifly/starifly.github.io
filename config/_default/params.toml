@@ -1,0 +1,248 @@
+logoText = "飞鸟的博客站"
+logoType = "short" # long, short
+description = "The site of Flybird's Blog"
+custom_css = ["css/my.css", "css/fonts-zh.css", "css/fonts-code.css", "fontawesome/css/all.css", "css/pace.css"]
+custom_js = ["js/pace.min.js"]
+useFaviconGenerator = true # https://www.favicon-generator.org/
+meta_image = ""
+themecolor = ""
+
+themeOptions = ["solarized", "dark", "light"]
+notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInHomeSidebar = ["about", "archive", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
+enablePinnedPosts = true
+
+viewportSize = "normal" # widest, wider, wide, normal, narrow
+enableUiAnimation = true
+hideSingleContentsWhenJSDisabled = false
+minItemsToShowInTagCloud = 2 # Minimum items to show in tag cloud
+
+# appbar
+enableAppbarSearchIcon = false
+enableAppbarLangIcon = false
+
+# header
+homeHeaderType = "typewriter" # text, img, slide, typewriter
+hideHomeHeaderWhenMobile = false
+
+# menu
+showMobileMenuTerms = ["tags", "categories", "series"]
+
+# body
+enableBreadcrumb = true
+enablePhotoSwipe = true
+enableSearch = true
+enableSearchHighlight = true
+enableGoToTop = true
+enableWhoami = true
+summaryShape = "classic" # card, classic, compact
+searchResultPosition = "main" # side, main
+archiveGroupByDate = "2006" # "2006-01": group by month, "2006": group by year
+archivePaginate = 13
+paginateWindow = 1
+talksPaginate = 5
+talksGroupByDate = "2006"
+pubPaginate = 20
+
+readingTimeIcon = "☕"
+authorIcon = "✍️"
+pagePvIcon = "👀"
+pinIcon = "📌"
+tagIcon = "🏷️"
+publicationIcon = "📚"
+typeIcon = "🎯"
+
+# whoami
+myname = "飞鸟"
+email = "efim@163.com"
+whoami = "天无边,智无限。"
+bioImageUrl = "https://pic3.zhimg.com/80/v2-60ff489b4f2809e55d716c7cc3c04eca_720w.webp"
+wechatUrl = ""
+useGravatar = false
+location = "Shenzhen, China"
+organization = ""
+organization_link = ""
+link = ""
+
+# sidebar
+enableBio = true
+enableBioImage = true
+enableSidebar = true
+enableSidebarTags = true
+enableSidebarSeries = true
+enableSidebarCategories = true
+enableHomeSidebarTitles = false
+enableListSidebarTitles = true
+enableToc = true
+hideToc = false
+tocFolding = true
+tocPosition = "outer" # inner, outer
+enableTocSwitch = true
+itemsPerCategory = 5
+sidebarPosition = "right"
+tocLevels = ["h2", "h3", "h4"]
+enableSidebarPostsByOrder = false
+
+# footer
+showPoweredBy = true
+showFeedLinks = true
+showSocialLinks = true
+enableLangChange = false
+enableThemeChange = true
+
+# service
+googleTagManager = "" # GTM-XXXXXX
+baiduAnalytics = "0ff9381463a628c4ac6b5564fc9f495c"
+enableBusuanzi = true
+busuanziSiteUV = true
+busuanziSitePV = true
+busuanziPagePV = true
+
+# rss
+updatePeriod = "daily" # Possible values: 'hourly', 'daily', 'weekly', 'monthly', or 'yearly'.
+updateFrequency = ""
+fullContents = true
+rssLimit = 10
+
+# comment
+enableComment = true
+disqus_shortname = ""
+commento = false
+
+[telegram]
+  enable = false
+  siteId = ""
+  dataLimit = 5
+
+[gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+  clientId = ""           # Your client ID
+  clientSecret = ""       # Your client secret
+
+[utterances]       # https://utteranc.es/
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+
+[gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+  clientId = ""           # Your client ID
+  clientSecret = ""       # Your client secret
+
+# Valine.
+# You can get your appid and appkey from https://leancloud.cn
+# more info please open https://valine.js.org
+[valine]
+  enable = false
+  appId = '3ic2pCzBFIfn5Cm0X7DqPvPU-gzGzoHsz'
+  appKey = 'qFnCvg6Ofy2la1mDziFN57wN'
+  notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+  verify = false # Verification code
+  avatar = 'mm'
+  placeholder = '说点什么吧...'
+  visitor = true
+
+[giscus]
+  enable = true
+  repo = 'starifly/starifly.github.io'
+  repoId = 'MDEwOlJlcG9zaXRvcnkxNDQ5NTcwMjU='
+  category = 'Announcements'
+  categoryId = 'DIC_kwDOCKPeYc4CaKuO'
+
+[changyan]
+  changyanAppid = ""        # Changyan app id             # 畅言
+  changyanAppkey = ""       # Changyan app key
+
+[livere]
+  livereUID = ""            # LiveRe UID                  # 来必力
+
+# Isso: https://posativ.org/isso/
+[isso]
+  enable = false
+  scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
+  dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
+
+[socialOptions]
+  email = "mailto:efim@163.com"
+  #phone = "153xxxxx456"
+  facebook = ""
+  twitter = "https://twitter.com/felix201314"
+  github = "https://github.com/starifly"
+  stack-overflow = ""
+  instagram = ""
+  google-plus = ""
+  youtube = ""
+  medium = ""
+  tumblr = ""
+  linkedin = ""
+  pinterest = ""
+  stack-exchange = ""
+  telegram = "https://t.me/feizil"
+  steam = ""
+  weibo = "https://weibo.com/u/5331192693"
+  douban = ""
+  csdn = "https://me.csdn.net/efim520"
+  gitlab = ""
+  mastodon = ""
+  jianshu = "https://www.jianshu.com/u/9653afdb59cf"
+  zhihu = "https://www.zhihu.com/people/tuboshua"
+  signal = ""
+  whatsapp = ""
+  matrix = ""
+  xmpp = ""
+  dev-to = ""
+  gitea = ""
+  google-scholar = ""
+
+[donationOptions]
+  enable = false
+  alipay = ""
+  wechat = ""
+  paypal = ""
+  patreon = ""
+
+[copyrightOptions]
+  enableCopyrightLink = true
+  copyrightLink = "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh"
+  copyrightLinkImage = ""
+  copyrightLinkText = "自由转载-非商用-非衍生-保持署名"
+
+# possible share name: ["facebook","twitter", "reddit", "linkedin", "tumblr", "weibo", "douban", "line", "pocket", "feedly", "hatena", "pinterest", "delicious", "google"]
+[[share]]
+  name = "facebook"
+  username = ""
+[[share]]
+  name = "twitter"
+[[share]]
+  name = "weibo"
+[[share]]
+  name = "linkedin"
+
+[[footerLinks]]
+  name = ""
+  link = ""
+[[footerLinks]]
+  name = ""
+  link = ""
+
+#[[slideImages]]
+#  imgAddress = "https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting5@main/uPic/2023-09-15-12-36-W4I1A8.png"
+#  linkAddress = "https://gptgod.site/#/register?invite_code=46rrqz6qzscsey1jci7sdjw95"
+#  linkEvent = "gptgod"
+#
+#[[slideImages]]
+#  imgAddress = "https://socialify.git.ci/labring/FastGPT/image?description=1&descriptionEditable=%E4%BD%BF%E7%94%A8%20GPT4%20%E4%B8%89%E5%88%86%E9%92%9F%E6%9E%84%E5%BB%BA%20AI%20%E7%9F%A5%E8%AF%86%E5%BA%93%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E6%89%93%E9%80%A0%E6%95%B0%E5%AD%97%E5%85%8B%E9%9A%86&font=Source%20Code%20Pro&forks=1&language=1&name=1&pattern=Diagonal%20Stripes&stargazers=1&theme=Light"
+#  linkAddress = "https://fastgpt.run/?inviterId=64215e9914d068bf840141d0"
+#  linkEvent = "FastGPT"
+#
+#[[slideImages]]
+#  imgAddress = "https://socialify.git.ci/labring/laf/image?description=1&descriptionEditable=%E9%9A%8F%E6%97%B6%E9%9A%8F%E5%9C%B0%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%85%B7%E6%9C%89%20AI%20%E8%83%BD%E5%8A%9B%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8&font=Source%20Code%20Pro&forks=1&language=1&logo=https%3A%2F%2Fhtr4n1-images.oss.laf.run%2Flaf-logo.svg&name=1&owner=1&pattern=Diagonal%20Stripes&stargazers=1&theme=Light"
+#  linkAddress = "https://github.com/labring/laf"
+#  linkEvent = "Laf"
+#
+#[[slideImages]]
+#  imgAddress = "https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting5@main/uPic/2023-02-05-16-18-ofcgZS.png"
+#  linkAddress = "https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting@master/img/20200430221955.png"

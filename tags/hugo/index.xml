@@ -1,39 +1,236 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>hugo on starifly&#39;s Blog</title>
-    <link>http://starifly.github.io/tags/hugo/</link>
-    <description>Recent content in hugo on starifly&#39;s Blog</description>
+    <title>hugo on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Sat, 18 Aug 2018 12:18:32 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
     
-	<atom:link href="http://starifly.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://starifly.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>使用Webhook和Github实现hugo的自动部署</title>
-      <link>http://starifly.github.io/post/webhook-github-autodeploy/</link>
-      <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-      
-      <guid>http://starifly.github.io/post/webhook-github-autodeploy/</guid>
-      <description>&lt;p&gt;之前&lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
+    
 
+      
+      
+      <item>
+        <title>使用Webhook和Github实现hugo的自动部署</title>
+        <link>https://starifly.github.io/posts/webhook-github-autodeploy/</link>
+        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 18 Aug 2018 12:18:32 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/webhook-github-autodeploy/</guid>
+        <description>&lt;p&gt;之前
+
+&lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
 &lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
-
 &lt;p&gt;就通知该监听程序，由该监听程序执行相应的命令。现在记录一下。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Hugo 自动化部署脚本</title>
-      <link>http://starifly.github.io/post/hugo-deploy-script/</link>
-      <pubDate>Sat, 18 Aug 2018 12:01:32 +0800</pubDate>
-      
-      <guid>http://starifly.github.io/post/hugo-deploy-script/</guid>
-      <description>&lt;p&gt;之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。&lt;/p&gt;
+        <content:encoded>&lt;p&gt;之前
 
-&lt;p&gt;脚本路径：&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
+&lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
+&lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
+&lt;p&gt;就通知该监听程序，由该监听程序执行相应的命令。现在记录一下。&lt;/p&gt;
+&lt;h2 id=&#34;安装-webhook&#34;&gt;安装 webhook&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install webhook
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也可以到该
+
+&lt;a href=&#34;https://github.com/adnanh/webhook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;项目&lt;/a&gt;的github地址手动
+
+&lt;a href=&#34;https://github.com/adnanh/webhook/releases&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;下载&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;编写-webhook-的配置文件&#34;&gt;编写 webhook 的配置文件&lt;/h2&gt;
+&lt;p&gt;我的&lt;code&gt;itlaws.cn&lt;/code&gt;的markdown源码放在&lt;code&gt;/var/www/itlaws.cn&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /var/www/itlaws.cn/webhook
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch itlaws.cn-config.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch itlaws.cn-deploy.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x itlaws.cn-deploy.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;itlaws.cn-config.json&lt;/code&gt;内容为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;itlaws.cn-deploy&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;execute-command&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/var/www/itlaws.cn/webhook/itlaws.cn-deploy.sh&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;command-working-directory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/var/www/itlaws.cn&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;id&lt;/code&gt; 是监听程序名称，自定义。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;execute-command&lt;/code&gt; 是监听程序接收到 github 的通知后执行的命令，自定义。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command-working-directory&lt;/code&gt; 指定目录运行上述命令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更多的参数见官方的
+
+&lt;a href=&#34;https://github.com/adnanh/webhook/blob/master/docs/Hook-Definition.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hook definition&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;itlaws.cn-deploy.sh&lt;/code&gt;内容为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /var/www/itlaws.cn &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git pull --recurse-submodules &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf public &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;测试监听程序&#34;&gt;测试监听程序&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;webhook -hooks /var/www/itlaws.cn/webhook/itlaws.cn-config.json -verbose -port&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;9000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-hooks&lt;/code&gt; 后面要接配置文件；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-verbose&lt;/code&gt;表示输出日志；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-port&lt;/code&gt;表示监听端口，自定义。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更多的内容见
+
+&lt;a href=&#34;https://github.com/adnanh/webhook/blob/master/docs/Webhook-Parameters.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Webhook parameters&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;上述命令将在9000端口运行webhook监听程序，即：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://itlaws.cn:9000/hooks/itlaws.cn-deploy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 github 端测试，正常。该监听程序目前是 http ，而不是 https 。&lt;/p&gt;
+&lt;h2 id=&#34;通过-supervisor-运行监听程序&#34;&gt;通过 supervisor 运行监听程序&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;supervisor&lt;/code&gt;是用于启动某种服务并监控该服务，在该服务异常退出时重启该服务。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install supervisor
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /etc/supervisor/conf.d/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch webhook.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;webhook.conf&lt;/code&gt;的内容为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;program:webhook&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/var/www/itlaws.cn/webhook/webhook -hooks  /var/www/itlaws.cn/webhook/itlaws.cn-config.json -verbose -port&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;9000&lt;/span&gt; -secure -cert ssl证书的路径 -key ssl密钥路径
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;www-data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/var/www/itlaws.cn/webhook
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;autorestart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;redirect_stderr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中，&lt;code&gt;-secure&lt;/code&gt;表示启用 &lt;code&gt;https&lt;/code&gt;，&lt;code&gt;-cert &lt;/code&gt;和&lt;code&gt;-key&lt;/code&gt;分别是 https 的证书和密钥的路径，从而把监听服务从 http 改为 https：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://itlaws.cn:9000/hooks/itlaws.cn-deploy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;好了，大功告成。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://itlaws.cn/post/webhook-github-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</content:encoded>
+        <dc:creator>zhoucaiqi@gmail.com</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CI</category>
+            
+          
+            
+              <category>webhook</category>
+            
+          
+            
+              <category>github</category>
+            
+          
+            
+              <category>hugo</category>
+            
+          
+        
+        
+            
+              <category>[CI]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Hugo 自动化部署脚本</title>
+        <link>https://starifly.github.io/posts/hugo-deploy-script/</link>
+        <pubDate>Sat, 18 Aug 2018 12:01:32 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 18 Aug 2018 12:01:32 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/hugo-deploy-script/</guid>
+        <description>&lt;p&gt;之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。&lt;/p&gt;
+&lt;p&gt;脚本路径：
+
+&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&lt;/a&gt;&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。&lt;/p&gt;
+&lt;p&gt;脚本路径：
+
+&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;deploy.py&lt;/code&gt; 会自动执行 hugo 命令生成静态站点，然后将生成的文件拷贝到上层的一个目录里，然后，在那个目录里将文件 push 到你指定的 Git Repository 里。&lt;/p&gt;
+&lt;h3 id=&#34;使用方法&#34;&gt;使用方法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;将 &lt;code&gt;deploy.py&lt;/code&gt; 放到你的 Hugo 站点目录。（和 config.yaml 等文件放一起）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编辑 &lt;code&gt;deploy.py&lt;/code&gt; 文件，修改你要部署到的 Git Repository：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GIT_REPO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# [别名,   分支名,     Git Repo 路径]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;origin&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;git@github.com:coderzh/hugo-blog-deployed.git&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;gitcafe&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;git@gitcafe.com:coderzh/coderzh-hugo-blog.git&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 部署到哪里，相对上一级目录。比如下面的配置，会部署到 ../gh-pages 目录里&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DEPLOY_DIR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果你的网站需要指定皮肤，需要在 config 文件中指定 &lt;code&gt;theme&lt;/code&gt; 。因为我的脚本在生成静态文件时并不会指定皮肤。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;rapid&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第一次执行，使用 &lt;code&gt;first&lt;/code&gt; 参数，它会做一些初始化的操作。并使用 &lt;code&gt;-t&lt;/code&gt; 表示只是测试一下，并不会真的 push 。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py first -t
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中间可能需要输入密码，如果是自动化部署，可在 Git Repo 里添加一个没有密码的 SSH Key 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果一切正常，切换到 &lt;code&gt;DEPLOY_DIR&lt;/code&gt; 目录，&lt;code&gt;git log&lt;/code&gt; 看看 commit 记录是否正常。如果一切也如你所愿。则可以把 &lt;code&gt;-t&lt;/code&gt; 参数去掉重新执行一遍，执行真的 push 操作：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py first
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;执行完成后，应该已经将生成的静态页面自动 push 到了你指定的 &lt;code&gt;GIT_REPO&lt;/code&gt; 里。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;之后如需再次手工部署，只需要使用 &lt;code&gt;manual&lt;/code&gt; 参数，速度会快很多：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py manual
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果你想通过 &lt;code&gt;webhook&lt;/code&gt; 来自动部署，使用 &lt;code&gt;auto&lt;/code&gt; 参数，这样在执行 deploy.py 时，会使用 Git 自动更新你当前的 Hugo 站点目录 ，然后部署：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py auto
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That&amp;rsquo;s all, 祝你好运！&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://blog.coderzh.com/2015/11/21/hugo-deploy-script/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</content:encoded>
+        <dc:creator>CoderZh</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CI</category>
+            
+          
+            
+              <category>hugo</category>
+            
+          
+        
+        
+            
+              <category>[CI]</category>
+            
+        
+        
+      </item>
+      
+
     
   </channel>
 </rss>

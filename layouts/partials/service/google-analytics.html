@@ -1,0 +1,17 @@
+{{ if not .Site.IsServer }}
+  <!--
+  {{ template "_internal/google_analytics.html" . }}
+  {{ template "_internal/google_analytics_async.html" . }}
+  -->
+  <!--
+  <link rel="dns-prefetch" href="https://ga.icloudnative.io">
+  <link href="https://ga.icloudnative.io" rel="preconnect" crossorigin>
+
+  <script>
+  // replace following variables to your own
+  window.ga_tid = "G-E8Z6TN6DL6";
+  window.ga_url = "https://ga.icloudnative.io";
+  </script>
+  <script defer src="https://jsdelivr.icloudnative.io/gh/giuem/ga-proxy/packages/ga/dist/ga.min.js" async></script>
+  -->
+{{ end }}

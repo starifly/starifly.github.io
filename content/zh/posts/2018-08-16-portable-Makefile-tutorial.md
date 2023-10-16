@@ -1,0 +1,309 @@
+---
+title: 可移植的 Makefile 教程
+author: liuchengxu
+date: 2018-08-16T10:57:09+08:00
+lastmod: 2018-08-19
+categories: [makefile]
+tags: [makefile]
+slug: portable-Makefile-tutorial
+---
+
+在我写 Makefile 的头 10 年里，我养成了一个非常不好的习惯
+
+-- 完全严格使用 GNU Make 的扩展名。过去我并不知道， GNU Make 与 POSIX 所保证的可移植特性之间的区别与联系。通常情况，它并不十分重要，但是当在非 Linux 系统上进行构建时，比如在各种 BSD 系统上，就会变成一件麻烦事儿。我不得不指定安装 GNU Make，然后在心里记住不要使用系统自带的 make ，而是使用 gmake 这样的工具来调用它。
+
+我已经对 [make 官方规范](https://link.jianshu.com?t=http://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html) 十分熟悉，并且在过去的一年，我都在严格要求自己编写可移植的 Makefile。现在，我的构建不仅可以在各种类 unix 的系统之间进行移植，而且 Makefile 看起来更清晰与健壮。许多常见的 make 扩展名 -- 尤其是条件判断 -- 会导致不够健壮的却又复杂的 Makefile, 因此最好避免这些情况。能够确信你的构建系统能够各司其职，正常工作是非常重要的。
+
+**本指南不仅适用于之前从来没有写过 Makefile 的 make 初学者，同样适用于想要学习如何写出可移植 Makefile 的资深开发者。** 但不管怎样，为了能够理解文中的示例，你必须首先对命令行（编译器，链接器，目标文件等等）构建程序的常规步骤十分熟悉。我不会建议使用任何花哨的技巧，也不会提供任何标准的初学者模板。当项目不大的时候，Makefile 应该是相当的简单，并且随着项目的成长，以一种可预见，清晰的方式不断丰富。
+
+我不会覆盖 make 的每一个特性。如果想要学习所有完整的内容，你需要自行阅读它的规范。本指南将会详细讨论一些重要特性和约定俗成的规定。遵守已有的约定是非常重要的，这样使用你的 Makefile 的其他人，才能知道它能够完成和如何完成一些基本的任务。
+
+如果你的系统是 Debian, 或是基于 Debian 的系统，比如 Ubuntu，`bmake` 和 `freebsd-buildutils` 包将会分别提供 `bmake` 和 `fmake` 程序。这些可供选择的 make 实现，对于测试 Makefile 的可移植性十分有用，尤其是当你不小心使用了 GNU Make 的特性。虽然每个实现都实现了与 GNU Make 完全相同的一些扩展，但是它会捕获一些常见的错误。
+<!--more-->
+
+## 什么是 Makefile?
+
+make 的核心就是一个或多个依赖树（dependency tree），这些依赖树是由 *规则（rule）*构造而来。树中的每个节点叫做“目标（target）”。构建（build）的最后产物（可执行程序，文档等等）位于树根。Makefile 指定了依赖树的内容，并且提供了 Shell 命令来从目标的 *先决条件（prerequisite）* 生成目标。
+
+dependency tree:
+![](https://upload-images.jianshu.io/upload_images/127313-ef76e294290be648.png)
+
+在上面的图示中，“.c” 结尾的文件是事先写好的源文件，而不是由命令生成的文件，所以它们没有先决条件。在依赖树中，指定一条或多条边的语法非常简单：
+
+    target [target...]: [prerequisite...]
+    
+
+从技术层面来讲，虽然多个目标可以通过一个单一规则指定，但是这种做法并不常见。典型地，每个目标会被它自己的构建规则来进行指定。比如，指定上述图示中的依赖：
+
+    game: graphics.o physics.o input.o
+    graphics.o: graphics.c
+    physics.o: physics.c
+    input.o: input.c
+    
+
+这些规则的先后顺序并不重要。在采取任何实际的动作之前，整个的 Makefile 都会被解析，所以树的节点和边可以被以任意顺序指定。只有一个意外：在 Makefile 中，第一个非特殊的目标会被认为是 *默认目标（default target）*。当调用 make 但是没有并没有指定一个目标时，这个默认目标就会被自动选择。它应该是看起来比较显然的一些东西，这样即使一个用户盲目地运行 make，也会得到一个有用的结果。
+
+一个目标可以被指定多次。任何新的先决条件，都会被附加到已有的先决条件中。比如，下面的 Makefile 与上面的是一样的，不过实际上通常并不会这么写：
+
+    game: graphics.o
+    game: physics.o
+    game: input.o
+    graphics.o: graphics.c
+    physics.o: physics.c
+    input.o: input.c
+    
+
+有 6 个*特殊目标（special target）*用来改变 make 自身的行为。所有特殊目标都有大写的名字，并且开始于一个周期。符合这个模式的名字被 make 保留使用。根据标准，为了获得可靠的 POSIX 行为，Makefile 的第一个非注释行*必须*是 `.POSIX`. 因为这是一个特殊的目标，所以它不能作为默认目标，故而 `game` 仍将作为默认目标：
+
+    .POSIX:
+    game: graphics.o physics.o input.o
+    graphics.o: graphics.c
+    physics.o: physics.c
+    input.o: input.c
+    
+
+在实际应用中，即使是一个简单的程序，也会有头文件。对于包含头文件的源文件，在依赖树也应该有指向源文件的边。如果头文件改变了，那么包含它的目标也应该被重新构建。
+
+    .POSIX:
+    game: graphics.o physics.o input.o
+    graphics.o: graphics.c graphics.h
+    physics.o: physics.c physics.h
+    input.o: input.c input.h graphics.h physics.h
+    
+
+### Adding commands to rules
+
+虽然我们已经构造了一个依赖树，但是还没有告诉 make 如何真正地从目标的先决条件中构建出目标。规则也需要指定 Shell 命令，这些 Shell 命令会被用于从先决条件中生成目标。
+
+如果你打算创建示例中的源文件，并调用 make, 你会发现它实际上已经知道了它该如何构建目标文件。这是因为 make 的初始配置已经有了一些 *推断规则（inference rule）*，这部分将会在后面讨论。现在，我们会在开头加上 `.SUFFIXES` 这个特殊目标，擦除所有的内置推断规则。
+
+在一个规则中，命令会随即跟在目标或先决条件那一行的后面。**每个命令行必须以一个 tab 字符开头**。如果你的编辑器不能进行相关配置的话，可能会非常麻烦。并且当你想要从拷贝本文的示例时，可能会遇到一些问题。
+
+每个命令在属于自己的 Shell 中运行（译者：意思是每个 Shell 命令都是一个单独的进程），所以要注意：在使用像 `cd` 这样的命令时，它不会对后面的行造成影响。
+
+要做的最简单的事情，就是就像在 Shell 输入一样逐字地输入同样的命令：
+
+    .POSIX:
+    .SUFFIXES:
+    game: graphics.o physics.o input.o
+        cc -o game graphics.o physics.o input.o
+    graphics.o: graphics.c graphics.h
+        cc -c graphics.c
+    physics.o: physics.c physics.h
+        cc -c physics.c
+    input.o: input.c input.h graphics.h physics.h
+        cc -c input.c
+    
+
+### Invoking make and choosing targets
+
+当调用 make 时，它会从依赖树中接受零个或多个目标， 如果目标*过时（out-of-date）*了，然后构建这些目标 -- 比如，运行目标规则中的命令。如果目标比其中的任一个先决条件要旧，那么这个目标就是过时了。
+
+    # build the "game" binary (default target)
+    $ make
+    
+    # build just the object files
+    $ make graphics.o physics.o input.o
+    
+
+这会导致依赖树产生连锁效应，也就是说，一个目标的重建可能会导致它所涉及的更早期目标的重新构建，直到所有涉及的目标都是最新状态。因为树的不同分支可以被独立地进行更新，所以有很多并行化的空间。很多 make 的实现都支持通过 `-j` 选项进行并行构建。虽然这并非标准，但是在 Makefile 的一个非常棒的特性就是，它不需要任何特殊的东西就能正确地工作。
+
+make 的 `-k` （"keep going"）选项，功能与并行构建类似，是标准的。它会告诉 make 在遇到第一个错误时不要停下，而是继续更新不受该错误影响的目标。这对于 [Vim’s quickfix list](https://link.jianshu.com?t=http://vimdoc.sourceforge.net/htmldoc/quickfix.html)  和 [Emacs’ compilation buffer](https://link.jianshu.com?t=https://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation.html) 的填充非常好。
+
+默认构建多个目标是十分常见的情况。如果第一个规则选择了默认目标，我们该如何解决需要多个默认目标的问题呢？传统方式是使用*伪目标（phony target）*. 之所以用“伪”这个词，是因为它们没有相关文件与之关联，所以伪目标永远都不会是最新状态。习惯上，使用伪目标 `all` 作为默认目标。
+
+我会用 `game` 作为新的 `all` 目标的一个先决条件。更多实际目标，可以作为必要条件加入到默认目标中。这个 Makefile 的使用者也可以使用 `make all` 来构建整个项目。
+
+另一个常见的伪目标是 `clean`，它会移除所有 make 创建的文件。用户可以使用 `make clean` 来删除所有构建生成的中间文件。
+
+    .POSIX:
+    .SUFFIXES:
+    all: game
+    game: graphics.o physics.o input.o
+        cc -o game graphics.o physics.o input.o
+    graphics.o: graphics.c graphics.h
+        cc -c graphics.c
+    physics.o: physics.c physics.h
+        cc -c physics.c
+    input.o: input.c input.h graphics.h physics.h
+        cc -c input.c
+    clean:
+        rm -f game graphics.o physics.o input.o
+    
+
+### Customize the build with macros
+
+到目前为止，Makefile 是编译器硬编码为 `cc`, 也没有使用任何的编译器标志（warning，optimization，hardening 等等）。虽然用户能够很容易控制所有这些事情，但是现在他们也不得不去编辑整个 Makefile 来这么做。可能用户同时安装了 `gcc` 和 `clang`，并且想要选择一个或另一个不改变已安装的作为 `cc`.
+
+为了解决这一点，make 有*宏（macro）*的概念，当宏被引用时就会被展开为字符串。传统上，使用叫做 `CC` 的宏表示 C 编译器，`CFLAGS` 表示传递给 C 编译器的标志，`LDFLAGS` 表示当 C 编译器链接时的标志，`LDLIBS` 表示库链接时的标志。Makefile 应该在需要时提供默认值。
+
+一个宏通过 `$(...)` 进行展开。引用一个尚未定义的宏是有效（也是常见）的，未定义的宏会被展开为一个空字符串。这就是下面的 `LDFLAGS` 情况。
+
+宏的值可以包含其他宏，每当宏被展开时，它们会被递归展开。一些 make 的实现允许被展开为自身的宏的名字也是一个宏，这是[图灵完备](https://link.jianshu.com?t=http://nullprogram.com/blog/2016/04/30/)的, 但是这个行为并非是标准行为。
+
+    .POSIX:
+    .SUFFIXES:
+    CC     = cc
+    CFLAGS = -W -O
+    LDLIBS = -lm
+    
+    all: game
+    game: graphics.o physics.o input.o
+        $(CC) $(LDFLAGS) -o game graphics.o physics.o input.o $(LDLIBS)
+    graphics.o: graphics.c graphics.h
+        $(CC) -c $(CFLAGS) graphics.c
+    physics.o: physics.c physics.h
+        $(CC) -c $(CFLAGS) physics.c
+    input.o: input.c input.h graphics.h physics.h
+        $(CC) -c $(CFLAGS) input.c
+    clean:
+        rm -f game graphics.o physics.o input.o
+    
+
+通过 `name=value` 的形式，可以用命令行参数的方式对覆盖已有的宏定义。*这是 make 其中一个非常强大，但是尚未被认识到的特性*。
+
+    $ make CC=clang CFLAGS='-O3 -march=native'
+    
+
+如果用户不想在每次调用时指定这些宏，他们可以（小心）使用 make 的 `-e` 标志从环境中覆盖宏定义。
+
+    $ export CC=clang
+    $ export CFLAGS=-O3
+    $ make -e all
+    
+
+除了简单赋值（=）, 一些 make 的实现有一些其他特殊的宏赋值操作符。这些并不是必要的，所以不用担心它们。
+
+### Inference rules so that you can stop repeating yourself
+
+在三个不同的目标文件之间会有重复操作。如果有某种方式能够在这种模式通信不是更好吗？幸运的是，我们有 `推断规则（inference rule）`。它说的是某个特定扩展名的目标，有另一个特定扩展名的先决条件，该目标通过某种确定的方式构建。用一个例子来说明更好一些。
+
+在一个推断规则中，目标隐式表明了扩展名是什么。`$<` 宏展开为先决条件，这对使得推断规则变得更加通用十分重要。不幸的是，这个宏在目标规则中并不存在，这些都是有用的。
+
+举个例子，下面是一个推断规则，它描述了如果从一个 C 源文件构建一个 `.o` 的目标文件。这个特殊的规则是 make 预先定义的，所以你不必自己去定义。为了完整性，我会包含这个：
+
+    .c.o:
+        $(CC) $(CFLAGS) -c $<
+    
+
+在它们生效之前，这些扩展名必须被加到 `.SUFFIXES`。有了这个，生成目标文件规则的命令就可以被省略了。
+
+    .POSIX:
+    .SUFFIXES:
+    CC     = cc
+    CFLAGS = -W -O
+    LDLIBS = -lm
+    
+    all: game
+    game: graphics.o physics.o input.o
+        $(CC) $(LDFLAGS) -o game graphics.o physics.o input.o $(LDLIBS)
+    graphics.o: graphics.c graphics.h
+    physics.o: physics.c physics.h
+    input.o: input.c input.h graphics.h physics.h
+    clean:
+        rm -f game graphics.o physics.o input.o
+    
+    .SUFFIXES: .c .o
+    .c.o:
+        $(CC) $(CFLAGS) -c $<
+    
+
+第一个空的 `.SUFFIXES` 会清空后缀列表(suffix list). 第二个 `.SUFFIXES`  将 `.c` 和 `.o` 加到现在是空的后缀列表中。
+
+### Other target conventions
+
+用户通常会希望有一个 `install` 目标，它会安装构建好的程序，库，man 手册等等。按照惯例，这个目标应该使用 `PREFIX` 和 `DESTDIR` 宏。
+
+`PREFIX` 宏默认应该为 /usr/local, 因为它是一个可以覆盖的宏，用户可以选择覆盖它将程序安装到其他地方，[比如安装到他们的用户目录](https://link.jianshu.com?t=http://nullprogram.com/blog/2017/06/19/)。用户应该同时为构建和安装覆盖该值，因为 prefix 可能需要会需要构建到二进制中（比如，`-DPREFIX=$(PREFIX)`）.
+
+`DESTDIR` 是一个用于 `staged build(分段式构建)` 的宏，为了打包的需要，它会安装到一个伪根目录。与 `PREFIX` 不同，它实际上不会从这个目录下运行。
+
+    .POSIX:
+    CC     = cc
+    CFLAGS = -W -O
+    LDLIBS = -lm
+    PREFIX = /usr/local
+    
+    all: game
+    install: game
+        mkdir -p $(DESTDIR)$(PREFIX)/bin
+        mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+        cp -f game $(DESTDIR)$(PREFIX)/bin
+        gzip < game.1 > $(DESTDIR)$(PREFIX)/share/man/man1/game.1.gz
+    game: graphics.o physics.o input.o
+        $(CC) $(LDFLAGS) -o game graphics.o physics.o input.o $(LDLIBS)
+    graphics.o: graphics.c graphics.h
+    physics.o: physics.c physics.h
+    input.o: input.c input.h graphics.h physics.h
+    clean:
+        rm -f game graphics.o physics.o input.o
+    
+
+你可能也想要提供一个 `uninstall` 的伪目标来卸载程序。
+
+    make PREFIX=$HOME/.local install
+    
+
+其他常见的目标有 “mostlyclean”（与 clean 类似，但是不会删除构建缓慢的目标），"distclean" (与 “clean” 删除的更多)，“test” （运行测试组件），“dist”（创建一个包）。
+
+### Complexity and growing pains
+
+make 的一大缺点是当项目不断成长时，会变得越来越麻烦。
+
+#### Recursive Makefiles
+
+当你的项目被分为几个子目录，你可能会试图在每个子目录下放一个 Makefile ，然后递归调用。
+
+[不要使用递归的 Makefile](https://link.jianshu.com?t=http://aegis.sourceforge.net/auug97.pdf)。它会在几个分离的 make 实例之间打破依赖树，并且常常会产生脆弱的构建。使用递归的 Makefile 毫无益处。好的选择是在项目的根目录放置一个 Makefile, 在那里进行调用。你可能需要告诉你的编辑器如何做到这一点。
+
+当涉及子目录下的文件时，在名字中包含子目录即可。所有 make 关心的内容都会跟之前一样正常工作，包括推断规则。
+
+    src/graphics.o: src/graphics.c
+    src/physics.o: src/physics.c
+    src/input.o: src/input.c
+    
+
+#### Out-of-source builds
+
+将你的目标文件从源文件中分离出来是一个不错的想法。当谈到 make 时，总是喜忧参半。
+
+喜的是 make 能做。你可以为目标和先决条件设置任何你喜欢的文件名。
+
+    obj/input.o: src/input.c
+    
+
+忧的是，推断规则对于源文件之外的构建并不兼容。如果推断规则不存在，那么你就需要对每个规则重复同样的命令。对于大型项目，这太繁琐了，所以你可能想要有一些“配置”脚本，即使这些脚本是手写的，来为你生成这些重复的命令。实际上，这就是 CMake 所涉及的所有事情，再加上依赖管理。
+
+#### Dependency management
+
+项目规模越来越大的另一个问题是，在所有的源文件上跟踪所有改变过的依赖。除非你先 `make clean`，否则缺失一个依赖，就意味着构建可能失败.
+
+如果你打算用一个脚本来生成 Makefile 冗长的部分，GCC 和 Clang 都提供了一个生成所有 Makefile 依赖的特性（-MM, -MT），至少对 C 和 C++ 如此。有很多教程讲述了如何在构建时同时生成依赖，但是它很脆弱和缓慢。最好是在一次性完成，在 Makefile 中写好依赖，以便于 make 能够如期工作。如果依赖改变了，那么重新构建你的 Makefile.
+
+举个例子，下面是在源文件之外的构建，它一个调用 gcc 的依赖生成器的例子，而不是虚构的 `input.c` :
+
+    $ gcc $CFLAGS -MM -MT '$(BUILD)/input.o' input.c
+    $(BUILD)/input.o: input.c input.h graphics.h physics.h
+    
+
+注意，输出的是 Makefile 的规则格式。
+
+不幸的是，这个特性去除了目标的路径头，所以，在实际中，使用它往往会它本来的要更复杂（比如，比要求使用 -MT）.
+
+### Microsoft’s Nmake
+
+微软有一个叫做 Nmake 的 make 实现，[它与 Visual Studio 一起发行](https://link.jianshu.com?t=http://nullprogram.com/blog/2016/06/13/)。它*几乎*是一个兼容 POSIX 的 make, 但是在一些地方对与标准不同。他们的 `cl.exe` 编译器使用 `.obj` 作为目标文件扩展名， `.exe` 作为二进制扩展名，这两个扩展名与 unix 系统都不同，所以它有一些不同的内置推断规则。Windows 同样也缺少一个 bash 和标准的 unix 工具，所以所有的命令都会有所不同。
+
+在 Windows 上，并没有 `rm -f` 这样的替代品，所以在写 `claen` 目标时只能说好运了。`del /f` 并不能达到同样的效果。
+
+所以，尽管它与 POSIX make 已经很接近，但是想要写一个 Makefile 能够同时被 POSIX make 和 Nmake 同时使用，是不太实际的。需要有两个不同的 Makfile.
+
+### May your Makefiles be portable
+
+有一个值得信赖，能够在任何地方工作的可移植 Makefile 是非常棒的一件事情。[Code to the standards](https://link.jianshu.com?t=http://nullprogram.com/blog/2017/03/30/)，然后你就不再需要特性测试或其他一些特殊处理了。
+
+本文译自：[A Tutorial on Portable Makefiles](https://link.jianshu.com?t=http://nullprogram.com/blog/2017/08/20/)
+
+附录：
+伪目标惯例意义all所有目标的目标，一般为编译所有的目标，对同时编译多个程序极为有用clean删除由make创建的文件install安装已编译好的程序，主要任务是完成目标执行文件的拷贝print列出改变过的源文件tar打包备份源程序，形成tar文件dist创建压缩文件，一般将tar文件压缩成Z文件或gz文件TAGS更新所有的目标，以备完整地重编译使用check和test一般用来测试makefile的流程
+附录来自清华的 MOOC 学堂在线课程 <<基于 Linux 的 C++ >>，第 12.12 - 12.14 节有讲 Makefile，初学者推荐看一下。

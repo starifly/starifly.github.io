@@ -1,24 +1,196 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>ubuntu on starifly&#39;s Blog</title>
-    <link>http://starifly.github.io/tags/ubuntu/</link>
-    <description>Recent content in ubuntu on starifly&#39;s Blog</description>
+    <title>ubuntu on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/ubuntu/</link>
+    <description>Recent content in ubuntu on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Wed, 15 Aug 2018 22:25:03 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
     
-	<atom:link href="http://starifly.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://starifly.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Ubuntu 使用笔记</title>
-      <link>http://starifly.github.io/post/use-ubuntu-notes/</link>
-      <pubDate>Wed, 15 Aug 2018 22:25:03 +0800</pubDate>
+    
+
       
-      <guid>http://starifly.github.io/post/use-ubuntu-notes/</guid>
-      <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
-    </item>
+      
+      <item>
+        <title>Ubuntu 使用笔记</title>
+        <link>https://starifly.github.io/posts/use-ubuntu-notes/</link>
+        <pubDate>Wed, 15 Aug 2018 22:25:03 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/use-ubuntu-notes/</guid>
+        <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;使用-git-pull-遇到问题&#34;&gt;使用 git pull 遇到问题&lt;/h2&gt;
+&lt;p&gt;提示&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Agent admitted failure to sign using the key.
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;图形界面编辑配置文件&#34;&gt;图形界面编辑配置文件&lt;/h2&gt;
+&lt;p&gt;安装 dconf-editor。&lt;/p&gt;
+&lt;h2 id=&#34;配置-exchange&#34;&gt;配置 Exchange&lt;/h2&gt;
+&lt;p&gt;为 ThunderBird 安装插件 ExQuilla，有时被墙。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://mesquilla.net/exquilla-currentrelease-tb-linux.xpi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://mesquilla.net/exquilla-currentrelease-tb-linux.xpi&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装和配置-jdk&#34;&gt;安装和配置 JDK&lt;/h2&gt;
+&lt;p&gt;在 Terminal 运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:webupd8team/java
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install oracle-java8-installer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vim /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/jvm/java-8-oracle
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JRE_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/jre
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLASSPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;.:&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/lib:&lt;span class=&#34;nv&#34;&gt;$JRE_HOME&lt;/span&gt;/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$JRE_HOME&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置-adt&#34;&gt;配置 adt&lt;/h2&gt;
+&lt;p&gt;安装兼容 32 位 adb 运行的环境&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加路径到 $PATH 环境变量，修改 /etc/profile 或 ~/.profile 等皆可。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export ANDROID_SDK_HOME=/home/mzlogin/android/sdk
+export PATH=$ANDROID_SDK_HOME/platform-tools:$ANDROID_SDK_HOME/tools:$PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-svn-图形前端-rabbitvcs&#34;&gt;安装 SVN 图形前端 RabbitVCS&lt;/h2&gt;
+&lt;p&gt;在 Terminal 运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:rabbitvcs/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install rabbitvcs-nautilus3 rabbitvcs-thunar rabbitvcs-gedit rabbitvcs-cli
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;创建-eclipse-快捷方式&#34;&gt;创建 eclipse 快捷方式&lt;/h2&gt;
+&lt;p&gt;/usr/share/applications 里新建 Eclipse.desktop，填如下内容：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Desktop Entry]
+Name=Eclipse
+Comment=Launch Eclipse
+Exec=/home/mzlogin/android/eclipse/eclipse
+Icon=/home/mzlogin/android/eclipse/icon.xpm
+StartupNotify=true
+Terminal=false
+Type=Application
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-xmind&#34;&gt;安装 XMind&lt;/h2&gt;
+&lt;p&gt;到 XMind 官网下载安装包，然后 ：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg --ignore-depends&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;lame,libwebkitgtk-1.0-0 -i xmind-linux-3.5.0.201410310637_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;切换输入法&#34;&gt;切换输入法&lt;/h2&gt;
+&lt;p&gt;添加一个英文，一个五笔，将切换到上一个源和下一个源的快捷键分别设为左和右 Shift，这样就可以使用左右 Shift 在中英之间来回切换了。&lt;/p&gt;
+&lt;p&gt;安装 im-switch 会导致语言支持被移除，恢复用 &lt;code&gt;sudo apt-get install language-selector-gnome&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;消除启动-gvim-在-terminal-中的警告&#34;&gt;消除启动 gVim 在 terminal 中的警告&lt;/h2&gt;
+&lt;p&gt;安装 vim-gnome 后运行 gVim 会提示：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GLib-GObject-WARNING **: Attempt to add property GnomeProgram::sm-connect after class was initialised
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;改为安装 vim-gtk 就好了。&lt;/p&gt;
+&lt;h2 id=&#34;解决-ibus-五笔候选词水平显示和个数的问题&#34;&gt;解决 ibus 五笔候选词水平显示和个数的问题&lt;/h2&gt;
+&lt;p&gt;修改 /usr/share/ibus-table/tables/wubi-jidian86.db 的 ime 表里的 orientation（水平 0 垂直 1）和 select_keys（有几个选择键就有几个项，从下面代码可知用 &lt;code&gt;,&lt;/code&gt; 分隔）。&lt;/p&gt;
+&lt;p&gt;/usr/share/ibus-tables/engine/tabsqlitedb.py 中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_page_size&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_select_keys&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;将-caps-lock-映射为-ctrl&#34;&gt;将 Caps Lock 映射为 Ctrl&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安装 Gnome Tweak Tool&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install gnome-tweak-tool
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开 tweak-tool，找到「打字」－「大写锁定键行为」，选择「将 CapsLock 作为额外的 Ctrl」&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;参考 
+
+&lt;a href=&#34;http://askubuntu.com/questions/462021/how-do-i-turn-caps-lock-into-an-extra-control-key&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://askubuntu.com/questions/462021/how-do-i-turn-caps-lock-into-an-extra-control-key&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;将个人文件夹下文件夹名改为英文&#34;&gt;将个人文件夹下文件夹名改为英文&lt;/h2&gt;
+&lt;p&gt;~ 目录下的「桌面」和「文档」等文件夹是中文，在 Terminal 下输入很不方便，将其改为英文的方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 ~/.config/user-dirs.dirs，将其中的中文改掉：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;XDG_DESKTOP_DIR=&amp;#34;$HOME/desktop&amp;#34;
+XDG_DOWNLOAD_DIR=&amp;#34;$HOME/downloads&amp;#34;
+XDG_TEMPLATES_DIR=&amp;#34;$HOME/templates&amp;#34;
+XDG_PUBLICSHARE_DIR=&amp;#34;$HOME/public&amp;#34;
+XDG_DOCUMENTS_DIR=&amp;#34;$HOME/documents&amp;#34;
+XDG_MUSIC_DIR=&amp;#34;$HOME/music&amp;#34;
+XDG_PICTURES_DIR=&amp;#34;$HOME/pictures&amp;#34;
+XDG_VIDEOS_DIR=&amp;#34;$HOME/videos&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在文件管理器中将 HOME 目录下的中文文件夹名改成与上面的配置对应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;输入与&#34;&gt;输入「」与『』&lt;/h2&gt;
+&lt;p&gt;极点五笔中文输入状态下，按 [] 即输入「」，按 {} 即输入『』。&lt;/p&gt;
+&lt;h2 id=&#34;virtualbox-里-ubuntu-分辨率无法调整&#34;&gt;VirtualBox 里 Ubuntu 分辨率无法调整&lt;/h2&gt;
+&lt;p&gt;Ubuntu 14.04 LTS 在 VirtualBox 中刚安装完时，分辨率只有 640*480 一种选项，无法调整。&lt;/p&gt;
+&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 xdiagnose&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;勾选 Debug 下的所有选项&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装增强功能&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;然后：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /media/&amp;lt;username&amp;gt;/VBOXADDITIONS_X.X.XX_XXXXX
+sudo ./VBoxLinuxAdditions.run
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;（注意把 username 替换成自己的，VBOXADDITIONS 后面的 X 换成具体版本号）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;与-win7-共享-ssh-key&#34;&gt;与 Win7 共享 SSH key&lt;/h2&gt;
+&lt;p&gt;如下步骤适用于在 Ubuntu 上使用从 Win7 拷贝的 SSH key，反之应该也一样能用。&lt;/p&gt;
+&lt;p&gt;创建 ~/.ssh 目录，确认其权限为 0700，将 Windows %userprofile%/.ssh 下的 id_rsa 和 id_rsa.pub 文件拷贝到 ~/.ssh 目录下，权限分别改为 0600 和 0644。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mzlogin@ubuntu:~$ ll ~/.ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;total &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;drwx------  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;4096&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 01:03 ./
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;drwxr-xr-x &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;4096&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 01:02 ../
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-------  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin &lt;span class=&#34;m&#34;&gt;1679&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-r--r--  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin  &lt;span class=&#34;m&#34;&gt;399&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded>
+        <dc:creator>码志</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>linux</category>
+            
+          
+            
+              <category>ubuntu</category>
+            
+          
+        
+        
+            
+              <category>[linux]</category>
+            
+        
+        
+      </item>
+      
+
     
   </channel>
 </rss>

@@ -1,33 +1,521 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>vim on starifly&#39;s Blog</title>
-    <link>http://starifly.github.io/tags/vim/</link>
-    <description>Recent content in vim on starifly&#39;s Blog</description>
+    <title>vim on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/vim/</link>
+    <description>Recent content in vim on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Fri, 17 Aug 2018 21:15:03 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
     
-	<atom:link href="http://starifly.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://starifly.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Vim Tips</title>
-      <link>http://starifly.github.io/post/vim-tips/</link>
-      <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate>
+    
+
       
-      <guid>http://starifly.github.io/post/vim-tips/</guid>
-      <description>&lt;p&gt;Vim Tips.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>为 Markdown 生成 TOC 的 Vim 插件</title>
-      <link>http://starifly.github.io/post/vim-markdown-toc/</link>
-      <pubDate>Wed, 15 Aug 2018 22:31:38 +0800</pubDate>
       
-      <guid>http://starifly.github.io/post/vim-markdown-toc/</guid>
-      <description>因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（*Update 2016/09/16: GitHub Pages 现在已经改</description>
-    </item>
+      <item>
+        <title>Vim Tips</title>
+        <link>https://starifly.github.io/posts/vim-tips/</link>
+        <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Mon, 20 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/vim-tips/</guid>
+        <description>&lt;p&gt;Vim Tips.&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;Vim Tips.&lt;/p&gt;
+&lt;style&gt;
+/* 第一列表格宽度 */
+table th:nth-of-type(1){
+width: 25%;
+}
+&lt;/style&gt;
+&lt;h2 id=&#34;general&#34;&gt;General&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;光标前&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;a&lt;/td&gt;
+&lt;td&gt;光标后&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;I&lt;/td&gt;
+&lt;td&gt;行首&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;行尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;x&lt;/td&gt;
+&lt;td&gt;删除光标所在字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;D&lt;/td&gt;
+&lt;td&gt;删除从当前光标到本行末尾的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;r&lt;/td&gt;
+&lt;td&gt;替换光标处的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;U&lt;/td&gt;
+&lt;td&gt;取消当前行中所有的改动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;=&lt;/td&gt;
+&lt;td&gt;自动缩进&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;.&lt;/td&gt;
+&lt;td&gt;(点)会重做最后一个命令&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;V&lt;/td&gt;
+&lt;td&gt;按行选择&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;jump&#34;&gt;Jump&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;跳到第一列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;^&lt;/td&gt;
+&lt;td&gt;跳到本行第一个非空字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;$&lt;/td&gt;
+&lt;td&gt;跳到本行末尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;g_&lt;/td&gt;
+&lt;td&gt;跳到本行最后一个非空字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;w&lt;/td&gt;
+&lt;td&gt;跳到下一个单词的开头&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;e&lt;/td&gt;
+&lt;td&gt;跳到这个单词的末尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;W&lt;/td&gt;
+&lt;td&gt;跳到下一个由空格分隔的单词的开头&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;E&lt;/td&gt;
+&lt;td&gt;跳到这个由空格分隔的单词的末尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;| 跳到当前光标的下一个相同单词的地方&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;-跳到当前光标的上一个相同单词的地方&#34;&gt;| 跳到当前光标的上一个相同单词的地方&lt;/h1&gt;
+&lt;p&gt;`. | 返回最后一次编辑位置&lt;br /&gt;
+[[ | 到函数头&lt;br /&gt;
+[{ | 到块开始位置&lt;br /&gt;
+]} | 到块结束位置&lt;br /&gt;
+gf | 打开以光标所在字符串为文件名的文件&lt;br /&gt;
+gd | 跳转到局部变量的定义处&lt;br /&gt;
+gD | 跳转到全局变量的定义处，从当前文件开头开始搜索&lt;br /&gt;
+g] | 展示匹配tags的文件&lt;br /&gt;
+&lt;Ctrl&gt; E | INSERT 模式下移动光标到行尾&lt;br /&gt;
+&lt;Ctrl&gt; B | INSERT 模式下光标左移一位&lt;br /&gt;
+ctrl+w-f | 同gf，不过会水平分割一个窗口&lt;br /&gt;
+ctrl-^ | 跳转到上一个编辑的文件&lt;/p&gt;
+&lt;h2 id=&#34;pattern&#34;&gt;Pattern&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:/ pattern&lt;CR&gt;&lt;/td&gt;
+&lt;td&gt;单词前加空格，精确匹配&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:/^pattern&lt;CR&gt;&lt;/td&gt;
+&lt;td&gt;搜索仅在行首出现&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:/pattern$&lt;CR&gt;&lt;/td&gt;
+&lt;td&gt;搜索仅在行末出现&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;buffer&#34;&gt;Buffer&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:5,10bd&lt;/td&gt;
+&lt;td&gt;删除编号5到10的buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:ba&lt;/td&gt;
+&lt;td&gt;把所有缓冲区在当前页中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:sb 3&lt;/td&gt;
+&lt;td&gt;分屏打开编号为3的buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:vertical sb 3&lt;/td&gt;
+&lt;td&gt;同上，垂直分屏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;file&#34;&gt;File&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:1,10 w outfile&lt;/td&gt;
+&lt;td&gt;1到10行内容写到outfile&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:1,10 w &amp;raquo; outfile&lt;/td&gt;
+&lt;td&gt;1到10行内容追加到outfile&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:r infile&lt;/td&gt;
+&lt;td&gt;插入文件内容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:23r infile&lt;/td&gt;
+&lt;td&gt;插入文件23行的内容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:e#或ctrl+^&lt;/td&gt;
+&lt;td&gt;回到刚才编辑的文件9（貌似只有:e#有效）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:f或ctrl+g&lt;/td&gt;
+&lt;td&gt;显示文件是否被修改&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:f filename&lt;/td&gt;
+&lt;td&gt;改变编辑的文件名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:e!&lt;/td&gt;
+&lt;td&gt;强制回到文件原始状态&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;object&#34;&gt;Object&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;dip&lt;/td&gt;
+&lt;td&gt;删除所有临近的空白行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cab&lt;/td&gt;
+&lt;td&gt;等同于ca)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;yiB&lt;/td&gt;
+&lt;td&gt;等同于yi}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cw&lt;/td&gt;
+&lt;td&gt;替换从光标到单词结束&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dib&lt;/td&gt;
+&lt;td&gt;删除括号内的内容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;modify&#34;&gt;Modify&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;c[n]l&lt;/td&gt;
+&lt;td&gt;改写光标后n个字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;c[n]h&lt;/td&gt;
+&lt;td&gt;改写光标前n个字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[n]cc&lt;/td&gt;
+&lt;td&gt;修改当前n行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;replace&#34;&gt;Replace&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:s/old/new&lt;/td&gt;
+&lt;td&gt;用new替换行中首次出现的old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:s/old/new/g&lt;/td&gt;
+&lt;td&gt;用new替换行中所有出现的old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:#,# s/old/new/g&lt;/td&gt;
+&lt;td&gt;用new替换从第＃行到第＃行中出现的old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:% s/old/new/g&lt;/td&gt;
+&lt;td&gt;用new替换整篇中出现的old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;如果替换的范围较大时，在所有的命令尾加一个c命令，强制每个替换需要用户进行确认，例如:s/old/new/c 或s/old/new/gc&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;相对屏幕移动&#34;&gt;相对屏幕移动&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;通过c-f向下翻页，c-b向上翻页；c-e逐行下滚，c-y逐行上滚。这在几乎所有Unix软件中都是好使的，比如man和less。 H可以移动到屏幕的首行，L到屏幕尾行，M到屏幕中间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;others&#34;&gt;Others&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;30i+&lt;esc&gt; — 插入30个+组成的分割线&lt;/li&gt;
+&lt;li&gt;ctrl+v 下移 I // Esc&lt;/li&gt;
+&lt;li&gt;zt可以置顶当前行，通常用来查看完整的下文，比如函数、类的定义。 zz将当前行移到屏幕中部，zb移到底部。&lt;/li&gt;
+&lt;li&gt;:packadd termdebug，然后Termdebug 可执行程序名字可在vim里启用GDB&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;需要vim版本8.1以上&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>vim</category>
+            
+          
+            
+              <category>tips</category>
+            
+          
+        
+        
+            
+              <category>[vim]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>为 Markdown 生成 TOC 的 Vim 插件</title>
+        <link>https://starifly.github.io/posts/vim-markdown-toc/</link>
+        <pubDate>Wed, 15 Aug 2018 22:31:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 16 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/vim-markdown-toc/</guid>
+        <description>因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（Update 2016/09/16: GitHub Pages 现在已经改为</description>
+        <content:encoded>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;
+&lt;p&gt;这算是我真正意义上完全独立开发的第一款实用 Vim 插件，当然开发过程中也参考了别人的做法。&lt;/p&gt;
+&lt;h2 id=&#34;下载地址&#34;&gt;下载地址&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/mzlogin/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vim-markdown-toc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;功能&#34;&gt;功能&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;为 Markdown 文件生成 Table of Contents，目前支持 GFM 和 Redcarpet 两种链接风格。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;更新已经存在的 Table of Contents。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;保存文件时自动更新 Table of Contents。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使用方法&#34;&gt;使用方法&lt;/h2&gt;
+&lt;h3 id=&#34;生成-table-of-contents&#34;&gt;生成 Table of Contents&lt;/h3&gt;
+&lt;p&gt;将光标移动到想在后面插入 Table of Contents 的那一行，然后运行下面的某个命令：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;:GenTocGFM&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成 GFM 链接风格的 Table of Contents。&lt;/p&gt;
+&lt;p&gt;适用于 GitHub 仓库里的 Markdown 文件，比如 README.md，也适用用于生成 GitBook 的 Markdown 文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;:GenTocRedcarpet&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成 Redcarpet 链接风格的 Table of Contents。&lt;/p&gt;
+&lt;p&gt;适用于使用 Redcarpet 作为 Markdown 引擎的 Jekyll 项目或其它地方。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;更新已存在的-table-of-contents&#34;&gt;更新已存在的 Table of Contents&lt;/h3&gt;
+&lt;p&gt;通常不需要手动做这件事，保存文件时会自动更新已经存在的 Table of Contents。&lt;/p&gt;
+&lt;p&gt;除非是在配置里关闭了保存时自动更新，并且维持插入 Table of Contents 前后的 &lt;code&gt;&amp;lt;!-- vim-markdown-toc --&amp;gt;&lt;/code&gt;，此时可使用 &lt;code&gt;:UpdateToc&lt;/code&gt; 命令手动更新。&lt;/p&gt;
+&lt;h3 id=&#34;删除-table-of-contents&#34;&gt;删除 Table of Contents&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;:RemoveToc&lt;/code&gt; 命令可以帮你删除本插件生成的 Table of Contents。&lt;/p&gt;
+&lt;h2 id=&#34;安装方法&#34;&gt;安装方法&lt;/h2&gt;
+&lt;p&gt;推荐使用 
+
+&lt;a href=&#34;http://github.com/VundleVim/Vundle.Vim&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Vundle&lt;/a&gt; 来管理你的 Vim 插件，这样你就可以简单三步完成安装：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;在你的 vimrc 文件中添加如下内容：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Plugin &amp;#39;mzlogin/vim-markdown-toc&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;:so $MYVIMRC&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;:PluginInstall&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用 vim-plug 安装的过程的与此基本一样。&lt;/p&gt;
+&lt;h2 id=&#34;配置选项&#34;&gt;配置选项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;g:vmt_auto_update_on_save&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;默认值：1&lt;/p&gt;
+&lt;p&gt;插件会自动更新已经存在的 Table of Contents，如果你不想要这个功能，可以在你的 vimrc 文件里加入如下内容关闭：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-viml&#34; data-lang=&#34;viml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;g&lt;/span&gt;:&lt;span class=&#34;nx&#34;&gt;vmt_auto_update_on_save&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;g:vmt_dont_insert_fence&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;默认值：0&lt;/p&gt;
+&lt;p&gt;在默认情况下，&lt;code&gt;:GenTocXXX&lt;/code&gt; 命令会在插入的 Table of Contents 前后加上 &lt;code&gt;&amp;lt;!-- vim-markdown-toc --&amp;gt;&lt;/code&gt;，这是为了实现自动和手动更新 Table of Contents 功能。&lt;/p&gt;
+&lt;p&gt;如果你不想看到它们，可以在 vimrc 文件里加入如下内容移除：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-viml&#34; data-lang=&#34;viml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;g&lt;/span&gt;:&lt;span class=&#34;nx&#34;&gt;vmt_dont_insert_fence&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;需要注意的是移除之后插件将无法再帮你保存文件时自动更新 Table of Contents 了，也无法使用 &lt;code&gt;:UpdateToc&lt;/code&gt; 命令了。这里如果还想更新 Table of Contents，只能先手动删除已经存在的，然后重新运行 &lt;code&gt;:GenTocXXX&lt;/code&gt; 命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;g:vmt_cycle_list_item_markers&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;默认值：0&lt;/p&gt;
+&lt;p&gt;在默认情况下，所有 Table of Contents 项目前面的标记都是 &lt;code&gt;*&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;* [Level 1](#level-1)
+    * [Level 1-1](#level-1-1)
+    * [Level 1-2](#level-1-2)
+        * [Level 1-2-1](#level-1-2-1)
+* [Level 2](level-2)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里提供一个选项改变这个行为，如果设置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-viml&#34; data-lang=&#34;viml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;g&lt;/span&gt;:&lt;span class=&#34;nx&#34;&gt;vmt_cycle_list_item_markers&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;那标记将根据级别循环使用 &lt;code&gt;*&lt;/code&gt;、&lt;code&gt;-&lt;/code&gt; 和 &lt;code&gt;+&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;* [Level 1](#level-1)
+    - [Level 1-1](#level-1-1)
+    - [Level 1-2](#level-1-2)
+        + [Level 1-2-1](#level-1-2-1)
+* [Level 2](level-2)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这不会影响 Markdown 文档解析后的显示效果，只用于提升源文件的可读性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;屏幕截图&#34;&gt;屏幕截图&lt;/h2&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines/blob/Simplified/README.en.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的英文文档在线示例&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://mazhuang.org/wiki/chinese-copywriting-guidelines/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的中文文档在线示例&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://mazhuang.org/2015/12/05/diff-between-gfm-and-redcarpet/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GFM 与 Redcarpet 的不同点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/ajorgensen/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ajorgensen/vim-markdown-toc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>码志</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>vim</category>
+            
+          
+            
+              <category>markdown</category>
+            
+          
+        
+        
+            
+              <category>[vim]</category>
+            
+        
+        
+      </item>
+      
+
     
   </channel>
 </rss>
