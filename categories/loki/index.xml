@@ -1,26 +1,46 @@
----
-title: k8s中部署loki
-author: starifly
-date: 2023-02-17T16:25:55+08:00
-lastmod: 2023-02-17T16:25:55+08:00
-categories: [k8s,loki]
-tags: [k8s,loki]
-draft: true
-slug: loki
----
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>loki on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/loki/</link>
+    <description>Recent content in loki on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 17 Feb 2023 16:25:55 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/loki/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
 
-## Loki 架构
-
-- Loki：主服务，用于存储日志和处理查询。
-- Promtail：代理服务，用于采集日志，并转发给 Loki。
-- Grafana：通过 Web 界面来提供数据展示、查询、告警等功能。
-
-## 安装 Loki
-
-1）创建 RBAC 授权
-
-```
-[root@node1 loki]# cat loki-rbac.yaml 
+      
+      
+      <item>
+        <title>k8s中部署loki</title>
+        <link>https://starifly.github.io/posts/loki/</link>
+        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Fri, 17 Feb 2023 16:25:55 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/loki/</guid>
+        <description>Loki 架构 Loki：主服务，用于存储日志和处理查询。 Promtail：代理服务，用于采集日志，并转发给 Loki。 Grafana：通过 Web 界面来提供</description>
+        <content:encoded>&lt;h2 id=&#34;loki-架构&#34;&gt;Loki 架构&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Loki：主服务，用于存储日志和处理查询。&lt;/li&gt;
+&lt;li&gt;Promtail：代理服务，用于采集日志，并转发给 Loki。&lt;/li&gt;
+&lt;li&gt;Grafana：通过 Web 界面来提供数据展示、查询、告警等功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装-loki&#34;&gt;安装 Loki&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-rbac.yaml 
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -38,9 +58,9 @@ metadata:
   name: loki
   namespace: logging
 rules:
-- apiGroups: ["extensions"]
-  resources: ["podsecuritypolicies"]
-  verbs: ["use"]
+- apiGroups: [&amp;#34;extensions&amp;#34;]
+  resources: [&amp;#34;podsecuritypolicies&amp;#34;]
+  verbs: [&amp;#34;use&amp;#34;]
   resourceNames: [loki]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -55,12 +75,8 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: loki
-```
-
-2）创建 ConfigMap 文件
-
-```
-[root@node1 loki]# cat loki-configmap.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-configmap.yaml 
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -87,7 +103,7 @@ data:
       reject_old_samples_max_age: 168h
     schema_config:
       configs:
-      - from: "2022-05-15"
+      - from: &amp;#34;2022-05-15&amp;#34;
         store: boltdb-shipper
         object_store: filesystem
         schema: v11
@@ -112,12 +128,8 @@ data:
     compactor:
       working_directory: /data/loki/boltdb-shipper-compactor
       shared_store: filesystem
-```
-
-3）创建 StatefulSet
-
-```
-[root@node1 loki]# cat loki-statefulset.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 StatefulSet&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-statefulset.yaml 
 apiVersion: v1
 kind: Service
 metadata:
@@ -162,7 +174,7 @@ spec:
       - name: chmod-data
         image: busybox:1.28.4
         imagePullPolicy: IfNotPresent
-        command: ["chmod","-R","777","/loki/data"]
+        command: [&amp;#34;chmod&amp;#34;,&amp;#34;-R&amp;#34;,&amp;#34;777&amp;#34;,&amp;#34;/loki/data&amp;#34;]
         volumeMounts:
         - name: storage
           mountPath: /loki/data
@@ -203,14 +215,9 @@ spec:
         - name: storage
           hostPath:
             path: /app/loki
-```
-
-## 安装 Promtail
-
-1）创建 RBAC 授权文件
-
-```
-[root@node1 promtail]# cat promtail-rbac.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-promtail&#34;&gt;安装 Promtail&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-rbac.yaml 
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -227,9 +234,9 @@ metadata:
   name: promtail-clusterrole
   namespace: logging
 rules:
-- apiGroups: [""]
-  resources: ["nodes","nodes/proxy","services","endpoints","pods"]
-  verbs: ["get", "watch", "list"] 
+- apiGroups: [&amp;#34;&amp;#34;]
+  resources: [&amp;#34;nodes&amp;#34;,&amp;#34;nodes/proxy&amp;#34;,&amp;#34;services&amp;#34;,&amp;#34;endpoints&amp;#34;,&amp;#34;pods&amp;#34;]
+  verbs: [&amp;#34;get&amp;#34;, &amp;#34;watch&amp;#34;, &amp;#34;list&amp;#34;] 
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -246,12 +253,8 @@ roleRef:
   kind: ClusterRole
   name: promtail-clusterrole
   apiGroup: rbac.authorization.k8s.io
-```
-
-2）创建 ConfigMap 文件
-
-```
-[root@node1 promtail]# cat promtail-configmap.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-configmap.yaml 
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -290,7 +293,7 @@ data:
         - __meta_kubernetes_pod_node_name
         target_label: __host__
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __service__
       - action: labelmap
@@ -337,7 +340,7 @@ data:
         - __meta_kubernetes_pod_node_name
         target_label: __host__
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __service__
       - action: labelmap
@@ -375,12 +378,12 @@ data:
       relabel_configs:
       - action: drop
         regex: .+
-        separator: ''
+        separator: &amp;#39;&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_label_name
         - __meta_kubernetes_pod_label_app
       - action: drop
-        regex: '[0-9a-z-.]+-[0-9a-f]{8,10}'
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_controller_name
       - source_labels:
@@ -390,7 +393,7 @@ data:
         - __meta_kubernetes_pod_node_name
         target_label: __host__
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __service__
       - action: labelmap
@@ -428,16 +431,16 @@ data:
       relabel_configs:
       - action: drop
         regex: .+
-        separator: ''
+        separator: &amp;#39;&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_label_name
         - __meta_kubernetes_pod_label_app
       - action: keep
-        regex: '[0-9a-z-.]+-[0-9a-f]{8,10}'
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_controller_name
       - action: replace
-        regex: '([0-9a-z-.]+)-[0-9a-f]{8,10}'
+        regex: &amp;#39;([0-9a-z-.]+)-[0-9a-f]{8,10}&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_controller_name
         target_label: __service__
@@ -445,7 +448,7 @@ data:
         - __meta_kubernetes_pod_node_name
         target_label: __host__
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __service__
       - action: labelmap
@@ -482,7 +485,7 @@ data:
       - role: pod
       relabel_configs:
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
       - action: replace
@@ -493,7 +496,7 @@ data:
         - __meta_kubernetes_pod_node_name
         target_label: __host__
       - action: drop
-        regex: ''
+        regex: &amp;#39;&amp;#39;
         source_labels:
         - __service__
       - action: labelmap
@@ -523,12 +526,8 @@ data:
         - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
         - __meta_kubernetes_pod_container_name
         target_label: __path__
-```
-
-3）创建 DaemonSet 文件
-
-```
-[root@node1 promtail]# cat promtail-daemonset.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 DaemonSet 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-daemonset.yaml 
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -603,21 +602,16 @@ spec:
         - name: run
           hostPath:
             path: /run/promtail
-            type: ""
+            type: &amp;#34;&amp;#34;
         - name: docker
           hostPath:
             path: /var/lib/docker/containers
         - name: pods
           hostPath:
             path: /var/log/pods
-```
-
-## 安装 Grafana
-
-1）创建 ConfigMap 文件
-
-```
-[root@node1 grafana]# cat grafana-configmap.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-grafana&#34;&gt;安装 Grafana&lt;/h2&gt;
+&lt;p&gt;1）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-configmap.yaml 
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -626,25 +620,21 @@ metadata:
 data:
   prometheus.yaml: |-
     {
-        "apiVersion": 1,
-        "datasources": [
+        &amp;#34;apiVersion&amp;#34;: 1,
+        &amp;#34;datasources&amp;#34;: [
             {
-               "access":"proxy",
-                "editable": true,
-                "name": "loki",
-                "orgId": 1,
-                "type": "loki",
-                "url": "http://loki:3100",
-                "version": 1
+               &amp;#34;access&amp;#34;:&amp;#34;proxy&amp;#34;,
+                &amp;#34;editable&amp;#34;: true,
+                &amp;#34;name&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;orgId&amp;#34;: 1,
+                &amp;#34;type&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;url&amp;#34;: &amp;#34;http://loki:3100&amp;#34;,
+                &amp;#34;version&amp;#34;: 1
             }
         ]
     }
-```
-
-2）创建 Deployment 文件
-
-```
-[root@node1 grafana]# cat grafana-deploy.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 Deployment 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-deploy.yaml 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -671,16 +661,16 @@ spec:
           containerPort: 3000
         env:
         - name: GF_AUTH_BASIC_ENABLED
-          value: "true"
+          value: &amp;#34;true&amp;#34;
         - name: GF_AUTH_ANONYMOUS_ENABLED
-          value: "false"
+          value: &amp;#34;false&amp;#34;
         resources:
           limits:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: &amp;#34;1Gi&amp;#34;
+            cpu: &amp;#34;1000m&amp;#34;
           requests:
             memory: 500M
-            cpu: "500m"
+            cpu: &amp;#34;500m&amp;#34;
         readinessProbe:
           httpGet:
             path: /login
@@ -714,9 +704,40 @@ spec:
     nodePort: 30030
   selector:
     app: grafana
-```
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
 
-## Reference
+&lt;a href=&#34;https://developer.aliyun.com/article/937446#slide-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用 Loki 实现 Kubernetes 容器日志监控&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
 
-- [使用 Loki 实现 Kubernetes 容器日志监控](https://developer.aliyun.com/article/937446#slide-8)
-- [K8S搭建日志和监控平台](https://zhuanlan.zhihu.com/p/532984838)
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/532984838&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;K8S搭建日志和监控平台&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>loki</category>
+            
+          
+        
+        
+            
+              <category>[k8s loki]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

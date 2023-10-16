@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>k8s on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/k8s/</link>
+    <description>Recent content in k8s on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 17 Feb 2023 16:25:55 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/k8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>k8s中部署loki</title>
+        <link>https://starifly.github.io/posts/loki/</link>
+        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Fri, 17 Feb 2023 16:25:55 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/loki/</guid>
+        <description>Loki 架构 Loki：主服务，用于存储日志和处理查询。 Promtail：代理服务，用于采集日志，并转发给 Loki。 Grafana：通过 Web 界面来提供</description>
+        <content:encoded>&lt;h2 id=&#34;loki-架构&#34;&gt;Loki 架构&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Loki：主服务，用于存储日志和处理查询。&lt;/li&gt;
+&lt;li&gt;Promtail：代理服务，用于采集日志，并转发给 Loki。&lt;/li&gt;
+&lt;li&gt;Grafana：通过 Web 界面来提供数据展示、查询、告警等功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装-loki&#34;&gt;安装 Loki&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-rbac.yaml 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki
+  namespace: logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: loki
+  namespace: logging
+rules:
+- apiGroups: [&amp;#34;extensions&amp;#34;]
+  resources: [&amp;#34;podsecuritypolicies&amp;#34;]
+  verbs: [&amp;#34;use&amp;#34;]
+  resourceNames: [loki]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: loki
+  namespace: logging
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: loki
+subjects:
+- kind: ServiceAccount
+  name: loki
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+data:
+  loki.yaml: |
+    auth_enabled: false
+    ingester:
+      chunk_idle_period: 3m
+      chunk_block_size: 262144
+      chunk_retain_period: 1m
+      max_transfer_retries: 0
+      lifecycler:
+        ring:
+          kvstore:
+            store: inmemory
+          replication_factor: 1
+    limits_config:
+      enforce_metric_name: false
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+    schema_config:
+      configs:
+      - from: &amp;#34;2022-05-15&amp;#34;
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+    server:
+      http_listen_port: 3100
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /data/loki/boltdb-shipper-active
+        cache_location: /data/loki/boltdb-shipper-cache
+        cache_ttl: 24h         
+        shared_store: filesystem
+      filesystem:
+        directory: /data/loki/chunks
+    chunk_store_config:
+      max_look_back_period: 0s
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 48h
+    compactor:
+      working_directory: /data/loki/boltdb-shipper-compactor
+      shared_store: filesystem
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 StatefulSet&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-statefulset.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+spec:
+  type: NodePort
+  ports:
+    - port: 3100
+      protocol: TCP
+      name: http-metrics
+      targetPort: http-metrics
+      nodePort: 30100
+  selector:
+    app: loki
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  serviceName: loki
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      serviceAccountName: loki
+      initContainers:
+      - name: chmod-data
+        image: busybox:1.28.4
+        imagePullPolicy: IfNotPresent
+        command: [&amp;#34;chmod&amp;#34;,&amp;#34;-R&amp;#34;,&amp;#34;777&amp;#34;,&amp;#34;/loki/data&amp;#34;]
+        volumeMounts:
+        - name: storage
+          mountPath: /loki/data
+      containers:
+        - name: loki
+          image: grafana/loki:2.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - -config.file=/etc/loki/loki.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/loki
+            - name: storage
+              mountPath: /data
+          ports:
+            - name: http-metrics
+              containerPort: 3100
+              protocol: TCP
+          livenessProbe:
+            httpGet: 
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+          readinessProbe:
+            httpGet: 
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+          securityContext:
+            readOnlyRootFilesystem: true
+      terminationGracePeriodSeconds: 4800
+      volumes:
+        - name: config
+          configMap:
+            name: loki
+        - name: storage
+          hostPath:
+            path: /app/loki
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-promtail&#34;&gt;安装 Promtail&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-rbac.yaml 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki-promtail
+  labels:
+    app: promtail
+  namespace: logging 
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    app: promtail
+  name: promtail-clusterrole
+  namespace: logging
+rules:
+- apiGroups: [&amp;#34;&amp;#34;]
+  resources: [&amp;#34;nodes&amp;#34;,&amp;#34;nodes/proxy&amp;#34;,&amp;#34;services&amp;#34;,&amp;#34;endpoints&amp;#34;,&amp;#34;pods&amp;#34;]
+  verbs: [&amp;#34;get&amp;#34;, &amp;#34;watch&amp;#34;, &amp;#34;list&amp;#34;] 
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: promtail-clusterrolebinding
+  labels:
+    app: promtail
+  namespace: logging
+subjects:
+  - kind: ServiceAccount
+    name: loki-promtail
+    namespace: logging
+roleRef:
+  kind: ClusterRole
+  name: promtail-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki-promtail
+  namespace: logging
+  labels:
+    app: promtail
+data:
+  promtail.yaml: |
+    client:
+      backoff_config:
+        max_period: 5m 
+        max_retries: 10
+        min_period: 500ms
+      batchsize: 1048576
+      batchwait: 1s
+      external_labels: {}
+      timeout: 10s
+    positions:
+      filename: /run/promtail/positions.yaml
+    server:
+      http_listen_port: 3101
+    target_config:
+      sync_period: 10s
+    scrape_configs:
+    - job_name: kubernetes-pods-name
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - source_labels:
+        - __meta_kubernetes_pod_label_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-app
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+      - source_labels:
+        - __meta_kubernetes_pod_label_app
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-direct-controllers
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: drop
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-indirect-controller
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: keep
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - action: replace
+        regex: &amp;#39;([0-9a-z-.]+)-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-static
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_label_component
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 DaemonSet 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-daemonset.yaml 
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: loki-promtail
+  namespace: logging
+  labels:
+    app: promtail
+spec:
+  selector:
+    matchLabels:
+      app: promtail
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: promtail
+    spec:
+      serviceAccountName: loki-promtail
+      containers:
+        - name: promtail
+          image: grafana/promtail:2.3.0
+          imagePullPolicy: IfNotPresent
+          args: 
+          - -config.file=/etc/promtail/promtail.yaml
+          - -client.url=http://loki:3100/loki/api/v1/push
+          env: 
+          - name: HOSTNAME
+            valueFrom: 
+              fieldRef: 
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          volumeMounts:
+          - mountPath: /etc/promtail
+            name: config
+          - mountPath: /run/promtail
+            name: run
+          - mountPath: /var/lib/docker/containers
+            name: docker
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: pods
+            readOnly: true
+          ports:
+          - containerPort: 3101
+            name: http-metrics
+            protocol: TCP
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsUser: 0
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      volumes:
+        - name: config
+          configMap:
+            name: loki-promtail
+        - name: run
+          hostPath:
+            path: /run/promtail
+            type: &amp;#34;&amp;#34;
+        - name: docker
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: pods
+          hostPath:
+            path: /var/log/pods
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-grafana&#34;&gt;安装 Grafana&lt;/h2&gt;
+&lt;p&gt;1）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: logging
+data:
+  prometheus.yaml: |-
+    {
+        &amp;#34;apiVersion&amp;#34;: 1,
+        &amp;#34;datasources&amp;#34;: [
+            {
+               &amp;#34;access&amp;#34;:&amp;#34;proxy&amp;#34;,
+                &amp;#34;editable&amp;#34;: true,
+                &amp;#34;name&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;orgId&amp;#34;: 1,
+                &amp;#34;type&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;url&amp;#34;: &amp;#34;http://loki:3100&amp;#34;,
+                &amp;#34;version&amp;#34;: 1
+            }
+        ]
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 Deployment 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+  namespace: logging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:8.4.7
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: grafana
+          containerPort: 3000
+        env:
+        - name: GF_AUTH_BASIC_ENABLED
+          value: &amp;#34;true&amp;#34;
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: &amp;#34;false&amp;#34;
+        resources:
+          limits:
+            memory: &amp;#34;1Gi&amp;#34;
+            cpu: &amp;#34;1000m&amp;#34;
+          requests:
+            memory: 500M
+            cpu: &amp;#34;500m&amp;#34;
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 3000
+        volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-storage
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: grafana-datasources
+            readOnly: false
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: grafana-datasources
+          configMap:
+              defaultMode: 420
+              name: grafana-datasources
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+  namespace: logging
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30030
+  selector:
+    app: grafana
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://developer.aliyun.com/article/937446#slide-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用 Loki 实现 Kubernetes 容器日志监控&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/532984838&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;K8S搭建日志和监控平台&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>loki</category>
+            
+          
+        
+        
+            
+              <category>[k8s loki]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>k8s部署EFK</title>
+        <link>https://starifly.github.io/posts/k8s-efk/</link>
+        <pubDate>Sun, 29 Jan 2023 22:24:18 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 29 Jan 2023 22:24:18 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/k8s-efk/</guid>
+        <description>elasticsearch cat elasticsearch.yaml apiVersion: apps/v1 kind: StatefulSet metadata: name: es-cluster spec: serviceName: elasticsearch replicas: 1 selector: matchLabels: app: elasticsearch template: metadata: labels: app: elasticsearch spec: containers: - name: elasticsearch #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0 image: elasticsearch:7.5.0 resources: limits: cpu: 1000m requests: cpu: 100m ports: - containerPort: 9200 name: rest protocol: TCP - containerPort: 9300 name: inter-node protocol: TCP # volumeMounts: # - name: data # mountPath: /usr/share/elasticsearch/data env: - name: cluster.name value: k8s-logs</description>
+        <content:encoded>&lt;h2 id=&#34;elasticsearch&#34;&gt;elasticsearch&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat elasticsearch.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-cluster
+spec:
+  serviceName: elasticsearch
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+        image: elasticsearch:7.5.0
+        resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 100m
+        ports:
+        - containerPort: 9200
+          name: rest
+          protocol: TCP
+        - containerPort: 9300
+          name: inter-node
+          protocol: TCP
+          #   volumeMounts:
+          #   - name: data
+          #     mountPath: /usr/share/elasticsearch/data
+        env:
+          - name: cluster.name
+            value: k8s-logs
+          - name: node.name
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: discovery.seed_hosts
+            value: &amp;#34;es-cluster-0.elasticsearch&amp;#34;
+          - name: cluster.initial_master_nodes
+            value: &amp;#34;es-cluster-0&amp;#34;
+          - name: ES_JAVA_OPTS
+            value: &amp;#34;-Xms512m -Xmx512m&amp;#34;
+      initContainers:
+      - name: increase-vm-max-map
+        image: busybox
+        command: [&amp;#34;sysctl&amp;#34;, &amp;#34;-w&amp;#34;, &amp;#34;vm.max_map_count=262144&amp;#34;]
+        securityContext:
+          privileged: true
+      - name: increase-fd-ulimit
+        image: busybox
+        command: [&amp;#34;sh&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;ulimit -n 65536&amp;#34;]
+        securityContext:
+          privileged: true
+          #  volumeClaimTemplates:
+          #  - metadata:
+          #      name: data
+          #      labels:
+          #        app: elasticsearch
+          #    spec:
+          #      accessModes: [ &amp;#34;ReadWriteOnce&amp;#34; ]
+          #      # storageClassName: &amp;#34;&amp;#34;
+          #      resources:
+          #        requests:
+          #          storage: 3Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+spec:
+  type: NodePort
+  ports:
+  - name: rest
+    nodePort: 32321
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: inter-node
+    nodePort: 32322
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;kibana&#34;&gt;kibana&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat kibana.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:7.5.0
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        env:
+          - name: ELASTICSEARCH_URL
+            value: http://elasticsearch:9200
+        ports:
+        - containerPort: 5601
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-np
+spec:
+  selector:
+    app: kibana
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 5601
+      nodePort: 30000
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;fluentd&#34;&gt;fluentd&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat fluentd.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+rules:
+- apiGroups:
+  - &amp;#34;&amp;#34;
+  resources:
+  - pods
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+---
+on: rbac.authorization.k8s.io/v1
+metadata:
+  name: fluentd
+roleRef:
+  kind: ClusterRole
+  name: fluentd
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: fluentd
+  namespace: default
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
+      containers:
+      - name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
+        env:
+          - name:  FLUENT_ELASTICSEARCH_HOST
+            value: &amp;#34;elasticsearch.default.svc.cluster.local&amp;#34;
+          - name:  FLUENT_ELASTICSEARCH_PORT
+            value: &amp;#34;9200&amp;#34;
+          - name: FLUENT_ELASTICSEARCH_SCHEME
+            value: &amp;#34;http&amp;#34;
+          - name: FLUENTD_SYSTEMD_CONF
+            value: disable
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://developer.aliyun.com/article/908135#slide-21&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kubernetes 集群日志和 EFK架构日志方案&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://xie.infoq.cn/article/fea1fe9dffe70b1d729dc04cb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基于 EFK 的 Kubernetes 日志采集方案&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>efk</category>
+            
+          
+        
+        
+            
+              <category>[k8s]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

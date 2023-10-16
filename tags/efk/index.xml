@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>efk on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/efk/</link>
+    <description>Recent content in efk on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Sun, 29 Jan 2023 22:24:18 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/efk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>k8s部署EFK</title>
+        <link>https://starifly.github.io/posts/k8s-efk/</link>
+        <pubDate>Sun, 29 Jan 2023 22:24:18 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 29 Jan 2023 22:24:18 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/k8s-efk/</guid>
+        <description>elasticsearch cat elasticsearch.yaml apiVersion: apps/v1 kind: StatefulSet metadata: name: es-cluster spec: serviceName: elasticsearch replicas: 1 selector: matchLabels: app: elasticsearch template: metadata: labels: app: elasticsearch spec: containers: - name: elasticsearch #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0 image: elasticsearch:7.5.0 resources: limits: cpu: 1000m requests: cpu: 100m ports: - containerPort: 9200 name: rest protocol: TCP - containerPort: 9300 name: inter-node protocol: TCP # volumeMounts: # - name: data # mountPath: /usr/share/elasticsearch/data env: - name: cluster.name value: k8s-logs</description>
+        <content:encoded>&lt;h2 id=&#34;elasticsearch&#34;&gt;elasticsearch&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat elasticsearch.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-cluster
+spec:
+  serviceName: elasticsearch
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+        image: elasticsearch:7.5.0
+        resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 100m
+        ports:
+        - containerPort: 9200
+          name: rest
+          protocol: TCP
+        - containerPort: 9300
+          name: inter-node
+          protocol: TCP
+          #   volumeMounts:
+          #   - name: data
+          #     mountPath: /usr/share/elasticsearch/data
+        env:
+          - name: cluster.name
+            value: k8s-logs
+          - name: node.name
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: discovery.seed_hosts
+            value: &amp;#34;es-cluster-0.elasticsearch&amp;#34;
+          - name: cluster.initial_master_nodes
+            value: &amp;#34;es-cluster-0&amp;#34;
+          - name: ES_JAVA_OPTS
+            value: &amp;#34;-Xms512m -Xmx512m&amp;#34;
+      initContainers:
+      - name: increase-vm-max-map
+        image: busybox
+        command: [&amp;#34;sysctl&amp;#34;, &amp;#34;-w&amp;#34;, &amp;#34;vm.max_map_count=262144&amp;#34;]
+        securityContext:
+          privileged: true
+      - name: increase-fd-ulimit
+        image: busybox
+        command: [&amp;#34;sh&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;ulimit -n 65536&amp;#34;]
+        securityContext:
+          privileged: true
+          #  volumeClaimTemplates:
+          #  - metadata:
+          #      name: data
+          #      labels:
+          #        app: elasticsearch
+          #    spec:
+          #      accessModes: [ &amp;#34;ReadWriteOnce&amp;#34; ]
+          #      # storageClassName: &amp;#34;&amp;#34;
+          #      resources:
+          #        requests:
+          #          storage: 3Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+spec:
+  type: NodePort
+  ports:
+  - name: rest
+    nodePort: 32321
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: inter-node
+    nodePort: 32322
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;kibana&#34;&gt;kibana&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat kibana.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:7.5.0
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        env:
+          - name: ELASTICSEARCH_URL
+            value: http://elasticsearch:9200
+        ports:
+        - containerPort: 5601
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-np
+spec:
+  selector:
+    app: kibana
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 5601
+      nodePort: 30000
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;fluentd&#34;&gt;fluentd&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat fluentd.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+rules:
+- apiGroups:
+  - &amp;#34;&amp;#34;
+  resources:
+  - pods
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+---
+on: rbac.authorization.k8s.io/v1
+metadata:
+  name: fluentd
+roleRef:
+  kind: ClusterRole
+  name: fluentd
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: fluentd
+  namespace: default
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
+      containers:
+      - name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
+        env:
+          - name:  FLUENT_ELASTICSEARCH_HOST
+            value: &amp;#34;elasticsearch.default.svc.cluster.local&amp;#34;
+          - name:  FLUENT_ELASTICSEARCH_PORT
+            value: &amp;#34;9200&amp;#34;
+          - name: FLUENT_ELASTICSEARCH_SCHEME
+            value: &amp;#34;http&amp;#34;
+          - name: FLUENTD_SYSTEMD_CONF
+            value: disable
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://developer.aliyun.com/article/908135#slide-21&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kubernetes 集群日志和 EFK架构日志方案&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://xie.infoq.cn/article/fea1fe9dffe70b1d729dc04cb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基于 EFK 的 Kubernetes 日志采集方案&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>efk</category>
+            
+          
+        
+        
+            
+              <category>[k8s]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

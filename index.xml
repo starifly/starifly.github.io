@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 30 May 2020 21:59:57 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Feb 2023 16:25:55 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -44,6 +44,1163 @@
       
 
       
+      
+      <item>
+        <title>k8s中部署loki</title>
+        <link>https://starifly.github.io/posts/loki/</link>
+        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Fri, 17 Feb 2023 16:25:55 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/loki/</guid>
+        <description>Loki 架构 Loki：主服务，用于存储日志和处理查询。 Promtail：代理服务，用于采集日志，并转发给 Loki。 Grafana：通过 Web 界面来提供</description>
+        <content:encoded>&lt;h2 id=&#34;loki-架构&#34;&gt;Loki 架构&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Loki：主服务，用于存储日志和处理查询。&lt;/li&gt;
+&lt;li&gt;Promtail：代理服务，用于采集日志，并转发给 Loki。&lt;/li&gt;
+&lt;li&gt;Grafana：通过 Web 界面来提供数据展示、查询、告警等功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装-loki&#34;&gt;安装 Loki&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-rbac.yaml 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki
+  namespace: logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: loki
+  namespace: logging
+rules:
+- apiGroups: [&amp;#34;extensions&amp;#34;]
+  resources: [&amp;#34;podsecuritypolicies&amp;#34;]
+  verbs: [&amp;#34;use&amp;#34;]
+  resourceNames: [loki]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: loki
+  namespace: logging
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: loki
+subjects:
+- kind: ServiceAccount
+  name: loki
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+data:
+  loki.yaml: |
+    auth_enabled: false
+    ingester:
+      chunk_idle_period: 3m
+      chunk_block_size: 262144
+      chunk_retain_period: 1m
+      max_transfer_retries: 0
+      lifecycler:
+        ring:
+          kvstore:
+            store: inmemory
+          replication_factor: 1
+    limits_config:
+      enforce_metric_name: false
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+    schema_config:
+      configs:
+      - from: &amp;#34;2022-05-15&amp;#34;
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+    server:
+      http_listen_port: 3100
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /data/loki/boltdb-shipper-active
+        cache_location: /data/loki/boltdb-shipper-cache
+        cache_ttl: 24h         
+        shared_store: filesystem
+      filesystem:
+        directory: /data/loki/chunks
+    chunk_store_config:
+      max_look_back_period: 0s
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 48h
+    compactor:
+      working_directory: /data/loki/boltdb-shipper-compactor
+      shared_store: filesystem
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 StatefulSet&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 loki]# cat loki-statefulset.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+spec:
+  type: NodePort
+  ports:
+    - port: 3100
+      protocol: TCP
+      name: http-metrics
+      targetPort: http-metrics
+      nodePort: 30100
+  selector:
+    app: loki
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: loki
+  namespace: logging
+  labels:
+    app: loki
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  serviceName: loki
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      serviceAccountName: loki
+      initContainers:
+      - name: chmod-data
+        image: busybox:1.28.4
+        imagePullPolicy: IfNotPresent
+        command: [&amp;#34;chmod&amp;#34;,&amp;#34;-R&amp;#34;,&amp;#34;777&amp;#34;,&amp;#34;/loki/data&amp;#34;]
+        volumeMounts:
+        - name: storage
+          mountPath: /loki/data
+      containers:
+        - name: loki
+          image: grafana/loki:2.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - -config.file=/etc/loki/loki.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/loki
+            - name: storage
+              mountPath: /data
+          ports:
+            - name: http-metrics
+              containerPort: 3100
+              protocol: TCP
+          livenessProbe:
+            httpGet: 
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+          readinessProbe:
+            httpGet: 
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+          securityContext:
+            readOnlyRootFilesystem: true
+      terminationGracePeriodSeconds: 4800
+      volumes:
+        - name: config
+          configMap:
+            name: loki
+        - name: storage
+          hostPath:
+            path: /app/loki
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-promtail&#34;&gt;安装 Promtail&lt;/h2&gt;
+&lt;p&gt;1）创建 RBAC 授权文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-rbac.yaml 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki-promtail
+  labels:
+    app: promtail
+  namespace: logging 
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    app: promtail
+  name: promtail-clusterrole
+  namespace: logging
+rules:
+- apiGroups: [&amp;#34;&amp;#34;]
+  resources: [&amp;#34;nodes&amp;#34;,&amp;#34;nodes/proxy&amp;#34;,&amp;#34;services&amp;#34;,&amp;#34;endpoints&amp;#34;,&amp;#34;pods&amp;#34;]
+  verbs: [&amp;#34;get&amp;#34;, &amp;#34;watch&amp;#34;, &amp;#34;list&amp;#34;] 
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: promtail-clusterrolebinding
+  labels:
+    app: promtail
+  namespace: logging
+subjects:
+  - kind: ServiceAccount
+    name: loki-promtail
+    namespace: logging
+roleRef:
+  kind: ClusterRole
+  name: promtail-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki-promtail
+  namespace: logging
+  labels:
+    app: promtail
+data:
+  promtail.yaml: |
+    client:
+      backoff_config:
+        max_period: 5m 
+        max_retries: 10
+        min_period: 500ms
+      batchsize: 1048576
+      batchwait: 1s
+      external_labels: {}
+      timeout: 10s
+    positions:
+      filename: /run/promtail/positions.yaml
+    server:
+      http_listen_port: 3101
+    target_config:
+      sync_period: 10s
+    scrape_configs:
+    - job_name: kubernetes-pods-name
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - source_labels:
+        - __meta_kubernetes_pod_label_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-app
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+      - source_labels:
+        - __meta_kubernetes_pod_label_app
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-direct-controllers
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: drop
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-indirect-controller
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: keep
+        regex: &amp;#39;[0-9a-z-.]+-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - action: replace
+        regex: &amp;#39;([0-9a-z-.]+)-[0-9a-f]{8,10}&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-static
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_label_component
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: &amp;#39;&amp;#39;
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3）创建 DaemonSet 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 promtail]# cat promtail-daemonset.yaml 
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: loki-promtail
+  namespace: logging
+  labels:
+    app: promtail
+spec:
+  selector:
+    matchLabels:
+      app: promtail
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: promtail
+    spec:
+      serviceAccountName: loki-promtail
+      containers:
+        - name: promtail
+          image: grafana/promtail:2.3.0
+          imagePullPolicy: IfNotPresent
+          args: 
+          - -config.file=/etc/promtail/promtail.yaml
+          - -client.url=http://loki:3100/loki/api/v1/push
+          env: 
+          - name: HOSTNAME
+            valueFrom: 
+              fieldRef: 
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          volumeMounts:
+          - mountPath: /etc/promtail
+            name: config
+          - mountPath: /run/promtail
+            name: run
+          - mountPath: /var/lib/docker/containers
+            name: docker
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: pods
+            readOnly: true
+          ports:
+          - containerPort: 3101
+            name: http-metrics
+            protocol: TCP
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsUser: 0
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      volumes:
+        - name: config
+          configMap:
+            name: loki-promtail
+        - name: run
+          hostPath:
+            path: /run/promtail
+            type: &amp;#34;&amp;#34;
+        - name: docker
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: pods
+          hostPath:
+            path: /var/log/pods
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装-grafana&#34;&gt;安装 Grafana&lt;/h2&gt;
+&lt;p&gt;1）创建 ConfigMap 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-configmap.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: logging
+data:
+  prometheus.yaml: |-
+    {
+        &amp;#34;apiVersion&amp;#34;: 1,
+        &amp;#34;datasources&amp;#34;: [
+            {
+               &amp;#34;access&amp;#34;:&amp;#34;proxy&amp;#34;,
+                &amp;#34;editable&amp;#34;: true,
+                &amp;#34;name&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;orgId&amp;#34;: 1,
+                &amp;#34;type&amp;#34;: &amp;#34;loki&amp;#34;,
+                &amp;#34;url&amp;#34;: &amp;#34;http://loki:3100&amp;#34;,
+                &amp;#34;version&amp;#34;: 1
+            }
+        ]
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2）创建 Deployment 文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@node1 grafana]# cat grafana-deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+  namespace: logging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:8.4.7
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: grafana
+          containerPort: 3000
+        env:
+        - name: GF_AUTH_BASIC_ENABLED
+          value: &amp;#34;true&amp;#34;
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: &amp;#34;false&amp;#34;
+        resources:
+          limits:
+            memory: &amp;#34;1Gi&amp;#34;
+            cpu: &amp;#34;1000m&amp;#34;
+          requests:
+            memory: 500M
+            cpu: &amp;#34;500m&amp;#34;
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 3000
+        volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-storage
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: grafana-datasources
+            readOnly: false
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: grafana-datasources
+          configMap:
+              defaultMode: 420
+              name: grafana-datasources
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+  namespace: logging
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30030
+  selector:
+    app: grafana
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://developer.aliyun.com/article/937446#slide-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用 Loki 实现 Kubernetes 容器日志监控&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/532984838&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;K8S搭建日志和监控平台&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>loki</category>
+            
+          
+        
+        
+            
+              <category>[k8s loki]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>画图</title>
+        <link>https://starifly.github.io/posts/draw/</link>
+        <pubDate>Mon, 30 Jan 2023 18:38:49 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Mon, 30 Jan 2023 18:38:49 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/draw/</guid>
+        <description>工具 5款程序员必备的免费在线画图工具，超级好用！ zen flowchart visual paradigm online，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板</description>
+        <content:encoded>&lt;h2 id=&#34;工具&#34;&gt;工具&lt;/h2&gt;
+&lt;h3 id=&#34;5款程序员必备的免费在线画图工具超级好用httpsmpweixinqqcomsbepidiecd-fcnl8fyertwq&#34;&gt;
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/bePIDiecd-fCNL8fyerTwQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;5款程序员必备的免费在线画图工具，超级好用！&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.zenflowchart.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zen flowchart&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://online.visual-paradigm.com/cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visual paradigm online&lt;/a&gt;，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板，能够直接选择并使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://app.diagrams.net/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;draw io&lt;/a&gt;，这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/139F5K6yGEYNAAT-yaEmBA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;干掉visio，这个画图神器真的绝了！！！&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.liuchengtu.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;迅捷画图&lt;/a&gt;，要论模板，论制作简单，迅捷画图也拿得出手！国产的软件，可能大家更能接受。但是，比较差的体验就是好多模板要付费。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.microsoftstore.com.cn/visio/visio-standard-2019&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Visio&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;le5le&#34;&gt;le5le&lt;/h3&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_35032509/article/details/112120712&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;在线绘图（微服务架构图、网络拓扑图、流程图）工具&lt;/a&gt;，le5le-topology是一个开源、易扩展、方便集成的在线绘图（微服务架构图、网络拓扑图、流程图、活动图、时序图、类图等）工具。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://t.le5le.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;乐吾乐&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;飞书文档&#34;&gt;飞书文档&lt;/h3&gt;
+&lt;p&gt;支持文档、脑图、流程图、表格等等，还可以很好的外链分享和协作。&lt;/p&gt;
+&lt;h3 id=&#34;d2&#34;&gt;D2&lt;/h3&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/N7vNWap2M_j0MKHm4dFZdA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;D2: 一款专用文本绘制流程图的神器&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pddon&#34;&gt;PDDON&lt;/h3&gt;
+&lt;p&gt;PDDON是一款完全免费的轻量级专业在线画图和低代码工具。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.pddon.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PDDON&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;思维导图&#34;&gt;思维导图&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://xmind.cn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xmind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://gitmind.cn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;gitmind&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;图标&#34;&gt;图标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/cncf/artwork&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/cncf/artwork&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.iconfont.cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阿里巴巴矢量图标库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/edent/SuperTinyIcons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/edent/SuperTinyIcons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://icons8.com/icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://icons8.com/icons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/kubernetes/community/tree/master/icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kubernetes/community/tree/master/icons&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一些案例&#34;&gt;一些案例&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-01.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-03.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>画图</category>
+            
+          
+        
+        
+            
+              <category>[画图]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>k8s部署EFK</title>
+        <link>https://starifly.github.io/posts/k8s-efk/</link>
+        <pubDate>Sun, 29 Jan 2023 22:24:18 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 29 Jan 2023 22:24:18 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/k8s-efk/</guid>
+        <description>elasticsearch cat elasticsearch.yaml apiVersion: apps/v1 kind: StatefulSet metadata: name: es-cluster spec: serviceName: elasticsearch replicas: 1 selector: matchLabels: app: elasticsearch template: metadata: labels: app: elasticsearch spec: containers: - name: elasticsearch #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0 image: elasticsearch:7.5.0 resources: limits: cpu: 1000m requests: cpu: 100m ports: - containerPort: 9200 name: rest protocol: TCP - containerPort: 9300 name: inter-node protocol: TCP # volumeMounts: # - name: data # mountPath: /usr/share/elasticsearch/data env: - name: cluster.name value: k8s-logs</description>
+        <content:encoded>&lt;h2 id=&#34;elasticsearch&#34;&gt;elasticsearch&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat elasticsearch.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-cluster
+spec:
+  serviceName: elasticsearch
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        #image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+        image: elasticsearch:7.5.0
+        resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 100m
+        ports:
+        - containerPort: 9200
+          name: rest
+          protocol: TCP
+        - containerPort: 9300
+          name: inter-node
+          protocol: TCP
+          #   volumeMounts:
+          #   - name: data
+          #     mountPath: /usr/share/elasticsearch/data
+        env:
+          - name: cluster.name
+            value: k8s-logs
+          - name: node.name
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: discovery.seed_hosts
+            value: &amp;#34;es-cluster-0.elasticsearch&amp;#34;
+          - name: cluster.initial_master_nodes
+            value: &amp;#34;es-cluster-0&amp;#34;
+          - name: ES_JAVA_OPTS
+            value: &amp;#34;-Xms512m -Xmx512m&amp;#34;
+      initContainers:
+      - name: increase-vm-max-map
+        image: busybox
+        command: [&amp;#34;sysctl&amp;#34;, &amp;#34;-w&amp;#34;, &amp;#34;vm.max_map_count=262144&amp;#34;]
+        securityContext:
+          privileged: true
+      - name: increase-fd-ulimit
+        image: busybox
+        command: [&amp;#34;sh&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;ulimit -n 65536&amp;#34;]
+        securityContext:
+          privileged: true
+          #  volumeClaimTemplates:
+          #  - metadata:
+          #      name: data
+          #      labels:
+          #        app: elasticsearch
+          #    spec:
+          #      accessModes: [ &amp;#34;ReadWriteOnce&amp;#34; ]
+          #      # storageClassName: &amp;#34;&amp;#34;
+          #      resources:
+          #        requests:
+          #          storage: 3Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+spec:
+  type: NodePort
+  ports:
+  - name: rest
+    nodePort: 32321
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: inter-node
+    nodePort: 32322
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;kibana&#34;&gt;kibana&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat kibana.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:7.5.0
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        env:
+          - name: ELASTICSEARCH_URL
+            value: http://elasticsearch:9200
+        ports:
+        - containerPort: 5601
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-np
+spec:
+  selector:
+    app: kibana
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 5601
+      nodePort: 30000
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;fluentd&#34;&gt;fluentd&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat fluentd.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+rules:
+- apiGroups:
+  - &amp;#34;&amp;#34;
+  resources:
+  - pods
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+---
+on: rbac.authorization.k8s.io/v1
+metadata:
+  name: fluentd
+roleRef:
+  kind: ClusterRole
+  name: fluentd
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: fluentd
+  namespace: default
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  labels:
+    app: fluentd
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
+      containers:
+      - name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
+        env:
+          - name:  FLUENT_ELASTICSEARCH_HOST
+            value: &amp;#34;elasticsearch.default.svc.cluster.local&amp;#34;
+          - name:  FLUENT_ELASTICSEARCH_PORT
+            value: &amp;#34;9200&amp;#34;
+          - name: FLUENT_ELASTICSEARCH_SCHEME
+            value: &amp;#34;http&amp;#34;
+          - name: FLUENTD_SYSTEMD_CONF
+            value: disable
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://developer.aliyun.com/article/908135#slide-21&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kubernetes 集群日志和 EFK架构日志方案&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://xie.infoq.cn/article/fea1fe9dffe70b1d729dc04cb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基于 EFK 的 Kubernetes 日志采集方案&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>k8s</category>
+            
+          
+            
+              <category>efk</category>
+            
+          
+        
+        
+            
+              <category>[k8s]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph s3 java开发相关</title>
+        <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:18:38 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-s3-java-related/</guid>
+        <description>ceps s3 java开发相关： AWS s3 java api使用 - https://blog.csdn.net/smallhujiu/article/details/87204090 https://hub.fastgit.org/aws-samples/aws-java-sample 使用 AWS SDK for Java 的 Amazon S3示例 - https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3 https://hub.fastgit.org/aws/aws-sdk-java 适用于 Java 的 AWS 开发工具包 - https://aws.amazon.com/cn/sdk-for-java/ https://docs.ceph.com/en/latest/radosgw/s3/java/ Uploading and copying objects using multipart upload - https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html 另外可以使用 https://github.com/minio/minio-java 开发</description>
+        <content:encoded>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
+&lt;p&gt;AWS s3 java api使用 - 
+
+&lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;适用于 Java 的 AWS 开发工具包 - 
+
+&lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Uploading and copying objects using multipart upload - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另外可以使用 
+
+&lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+            
+              <category>s3</category>
+            
+          
+            
+              <category>java</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
       
       <item>
         <title>Linux中病毒后的处理过程</title>
@@ -962,698 +2119,6 @@ PT_THREAD(driver_thread(struct pt *pt))
         
             
               <category>[git]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>使用Webhook和Github实现hugo的自动部署</title>
-        <link>https://starifly.github.io/posts/webhook-github-autodeploy/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sat, 18 Aug 2018 12:18:32 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/webhook-github-autodeploy/</guid>
-        <description>&lt;p&gt;之前
-
-&lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
-&lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
-&lt;p&gt;就通知该监听程序，由该监听程序执行相应的命令。现在记录一下。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;之前
-
-&lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
-&lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
-&lt;p&gt;就通知该监听程序，由该监听程序执行相应的命令。现在记录一下。&lt;/p&gt;
-&lt;h2 id=&#34;安装-webhook&#34;&gt;安装 webhook&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install webhook
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也可以到该
-
-&lt;a href=&#34;https://github.com/adnanh/webhook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;项目&lt;/a&gt;的github地址手动
-
-&lt;a href=&#34;https://github.com/adnanh/webhook/releases&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;下载&lt;/a&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;编写-webhook-的配置文件&#34;&gt;编写 webhook 的配置文件&lt;/h2&gt;
-&lt;p&gt;我的&lt;code&gt;itlaws.cn&lt;/code&gt;的markdown源码放在&lt;code&gt;/var/www/itlaws.cn&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /var/www/itlaws.cn/webhook
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch itlaws.cn-config.json
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch itlaws.cn-deploy.sh
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x itlaws.cn-deploy.sh
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;itlaws.cn-config.json&lt;/code&gt;内容为：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;itlaws.cn-deploy&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;execute-command&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/var/www/itlaws.cn/webhook/itlaws.cn-deploy.sh&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;command-working-directory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/var/www/itlaws.cn&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;id&lt;/code&gt; 是监听程序名称，自定义。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;execute-command&lt;/code&gt; 是监听程序接收到 github 的通知后执行的命令，自定义。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;command-working-directory&lt;/code&gt; 指定目录运行上述命令。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;更多的参数见官方的
-
-&lt;a href=&#34;https://github.com/adnanh/webhook/blob/master/docs/Hook-Definition.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hook definition&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;itlaws.cn-deploy.sh&lt;/code&gt;内容为：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /var/www/itlaws.cn &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git pull --recurse-submodules &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf public &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; hugo
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;测试监听程序&#34;&gt;测试监听程序&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;webhook -hooks /var/www/itlaws.cn/webhook/itlaws.cn-config.json -verbose -port&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;9000&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;-hooks&lt;/code&gt; 后面要接配置文件；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;-verbose&lt;/code&gt;表示输出日志；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;-port&lt;/code&gt;表示监听端口，自定义。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;更多的内容见
-
-&lt;a href=&#34;https://github.com/adnanh/webhook/blob/master/docs/Webhook-Parameters.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Webhook parameters&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;上述命令将在9000端口运行webhook监听程序，即：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://itlaws.cn:9000/hooks/itlaws.cn-deploy
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 github 端测试，正常。该监听程序目前是 http ，而不是 https 。&lt;/p&gt;
-&lt;h2 id=&#34;通过-supervisor-运行监听程序&#34;&gt;通过 supervisor 运行监听程序&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;supervisor&lt;/code&gt;是用于启动某种服务并监控该服务，在该服务异常退出时重启该服务。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install supervisor
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /etc/supervisor/conf.d/
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;touch webhook.conf
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;webhook.conf&lt;/code&gt;的内容为：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;program:webhook&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/var/www/itlaws.cn/webhook/webhook -hooks  /var/www/itlaws.cn/webhook/itlaws.cn-config.json -verbose -port&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;9000&lt;/span&gt; -secure -cert ssl证书的路径 -key ssl密钥路径
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;www-data
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/var/www/itlaws.cn/webhook
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;autorestart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;redirect_stderr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中，&lt;code&gt;-secure&lt;/code&gt;表示启用 &lt;code&gt;https&lt;/code&gt;，&lt;code&gt;-cert &lt;/code&gt;和&lt;code&gt;-key&lt;/code&gt;分别是 https 的证书和密钥的路径，从而把监听服务从 http 改为 https：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://itlaws.cn:9000/hooks/itlaws.cn-deploy
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;好了，大功告成。&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://itlaws.cn/post/webhook-github-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</content:encoded>
-        <dc:creator>zhoucaiqi@gmail.com</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>CI</category>
-            
-          
-            
-              <category>webhook</category>
-            
-          
-            
-              <category>github</category>
-            
-          
-            
-              <category>hugo</category>
-            
-          
-        
-        
-            
-              <category>[CI]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>Hugo 自动化部署脚本</title>
-        <link>https://starifly.github.io/posts/hugo-deploy-script/</link>
-        <pubDate>Sat, 18 Aug 2018 12:01:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sat, 18 Aug 2018 12:01:32 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/hugo-deploy-script/</guid>
-        <description>&lt;p&gt;之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。&lt;/p&gt;
-&lt;p&gt;脚本路径：
-
-&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&lt;/a&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。&lt;/p&gt;
-&lt;p&gt;脚本路径：
-
-&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;deploy.py&lt;/code&gt; 会自动执行 hugo 命令生成静态站点，然后将生成的文件拷贝到上层的一个目录里，然后，在那个目录里将文件 push 到你指定的 Git Repository 里。&lt;/p&gt;
-&lt;h3 id=&#34;使用方法&#34;&gt;使用方法&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;将 &lt;code&gt;deploy.py&lt;/code&gt; 放到你的 Hugo 站点目录。（和 config.yaml 等文件放一起）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;编辑 &lt;code&gt;deploy.py&lt;/code&gt; 文件，修改你要部署到的 Git Repository：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;GIT_REPO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# [别名,   分支名,     Git Repo 路径]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;origin&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;git@github.com:coderzh/hugo-blog-deployed.git&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;gitcafe&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;git@gitcafe.com:coderzh/coderzh-hugo-blog.git&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 部署到哪里，相对上一级目录。比如下面的配置，会部署到 ../gh-pages 目录里&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DEPLOY_DIR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果你的网站需要指定皮肤，需要在 config 文件中指定 &lt;code&gt;theme&lt;/code&gt; 。因为我的脚本在生成静态文件时并不会指定皮肤。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;rapid&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;第一次执行，使用 &lt;code&gt;first&lt;/code&gt; 参数，它会做一些初始化的操作。并使用 &lt;code&gt;-t&lt;/code&gt; 表示只是测试一下，并不会真的 push 。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py first -t
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;中间可能需要输入密码，如果是自动化部署，可在 Git Repo 里添加一个没有密码的 SSH Key 。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果一切正常，切换到 &lt;code&gt;DEPLOY_DIR&lt;/code&gt; 目录，&lt;code&gt;git log&lt;/code&gt; 看看 commit 记录是否正常。如果一切也如你所愿。则可以把 &lt;code&gt;-t&lt;/code&gt; 参数去掉重新执行一遍，执行真的 push 操作：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py first
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;执行完成后，应该已经将生成的静态页面自动 push 到了你指定的 &lt;code&gt;GIT_REPO&lt;/code&gt; 里。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;之后如需再次手工部署，只需要使用 &lt;code&gt;manual&lt;/code&gt; 参数，速度会快很多：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py manual
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果你想通过 &lt;code&gt;webhook&lt;/code&gt; 来自动部署，使用 &lt;code&gt;auto&lt;/code&gt; 参数，这样在执行 deploy.py 时，会使用 Git 自动更新你当前的 Hugo 站点目录 ，然后部署：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python deploy.py auto
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;That&amp;rsquo;s all, 祝你好运！&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://blog.coderzh.com/2015/11/21/hugo-deploy-script/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</content:encoded>
-        <dc:creator>CoderZh</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>CI</category>
-            
-          
-            
-              <category>hugo</category>
-            
-          
-        
-        
-            
-              <category>[CI]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>Vim Tips</title>
-        <link>https://starifly.github.io/posts/vim-tips/</link>
-        <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Mon, 20 Aug 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/vim-tips/</guid>
-        <description>&lt;p&gt;Vim Tips.&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;Vim Tips.&lt;/p&gt;
-&lt;style&gt;
-/* 第一列表格宽度 */
-table th:nth-of-type(1){
-width: 25%;
-}
-&lt;/style&gt;
-&lt;h2 id=&#34;general&#34;&gt;General&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;i&lt;/td&gt;
-&lt;td&gt;光标前&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;光标后&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;I&lt;/td&gt;
-&lt;td&gt;行首&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;A&lt;/td&gt;
-&lt;td&gt;行尾&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;x&lt;/td&gt;
-&lt;td&gt;删除光标所在字符&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;D&lt;/td&gt;
-&lt;td&gt;删除从当前光标到本行末尾的字符&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;r&lt;/td&gt;
-&lt;td&gt;替换光标处的字符&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;U&lt;/td&gt;
-&lt;td&gt;取消当前行中所有的改动&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;=&lt;/td&gt;
-&lt;td&gt;自动缩进&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;.&lt;/td&gt;
-&lt;td&gt;(点)会重做最后一个命令&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;V&lt;/td&gt;
-&lt;td&gt;按行选择&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;jump&#34;&gt;Jump&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;跳到第一列&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;^&lt;/td&gt;
-&lt;td&gt;跳到本行第一个非空字符&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;$&lt;/td&gt;
-&lt;td&gt;跳到本行末尾&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;g_&lt;/td&gt;
-&lt;td&gt;跳到本行最后一个非空字符&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;w&lt;/td&gt;
-&lt;td&gt;跳到下一个单词的开头&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;e&lt;/td&gt;
-&lt;td&gt;跳到这个单词的末尾&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;W&lt;/td&gt;
-&lt;td&gt;跳到下一个由空格分隔的单词的开头&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;E&lt;/td&gt;
-&lt;td&gt;跳到这个由空格分隔的单词的末尾&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;ul&gt;
-&lt;li&gt;| 跳到当前光标的下一个相同单词的地方&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;-跳到当前光标的上一个相同单词的地方&#34;&gt;| 跳到当前光标的上一个相同单词的地方&lt;/h1&gt;
-&lt;p&gt;`. | 返回最后一次编辑位置&lt;br /&gt;
-[[ | 到函数头&lt;br /&gt;
-[{ | 到块开始位置&lt;br /&gt;
-]} | 到块结束位置&lt;br /&gt;
-gf | 打开以光标所在字符串为文件名的文件&lt;br /&gt;
-gd | 跳转到局部变量的定义处&lt;br /&gt;
-gD | 跳转到全局变量的定义处，从当前文件开头开始搜索&lt;br /&gt;
-g] | 展示匹配tags的文件&lt;br /&gt;
-&lt;Ctrl&gt; E | INSERT 模式下移动光标到行尾&lt;br /&gt;
-&lt;Ctrl&gt; B | INSERT 模式下光标左移一位&lt;br /&gt;
-ctrl+w-f | 同gf，不过会水平分割一个窗口&lt;br /&gt;
-ctrl-^ | 跳转到上一个编辑的文件&lt;/p&gt;
-&lt;h2 id=&#34;pattern&#34;&gt;Pattern&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;:/ pattern&lt;CR&gt;&lt;/td&gt;
-&lt;td&gt;单词前加空格，精确匹配&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:/^pattern&lt;CR&gt;&lt;/td&gt;
-&lt;td&gt;搜索仅在行首出现&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:/pattern$&lt;CR&gt;&lt;/td&gt;
-&lt;td&gt;搜索仅在行末出现&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;buffer&#34;&gt;Buffer&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;:5,10bd&lt;/td&gt;
-&lt;td&gt;删除编号5到10的buffer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:ba&lt;/td&gt;
-&lt;td&gt;把所有缓冲区在当前页中&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:sb 3&lt;/td&gt;
-&lt;td&gt;分屏打开编号为3的buffer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:vertical sb 3&lt;/td&gt;
-&lt;td&gt;同上，垂直分屏&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;file&#34;&gt;File&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;:1,10 w outfile&lt;/td&gt;
-&lt;td&gt;1到10行内容写到outfile&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:1,10 w &amp;raquo; outfile&lt;/td&gt;
-&lt;td&gt;1到10行内容追加到outfile&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:r infile&lt;/td&gt;
-&lt;td&gt;插入文件内容&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:23r infile&lt;/td&gt;
-&lt;td&gt;插入文件23行的内容&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:e#或ctrl+^&lt;/td&gt;
-&lt;td&gt;回到刚才编辑的文件9（貌似只有:e#有效）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:f或ctrl+g&lt;/td&gt;
-&lt;td&gt;显示文件是否被修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:f filename&lt;/td&gt;
-&lt;td&gt;改变编辑的文件名&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:e!&lt;/td&gt;
-&lt;td&gt;强制回到文件原始状态&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;object&#34;&gt;Object&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;dip&lt;/td&gt;
-&lt;td&gt;删除所有临近的空白行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cab&lt;/td&gt;
-&lt;td&gt;等同于ca)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;yiB&lt;/td&gt;
-&lt;td&gt;等同于yi}&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cw&lt;/td&gt;
-&lt;td&gt;替换从光标到单词结束&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dib&lt;/td&gt;
-&lt;td&gt;删除括号内的内容&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;modify&#34;&gt;Modify&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;c[n]l&lt;/td&gt;
-&lt;td&gt;改写光标后n个字母&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c[n]h&lt;/td&gt;
-&lt;td&gt;改写光标前n个字母&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[n]cc&lt;/td&gt;
-&lt;td&gt;修改当前n行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;replace&#34;&gt;Replace&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;操作&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;:s/old/new&lt;/td&gt;
-&lt;td&gt;用new替换行中首次出现的old&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:s/old/new/g&lt;/td&gt;
-&lt;td&gt;用new替换行中所有出现的old&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:#,# s/old/new/g&lt;/td&gt;
-&lt;td&gt;用new替换从第＃行到第＃行中出现的old&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;:% s/old/new/g&lt;/td&gt;
-&lt;td&gt;用new替换整篇中出现的old&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;ul&gt;
-&lt;li&gt;如果替换的范围较大时，在所有的命令尾加一个c命令，强制每个替换需要用户进行确认，例如:s/old/new/c 或s/old/new/gc&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;相对屏幕移动&#34;&gt;相对屏幕移动&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;通过c-f向下翻页，c-b向上翻页；c-e逐行下滚，c-y逐行上滚。这在几乎所有Unix软件中都是好使的，比如man和less。 H可以移动到屏幕的首行，L到屏幕尾行，M到屏幕中间。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;others&#34;&gt;Others&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;30i+&lt;esc&gt; — 插入30个+组成的分割线&lt;/li&gt;
-&lt;li&gt;ctrl+v 下移 I // Esc&lt;/li&gt;
-&lt;li&gt;zt可以置顶当前行，通常用来查看完整的下文，比如函数、类的定义。 zz将当前行移到屏幕中部，zb移到底部。&lt;/li&gt;
-&lt;li&gt;:packadd termdebug，然后Termdebug 可执行程序名字可在vim里启用GDB&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;需要vim版本8.1以上&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</content:encoded>
-        <dc:creator>starifly</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>vim</category>
-            
-          
-            
-              <category>tips</category>
-            
-          
-        
-        
-            
-              <category>[vim]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>一套交叉编译脚本</title>
-        <link>https://starifly.github.io/posts/a-promising-cross-compile-framework/</link>
-        <pubDate>Fri, 17 Aug 2018 17:04:47 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/a-promising-cross-compile-framework/</guid>
-        <description>&lt;p&gt;现在移动平台非常火热，我们在使用C/C++开发一些移动应用的时候，经常可能需要将一些第三方c/c++库编译成对应的iOS/Android/WP/Tizen上面的静态库。&lt;br /&gt;
-之前我介绍过
-
-&lt;a href=&#34;http://zilongshanren.com/blog/2014-09-01-how-to-use-cmake-to-compile-static-library.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;如何使用CMake来编译跨平台库&lt;/a&gt;。&lt;br /&gt;
-那种方法有一个局限性，它只针对一些提供了CMake支持或者源码本身不需要configure的库来说，使用会非常方便，但是如果库本身没有提供CMake或者&lt;br /&gt;
-在编译之前需要configure的库，使用起来就会很麻烦了。最好的做法，其实是重用它本身提供的编译系统，然后提供交叉编译所需要的一些参数即可。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;现在移动平台非常火热，我们在使用C/C++开发一些移动应用的时候，经常可能需要将一些第三方c/c++库编译成对应的iOS/Android/WP/Tizen上面的静态库。&lt;br /&gt;
-之前我介绍过
-
-&lt;a href=&#34;http://zilongshanren.com/blog/2014-09-01-how-to-use-cmake-to-compile-static-library.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;如何使用CMake来编译跨平台库&lt;/a&gt;。&lt;br /&gt;
-那种方法有一个局限性，它只针对一些提供了CMake支持或者源码本身不需要configure的库来说，使用会非常方便，但是如果库本身没有提供CMake或者&lt;br /&gt;
-在编译之前需要configure的库，使用起来就会很麻烦了。最好的做法，其实是重用它本身提供的编译系统，然后提供交叉编译所需要的一些参数即可。&lt;/p&gt;
-&lt;h2 id=&#34;问题描述&#34;&gt;问题描述&lt;/h2&gt;
-&lt;p&gt;对于提供了configure/make/make install编译系统的库来说，交叉编译只需要指定&amp;ndash;build, &amp;ndash;host，然后提供CC,CXX,AR,LD,RANLIB,STRIP等编译所需要的变量，最后可能还需要指定arch，CFLAGS，CXXFLAGS和LDFLAGS即可。&lt;/p&gt;
-&lt;p&gt;而对于提供了CMake支持的库来说，我们只需要为CMake提供一个交叉编译所需要的toolchain文件即可。一般来说，一个CMake的toolchain文件如下所示:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# CMake Toolchain file for crosscompiling on ARM.
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# This can be used when running cmake in the following way:
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#  cd build/
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#  cmake .. -DCMAKE_TOOLCHAIN_FILE=../cross-arm-linux-gnueabihf.cmake
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CROSS_PATH&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;opt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gcc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;linaro&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;linux&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gnueabihf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;4.7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;2013.02&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mo&#34;&gt;01&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20130221&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_linux&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# Target operating system name.
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_SYSTEM_NAME&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Linux&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# Name of C compiler.
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_C_COMPILER&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;${CROSS_PATH}/bin/arm-linux-gnueabihf-gcc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_CXX_COMPILER&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;${CROSS_PATH}/bin/arm-linux-gnueabihf-g++&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# Where to look for the target environment. (More paths can be added here)
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_FIND_ROOT_PATH&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;${CROSS_PATH}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# Adjust the default behavior of the FIND_XXX() commands:
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# search programs in the host environment only.
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_FIND_ROOT_PATH_MODE_PROGRAM&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NEVER&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;# Search headers and libraries in the target environment only.
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CMAKE_FIND_ROOT_PATH_MODE_LIBRARY&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ONLY&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里重要的是指定编译器，sysroot和编译时的CFLAGS，CXXFLAGS等参数。具体就不在这里展开了。&lt;/p&gt;
-&lt;p&gt;为什么我要研究这些东西呢？因为cocos2d-x现在依赖20多个第三方库，如果全部采用源码的形式，那开发编译的时间会变得非常长。为了减少编译等待时间，我们一般会把第三方库事先编译好，形成一堆.a文件。然后在程序运行的时候，指定链接参数给链接器就ok了。&lt;/p&gt;
-&lt;p&gt;但是，目前我们这些库都是临时编译的。当时编译的脚本没有保留下来了，也就是不清楚编译时候所指定的参数。&lt;br /&gt;
-另外，编译各个平台下面的静态库，这本身也不是一件简单的事。如果没有相关经验，可能会无从下手。所以，我们为了解决这个问题，现在新建了一个仓库
-
-&lt;a href=&#34;https://github.com/cocos2d/cocos2d-x-3rd-party-libs-src&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cocos2d-x-3rd-party-libs-src&lt;/a&gt;. 这个仓库会把cocos2d-x所需要编译的第三方库的编译脚本全部保存在这里，如果哪一天，我们需要升级第三方库，或者发现现有的第三方库有问题，也可以从编译脚本找问题。&lt;/p&gt;
-&lt;h2 id=&#34;交叉编译一般步骤&#34;&gt;交叉编译一般步骤&lt;/h2&gt;
-&lt;p&gt;一般来讲，我们编译一个第三方库有以下几个步骤。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;下载第三方库的源码（一般下载稳定版本）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;阅读它自带的Install或者Readme文件，看看如何在本机上编译这个库&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果在本机上不能顺利编译的，可能需要自己给第三方库写patch，这样做的好处是，下次别人下载这个库，只要应用你的patch就可以顺利编译了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;指定交叉编译器，sysroot, CFLAGS, CXXFLAG等参数&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;./configure, make, make install就搞定了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;一套成形的脚本看起来，大概是
-
-&lt;a href=&#34;https://github.com/minggo/png/blob/master/build_libpng.sh&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;这样子的&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;解决办法&#34;&gt;解决办法&lt;/h2&gt;
-&lt;p&gt;如果我们为每一个库都编写这样一套脚本，那会显得非常浪费。因为基本上每个平台的脚本都大同小异，如果可以把共用的部分抽取出来就最好了。&lt;br /&gt;
-要抽取出公共的部分其实是有难度的，但是世界上做这件事情的人绝对不只你一个。本着不重复造轮子的原则，我们直接把
-
-&lt;a href=&#34;https://github.com/videolan/vlc/tree/master/contrib/src&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;VLC&lt;/a&gt;&lt;br /&gt;
-所使用的编译系统拿来改造一下就ok啦。&lt;/p&gt;
-&lt;p&gt;这套系统主要组成如下&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;它有一个bootstrap脚本，主要用来配置一些交叉编译的平台参数，如果是Android，则需要指定NDK路径，ANDROID ABI和ANDROID API的版本，是否使用neon等。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一堆rules.mk文件，每一个第三库都会编译一个rules.mk文件，用来指定交叉编译时的参数&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一个SHA512SUMS文件，主要用来对下载的第三库进行md5的验证。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一些patch，这部分是可选的。当下载的第三方库在编译时遇到困难时可能需要自己编译一些patch.编写patch非常简单，使用git diff &amp;gt; xxx.patch即可。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;具体的文档介绍，请看
-
-&lt;a href=&#34;https://github.com/cocos2d/cocos2d-x-3rd-party-libs-src/blob/master/contrib/src/README&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;README文件&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
-&lt;p&gt;编译链接这件事情，其实我之前是没有整得非常清楚的。尤其是configure, make, makefile, cmake这些东西。通过这次折腾这堆编译脚本，我学到了很多东西，对编译链接理解地更加深入了。&lt;br /&gt;
-另外，我觉得在做任何一件比较棘手的事情之前，先想想是否别人也会遇到同样的问题。他们是怎么解决的，站在巨人的肩膀上会看得更远。&lt;br /&gt;
-还有，Don&amp;rsquo;t repeat yourself!&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;http://www.jfranken.de/homepages/johannes/vortraege/make.en.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Introduction to making makefile&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;http://www.gnu.org/software/make/manual/make.html#Overview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GNU make reference&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://github.com/videolan/vlc/tree/master/contrib/src&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;VLC github&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://zilongshanren.com/blog/2014-11-02-a-promising-cross-compile-framework.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;</content:encoded>
-        <dc:creator>0owen</dc:creator>
-        
-        
-        
-        
-        
-            
-              <category>[cross compile]</category>
             
         
         

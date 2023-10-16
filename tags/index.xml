@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 30 May 2020 21:59:57 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Feb 2023 16:25:55 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,150 @@
     
 
       
+      
+      <item>
+        <title>k8s</title>
+        <link>https://starifly.github.io/tags/k8s/</link>
+        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/k8s/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>loki</title>
+        <link>https://starifly.github.io/tags/loki/</link>
+        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/loki/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>画图</title>
+        <link>https://starifly.github.io/tags/%E7%94%BB%E5%9B%BE/</link>
+        <pubDate>Mon, 30 Jan 2023 18:38:49 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/%E7%94%BB%E5%9B%BE/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>efk</title>
+        <link>https://starifly.github.io/tags/efk/</link>
+        <pubDate>Sun, 29 Jan 2023 22:24:18 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/efk/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph</title>
+        <link>https://starifly.github.io/tags/ceph/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/ceph/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>java</title>
+        <link>https://starifly.github.io/tags/java/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/java/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>rgw</title>
+        <link>https://starifly.github.io/tags/rgw/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/rgw/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>s3</title>
+        <link>https://starifly.github.io/tags/s3/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/s3/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>centos</title>
@@ -49,150 +193,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/tags/linux/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>c</title>
-        <link>https://starifly.github.io/tags/c/</link>
-        <pubDate>Sun, 02 Sep 2018 19:35:16 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/c/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>coroutine</title>
-        <link>https://starifly.github.io/tags/coroutine/</link>
-        <pubDate>Sun, 02 Sep 2018 19:35:16 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/coroutine/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>git</title>
-        <link>https://starifly.github.io/tags/git/</link>
-        <pubDate>Thu, 30 Aug 2018 21:48:45 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/git/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>CI</title>
-        <link>https://starifly.github.io/tags/ci/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/ci/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>github</title>
-        <link>https://starifly.github.io/tags/github/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/github/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>hugo</title>
-        <link>https://starifly.github.io/tags/hugo/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/hugo/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>webhook</title>
-        <link>https://starifly.github.io/tags/webhook/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/webhook/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>tips</title>
-        <link>https://starifly.github.io/tags/tips/</link>
-        <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/tips/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>画图 on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/%E7%94%BB%E5%9B%BE/</link>
+    <description>Recent content in 画图 on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Mon, 30 Jan 2023 18:38:49 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/%E7%94%BB%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>画图</title>
+        <link>https://starifly.github.io/posts/draw/</link>
+        <pubDate>Mon, 30 Jan 2023 18:38:49 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Mon, 30 Jan 2023 18:38:49 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/draw/</guid>
+        <description>工具 5款程序员必备的免费在线画图工具，超级好用！ zen flowchart visual paradigm online，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板</description>
+        <content:encoded>&lt;h2 id=&#34;工具&#34;&gt;工具&lt;/h2&gt;
+&lt;h3 id=&#34;5款程序员必备的免费在线画图工具超级好用httpsmpweixinqqcomsbepidiecd-fcnl8fyertwq&#34;&gt;
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/bePIDiecd-fCNL8fyerTwQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;5款程序员必备的免费在线画图工具，超级好用！&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.zenflowchart.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zen flowchart&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://online.visual-paradigm.com/cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visual paradigm online&lt;/a&gt;，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板，能够直接选择并使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://app.diagrams.net/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;draw io&lt;/a&gt;，这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/139F5K6yGEYNAAT-yaEmBA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;干掉visio，这个画图神器真的绝了！！！&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.liuchengtu.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;迅捷画图&lt;/a&gt;，要论模板，论制作简单，迅捷画图也拿得出手！国产的软件，可能大家更能接受。但是，比较差的体验就是好多模板要付费。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.microsoftstore.com.cn/visio/visio-standard-2019&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Visio&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;le5le&#34;&gt;le5le&lt;/h3&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_35032509/article/details/112120712&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;在线绘图（微服务架构图、网络拓扑图、流程图）工具&lt;/a&gt;，le5le-topology是一个开源、易扩展、方便集成的在线绘图（微服务架构图、网络拓扑图、流程图、活动图、时序图、类图等）工具。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://t.le5le.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;乐吾乐&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;飞书文档&#34;&gt;飞书文档&lt;/h3&gt;
+&lt;p&gt;支持文档、脑图、流程图、表格等等，还可以很好的外链分享和协作。&lt;/p&gt;
+&lt;h3 id=&#34;d2&#34;&gt;D2&lt;/h3&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/N7vNWap2M_j0MKHm4dFZdA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;D2: 一款专用文本绘制流程图的神器&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pddon&#34;&gt;PDDON&lt;/h3&gt;
+&lt;p&gt;PDDON是一款完全免费的轻量级专业在线画图和低代码工具。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.pddon.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PDDON&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;思维导图&#34;&gt;思维导图&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://xmind.cn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xmind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://gitmind.cn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;gitmind&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;图标&#34;&gt;图标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/cncf/artwork&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/cncf/artwork&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.iconfont.cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阿里巴巴矢量图标库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/edent/SuperTinyIcons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/edent/SuperTinyIcons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://icons8.com/icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://icons8.com/icons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/kubernetes/community/tree/master/icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kubernetes/community/tree/master/icons&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一些案例&#34;&gt;一些案例&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-01.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-03.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>画图</category>
+            
+          
+        
+        
+            
+              <category>[画图]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
