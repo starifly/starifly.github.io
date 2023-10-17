@@ -3,6 +3,7 @@ title: ceph s3 java开发相关
 author: starifly
 date: 2021-10-06T21:18:38+08:00
 lastmod: 2021-10-06T21:18:38+08:00
+description: 本文介绍了ceph对象存储使用java开发的方法和工具
 categories: [ceph]
 tags: [ceph,rgw,s3,java]
 draft: false
