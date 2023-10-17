@@ -1,5 +1,5 @@
 # blog
 
-[![Build Status](https://travis-ci.org/starifly/blog.svg?branch=master)](https://travis-ci.org/starifly/blog)
+[![Build Status](![](https://github.com/starifly/blog/workflows/deploy/badge.svg))](https://github.com/actions)
 
 Repository for my blog
