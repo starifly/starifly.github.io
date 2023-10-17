@@ -2026,671 +2026,671 @@
 </ul>
 <h2 id="安装-loki">安装 Loki</h2>
 <p>1）创建 RBAC 授权</p>
-<pre tabindex="0"><code>[root@node1 loki]# cat loki-rbac.yaml 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: logging
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: loki
-  namespace: logging
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: loki
-  namespace: logging
-rules:
-- apiGroups: [&#34;extensions&#34;]
-  resources: [&#34;podsecuritypolicies&#34;]
-  verbs: [&#34;use&#34;]
-  resourceNames: [loki]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: loki
-  namespace: logging
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: loki
-subjects:
-- kind: ServiceAccount
-  name: loki
-</code></pre><p>2）创建 ConfigMap 文件</p>
-<pre tabindex="0"><code>[root@node1 loki]# cat loki-configmap.yaml 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: loki
-  namespace: logging
-  labels:
-    app: loki
-data:
-  loki.yaml: |
-    auth_enabled: false
-    ingester:
-      chunk_idle_period: 3m
-      chunk_block_size: 262144
-      chunk_retain_period: 1m
-      max_transfer_retries: 0
-      lifecycler:
-        ring:
-          kvstore:
-            store: inmemory
-          replication_factor: 1
-    limits_config:
-      enforce_metric_name: false
-      reject_old_samples: true
-      reject_old_samples_max_age: 168h
-    schema_config:
-      configs:
-      - from: &#34;2022-05-15&#34;
-        store: boltdb-shipper
-        object_store: filesystem
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-    server:
-      http_listen_port: 3100
-    storage_config:
-      boltdb_shipper:
-        active_index_directory: /data/loki/boltdb-shipper-active
-        cache_location: /data/loki/boltdb-shipper-cache
-        cache_ttl: 24h         
-        shared_store: filesystem
-      filesystem:
-        directory: /data/loki/chunks
-    chunk_store_config:
-      max_look_back_period: 0s
-    table_manager:
-      retention_deletes_enabled: true
-      retention_period: 48h
-    compactor:
-      working_directory: /data/loki/boltdb-shipper-compactor
-      shared_store: filesystem
-</code></pre><p>3）创建 StatefulSet</p>
-<pre tabindex="0"><code>[root@node1 loki]# cat loki-statefulset.yaml 
-apiVersion: v1
-kind: Service
-metadata:
-  name: loki
-  namespace: logging
-  labels:
-    app: loki
-spec:
-  type: NodePort
-  ports:
-    - port: 3100
-      protocol: TCP
-      name: http-metrics
-      targetPort: http-metrics
-      nodePort: 30100
-  selector:
-    app: loki
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: loki
-  namespace: logging
-  labels:
-    app: loki
-spec:
-  podManagementPolicy: OrderedReady
-  replicas: 1
-  selector:
-    matchLabels:
-      app: loki
-  serviceName: loki
-  updateStrategy:
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        app: loki
-    spec:
-      serviceAccountName: loki
-      initContainers:
-      - name: chmod-data
-        image: busybox:1.28.4
-        imagePullPolicy: IfNotPresent
-        command: [&#34;chmod&#34;,&#34;-R&#34;,&#34;777&#34;,&#34;/loki/data&#34;]
-        volumeMounts:
-        - name: storage
-          mountPath: /loki/data
-      containers:
-        - name: loki
-          image: grafana/loki:2.3.0
-          imagePullPolicy: IfNotPresent
-          args:
-            - -config.file=/etc/loki/loki.yaml
-          volumeMounts:
-            - name: config
-              mountPath: /etc/loki
-            - name: storage
-              mountPath: /data
-          ports:
-            - name: http-metrics
-              containerPort: 3100
-              protocol: TCP
-          livenessProbe:
-            httpGet: 
-              path: /ready
-              port: http-metrics
-              scheme: HTTP
-            initialDelaySeconds: 45
-          readinessProbe:
-            httpGet: 
-              path: /ready
-              port: http-metrics
-              scheme: HTTP
-            initialDelaySeconds: 45
-          securityContext:
-            readOnlyRootFilesystem: true
-      terminationGracePeriodSeconds: 4800
-      volumes:
-        - name: config
-          configMap:
-            name: loki
-        - name: storage
-          hostPath:
-            path: /app/loki
-</code></pre><h2 id="安装-promtail">安装 Promtail</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 loki]# cat loki-rbac.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Role</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;extensions&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;podsecuritypolicies&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;use&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resourceNames</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">loki]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Role</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span></code></pre></div><p>2）创建 ConfigMap 文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 loki]# cat loki-configmap.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">loki.yaml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    auth_enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="sd">    ingester:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_idle_period: 3m
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_block_size: 262144
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_retain_period: 1m
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_transfer_retries: 0
+</span></span></span><span class="line"><span class="cl"><span class="sd">      lifecycler:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        ring:
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kvstore:
+</span></span></span><span class="line"><span class="cl"><span class="sd">            store: inmemory
+</span></span></span><span class="line"><span class="cl"><span class="sd">          replication_factor: 1
+</span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      enforce_metric_name: false
+</span></span></span><span class="line"><span class="cl"><span class="sd">      reject_old_samples: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      reject_old_samples_max_age: 168h
+</span></span></span><span class="line"><span class="cl"><span class="sd">    schema_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - from: &#34;2022-05-15&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        store: boltdb-shipper
+</span></span></span><span class="line"><span class="cl"><span class="sd">        object_store: filesystem
+</span></span></span><span class="line"><span class="cl"><span class="sd">        schema: v11
+</span></span></span><span class="line"><span class="cl"><span class="sd">        index:
+</span></span></span><span class="line"><span class="cl"><span class="sd">          prefix: index_
+</span></span></span><span class="line"><span class="cl"><span class="sd">          period: 24h
+</span></span></span><span class="line"><span class="cl"><span class="sd">    server:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      http_listen_port: 3100
+</span></span></span><span class="line"><span class="cl"><span class="sd">    storage_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      boltdb_shipper:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        active_index_directory: /data/loki/boltdb-shipper-active
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_location: /data/loki/boltdb-shipper-cache
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_ttl: 24h         
+</span></span></span><span class="line"><span class="cl"><span class="sd">        shared_store: filesystem
+</span></span></span><span class="line"><span class="cl"><span class="sd">      filesystem:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        directory: /data/loki/chunks
+</span></span></span><span class="line"><span class="cl"><span class="sd">    chunk_store_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_look_back_period: 0s
+</span></span></span><span class="line"><span class="cl"><span class="sd">    table_manager:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_deletes_enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 48h
+</span></span></span><span class="line"><span class="cl"><span class="sd">    compactor:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      working_directory: /data/loki/boltdb-shipper-compactor
+</span></span></span><span class="line"><span class="cl"><span class="sd">      shared_store: filesystem</span><span class="w">    
+</span></span></span></code></pre></div><p>3）创建 StatefulSet</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 loki]# cat loki-statefulset.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">3100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">podManagementPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OrderedReady</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">updateStrategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RollingUpdate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">chmod-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox:1.28.4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;chmod&#34;</span><span class="p">,</span><span class="s2">&#34;-R&#34;</span><span class="p">,</span><span class="s2">&#34;777&#34;</span><span class="p">,</span><span class="s2">&#34;/loki/data&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/loki/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/loki:2.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- -<span class="l">config.file=/etc/loki/loki.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">3100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/ready</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/ready</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnlyRootFilesystem</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">terminationGracePeriodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">4800</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/app/loki</span><span class="w">
+</span></span></span></code></pre></div><h2 id="安装-promtail">安装 Promtail</h2>
 <p>1）创建 RBAC 授权文件</p>
-<pre tabindex="0"><code>[root@node1 promtail]# cat promtail-rbac.yaml 
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: loki-promtail
-  labels:
-    app: promtail
-  namespace: logging 
----
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  labels:
-    app: promtail
-  name: promtail-clusterrole
-  namespace: logging
-rules:
-- apiGroups: [&#34;&#34;]
-  resources: [&#34;nodes&#34;,&#34;nodes/proxy&#34;,&#34;services&#34;,&#34;endpoints&#34;,&#34;pods&#34;]
-  verbs: [&#34;get&#34;, &#34;watch&#34;, &#34;list&#34;] 
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: promtail-clusterrolebinding
-  labels:
-    app: promtail
-  namespace: logging
-subjects:
-  - kind: ServiceAccount
-    name: loki-promtail
-    namespace: logging
-roleRef:
-  kind: ClusterRole
-  name: promtail-clusterrole
-  apiGroup: rbac.authorization.k8s.io
-</code></pre><p>2）创建 ConfigMap 文件</p>
-<pre tabindex="0"><code>[root@node1 promtail]# cat promtail-configmap.yaml 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: loki-promtail
-  namespace: logging
-  labels:
-    app: promtail
-data:
-  promtail.yaml: |
-    client:
-      backoff_config:
-        max_period: 5m 
-        max_retries: 10
-        min_period: 500ms
-      batchsize: 1048576
-      batchwait: 1s
-      external_labels: {}
-      timeout: 10s
-    positions:
-      filename: /run/promtail/positions.yaml
-    server:
-      http_listen_port: 3101
-    target_config:
-      sync_period: 10s
-    scrape_configs:
-    - job_name: kubernetes-pods-name
-      pipeline_stages:
-        - docker: {}
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-      - source_labels:
-        - __meta_kubernetes_pod_label_name
-        target_label: __service__
-      - source_labels:
-        - __meta_kubernetes_pod_node_name
-        target_label: __host__
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __service__
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
-      - action: replace
-        replacement: $1
-        separator: /
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __service__
-        target_label: job
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_name
-        target_label: pod
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_container_name
-        target_label: container
-      - replacement: /var/log/pods/*$1/*.log
-        separator: /
-        source_labels:
-        - __meta_kubernetes_pod_uid
-        - __meta_kubernetes_pod_container_name
-        target_label: __path__
-    - job_name: kubernetes-pods-app
-      pipeline_stages:
-        - docker: {}
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-      - action: drop
-        regex: .+
-        source_labels:
-        - __meta_kubernetes_pod_label_name
-      - source_labels:
-        - __meta_kubernetes_pod_label_app
-        target_label: __service__
-      - source_labels:
-        - __meta_kubernetes_pod_node_name
-        target_label: __host__
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __service__
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
-      - action: replace
-        replacement: $1
-        separator: /
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __service__
-        target_label: job
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_name
-        target_label: pod
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_container_name
-        target_label: container
-      - replacement: /var/log/pods/*$1/*.log
-        separator: /
-        source_labels:
-        - __meta_kubernetes_pod_uid
-        - __meta_kubernetes_pod_container_name
-        target_label: __path__
-    - job_name: kubernetes-pods-direct-controllers
-      pipeline_stages:
-        - docker: {}
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-      - action: drop
-        regex: .+
-        separator: &#39;&#39;
-        source_labels:
-        - __meta_kubernetes_pod_label_name
-        - __meta_kubernetes_pod_label_app
-      - action: drop
-        regex: &#39;[0-9a-z-.]+-[0-9a-f]{8,10}&#39;
-        source_labels:
-        - __meta_kubernetes_pod_controller_name
-      - source_labels:
-        - __meta_kubernetes_pod_controller_name
-        target_label: __service__
-      - source_labels:
-        - __meta_kubernetes_pod_node_name
-        target_label: __host__
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __service__
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
-      - action: replace
-        replacement: $1
-        separator: /
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __service__
-        target_label: job
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_name
-        target_label: pod
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_container_name
-        target_label: container
-      - replacement: /var/log/pods/*$1/*.log
-        separator: /
-        source_labels:
-        - __meta_kubernetes_pod_uid
-        - __meta_kubernetes_pod_container_name
-        target_label: __path__
-    - job_name: kubernetes-pods-indirect-controller
-      pipeline_stages:
-        - docker: {}
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-      - action: drop
-        regex: .+
-        separator: &#39;&#39;
-        source_labels:
-        - __meta_kubernetes_pod_label_name
-        - __meta_kubernetes_pod_label_app
-      - action: keep
-        regex: &#39;[0-9a-z-.]+-[0-9a-f]{8,10}&#39;
-        source_labels:
-        - __meta_kubernetes_pod_controller_name
-      - action: replace
-        regex: &#39;([0-9a-z-.]+)-[0-9a-f]{8,10}&#39;
-        source_labels:
-        - __meta_kubernetes_pod_controller_name
-        target_label: __service__
-      - source_labels:
-        - __meta_kubernetes_pod_node_name
-        target_label: __host__
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __service__
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
-      - action: replace
-        replacement: $1
-        separator: /
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __service__
-        target_label: job
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_name
-        target_label: pod
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_container_name
-        target_label: container
-      - replacement: /var/log/pods/*$1/*.log
-        separator: /
-        source_labels:
-        - __meta_kubernetes_pod_uid
-        - __meta_kubernetes_pod_container_name
-        target_label: __path__
-    - job_name: kubernetes-pods-static
-      pipeline_stages:
-        - docker: {}
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_label_component
-        target_label: __service__
-      - source_labels:
-        - __meta_kubernetes_pod_node_name
-        target_label: __host__
-      - action: drop
-        regex: &#39;&#39;
-        source_labels:
-        - __service__
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
-      - action: replace
-        replacement: $1
-        separator: /
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __service__
-        target_label: job
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_name
-        target_label: pod
-      - action: replace
-        source_labels:
-        - __meta_kubernetes_pod_container_name
-        target_label: container
-      - replacement: /var/log/pods/*$1/*.log
-        separator: /
-        source_labels:
-        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
-        - __meta_kubernetes_pod_container_name
-        target_label: __path__
-</code></pre><p>3）创建 DaemonSet 文件</p>
-<pre tabindex="0"><code>[root@node1 promtail]# cat promtail-daemonset.yaml 
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: loki-promtail
-  namespace: logging
-  labels:
-    app: promtail
-spec:
-  selector:
-    matchLabels:
-      app: promtail
-  updateStrategy:
-    rollingUpdate:
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        app: promtail
-    spec:
-      serviceAccountName: loki-promtail
-      containers:
-        - name: promtail
-          image: grafana/promtail:2.3.0
-          imagePullPolicy: IfNotPresent
-          args: 
-          - -config.file=/etc/promtail/promtail.yaml
-          - -client.url=http://loki:3100/loki/api/v1/push
-          env: 
-          - name: HOSTNAME
-            valueFrom: 
-              fieldRef: 
-                apiVersion: v1
-                fieldPath: spec.nodeName
-          volumeMounts:
-          - mountPath: /etc/promtail
-            name: config
-          - mountPath: /run/promtail
-            name: run
-          - mountPath: /var/lib/docker/containers
-            name: docker
-            readOnly: true
-          - mountPath: /var/log/pods
-            name: pods
-            readOnly: true
-          ports:
-          - containerPort: 3101
-            name: http-metrics
-            protocol: TCP
-          securityContext:
-            readOnlyRootFilesystem: true
-            runAsGroup: 0
-            runAsUser: 0
-          readinessProbe:
-            failureThreshold: 5
-            httpGet:
-              path: /ready
-              port: http-metrics
-              scheme: HTTP
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-      tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Exists
-      volumes:
-        - name: config
-          configMap:
-            name: loki-promtail
-        - name: run
-          hostPath:
-            path: /run/promtail
-            type: &#34;&#34;
-        - name: docker
-          hostPath:
-            path: /var/lib/docker/containers
-        - name: pods
-          hostPath:
-            path: /var/log/pods
-</code></pre><h2 id="安装-grafana">安装 Grafana</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 promtail]# cat promtail-rbac.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">promtail-clusterrole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;nodes&#34;</span><span class="p">,</span><span class="s2">&#34;nodes/proxy&#34;</span><span class="p">,</span><span class="s2">&#34;services&#34;</span><span class="p">,</span><span class="s2">&#34;endpoints&#34;</span><span class="p">,</span><span class="s2">&#34;pods&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">promtail-clusterrolebinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">promtail-clusterrole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span></code></pre></div><p>2）创建 ConfigMap 文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 promtail]# cat promtail-configmap.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">promtail.yaml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    client:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      backoff_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        max_period: 5m 
+</span></span></span><span class="line"><span class="cl"><span class="sd">        max_retries: 10
+</span></span></span><span class="line"><span class="cl"><span class="sd">        min_period: 500ms
+</span></span></span><span class="line"><span class="cl"><span class="sd">      batchsize: 1048576
+</span></span></span><span class="line"><span class="cl"><span class="sd">      batchwait: 1s
+</span></span></span><span class="line"><span class="cl"><span class="sd">      external_labels: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      timeout: 10s
+</span></span></span><span class="line"><span class="cl"><span class="sd">    positions:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      filename: /run/promtail/positions.yaml
+</span></span></span><span class="line"><span class="cl"><span class="sd">    server:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      http_listen_port: 3101
+</span></span></span><span class="line"><span class="cl"><span class="sd">    target_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      sync_period: 10s
+</span></span></span><span class="line"><span class="cl"><span class="sd">    scrape_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">    - job_name: kubernetes-pods-name
+</span></span></span><span class="line"><span class="cl"><span class="sd">      pipeline_stages:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - docker: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - role: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_node_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __host__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: labelmap
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: __meta_kubernetes_pod_label_(.+)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        replacement: $1
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: job
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: container
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - replacement: /var/log/pods/*$1/*.log
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_uid
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __path__
+</span></span></span><span class="line"><span class="cl"><span class="sd">    - job_name: kubernetes-pods-app
+</span></span></span><span class="line"><span class="cl"><span class="sd">      pipeline_stages:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - docker: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - role: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: .+
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_app
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_node_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __host__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: labelmap
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: __meta_kubernetes_pod_label_(.+)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        replacement: $1
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: job
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: container
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - replacement: /var/log/pods/*$1/*.log
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_uid
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __path__
+</span></span></span><span class="line"><span class="cl"><span class="sd">    - job_name: kubernetes-pods-direct-controllers
+</span></span></span><span class="line"><span class="cl"><span class="sd">      pipeline_stages:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - docker: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - role: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: .+
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_app
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;[0-9a-z-.]+-[0-9a-f]{8,10}&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_controller_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_controller_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_node_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __host__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: labelmap
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: __meta_kubernetes_pod_label_(.+)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        replacement: $1
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: job
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: container
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - replacement: /var/log/pods/*$1/*.log
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_uid
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __path__
+</span></span></span><span class="line"><span class="cl"><span class="sd">    - job_name: kubernetes-pods-indirect-controller
+</span></span></span><span class="line"><span class="cl"><span class="sd">      pipeline_stages:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - docker: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - role: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: .+
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_app
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: keep
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;[0-9a-z-.]+-[0-9a-f]{8,10}&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_controller_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;([0-9a-z-.]+)-[0-9a-f]{8,10}&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_controller_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_node_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __host__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: labelmap
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: __meta_kubernetes_pod_label_(.+)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        replacement: $1
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: job
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: container
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - replacement: /var/log/pods/*$1/*.log
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_uid
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __path__
+</span></span></span><span class="line"><span class="cl"><span class="sd">    - job_name: kubernetes-pods-static
+</span></span></span><span class="line"><span class="cl"><span class="sd">      pipeline_stages:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - docker: {}
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - role: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_label_component
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_node_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __host__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: drop
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: &#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: labelmap
+</span></span></span><span class="line"><span class="cl"><span class="sd">        regex: __meta_kubernetes_pod_label_(.+)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        replacement: $1
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __service__
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: job
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: namespace
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: pod
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - action: replace
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: container
+</span></span></span><span class="line"><span class="cl"><span class="sd">      - replacement: /var/log/pods/*$1/*.log
+</span></span></span><span class="line"><span class="cl"><span class="sd">        separator: /
+</span></span></span><span class="line"><span class="cl"><span class="sd">        source_labels:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - __meta_kubernetes_pod_container_name
+</span></span></span><span class="line"><span class="cl"><span class="sd">        target_label: __path__</span><span class="w">    
+</span></span></span></code></pre></div><p>3）创建 DaemonSet 文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 promtail]# cat promtail-daemonset.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">DaemonSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">updateStrategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RollingUpdate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/promtail:2.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- -<span class="l">config.file=/etc/promtail/promtail.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- -<span class="l">client.url=http://loki:3100/loki/api/v1/push</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">HOSTNAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">spec.nodeName</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/run/promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">run</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/docker/containers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log/pods</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pods</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">3101</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnlyRootFilesystem</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">runAsGroup</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/ready</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l">http-metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="l">NoSchedule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">node-role.kubernetes.io/master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">Exists</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki-promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">run</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/run/promtail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/docker/containers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pods</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log/pods</span><span class="w">
+</span></span></span></code></pre></div><h2 id="安装-grafana">安装 Grafana</h2>
 <p>1）创建 ConfigMap 文件</p>
-<pre tabindex="0"><code>[root@node1 grafana]# cat grafana-configmap.yaml 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-datasources
-  namespace: logging
-data:
-  prometheus.yaml: |-
-    {
-        &#34;apiVersion&#34;: 1,
-        &#34;datasources&#34;: [
-            {
-               &#34;access&#34;:&#34;proxy&#34;,
-                &#34;editable&#34;: true,
-                &#34;name&#34;: &#34;loki&#34;,
-                &#34;orgId&#34;: 1,
-                &#34;type&#34;: &#34;loki&#34;,
-                &#34;url&#34;: &#34;http://loki:3100&#34;,
-                &#34;version&#34;: 1
-            }
-        ]
-    }
-</code></pre><p>2）创建 Deployment 文件</p>
-<pre tabindex="0"><code>[root@node1 grafana]# cat grafana-deploy.yaml 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: grafana
-  labels:
-    app: grafana
-  namespace: logging
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: grafana
-  template:
-    metadata:
-      labels:
-        app: grafana
-    spec:
-      containers:
-      - name: grafana
-        image: grafana/grafana:8.4.7
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: grafana
-          containerPort: 3000
-        env:
-        - name: GF_AUTH_BASIC_ENABLED
-          value: &#34;true&#34;
-        - name: GF_AUTH_ANONYMOUS_ENABLED
-          value: &#34;false&#34;
-        resources:
-          limits:
-            memory: &#34;1Gi&#34;
-            cpu: &#34;1000m&#34;
-          requests:
-            memory: 500M
-            cpu: &#34;500m&#34;
-        readinessProbe:
-          httpGet:
-            path: /login
-            port: 3000
-        volumeMounts:
-          - mountPath: /var/lib/grafana
-            name: grafana-storage
-          - mountPath: /etc/grafana/provisioning/datasources
-            name: grafana-datasources
-            readOnly: false
-      volumes:
-        - name: grafana-storage
-          emptyDir: {}
-        - name: grafana-datasources
-          configMap:
-              defaultMode: 420
-              name: grafana-datasources
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: grafana
-  labels:
-    app: grafana
-  namespace: logging
-spec:
-  type: NodePort
-  ports:
-  - port: 3000
-    targetPort: 3000
-    nodePort: 30030
-  selector:
-    app: grafana
-</code></pre><h2 id="reference">Reference</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 grafana]# cat grafana-configmap.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-datasources</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus.yaml</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &#34;apiVersion&#34;: 1,
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &#34;datasources&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="sd">            {
+</span></span></span><span class="line"><span class="cl"><span class="sd">               &#34;access&#34;:&#34;proxy&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;editable&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;name&#34;: &#34;loki&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;orgId&#34;: 1,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;type&#34;: &#34;loki&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;url&#34;: &#34;http://loki:3100&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;version&#34;: 1
+</span></span></span><span class="line"><span class="cl"><span class="sd">            }
+</span></span></span><span class="line"><span class="cl"><span class="sd">        ]
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>2）创建 Deployment 文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@node1 grafana]# cat grafana-deploy.yaml </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/grafana:8.4.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GF_AUTH_BASIC_ENABLED</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GF_AUTH_ANONYMOUS_ENABLED</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;false&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1Gi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1000m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">500M</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/login</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/grafana/provisioning/datasources</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-datasources</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-datasources</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="m">420</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana-datasources</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30030</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span></code></pre></div><h2 id="reference">Reference</h2>
 <ul>
 <li>
 
