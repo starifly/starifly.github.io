@@ -3,6 +3,7 @@ title: 一个“蝇量级” C 语言协程库
 author: starifly
 date: 2018-09-02T19:35:16+08:00
 lastmod: 2018-09-06
+description: 协程 (coroutine) 顾名思义就是“协作的例程”（co-operative routines）。跟具有操作系统概念的线程不一样，协程是在用户空间利用程序语言的语法语义就能实现逻辑上类似多任务的编程技巧。
 categories: [c]
 tags: [c, coroutine]
 slug: a-c-coroutine
