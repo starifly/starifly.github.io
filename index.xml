@@ -1799,22 +1799,22 @@ PT_THREAD(driver_thread(struct pt *pt))
 
 &lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》介绍了Git的基本概念和一些基本操作。&lt;/p&gt;
 &lt;p&gt;本文将介绍Git四个阶段的撤销更改：&lt;/p&gt;
-&lt;ol&gt;
+&lt;ul&gt;
 &lt;li&gt;工作区的代码撤销&lt;/li&gt;
 &lt;li&gt;add到暂存区的代码想撤销&lt;/li&gt;
 &lt;li&gt;提交到本地仓库的代码想撤销&lt;/li&gt;
 &lt;li&gt;推送到远程仓库的代码想撤销&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;/ul&gt;</description>
         <content:encoded>&lt;p&gt;前文《
 
 &lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》介绍了Git的基本概念和一些基本操作。&lt;/p&gt;
 &lt;p&gt;本文将介绍Git四个阶段的撤销更改：&lt;/p&gt;
-&lt;ol&gt;
+&lt;ul&gt;
 &lt;li&gt;工作区的代码撤销&lt;/li&gt;
 &lt;li&gt;add到暂存区的代码想撤销&lt;/li&gt;
 &lt;li&gt;提交到本地仓库的代码想撤销&lt;/li&gt;
 &lt;li&gt;推送到远程仓库的代码想撤销&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;工作区代码的撤销&#34;&gt;工作区代码的撤销&lt;/h2&gt;
 &lt;p&gt;如果我们在工作区修改了文件，状态会变为Modified，这时忽然发现写错了想回到一开始未修改状态，愚蠢的办法是打开文件一个一个的去恢复，其实可以通过&lt;code&gt;git checkout .&lt;/code&gt;命令来一键撤销工作区的代码修改，&lt;br /&gt;
 当然也可以通过&lt;code&gt;git checkout -- &amp;lt;filename&amp;gt;&lt;/code&gt;命令来指定撤销的文件。&lt;/p&gt;
