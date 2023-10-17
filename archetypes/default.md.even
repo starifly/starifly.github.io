@@ -1,0 +1,11 @@
+---
+title: {{ replace .Name "-" " " | title }}
+author: starifly
+date: {{ .Date }}
+lastmod: {{ .Date }}
+categories: []
+tags: []
+draft: true
+slug: {{ .Name  }}
+---
+
