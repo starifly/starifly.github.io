@@ -2026,28 +2026,29 @@
 </ul>
 <h2 id="操作步骤">操作步骤</h2>
 <p><strong>准备存储池</strong></p>
-<p>for pool in sync.rgw.meta sync.rgw.log sync.rgw.control sync.rgw.buckets.non-ec sync.rgw.buckets.index sync.rgw.buckets.data; do ceph osd pool create $pool 16 16 replicated; done</p>
-<p><strong>创建新区域</strong></p>
-<p>radosgw-admin zone create &ndash;rgw-zonegroup=default &ndash;rgw-zone=sync &ndash;endpoints=http://192.168.5.128:7480/ &ndash;tier-type=cloud</p>
-<p><strong>修改现有区域</strong></p>
-<p>radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=default &ndash;endpoints=http://192.168.5.203:20003</p>
-<p><strong>配置同步区域以使用此系统用户</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> pool in sync.rgw.meta sync.rgw.log sync.rgw.control sync.rgw.buckets.non-ec sync.rgw.buckets.index sync.rgw.buckets.data<span class="p">;</span> <span class="k">do</span> ceph osd pool create <span class="nv">$pool</span> <span class="m">16</span> <span class="m">16</span> replicated<span class="p">;</span> <span class="k">done</span>
+</span></span></code></pre></div><p><strong>创建新区域</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zone create --rgw-zonegroup<span class="o">=</span>default --rgw-zone<span class="o">=</span>sync --endpoints<span class="o">=</span>http://192.168.5.128:7480/ --tier-type<span class="o">=</span>cloud
+</span></span></code></pre></div><p><strong>修改现有区域</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zone modify --rgw-zonegroup<span class="o">=</span>default --rgw-zone<span class="o">=</span>default --endpoints<span class="o">=</span>http://192.168.5.203:20003
+</span></span></code></pre></div><p><strong>配置同步区域以使用此系统用户</strong></p>
 <p>我们将更改两个区域以使用我们的新系统用户。</p>
-<p>radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=default &ndash;access-key=GVGIA33TY7G86W1QDYKV &ndash;secret=0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L</p>
-<p>radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=sync &ndash;access-key=GVGIA33TY7G86W1QDYKV &ndash;secret=0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L</p>
-<p><strong>确保默认区域是主区域</strong></p>
-<p>radosgw-admin zonegroup get，实际上虽然查询default zone是master，但是下面这条语句还是要执行一次。</p>
-<p>如果defaultzone 不是 master，则可以通过执行强制它radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=default &ndash;master &ndash;default</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zone modify --rgw-zonegroup<span class="o">=</span>default --rgw-zone<span class="o">=</span>default --access-key<span class="o">=</span>GVGIA33TY7G86W1QDYKV --secret<span class="o">=</span>0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin zone modify --rgw-zonegroup<span class="o">=</span>default --rgw-zone<span class="o">=</span>sync --access-key<span class="o">=</span>GVGIA33TY7G86W1QDYKV --secret<span class="o">=</span>0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+</span></span></code></pre></div><p><strong>确保默认区域是主区域</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zonegroup get，实际上虽然查询default zone是master，但是下面这条语句还是要执行一次。
+</span></span></code></pre></div><p>如果defaultzone 不是 master，则可以通过执行强制它radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=default &ndash;master &ndash;default</p>
 <p><strong>提交更改并验证配置</strong></p>
-<p>radosgw-admin period update &ndash;commit</p>
-<p><strong>配置新区域以同步数据到目的集群</strong></p>
-<p>radosgw-admin zone modify &ndash;rgw-zonegroup=default &ndash;rgw-zone=sync &ndash;tier-config=connection.endpoint=http://192.168.4.13:7480,connection.access_key=JO4RQ1787A6OGI6XMFDW,connection.secret=Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path=${bucket}</p>
-<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin period update --commit
+</span></span></code></pre></div><p><strong>配置新区域以同步数据到目的集群</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zone modify --rgw-zonegroup<span class="o">=</span>default --rgw-zone<span class="o">=</span>sync --tier-config<span class="o">=</span>connection.endpoint<span class="o">=</span>http://192.168.4.13:7480,connection.access_key<span class="o">=</span>JO4RQ1787A6OGI6XMFDW,connection.secret<span class="o">=</span>Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path<span class="o">=</span><span class="se">\$\{</span>bucket<span class="se">\}</span>
+</span></span></code></pre></div><blockquote>
 <p>其中的 target_path 代表同步的目的位置，这里我们配置成源 bucket 对应的位置。</p>
 </blockquote>
 <p><strong>提交更改</strong></p>
-<p>radosgw-admin zone get &ndash;rgw-zone=sync</p>
-<p><strong>配置 RGW</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">radosgw-admin zone get --rgw-zone<span class="o">=</span>sync
+</span></span></code></pre></div><p><strong>配置 RGW</strong></p>
 <p>我们须修改源集群 rgw（192.168.5.203） 的配置和 同步 rgw（192.168.5.128） 实例的配置</p>
 <p>在 ceph 配置 rgw 段增加如下配置：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">ceph001</span>

@@ -75,28 +75,29 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;准备存储池&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;for pool in sync.rgw.meta sync.rgw.log sync.rgw.control sync.rgw.buckets.non-ec sync.rgw.buckets.index sync.rgw.buckets.data; do ceph osd pool create $pool 16 16 replicated; done&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;创建新区域&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone create &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=sync &amp;ndash;endpoints=http://192.168.5.128:7480/ &amp;ndash;tier-type=cloud&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修改现有区域&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=default &amp;ndash;endpoints=http://192.168.5.203:20003&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;配置同步区域以使用此系统用户&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; pool in sync.rgw.meta sync.rgw.log sync.rgw.control sync.rgw.buckets.non-ec sync.rgw.buckets.index sync.rgw.buckets.data&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ceph osd pool create &lt;span class=&#34;nv&#34;&gt;$pool&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; replicated&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;创建新区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone create --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --endpoints&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.5.128:7480/ --tier-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cloud
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;修改现有区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --endpoints&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.5.203:20003
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置同步区域以使用此系统用户&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们将更改两个区域以使用我们的新系统用户。&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=default &amp;ndash;access-key=GVGIA33TY7G86W1QDYKV &amp;ndash;secret=0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=sync &amp;ndash;access-key=GVGIA33TY7G86W1QDYKV &amp;ndash;secret=0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;确保默认区域是主区域&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin zonegroup get，实际上虽然查询default zone是master，但是下面这条语句还是要执行一次。&lt;/p&gt;
-&lt;p&gt;如果defaultzone 不是 master，则可以通过执行强制它radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=default &amp;ndash;master &amp;ndash;default&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --access-key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GVGIA33TY7G86W1QDYKV --secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --access-key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GVGIA33TY7G86W1QDYKV --secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;确保默认区域是主区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zonegroup get，实际上虽然查询default zone是master，但是下面这条语句还是要执行一次。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果defaultzone 不是 master，则可以通过执行强制它radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=default &amp;ndash;master &amp;ndash;default&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提交更改并验证配置&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;配置新区域以同步数据到目的集群&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=sync &amp;ndash;tier-config=connection.endpoint=http://192.168.4.13:7480,connection.access_key=JO4RQ1787A6OGI6XMFDW,connection.secret=Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path=${bucket}&lt;/p&gt;
-&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin period update --commit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置新区域以同步数据到目的集群&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --tier-config&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;connection.endpoint&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.4.13:7480,connection.access_key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;JO4RQ1787A6OGI6XMFDW,connection.secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\$\{&lt;/span&gt;bucket&lt;span class=&#34;se&#34;&gt;\}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;其中的 target_path 代表同步的目的位置，这里我们配置成源 bucket 对应的位置。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;提交更改&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;radosgw-admin zone get &amp;ndash;rgw-zone=sync&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;配置 RGW&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone get --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置 RGW&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们须修改源集群 rgw（192.168.5.203） 的配置和 同步 rgw（192.168.5.128） 实例的配置&lt;/p&gt;
 &lt;p&gt;在 ceph 配置 rgw 段增加如下配置：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cfg&#34; data-lang=&#34;cfg&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;host&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;ceph001&lt;/span&gt;
