@@ -1370,9 +1370,9 @@
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
 
-<meta name="created" content="2023-01-26T19:01:44&#43;0800">
-<meta name="modified" content="2023-01-26T19:01:44&#43;0800">
-<meta property="article:published_time" content="2023-01-26T19:01:44&#43;0800">
+<meta name="created" content="2023-01-26T19:06:05&#43;0800">
+<meta name="modified" content="2023-01-26T19:06:05&#43;0800">
+<meta property="article:published_time" content="2023-01-26T19:06:05&#43;0800">
 
 <meta name="author" content="飞鸟">
 
@@ -1988,6 +1988,41 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-hardware-layout-reference/'>ceph硬件布置参考</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            1、网络拓扑参考 2、设备位置图参考 3、服务器配置信息及运行服务统计 一般来说，内存越多越好。 对于一个中等规模的集群，监视/管理器节点可以使用6
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-crushmap/'>ceph故障域</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
@@ -2002,6 +2037,146 @@
         <div class="summary-classic__text p2">
           
             准备 1、执行ceph -s确认存储集群状态，保证为健康状态。 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum ceph001,ceph002,ceph003 (age 41m) mgr: ceph001(active, since 43m), standbys: ceph003 mds: cephfs:1 {0=ceoh002=up:active} 2 up:standby osd: 6 osds: 6 up (since 3m), 6 in (since 3m) rgw: 3
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/'>Ceph如何扩展到超过十亿个对象</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            https://stor.51cto.com/art/202006/618273.htm#topx
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/'>ceph在不复制rgw的情况下配置多个区域</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-sync/'>ceph rgw同步</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-vs-other-storage/'>Ceph,TFS,FastDFS,MogileFS,MooseFS,GlusterFS,Seaweedfs 对比</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            https://blog.csdn.net/Michaelwubo/article/details/113109341
           
         </div>
       </div>
@@ -2058,6 +2233,41 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-theory/'>Ceph理论篇</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            01 分布式存储Ceph理论篇
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-s3-java-related/'>ceph s3 java开发相关</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
@@ -2072,6 +2282,76 @@
         <div class="summary-classic__text p2">
           
             本文介绍了ceph对象存储使用java开发的方法和工具
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-use/'>Ceph RGW使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-summary/'>Ceph总结</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph总结
           
         </div>
       </div>
@@ -2155,286 +2435,6 @@
 
 
       
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-commands/'>ceph 操作命令</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-remove-hosts-script/'>ceph剔除主机脚本</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            ceph剔除主机操作步骤
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-create-a-new-region/'>ceph rgw创建新的region</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            本文介绍了在ceph中利用rgw创建新的region
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/'>ceph rgw桶分片问题</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;4&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-osd-troubleshooting/'>ceph常见OSD故障处理</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            常见 OSD 故障处理 Reference 常见 OSD 故障处理
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-del-osd-node/'>删除osd的正确方式</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            删除Ceph OSD节点 Reference 删除Ceph OSD节点
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rbd/'>Ceph rbd简单使用</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
-        
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/'>Ceph 硬件选型、crush规则及region</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 + luminous） 03 分布式存储ceph之crush规则配置 动态设
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-      
       
 
 
@@ -2454,6 +2454,11 @@
       
       
         <li ><a href="/categories/ceph/page/2/">2</a></li>
+      
+    
+      
+      
+        <li ><a href="/categories/ceph/page/3/">3</a></li>
       
     
   </ul>
@@ -2503,23 +2508,23 @@
     
         
         <li class="sidebar-recent">
+            <a href="/posts/ceph-hardware-layout-reference/" class="sidebar-recent__title p1">ceph硬件布置参考</a>
+        </li>
+        
+        <li class="sidebar-recent">
             <a href="/posts/ceph-crushmap/" class="sidebar-recent__title p1">ceph故障域</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-opetations/" class="sidebar-recent__title p1">Ceph运维操作</a>
+            <a href="/posts/how-ceph-scales-to-more-than-one-billion-objects/" class="sidebar-recent__title p1">Ceph如何扩展到超过十亿个对象</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-s3-java-related/" class="sidebar-recent__title p1">ceph s3 java开发相关</a>
+            <a href="/posts/ceph-configure-multi-regions-without-replicating-rgw/" class="sidebar-recent__title p1">ceph在不复制rgw的情况下配置多个区域</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-op-tells-you-the-pits-of-distribute-storage/" class="sidebar-recent__title p1">Ceph运维告诉你分布式存储的那些“坑”</a>
-        </li>
-        
-        <li class="sidebar-recent">
-            <a href="/posts/ceph-rgw-ha-and-load-balance/" class="sidebar-recent__title p1">ceph rgw高可用和负载均衡</a>
+            <a href="/posts/ceph-rgw-sync/" class="sidebar-recent__title p1">ceph rgw同步</a>
         </li>
         
         <hr class="hr-fade sidebar-hr" />
@@ -2549,13 +2554,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/ceph/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>
@@ -2598,6 +2605,10 @@
 	
         
 	
+        
+	
+        
+	
             <span class="tag">
                 <a href="/tags/git/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2624,6 +2635,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
@@ -2677,6 +2690,8 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/markdown/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2688,6 +2703,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
             <span class="tag">
@@ -2713,13 +2730,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/rgw/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         rgw
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        6
                     </span>
                 </a>
             </span>
@@ -2801,7 +2820,7 @@
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>bluestore on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/bluestore/</link>
+    <description>Recent content in bluestore on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 06 Oct 2021 16:54:47 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/bluestore/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>Docker安装ceph nautilus</title>
+        <link>https://starifly.github.io/posts/docker-install-ceph-nautilus/</link>
+        <pubDate>Wed, 06 Oct 2021 16:54:47 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 16:54:47 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/docker-install-ceph-nautilus/</guid>
+        <description>操作系统基础配置 三节点创建文件夹： mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph 配置定时任务 systemctl start ntpd &amp;amp;&amp;amp; systemctl enable ntpd 将时间每隔1小时自动校准同步 0 */1 * * * ntpdate ntp1.aliyun.com &amp;gt; /dev/null 2&amp;gt;&amp;amp;1; /sbin/hwclock -w 内核优化 #调整内核</description>
+        <content:encoded>&lt;h2 id=&#34;操作系统基础配置&#34;&gt;操作系统基础配置&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;三节点创建文件夹：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;配置定时任务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl start ntpd &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; ntpd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;将时间每隔1小时自动校准同步
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; */1 * * * ntpdate ntp1.aliyun.com &amp;gt; /dev/null 2&amp;gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; /sbin/hwclock -w
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;内核优化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#调整内核参数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# cat &amp;gt;&amp;gt; /etc/sysctl.conf &amp;lt;&amp;lt; EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; kernel.pid_max&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;4194303&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; vm.swappiness &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; EOF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# sysctl -p&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# read_ahead, 通过数据预读并且记载到随机访问内存方式提高磁盘读操作，8192是比较理想的值&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# echo &amp;#34;8192&amp;#34; &amp;gt; /sys/block/sda/queue/read_ahead_kb &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I/O Scheduler优化，如果SSD要用noop，SATA/SAS设备采用deadline。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#echo &amp;#34;deadline&amp;#34; &amp;gt; /sys/block/sda/queue/scheduler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#echo &amp;#34;noop&amp;#34; &amp;gt; /sys/block/sda/queue/scheduler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;关闭selinux&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# vi /etc/selinux/config文件， 将SELINUX设为disabled, 永久生效。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;SELINUX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;disabled
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 临时生效：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;setenforce &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;修改主机名和hosts&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# vim /etc/hosts&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;192.168.5.203 ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;192.168.5.203 ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;192.168.5.203 ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;编辑别名&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;alias ceph=&amp;#34;docker exec mon ceph&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;准备磁盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;三节点各准备一块磁盘，不用分区。&lt;/p&gt;
+&lt;p&gt;以下安装配置基于centos7.8、ceph 14.2.22版本&lt;/p&gt;
+&lt;h2 id=&#34;启动mon&#34;&gt;启动mon&lt;/h2&gt;
+&lt;p&gt;主节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mon  --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always   -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -e &lt;span class=&#34;nv&#34;&gt;MON_IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.203     -e &lt;span class=&#34;nv&#34;&gt;CEPH_PUBLIC_NETWORK&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.0/24     ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  mon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;启动成功之后生成配置数据，在ceph主配置文件中，修改内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mon &lt;span class=&#34;nv&#34;&gt;host&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 192.168.5.203,192.168.5.204,192.168.5.205
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat &amp;gt;&amp;gt;/etc/ceph/ceph.conf &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# 容忍更多的时钟误差
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;mon clock drift allowed = 2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;mon clock drift warn backoff = 30
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# 允许删除pool
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;mon_allow_pool_delete = true
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# rbd 配置
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;rbd_default_features = 3
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# 关闭动态分片，在zone中配置
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;rgw dynamic resharding = false
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;[mgr]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# 开启WEB仪表盘
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;mgr modules = dashboard
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;[client.rgw.ceph001]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;# 设置rgw网关的web访问端口
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;rgw_frontends = &amp;#34;civetweb port=20003 num_threads=2048&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;复制配置到另外两个节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /etc/ceph/ root@192.168.5.204:/etc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /etc/ceph/ root@192.168.5.205:/etc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-* root@192.168.5.204:/var/lib/ceph/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-* root@192.168.5.205:/var/lib/ceph/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;修改节点2和3配置文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;client.rgw.ceph001 -&amp;gt; client.rgw.ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;client.rgw.ceph001 -&amp;gt; client.rgw.ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;204节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mon  --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always  -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -e &lt;span class=&#34;nv&#34;&gt;MON_IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.204     -e &lt;span class=&#34;nv&#34;&gt;CEPH_PUBLIC_NETWORK&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.0/24     ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  mon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;205节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mon  --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always  -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -e &lt;span class=&#34;nv&#34;&gt;MON_IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.205     -e &lt;span class=&#34;nv&#34;&gt;CEPH_PUBLIC_NETWORK&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;192.168.5.0/24     ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  mon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;启动osd&#34;&gt;启动OSD&lt;/h2&gt;
+&lt;p&gt;首先需要在mon节点生成osd的密钥信息，不然直接启动会报错。命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; -it mon ceph auth get client.bootstrap-osd -o /var/lib/ceph/bootstrap-osd/ceph.keyring
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 复制密钥到另外两个节点：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-osd/ceph.keyring 192.168.5.204:/var/lib/ceph/bootstrap-osd/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-osd/ceph.keyring 192.168.5.205:/var/lib/ceph/bootstrap-osd/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;osd采用bluestore，所以磁盘事先不用分区和挂载文件系统。bluestore比filestore的效率更高，推荐采用。&lt;/p&gt;
+&lt;p&gt;三个节点执行如下命令启动osd：&lt;/p&gt;
+&lt;p&gt;如有必要先格式化磁盘：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;   --rm  --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ --entrypoint /bin/bash ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;ceph-volume lvm zap /dev/sdb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ceph集群无法初始化osd问题,有时候会遇到这样的报错。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;node3-ceph&lt;span class=&#34;o&#34;&gt;][&lt;/span&gt;WARNIN&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; stderr: wipefs: error: /dev/sdb: probing initialization failed: Device or resource busy &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;node3-ceph&lt;span class=&#34;o&#34;&gt;][&lt;/span&gt;WARNIN&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; --&amp;gt; failed to wipefs device, will try again to workaround probable race condition
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;遇到这种报错时，只能上这台机器，手动进行dd命令清空磁盘并重启&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/zero &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/sdb &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;512K &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重启完成后，就能够清理磁盘成功了。&lt;/p&gt;
+&lt;p&gt;部署bluestore并激活：&lt;/p&gt;
+&lt;p&gt;203节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;   --rm  --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ --entrypoint /bin/bash ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;ceph-volume lvm prepare --bluestore --data /dev/sdb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;osd     --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always     --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;     --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ -e &lt;span class=&#34;nv&#34;&gt;OSD_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  osd_ceph_volume_activate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;204节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;   --rm  --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ --entrypoint /bin/bash ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;ceph-volume lvm prepare --bluestore --data /dev/sdb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;osd     --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always     --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;     --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ -e &lt;span class=&#34;nv&#34;&gt;OSD_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  osd_ceph_volume_activate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;205节点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;   --rm  --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ --entrypoint /bin/bash ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;ceph-volume lvm prepare --bluestore --data /dev/sdb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;osd     --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always     --privileged&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;     --pid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     -v /dev/:/dev/ -v /run/udev/:/run/udev/ -e &lt;span class=&#34;nv&#34;&gt;OSD_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64  osd_ceph_volume_activate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;启动mgr&#34;&gt;启动mgr&lt;/h2&gt;
+&lt;p&gt;三个节点执行如下命令启动mgr：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host    --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mgr --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always  -v /etc/localtime:/etc/localtime:ro   -v /etc/ceph:/etc/ceph   -v /var/lib/ceph:/var/lib/ceph   -v /var/log/ceph:/var/log/ceph   ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64 mgr
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;启动rgw&#34;&gt;启动rgw&lt;/h2&gt;
+&lt;p&gt;首先需要在mon节点生成rgw的密钥信息，不然直接启动会报错。命令如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; -it mon ceph auth get client.bootstrap-rgw -o /var/lib/ceph/bootstrap-rgw/ceph.keyring
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 复制密钥到另外两个节点：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-rgw/ceph.keyring 192.168.5.204:/var/lib/ceph/bootstrap-rgw/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp -r /var/lib/ceph/bootstrap-rgw/ceph.keyring 192.168.5.205:/var/lib/ceph/bootstrap-rgw/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;三个节点执行如下命令启动rgw：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run     -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host     --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rgw  --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always   -v /etc/localtime:/etc/localtime:ro     -v /etc/ceph:/etc/ceph     -v /var/lib/ceph:/var/lib/ceph     -v /var/log/ceph:/var/log/ceph     ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64 rgw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;启动mds&#34;&gt;启动mds&lt;/h2&gt;
+&lt;p&gt;三个节点执行如下命令启动mds，注意mds名称不能以数字开头：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mds --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always -v /etc/localtime:/etc/localtime:ro -v /etc/ceph:/etc/ceph -v /var/lib/ceph:/var/lib/ceph -v /var/log/ceph:/var/log/ceph -e &lt;span class=&#34;nv&#34;&gt;CEPHFS_CREATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -e &lt;span class=&#34;nv&#34;&gt;MDS_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ceoh001 ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64 mds
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mds --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always -v /etc/localtime:/etc/localtime:ro -v /etc/ceph:/etc/ceph -v /var/lib/ceph:/var/lib/ceph -v /var/log/ceph:/var/log/ceph -e &lt;span class=&#34;nv&#34;&gt;CEPHFS_CREATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -e &lt;span class=&#34;nv&#34;&gt;MDS_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ceoh002 ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64 mds
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mds --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always -v /etc/localtime:/etc/localtime:ro -v /etc/ceph:/etc/ceph -v /var/lib/ceph:/var/lib/ceph -v /var/log/ceph:/var/log/ceph -e &lt;span class=&#34;nv&#34;&gt;CEPHFS_CREATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -e &lt;span class=&#34;nv&#34;&gt;MDS_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ceoh003 ceph/daemon:v4.0.22-stable-4.0-nautilus-centos-7-x86_64 mds
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;安装dashboard管理后台&#34;&gt;安装Dashboard管理后台&lt;/h2&gt;
+&lt;p&gt;在主节点执行&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;开启dashboard功能&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;docker exec mgr ceph mgr module enable dashboard&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;创建证书&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;docker exec mgr ceph dashboard create-self-signed-cert&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;创建登陆用户与密码：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;docker exec mgr ceph dashboard set-login-credentials admin -i /root/passwd.txt&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;配置外部访问IP&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;docker exec mgr ceph config set mgr mgr/dashboard/server_addr 192.168.5.203&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;重启各个节点上的Mgr DashBoard服务，主节点最后重启&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;docker restart mgr&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;查看Mgr DashBoard服务信息&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@CENTOS7-1 admin&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# docker exec mgr ceph mgr services&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   &lt;span class=&#34;s2&#34;&gt;&amp;#34;dashboard&amp;#34;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://192.168.5.203:18080/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://feige.blog.csdn.net/article/details/109159160&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;用Docker搭建Ceph集群(octopus版本)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/hxx688/article/details/103440967&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centos7系统Docker Ceph 集群的安装配置（中篇）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/hxx688/article/details/103378485&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centos7系统下Ceph分布式存储集群的部署搭建配置（上篇）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.51cto.com/john88wang/1947672&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用Docker快速部署Ceph集群&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/wukc/p/13501150.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph13.2使用docker部署&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_34345560/article/details/92348845&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;关于ceph的一些问题及解决&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/qq_34556414/article/details/116091036&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph 手把手教你部署ceph集群&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://registry.hub.docker.com/r/ceph/daemon&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dockerhub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_40548182/article/details/108862031&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph搭建及使用详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/163537273&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph架构简介及使用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/wly_sky/article/details/80965605&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph-volume部署filestore或bluestore&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/ceph/ceph-container/issues/1406&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Update Documentation: OSD_TYPE=disk does not work in nautilus #1406&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>nautilus</category>
+            
+          
+            
+              <category>bluestore</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

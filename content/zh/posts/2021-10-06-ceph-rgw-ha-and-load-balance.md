@@ -61,7 +61,7 @@ make TARGET=linux-glibc   USE_OPENSSL=1 USE_SYSTEMD=1 USE_PCRE=1  USE_ZLIB=1  &&
 
 `vim /usr/lib/systemd/system/haproxy.service`
 
-```conf
+```cfg
 [Unit]
 Description=HAProxy Load Balancer
 After=syslog.target network.target
@@ -79,7 +79,7 @@ WantedBy=multi-user.target
 
 `vim /etc/haproxy/haproxy.cfg`
 
-```conf
+```cfg
 global
 log 127.0.0.1 local0
 log 127.0.0.1 local1 notice
@@ -168,7 +168,7 @@ cp /opt/keepalived/sbin/keepalived /usr/sbin/
 
 `vim /etc/keepalived/keepalived.conf`
 
-```conf
+```cfg
 ! Configuration File for keepalived
 
 global_defs {

@@ -1370,9 +1370,9 @@
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
 
-<meta name="created" content="2021-10-06T21:18:38&#43;0800">
-<meta name="modified" content="2021-10-06T21:18:38&#43;0800">
-<meta property="article:published_time" content="2021-10-06T21:18:38&#43;0800">
+<meta name="created" content="2023-01-26T18:56:35&#43;0800">
+<meta name="modified" content="2023-01-26T18:56:35&#43;0800">
+<meta property="article:published_time" content="2023-01-26T18:56:35&#43;0800">
 
 <meta name="author" content="飞鸟">
 
@@ -1988,6 +1988,76 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/'>ceph在不复制rgw的情况下配置多个区域</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-sync/'>ceph rgw同步</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-s3-java-related/'>ceph s3 java开发相关</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
@@ -2002,6 +2072,41 @@
         <div class="summary-classic__text p2">
           
             本文介绍了ceph对象存储使用java开发的方法和工具
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-use/'>Ceph RGW使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口
           
         </div>
       </div>
@@ -2133,15 +2238,23 @@
     
         
         <li class="sidebar-recent">
+            <a href="/posts/ceph-configure-multi-regions-without-replicating-rgw/" class="sidebar-recent__title p1">ceph在不复制rgw的情况下配置多个区域</a>
+        </li>
+        
+        <li class="sidebar-recent">
+            <a href="/posts/ceph-rgw-sync/" class="sidebar-recent__title p1">ceph rgw同步</a>
+        </li>
+        
+        <li class="sidebar-recent">
             <a href="/posts/ceph-s3-java-related/" class="sidebar-recent__title p1">ceph s3 java开发相关</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-rgw-create-a-new-region/" class="sidebar-recent__title p1">ceph rgw创建新的region</a>
+            <a href="/posts/ceph-rgw-use/" class="sidebar-recent__title p1">Ceph RGW使用</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-rgw-bucket-shard-problem/" class="sidebar-recent__title p1">ceph rgw桶分片问题</a>
+            <a href="/posts/ceph-rgw-create-a-new-region/" class="sidebar-recent__title p1">ceph rgw创建新的region</a>
         </li>
         
         <hr class="hr-fade sidebar-hr" />
@@ -2171,13 +2284,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/ceph/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>
@@ -2220,6 +2335,10 @@
 	
         
 	
+        
+	
+        
+	
             <span class="tag">
                 <a href="/tags/git/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2246,6 +2365,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
@@ -2299,6 +2420,8 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/markdown/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2310,6 +2433,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
             <span class="tag">
@@ -2335,13 +2460,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/rgw/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         rgw
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        6
                     </span>
                 </a>
             </span>
@@ -2423,7 +2550,7 @@
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>

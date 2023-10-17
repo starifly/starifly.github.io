@@ -1370,9 +1370,9 @@
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
 
-<meta name="created" content="2023-01-26T19:01:44&#43;0800">
-<meta name="modified" content="2023-01-26T19:01:44&#43;0800">
-<meta property="article:published_time" content="2023-01-26T19:01:44&#43;0800">
+<meta name="created" content="2023-01-26T19:06:05&#43;0800">
+<meta name="modified" content="2023-01-26T19:06:05&#43;0800">
+<meta property="article:published_time" content="2023-01-26T19:06:05&#43;0800">
 
 <meta name="author" content="飞鸟">
 
@@ -1988,7 +1988,7 @@
 
     <div class="summary-classic__content">
       <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-librados-c&#43;&#43;-use/'>ceph librados库c&#43;&#43;使用</a> </h5>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-commands/'>ceph 操作命令</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
           
@@ -2001,7 +2001,7 @@
       <div>
         <div class="summary-classic__text p2">
           
-            依赖 # centos yum install librados2-devel 源程序 #include &lt;iostream&gt; #include &lt;string&gt; #include &lt;rados/librados.hpp&gt; int main(int argc, const char **argv) { int ret = 0; /* Declare the cluster handle and required variables. */ librados::Rados cluster; char cluster_name[] = &#34;ceph&#34;; char user_name[] = &#34;client.admin&#34;; uint64_t flags = 0; /* Initialize the cluster handle with the &#34;ceph&#34; cluster name and &#34;client.admin&#34; user */ { ret = cluster.init2(user_name, cluster_name, flags);
+            查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph
           
         </div>
       </div>
@@ -2023,7 +2023,112 @@
 
     <div class="summary-classic__content">
       <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-pg-and-pgp/'>Ceph中的PG和PGP的关系</a> </h5>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-remove-hosts-script/'>ceph剔除主机脚本</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph剔除主机操作步骤
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-upgrade-from-14.2.20-to-14.2/'>ceph从14.2.20升级到14.2.22</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            注意：此文档用于 Ceph Nautilus 版本（包括社区版 Ceph 14.2.x 和红帽版 Redhat Ceph Storage 4.x）内的小版本升级，不能用于 Ceph 大版本升级（例如从 Ceph Luminous 升级到 Ceph Nautilus）。 Ceph
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-create-a-new-region/'>ceph rgw创建新的region</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            本文介绍了在ceph中利用rgw创建新的region
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/'>ceph rgw桶分片问题</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
           
@@ -2036,7 +2141,287 @@
       <div>
         <div class="summary-classic__text p2">
           
-            【前言】 ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？ PG (Placement Group)，p
+            背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/'>使用grafana&#43;prometheus监控ceph集群并实现钉钉报警</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了P
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-three-node-failure-recovery/'>ceph三节点故障恢复</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-osd-troubleshooting/'>ceph常见OSD故障处理</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            常见 OSD 故障处理 Reference 常见 OSD 故障处理
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-del-osd-node/'>删除osd的正确方式</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            删除Ceph OSD节点 Reference 删除Ceph OSD节点
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rbd/'>Ceph rbd简单使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/'>Ceph 硬件选型、crush规则及region</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 + luminous） 03 分布式存储ceph之crush规则配置 动态设
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/docker-install-ceph-nautilus/'>Docker安装ceph nautilus</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;4&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            操作系统基础配置 三节点创建文件夹： mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph 配置定时任务 systemctl start ntpd &amp;&amp; systemctl enable ntpd 将时间每隔1小时自动校准同步 0 */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;&amp;1; /sbin/hwclock -w 内核优化 #调整内核
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-librados-c&#43;&#43;-use/'>ceph librados库c&#43;&#43;使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            依赖 # centos yum install librados2-devel 源程序 #include &lt;iostream&gt; #include &lt;string&gt; #include &lt;rados/librados.hpp&gt; int main(int argc, const char **argv) { int ret = 0; /* Declare the cluster handle and required variables. */ librados::Rados cluster; char cluster_name[] = &#34;ceph&#34;; char user_name[] = &#34;client.admin&#34;; uint64_t flags = 0; /* Initialize the cluster handle with the &#34;ceph&#34; cluster name and &#34;client.admin&#34; user */ { ret = cluster.init2(user_name, cluster_name, flags);
           
         </div>
       </div>
@@ -2069,6 +2454,11 @@
       
       
         <li class="active"><a href="/tags/ceph/page/2/">2</a></li>
+      
+    
+      
+      
+        <li ><a href="/tags/ceph/page/3/">3</a></li>
       
     
   </ul>
@@ -2118,23 +2508,23 @@
     
         
         <li class="sidebar-recent">
+            <a href="/posts/ceph-hardware-layout-reference/" class="sidebar-recent__title p1">ceph硬件布置参考</a>
+        </li>
+        
+        <li class="sidebar-recent">
             <a href="/posts/ceph-crushmap/" class="sidebar-recent__title p1">ceph故障域</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-opetations/" class="sidebar-recent__title p1">Ceph运维操作</a>
+            <a href="/posts/how-ceph-scales-to-more-than-one-billion-objects/" class="sidebar-recent__title p1">Ceph如何扩展到超过十亿个对象</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-s3-java-related/" class="sidebar-recent__title p1">ceph s3 java开发相关</a>
+            <a href="/posts/ceph-configure-multi-regions-without-replicating-rgw/" class="sidebar-recent__title p1">ceph在不复制rgw的情况下配置多个区域</a>
         </li>
         
         <li class="sidebar-recent">
-            <a href="/posts/ceph-op-tells-you-the-pits-of-distribute-storage/" class="sidebar-recent__title p1">Ceph运维告诉你分布式存储的那些“坑”</a>
-        </li>
-        
-        <li class="sidebar-recent">
-            <a href="/posts/ceph-rgw-ha-and-load-balance/" class="sidebar-recent__title p1">ceph rgw高可用和负载均衡</a>
+            <a href="/posts/ceph-rgw-sync/" class="sidebar-recent__title p1">ceph rgw同步</a>
         </li>
         
         <hr class="hr-fade sidebar-hr" />
@@ -2164,13 +2554,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/ceph/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>
@@ -2213,6 +2605,10 @@
 	
         
 	
+        
+	
+        
+	
             <span class="tag">
                 <a href="/tags/git/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2239,6 +2635,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
@@ -2292,6 +2690,8 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/markdown/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2303,6 +2703,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
             <span class="tag">
@@ -2328,13 +2730,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/rgw/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         rgw
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        6
                     </span>
                 </a>
             </span>
@@ -2416,7 +2820,7 @@
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>

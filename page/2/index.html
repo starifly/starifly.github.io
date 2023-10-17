@@ -2030,6 +2030,391 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-use/'>Ceph RGW使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-summary/'>Ceph总结</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph总结
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-op-tells-you-the-pits-of-distribute-storage/'>Ceph运维告诉你分布式存储的那些“坑”</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph运维告诉你分布式存储的那些“坑”
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-ha-and-load-balance/'>ceph rgw高可用和负载均衡</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            环境配置 安装依赖 yum install pcre-devel.x86_64 openssl-devel zlib-devel systemd-devel gcc gcc-c++ 内核调优 #vim /etc/sysctl.conf vm.swappiness = 0 net.ipv4.ip_forward = 1 net.ipv4.ip_nonlocal_bind = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.ip_local_port_range = 1025 65023 net.ipv4.tcp_max_syn_backlog = 10240 检查 /usr/sbin/sysctl net.ipv4.ip_nonlocal_bind /usr/sbin/sysctl net.ipv4.ip_forward cat /proc/sys/net/ipv4/ip_forward 查看是否开启了ip转发功能 如果上述文件中的
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-commands/'>ceph 操作命令</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-remove-hosts-script/'>ceph剔除主机脚本</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph剔除主机操作步骤
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-upgrade-from-14.2.20-to-14.2/'>ceph从14.2.20升级到14.2.22</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            注意：此文档用于 Ceph Nautilus 版本（包括社区版 Ceph 14.2.x 和红帽版 Redhat Ceph Storage 4.x）内的小版本升级，不能用于 Ceph 大版本升级（例如从 Ceph Luminous 升级到 Ceph Nautilus）。 Ceph
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-create-a-new-region/'>ceph rgw创建新的region</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            本文介绍了在ceph中利用rgw创建新的region
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/'>ceph rgw桶分片问题</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;4&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/'>使用grafana&#43;prometheus监控ceph集群并实现钉钉报警</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了P
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-three-node-failure-recovery/'>ceph三节点故障恢复</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-osd-troubleshooting/'>ceph常见OSD故障处理</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
@@ -2092,415 +2477,6 @@
 
 
             
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rbd/'>Ceph rbd简单使用</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-librados-c&#43;&#43;-use/'>ceph librados库c&#43;&#43;使用</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            依赖 # centos yum install librados2-devel 源程序 #include &lt;iostream&gt; #include &lt;string&gt; #include &lt;rados/librados.hpp&gt; int main(int argc, const char **argv) { int ret = 0; /* Declare the cluster handle and required variables. */ librados::Rados cluster; char cluster_name[] = &#34;ceph&#34;; char user_name[] = &#34;client.admin&#34;; uint64_t flags = 0; /* Initialize the cluster handle with the &#34;ceph&#34; cluster name and &#34;client.admin&#34; user */ { ret = cluster.init2(user_name, cluster_name, flags);
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-pg-and-pgp/'>Ceph中的PG和PGP的关系</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;4&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            【前言】 ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？ PG (Placement Group)，p
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/draft/virus-process-in-linux-system/'>Linux中病毒后的处理过程</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2020年05月30日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/what-the-hell-is-devops/'>一分钟告诉你究竟DevOps是什么鬼？</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月16日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2019年03月17日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;11&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;瓏曦</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <h1 id="一分钟告诉你究竟devops是什么鬼httpswwwcnblogscomjetzhangp6068773html">
-
-<a href="https://www.cnblogs.com/jetzhang/p/6068773.html" target="_blank" rel="noopener">一分钟告诉你究竟DevOps是什么鬼？</a></h1>
-<p><img src="http://www.uml.org.cn/SoftWareProcess/images/2015122311.jpg" alt="" /></p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/git-reset/'>Git的撤销更改</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月29日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年09月09日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>前文《
-
-<a href="https://starifly.github.io/post/git-base/" target="_blank" rel="noopener">Git基本操作</a>》介绍了Git的基本概念和一些基本操作。</p>
-<p>本文将介绍Git四个阶段的撤销更改：</p>
-<ul>
-<li>工作区的代码撤销</li>
-<li>add到暂存区的代码想撤销</li>
-<li>提交到本地仓库的代码想撤销</li>
-<li>推送到远程仓库的代码想撤销</li>
-</ul>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/git-base/'>Git基本操作</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月25日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年09月08日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;6&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p><img src="/images/git-base.png" alt="" /></p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/a-c-coroutine/'>一个“蝇量级” C 语言协程库</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年09月02日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年09月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;14&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            协程 (coroutine) 顾名思义就是“协作的例程”（co-operative routines）。跟具有操作系统概念的线程不一样，协程是在用户空间利用程序语言的语法语义就能实现逻辑上类似多任务的编程技巧。
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/git-branch/'>Git分支管理</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月30日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年09月02日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;7&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/learning-something/'>Learning Something</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月17日 </time>
-          
-          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年08月28日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            Learning How to Learn 关于编程的练习方法——读《刻意练习》有感 《如何阅读一本书》阅读笔记 工作流 笔记：有关开源项目 有一种焦虑叫：什么都想学，但什么都学不会 你
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/git-add-difference/'>git add -A 和 git add . 的区别</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月23日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。</p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
             
 
 
@@ -2530,6 +2506,11 @@
       
       
         <li ><a href="/page/4/">4</a></li>
+      
+    
+      
+      
+        <li ><a href="/page/5/">5</a></li>
       
     
   </ul>
@@ -2751,13 +2732,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/ceph/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>
@@ -2800,6 +2783,10 @@
 	
         
 	
+        
+	
+        
+	
             <span class="tag">
                 <a href="/tags/git/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2826,6 +2813,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
@@ -2879,6 +2868,8 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/markdown/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2890,6 +2881,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
             <span class="tag">
@@ -2915,13 +2908,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/rgw/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         rgw
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        6
                     </span>
                 </a>
             </span>
@@ -3003,7 +2998,7 @@
                         ceph
                     </span>
                     <span class="taxo__num" dir="auto">
-                        15
+                        28
                     </span>
                 </a>
             </span>

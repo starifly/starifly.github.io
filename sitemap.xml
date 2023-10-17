@@ -45,16 +45,37 @@
     <lastmod>2023-01-29T22:24:18+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/tags/ceph/</loc>
-    <lastmod>2023-01-26T19:01:44+08:00</lastmod>
+    <lastmod>2023-01-26T19:06:05+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/categories/ceph/</loc>
-    <lastmod>2023-01-26T19:01:44+08:00</lastmod>
+    <lastmod>2023-01-26T19:06:05+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-hardware-layout-reference/</loc>
+    <lastmod>2023-01-26T19:06:05+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-crushmap/</loc>
     <lastmod>2023-01-26T19:01:44+08:00</lastmod>
   </url><url>
+    <loc>https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/</loc>
+    <lastmod>2023-01-26T18:58:29+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</loc>
+    <lastmod>2023-01-26T18:56:35+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/rgw/</loc>
+    <lastmod>2023-01-26T18:56:35+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-rgw-sync/</loc>
+    <lastmod>2023-01-26T18:53:34+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-vs-other-storage/</loc>
+    <lastmod>2023-01-26T18:51:55+08:00</lastmod>
+  </url><url>
     <loc>https://starifly.github.io/posts/ceph-opetations/</loc>
     <lastmod>2021-10-06T21:38:48+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-theory/</loc>
+    <lastmod>2021-10-06T21:36:45+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-s3-java-related/</loc>
     <lastmod>2021-10-06T21:18:38+08:00</lastmod>
@@ -62,11 +83,14 @@
     <loc>https://starifly.github.io/tags/java/</loc>
     <lastmod>2021-10-06T21:18:38+08:00</lastmod>
   </url><url>
-    <loc>https://starifly.github.io/tags/rgw/</loc>
-    <lastmod>2021-10-06T21:18:38+08:00</lastmod>
-  </url><url>
     <loc>https://starifly.github.io/tags/s3/</loc>
     <lastmod>2021-10-06T21:18:38+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-rgw-use/</loc>
+    <lastmod>2021-10-06T21:07:15+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-summary/</loc>
+    <lastmod>2021-10-06T20:38:33+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-op-tells-you-the-pits-of-distribute-storage/</loc>
     <lastmod>2021-10-06T20:00:04+08:00</lastmod>
@@ -79,6 +103,9 @@
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-remove-hosts-script/</loc>
     <lastmod>2021-10-06T19:41:13+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-upgrade-from-14.2.20-to-14.2/</loc>
+    <lastmod>2021-10-06T19:38:23+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</loc>
     <lastmod>2021-10-06T19:35:17+08:00</lastmod>
@@ -94,6 +121,21 @@
   </url><url>
     <loc>https://starifly.github.io/tags/shard/</loc>
     <lastmod>2021-10-06T19:31:32+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/dingding/</loc>
+    <lastmod>2021-10-06T19:20:04+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/grafana/</loc>
+    <lastmod>2021-10-06T19:20:04+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/prometheus/</loc>
+    <lastmod>2021-10-06T19:20:04+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/</loc>
+    <lastmod>2021-10-06T19:20:04+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/ceph-three-node-failure-recovery/</loc>
+    <lastmod>2021-10-06T19:11:07+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/ceph-osd-troubleshooting/</loc>
     <lastmod>2021-10-06T19:08:43+08:00</lastmod>
@@ -116,6 +158,15 @@
     <loc>https://starifly.github.io/tags/crush/</loc>
     <lastmod>2021-10-06T21:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://starifly.github.io/tags/bluestore/</loc>
+    <lastmod>2021-10-06T16:54:47+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/docker-install-ceph-nautilus/</loc>
+    <lastmod>2021-10-06T16:54:47+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/nautilus/</loc>
+    <lastmod>2021-10-06T16:54:47+08:00</lastmod>
+  </url><url>
     <loc>https://starifly.github.io/posts/ceph-librados-c&#43;&#43;-use/</loc>
     <lastmod>2021-10-06T16:51:53+08:00</lastmod>
   </url><url>
@@ -130,6 +181,15 @@
   </url><url>
     <loc>https://starifly.github.io/tags/pgp/</loc>
     <lastmod>2021-10-06T16:47:55+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/docker/</loc>
+    <lastmod>2021-10-06T16:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/docker-install-ceph-luminous/</loc>
+    <lastmod>2021-10-06T16:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/luminous/</loc>
+    <lastmod>2021-10-06T16:16:07+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/tags/centos/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>

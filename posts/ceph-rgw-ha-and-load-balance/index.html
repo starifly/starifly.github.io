@@ -2047,73 +2047,73 @@
 </span></span><span class="line"><span class="cl">make <span class="nv">TARGET</span><span class="o">=</span>linux-glibc   <span class="nv">USE_OPENSSL</span><span class="o">=</span><span class="m">1</span> <span class="nv">USE_SYSTEMD</span><span class="o">=</span><span class="m">1</span> <span class="nv">USE_PCRE</span><span class="o">=</span><span class="m">1</span>  <span class="nv">USE_ZLIB</span><span class="o">=</span><span class="m">1</span>  <span class="o">&amp;&amp;</span> make install
 </span></span></code></pre></div><p>注册到系统服务</p>
 <p><code>vim /usr/lib/systemd/system/haproxy.service</code></p>
-<pre tabindex="0"><code class="language-conf" data-lang="conf">[Unit]
-Description=HAProxy Load Balancer
-After=syslog.target network.target
-
-[Service]
-ExecStartPre=/usr/local/sbin/haproxy -f /etc/haproxy/haproxy.cfg   -c -q
-ExecStart=/usr/local/sbin/haproxy -Ws -f /etc/haproxy/haproxy.cfg  -p /run/haproxy.pid
-ExecReload=/bin/kill -USR2 $MAINPID
-
-[Install]
-WantedBy=multi-user.target
-</code></pre><p>修改配置</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">HAProxy Load Balancer</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">syslog.target network.target</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/usr/local/sbin/haproxy -f /etc/haproxy/haproxy.cfg   -c -q</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/sbin/haproxy -Ws -f /etc/haproxy/haproxy.cfg  -p /run/haproxy.pid</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecReload</span><span class="o">=</span><span class="s">/bin/kill -USR2 $MAINPID</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span></code></pre></div><p>修改配置</p>
 <p><code>vim /etc/haproxy/haproxy.cfg</code></p>
-<pre tabindex="0"><code class="language-conf" data-lang="conf">global
-log 127.0.0.1 local0
-log 127.0.0.1 local1 notice
-maxconn 4096
-# 注 下面完成了工作进程数及亲缘性绑定，若想做的极致一点还可以通过在内核启动文件即 grub 文件启动参数来实现 内核进程绑定以及进程隔离
-nbproc 3 # 配置进程数，不包含 status
-cpu-map 1 1 # 亲缘性绑定。前一个数字是进程号，后一个数字是CPU内核的号，注意将0号cpu留给内核
-cpu-map	2 2
-cpu-map	3 3
-stats bind-process 3
-#chroot /usr/share/haproxy
-#user haproxy
-#group haproxy
-daemon
-
-defaults
-  mode                    http
-  log                     global
-  option                  httplog
-  option                  dontlognull
-  option http-server-close
-  option forwardfor       except 127.0.0.0/8
-  option                  redispatch
-  retries                 3
-  timeout http-request    10s
-  timeout queue           1m
-  timeout connect         10s
-  timeout client          1m
-  timeout server          1m
-  timeout http-keep-alive 10s
-  timeout check           10s
-
-frontend http_web
-  bind *:2003
-  mode tcp
-  #timeout client 1h
-  #log global
-  #option tcplog
-  default_backend rgw
-  #acl is_websocket hdr(Upgrade) -i WebSocket
-  #acl is_websocket hdr_beg(Host) -i ws
-
-backend rgw
-  mode tcp
-  #timeout queue 1h
-  #timeout server 1h
-  #timeout connect 1h
-  #log global
-  balance roundrobin
-  #hash-type consistent
-  server ceph001 192.168.5.203:20003 check inter 3s fall 2 rise 2
-  server ceph002 192.168.5.204:20003 check inter 3s fall 2 rise 2
-  server ceph003 192.168.5.205:20003 check inter 3s fall 2 rise 2
-</code></pre><p>启动</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">global</span>
+</span></span><span class="line"><span class="cl"><span class="na">log 127.0.0.1 local0</span>
+</span></span><span class="line"><span class="cl"><span class="na">log 127.0.0.1 local1 notice</span>
+</span></span><span class="line"><span class="cl"><span class="na">maxconn 4096</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注 下面完成了工作进程数及亲缘性绑定，若想做的极致一点还可以通过在内核启动文件即 grub 文件启动参数来实现 内核进程绑定以及进程隔离</span>
+</span></span><span class="line"><span class="cl"><span class="na">nbproc 3 # 配置进程数，不包含 status</span>
+</span></span><span class="line"><span class="cl"><span class="na">cpu-map 1 1 # 亲缘性绑定。前一个数字是进程号，后一个数字是CPU内核的号，注意将0号cpu留给内核</span>
+</span></span><span class="line"><span class="cl"><span class="na">cpu-map	2 2</span>
+</span></span><span class="line"><span class="cl"><span class="na">cpu-map	3 3</span>
+</span></span><span class="line"><span class="cl"><span class="na">stats bind-process 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#chroot /usr/share/haproxy</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#user haproxy</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#group haproxy</span>
+</span></span><span class="line"><span class="cl"><span class="na">daemon</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">defaults</span>
+</span></span><span class="line"><span class="cl">  <span class="na">mode                    http</span>
+</span></span><span class="line"><span class="cl">  <span class="na">log                     global</span>
+</span></span><span class="line"><span class="cl">  <span class="na">option                  httplog</span>
+</span></span><span class="line"><span class="cl">  <span class="na">option                  dontlognull</span>
+</span></span><span class="line"><span class="cl">  <span class="na">option http-server-close</span>
+</span></span><span class="line"><span class="cl">  <span class="na">option forwardfor       except 127.0.0.0/8</span>
+</span></span><span class="line"><span class="cl">  <span class="na">option                  redispatch</span>
+</span></span><span class="line"><span class="cl">  <span class="na">retries                 3</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout http-request    10s</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout queue           1m</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout connect         10s</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout client          1m</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout server          1m</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout http-keep-alive 10s</span>
+</span></span><span class="line"><span class="cl">  <span class="na">timeout check           10s</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">frontend http_web</span>
+</span></span><span class="line"><span class="cl">  <span class="na">bind *:2003</span>
+</span></span><span class="line"><span class="cl">  <span class="na">mode tcp</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#timeout client 1h</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#log global</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#option tcplog</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default_backend rgw</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#acl is_websocket hdr(Upgrade) -i WebSocket</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#acl is_websocket hdr_beg(Host) -i ws</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">backend rgw</span>
+</span></span><span class="line"><span class="cl">  <span class="na">mode tcp</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#timeout queue 1h</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#timeout server 1h</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#timeout connect 1h</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#log global</span>
+</span></span><span class="line"><span class="cl">  <span class="na">balance roundrobin</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#hash-type consistent</span>
+</span></span><span class="line"><span class="cl">  <span class="na">server ceph001 192.168.5.203:20003 check inter 3s fall 2 rise 2</span>
+</span></span><span class="line"><span class="cl">  <span class="na">server ceph002 192.168.5.204:20003 check inter 3s fall 2 rise 2</span>
+</span></span><span class="line"><span class="cl">  <span class="na">server ceph003 192.168.5.205:20003 check inter 3s fall 2 rise 2</span>
+</span></span></code></pre></div><p>启动</p>
 <p><code>systemctl start haproxy &amp;&amp; systemctl enable haproxy</code></p>
 <h2 id="keepalived">keepalived</h2>
 <p>下载安装包</p>
@@ -2134,36 +2134,36 @@ backend rgw
 <p>全部节点采用backup且priority值一样，为了减少VIP来回切换。</p>
 </blockquote>
 <p><code>vim /etc/keepalived/keepalived.conf</code></p>
-<pre tabindex="0"><code class="language-conf" data-lang="conf">! Configuration File for keepalived
-
-global_defs {
-   router_id LVS_DEVEL
-}
-
-vrrp_script check_haproxy {
-    script &#34;killall -0 haproxy&#34;
-    interval 2
-    weight -2
-}
-
-vrrp_instance VI_1 {
-    state BACKUP
-    interface ens192
-    virtual_router_id 51
-    priority 100
-    advert_int 1
-    authentication {
-        auth_type PASS
-        auth_pass 35f18af7190d51c9f7f78f37300a0cbd
-    }
-    virtual_ipaddress {
-        192.168.5.202
-    }
-    track_script {
-        check_haproxy
-    }
-}
-</code></pre><p>启动</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">! Configuration File for keepalived</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">global_defs {</span>
+</span></span><span class="line"><span class="cl">   <span class="na">router_id LVS_DEVEL</span>
+</span></span><span class="line"><span class="cl"><span class="na">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">vrrp_script check_haproxy {</span>
+</span></span><span class="line"><span class="cl">    <span class="na">script &#34;killall -0 haproxy&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">interval 2</span>
+</span></span><span class="line"><span class="cl">    <span class="na">weight -2</span>
+</span></span><span class="line"><span class="cl"><span class="na">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">vrrp_instance VI_1 {</span>
+</span></span><span class="line"><span class="cl">    <span class="na">state BACKUP</span>
+</span></span><span class="line"><span class="cl">    <span class="na">interface ens192</span>
+</span></span><span class="line"><span class="cl">    <span class="na">virtual_router_id 51</span>
+</span></span><span class="line"><span class="cl">    <span class="na">priority 100</span>
+</span></span><span class="line"><span class="cl">    <span class="na">advert_int 1</span>
+</span></span><span class="line"><span class="cl">    <span class="na">authentication {</span>
+</span></span><span class="line"><span class="cl">        <span class="na">auth_type PASS</span>
+</span></span><span class="line"><span class="cl">        <span class="na">auth_pass 35f18af7190d51c9f7f78f37300a0cbd</span>
+</span></span><span class="line"><span class="cl">    <span class="na">}</span>
+</span></span><span class="line"><span class="cl">    <span class="na">virtual_ipaddress {</span>
+</span></span><span class="line"><span class="cl">        <span class="na">192.168.5.202</span>
+</span></span><span class="line"><span class="cl">    <span class="na">}</span>
+</span></span><span class="line"><span class="cl">    <span class="na">track_script {</span>
+</span></span><span class="line"><span class="cl">        <span class="na">check_haproxy</span>
+</span></span><span class="line"><span class="cl">    <span class="na">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">}</span>
+</span></span></code></pre></div><p>启动</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/etc/init.d/keepalived start
 </span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> keepalived
 </span></span></code></pre></div><h2 id="reference">Reference</h2>
@@ -2563,15 +2563,15 @@ vrrp_instance VI_1 {
         </li>
         
         <li>
+          <a href="/posts/ceph-upgrade-from-14.2.20-to-14.2/" class="related__link">ceph从14.2.20升级到14.2.22</a>
+        </li>
+        
+        <li>
           <a href="/posts/ceph-rgw-create-a-new-region/" class="related__link">ceph rgw创建新的region</a>
         </li>
         
         <li>
           <a href="/posts/ceph-rgw-bucket-shard-problem/" class="related__link">ceph rgw桶分片问题</a>
-        </li>
-        
-        <li>
-          <a href="/posts/ceph-osd-troubleshooting/" class="related__link">ceph常见OSD故障处理</a>
         </li>
         
     </ul>
