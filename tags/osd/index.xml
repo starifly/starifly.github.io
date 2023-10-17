@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>osd on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/osd/</link>
+    <description>Recent content in osd on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 06 Oct 2021 19:08:43 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/osd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>ceph常见OSD故障处理</title>
+        <link>https://starifly.github.io/posts/ceph-osd-troubleshooting/</link>
+        <pubDate>Wed, 06 Oct 2021 19:08:43 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 19:08:43 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-osd-troubleshooting/</guid>
+        <description>常见 OSD 故障处理 Reference 常见 OSD 故障处理</description>
+        <content:encoded>&lt;p&gt;常见 OSD 故障处理&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_44389885/article/details/101478569&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;常见 OSD 故障处理&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>osd</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>删除osd的正确方式</title>
+        <link>https://starifly.github.io/posts/ceph-del-osd-node/</link>
+        <pubDate>Wed, 06 Oct 2021 19:05:09 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 19:05:09 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-del-osd-node/</guid>
+        <description>删除Ceph OSD节点 Reference 删除Ceph OSD节点</description>
+        <content:encoded>&lt;p&gt;删除Ceph OSD节点&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/schangech/p/8036191.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;删除Ceph OSD节点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>osd</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

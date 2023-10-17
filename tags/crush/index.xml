@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>crush on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/crush/</link>
+    <description>Recent content in crush on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 06 Oct 2021 17:14:18 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/crush/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>Ceph 硬件选型、crush规则及region</title>
+        <link>https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/</link>
+        <pubDate>Wed, 06 Oct 2021 17:14:18 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/</guid>
+        <description>Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 + luminous） 03 分布式存储ceph之crush规则配置 动态设</description>
+        <content:encoded>&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/387112707&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;附录2、ceph安装配置介绍与主机优化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/hukey/p/11975109.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;[ ceph  ] CEPH 部署完整版（CentOS 7 + luminous）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386560600&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;03 分布式存储ceph之crush规则配置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.strugglesquirrel.com/2018/06/27/%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AEbucket-index-max-shards%E5%8F%82%E6%95%B0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;动态设置bucket_index_max_shards参数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1032859?from=article.detail.1630684&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;实弹军演-基于Ceph对象存储的实战兵法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411454?from=article.detail.1411467&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（一）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411459?from=article.detail.1411457&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（三）上&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411461?from=article.detail.1411457&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（三）下 &lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411463?from=article.detail.1411465&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（五）上 &lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411465&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（五）中 &lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/1411467?from=article.detail.1411465&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;从传统运维到云运维演进历程之软件定义存储（五）下&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.sohu.com/a/122822222_468741&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph-RGW多活机制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/45084771&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;BlueStore-先进的用户态文件系统《一》&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://t.zoukankan.com/dengchj-p-9444437.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph之对象存储网关RADOS Gateway(RGW)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>crush</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>region on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/region/</link>
+    <description>Recent content in region on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 06 Oct 2021 19:35:17 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/region/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>ceph rgw创建新的region</title>
+        <link>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</link>
+        <pubDate>Wed, 06 Oct 2021 19:35:17 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 19:35:17 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</guid>
+        <description>概念： 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.con</description>
+        <content:encoded>&lt;p&gt;概念：   &lt;br /&gt;
+1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
+2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
+3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;
+&lt;p&gt;创建realm&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin realm create --rgw-realm&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;my-realm --default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph01 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# radosgw-admin realm list&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;default_info&amp;#34;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;#34;eff9b039-8c3c-4991-87f9-e9331b2c7824&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;realms&amp;#34;&lt;/span&gt;: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;my-realm&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;创建master zonegroup,先删除默认的zonegroup&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;radosgw-admin zonegroup delete --rgw-zonegroup=default&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建一个为azonggroup的zonegroup&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;radosgw-admin zonegroup create --rgw-zonegroup=azonegroup --endpoints=192.168.0.39:7480 --master --default&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建master zone,先删除默认的zone&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;adosgw-admin zone delete --rgw-zone=default&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建一个为azone的zone&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;radosgw-admin zone create --rgw-zonegroup=azonegroup --rgw-zone=azone --endpoints=192.168.0.39:7480 --default --master&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建一个auser账户用于和其它 zone同步&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;radosgw-admin user create --uid=&amp;quot;auser&amp;quot; --display-name=&amp;quot;auser&amp;quot; --system&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;用创建system账户产生的access 和secret更新zone配置&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;radosgw-admin zone modify --rgw-zone=azone --access-key=BKG10IM15N8EB0I7ZE7U --secret=Cvh60vBX5ciujqRaLw3bm6wMIGmLdlJ9FB4ukOG&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;更新period&lt;br /&gt;
+radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
+&lt;p&gt;重启rgw实例&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.idcat.cn/ceph-%E5%A4%9A%E5%8C%BA%E5%9F%9Fradosgw%E7%BD%91%E5%85%B3%E9%85%8D%E7%BD%AE.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph 多区域radosgw网关配置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.strugglesquirrel.com/2018/06/27/%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AEbucket-index-max-shards%E5%8F%82%E6%95%B0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;动态设置bucket_index_max_shards参数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+            
+              <category>region</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

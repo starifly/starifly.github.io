@@ -1163,6 +1163,256 @@
       </item>
       
       <item>
+        <title>ceph故障域</title>
+        <link>https://starifly.github.io/posts/ceph-crushmap/</link>
+        <pubDate>Thu, 26 Jan 2023 19:01:44 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 19:01:44 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-crushmap/</guid>
+        <description>准备 1、执行ceph -s确认存储集群状态，保证为健康状态。 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum ceph001,ceph002,ceph003 (age 41m) mgr: ceph001(active, since 43m), standbys: ceph003 mds: cephfs:1 {0=ceoh002=up:active} 2 up:standby osd: 6 osds: 6 up (since 3m), 6 in (since 3m) rgw: 3</description>
+        <content:encoded>&lt;h2 id=&#34;准备&#34;&gt;准备&lt;/h2&gt;
+&lt;p&gt;1、执行ceph -s确认存储集群状态，保证为健康状态。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph -s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  cluster:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    id:     d00c744a-17f6-4768-95de-1243202557f2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    health: HEALTH_OK
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mon: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; daemons, quorum ceph001,ceph002,ceph003 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;age 41m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mgr: ceph001&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;active, since 43m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, standbys: ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mds: cephfs:1 &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ceoh002&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;up:active&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; up:standby
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    osd: &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; osds: &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; up &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;since 3m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; in &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;since 3m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    rgw: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; daemons active &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ceph001, ceph002, ceph003&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  task status:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  data:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    pools:   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; pools, &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt; pgs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    objects: &lt;span class=&#34;m&#34;&gt;803&lt;/span&gt; objects, 2.1 GiB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    usage:   &lt;span class=&#34;m&#34;&gt;13&lt;/span&gt; GiB used, &lt;span class=&#34;m&#34;&gt;62&lt;/span&gt; GiB / &lt;span class=&#34;m&#34;&gt;75&lt;/span&gt; GiB avail
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    pgs:     &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt; active+clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、执行ceph osd tree ,记录变更前的结构。以及存储池pool及其他信息。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   hdd 0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   hdd 0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   hdd 0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看存储池pool规则及其他详细信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd pool ls detail&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;.rgw.root&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1108&lt;/span&gt; lfor 0/1108/1106 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.control&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1472&lt;/span&gt; lfor 0/1472/1470 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rbd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.meta&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1691&lt;/span&gt; lfor 0/1691/1689 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.log&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1580&lt;/span&gt; lfor 0/1580/1578 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;cephfs_data&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application cephfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;cephfs_metadata&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; pg_autoscale_bias &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; pg_num_min &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; recovery_priority &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; application cephfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;testpool&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;908&lt;/span&gt; lfor 0/908/906 flags hashpspool,selfmanaged_snaps stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rbd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	removed_snaps &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1~3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.index&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1247&lt;/span&gt; lfor 0/1247/1245 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.data&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1177&lt;/span&gt; lfor 0/1177/1175 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;13&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.non-ec&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1362&lt;/span&gt; lfor 0/1362/1360 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、备份集群的crushmap文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd getcrushmap -o crushmap.bak
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置-crush-class&#34;&gt;配置 crush class&lt;/h2&gt;
+&lt;p&gt;默认情况下，所有 osd 都会 class 的类型是 hdd：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush class ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hdd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当前3个节点，每个节点上有2个OSD，因为没有挂SSD硬盘，所以把OSD3-5模拟为一组SSD。首先，需要将 osd3-5 从 hdd 组中去除掉：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# for i in {3..5};do ceph osd crush rm-device-class osd.$i;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看 osd&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;       0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;       0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;       0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到 osd3-5  class 列已经没有 hdd 标识了。此时就可以通过命令将osd3-5添加到 ssd 组了，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# for i in {3..5}; do ceph osd crush set-device-class ssd osd.$i;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看 osd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   ssd 0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   ssd 0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   ssd 0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看 class&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush class ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hdd&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;ssd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以发现 osd3-5 的 class 列都变为 ssd，查看 crush class 也多出一个 ssd 的组，接下来就需要创建ssd 的规则。&lt;/p&gt;
+&lt;h2 id=&#34;命令生成osd树形结构&#34;&gt;命令生成osd树形结构&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建数据中心：datacenter0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket datacenter0 datacenter
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建机房：room0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket room0 room
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建机架：rack0、rack1、rack2（模拟3个机架）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack0 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack1 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack2 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把机房room0移动到数据中心datacenter0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move room0 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把机架rack0、rack1、rack2移动到机房room0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack1 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack2 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph001移动到：datacenter0/room0/rack0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph001 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph002移动到：datacenter0/room0/rack1下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph002 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph003移动到：datacenter0/room0/rack2下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph003 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看osd&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID  CLASS WEIGHT  TYPE NAME                STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-13       0.07315 datacenter datacenter0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-14       0.07315     room room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-15       0.02438         rack rack0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -3       0.02438             host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949                 osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   ssd 0.00490                 osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-16       0.02438         rack rack1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -5       0.02438             host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949                 osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   ssd 0.00490                 osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-17       0.02438         rack rack2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -7       0.02438             host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949                 osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   ssd 0.00490                 osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -1             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; root default
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;规则&#34;&gt;规则&lt;/h2&gt;
+&lt;p&gt;crushmap配置中最核心的当属rule了，crush rule决定了三点重要事项：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、从OSDMap中的哪个节点开始查找&lt;/li&gt;
+&lt;li&gt;2、使用那个节点作为故障隔离域&lt;/li&gt;
+&lt;li&gt;3、定位副本的搜索模式（广度优先 or 深度优先）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pg 选择osd的过程，首先要知道在rules中 指明从osdmap中哪个节点开始查找，入口点默认为default也就是root节点，&lt;br /&gt;
+然后隔离域为host节点(也就是同一个host下面不能选择两个子节点)。由default到3个host的选择过程，&lt;br /&gt;
+这里由default根据节点的bucket类型选择下一个子节点，由子节点再根据本身的类型继续选择，直到选择到host，然后在host下选择一个osd。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里创建如下两个规则：&lt;/p&gt;
+&lt;p&gt;replicated_rule_rack：用于hdd分组的osd，以rack为故障域的应用规则；&lt;br /&gt;
+replicated_rule_rack_ssd：用于普通ssd分区为osd，以rack为故障域的应用规则；&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;name&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;root&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;failure-domain-type&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;class&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//root，The name of the node under which data should be placed.即应该放置数据的root bucket的名称,例如default。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated replicated_rule_rack datacenter0 rack hdd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated replicated_rule_rack_ssd datacenter0 rack ssd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看 rule&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush rule ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule_rack_ssd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看规则具体信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule dump rule_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for i in $(rados lspools | grep -v ssdpool);do  ceph osd pool set $i crush_rule replicated_rule_rack ;done&lt;/p&gt;
+&lt;p&gt;存储池应用规则&lt;/p&gt;
+&lt;p&gt;应用上一步创建的replicated_rule_rack_ssd规则到除了数据池以外的存储池&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;rados lspools &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v cephfs_data &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v default.rgw.buckets.data &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v testpool&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;  ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; crush_rule replicated_rule_rack_ssd &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;应用上一步创建的replicated_rule_rack规则到数据池&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; testpool crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; default.rgw.buckets.data crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; cephfs_data crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.51cto.com/wendashuai/2509156&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph rack故障域调整&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/hukey/p/11975109.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;[ ceph ] CEPH 部署完整版（CentOS 7 + luminous）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386560600&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;03 分布式存储ceph之crush规则配置&lt;/a&gt;÷&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph运维操作</title>
+        <link>https://starifly.github.io/posts/ceph-opetations/</link>
+        <pubDate>Wed, 06 Oct 2021 21:38:48 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:38:48 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-opetations/</guid>
+        <description>07 分布式存储ceph运维操作</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561535&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;07 分布式存储ceph运维操作&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
         <title>ceph s3 java开发相关</title>
         <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
         <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
@@ -1231,37 +1481,23 @@
       </item>
       
       <item>
-        <title>Linux中病毒后的处理过程</title>
-        <link>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</link>
-        <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate>
+        <title>Ceph运维告诉你分布式存储的那些“坑”</title>
+        <link>https://starifly.github.io/posts/ceph-op-tells-you-the-pits-of-distribute-storage/</link>
+        <pubDate>Wed, 06 Oct 2021 20:00:04 +0800</pubDate>
         <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sat, 30 May 2020 21:59:57 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</guid>
-        <description>之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删</description>
-        <content:encoded>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;删除定时任务及文件以及开机启动文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;进入以下目录&lt;code&gt;/etc/init.d/&lt;/code&gt;、&lt;code&gt;/etc/rc.d/rc#.d/&lt;/code&gt;、&lt;code&gt;/etc/cron.d&lt;/code&gt;、&lt;code&gt;/usr/lib/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/profile.d&lt;/code&gt;，并清理可疑文件。&lt;/p&gt;
-&lt;p&gt;确认文件&lt;code&gt;/etc/crontab&lt;/code&gt;中是否有定时任务。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;删除可疑执行文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;进入以下目录&lt;code&gt;/bin&lt;/code&gt;，&lt;code&gt;/sbin&lt;/code&gt;，&lt;code&gt;/usr/libexec/&lt;/code&gt;，并清理可疑文件。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修复ssh认证文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;删除或修复&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;查看etc目录下文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;查看&lt;code&gt;/etc&lt;/code&gt;目录下的文件是否被篡改或增加，比如&lt;code&gt;hosts&lt;/code&gt;文件。&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
+        <atom:modified>Wed, 06 Oct 2021 20:00:04 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-op-tells-you-the-pits-of-distribute-storage/</guid>
+        <description>Ceph运维告诉你分布式存储的那些“坑” 以Ceph、VSAN为代表的软件定义存储（Software Defined Storage，SDS）是一个横向扩展、</description>
+        <content:encoded>&lt;p&gt;
 
-&lt;a href=&#34;https://blog.csdn.net/heivy/article/details/50508354&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;记录一次linux病毒清除过程&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://blog.csdn.net/daiyuhe/article/details/95683393&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;记录一次清除Linux挖矿病毒的经历(sysupdate, networkservice进程)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://mp.weixin.qq.com/s/eOQy1_rJdwdYcBZB0Mf-yg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;11个步骤完美排查Linux机器是否已经被入侵&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;a href=&#34;https://blog.csdn.net/liukuan73/article/details/114646644&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph运维告诉你分布式存储的那些“坑”&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以Ceph、VSAN为代表的软件定义存储（Software Defined Storage，SDS）是一个横向扩展、自动均衡、自愈合的分布式存储系统，将商用x86服务器、固态硬盘、机械硬盘等硬件资源整合为一个瘦供给的资源池，并以块存储、文件存储、对象存储、Restful API等多种接口方式提供存储服务。&lt;/p&gt;
+&lt;p&gt;无论是Ceph、VSAN，或者其演化版本，都有一个共同的技术特征，即采用网络RAID方式实现数据保护，以3副本或纠删码为代表。其中3副本用于对小块数据读写性能有一定要求的应用场景，而纠删码则适用于视频数据、备份及归档等大文件场景。&lt;/p&gt;
+&lt;p&gt;以3副本为例，业务数据被分割为固定大小的数据块，通常为4MB，每个数据块在不同的节点上保存3个副本（如图1所示），其分布机制是依照一致性哈希算法（Consistent Hashing）或CRUSH算法，将各个副本数据随机分布在不同节点、不同磁盘中，以实现数据自动平衡和横向扩展。当磁盘或节点遭遇故障或损坏时，系统会自动根据预先设定的规则，重新建立一个新的数据副本，称之为数据重建。&lt;/p&gt;
+&lt;p&gt;虽然分布式存储的SDS理念很好，横向扩展能力不错，自动添加和删除节点都是优势，但与传统集中式存储（磁盘阵列）相比，其稳定性和性能仍然存在明显的短板。&lt;/p&gt;
+&lt;p&gt;首先，在性能方面，三副本分布式存储容易受到IO分布不均匀和木桶效应的影响，导致大延迟和响应迟钝的现象。以Ceph为例，多个存储基本单元，Placement Group （PG），封装为一个OSD，每个OSD直接对应于某一个机械硬盘HDD；主流的7200转HDD，受到机械臂寻址限制，其单盘的读写性能仅为120 IOPS左右；由于数据在OSD上随机分布，因而单个硬盘上的IO负载不会固定在平均值上，而是总体呈现为正态分布，少数HDD上因正态分布的尾部效应，导致其IO负载远超平均值，以及远超单盘的性能阀值，造成拥堵。此外，分布式存储为保证数据完整性，必须定时进行数据完整性校验，即数据scrub/deep-scrub操作，而这些操作产生额外的IO负载，可能会加重磁盘阻塞现象。根据木桶效应原理，系统的性能取决于集群中表现最差的磁盘，因此个别慢盘严重拖累整个系统的性能，其可能的后果，就是带来大延迟、OSD假死，以及触发数据非必需的重建。&lt;/p&gt;
+&lt;p&gt;其次，三副本分布式存储还面临稳定性问题。当存储扩容、硬盘或节点损坏、网络故障、OSD假死、 Deep-scrub等多种因素叠加，可能导致多个OSD同时重建，引发重建风暴。在数据重建过程中，重建任务不仅消耗系统的内存、CPU、网络资源，而且还给存储系统带来额外的IO工作负载，挤占用户工作负载的存储资源。在此情形下，用户时常观察到，系统IO延迟大，响应迟钝，轻者引起业务中断，严重时系统可能会陷入不稳定的状态，OSD反复死机重启，甚至会导致数据丢失，系统崩溃。&lt;/p&gt;
+&lt;p&gt;此外，三副本分布式存储还面临数据丢失的风险。三副本最大可抵御两个HDD同时损坏。当系统处于扩容状态、或一个节点处于维护模式时，此时出现一个HDD故障，则该系统就会进入紧急状态，出现两个HDD同时故障，则可能导致数据丢失。对于一个具有一定规模的存储系统而言，同时出现两个机械硬盘故障的事件不可避免，尤其是当系统运行两三年之后，随着硬件的老化，出现Double、或Triple磁盘故障的概率急剧上升。此外，当系统出现大规模掉电或存储节点意外宕机时，也可能会导致多个机械硬盘同时出现损坏，危及三副本分布式存储的数据安全。&lt;/p&gt;
 </content:encoded>
         <dc:creator>starifly</dc:creator>
         
@@ -1270,665 +1506,195 @@
         
           
             
-              <category>linux</category>
-            
-          
-            
-              <category>centos</category>
+              <category>ceph</category>
             
           
         
         
             
-              <category>[linux]</category>
+              <category>[ceph]</category>
             
         
         
       </item>
       
       <item>
-        <title>一个“蝇量级” C 语言协程库</title>
-        <link>https://starifly.github.io/posts/a-c-coroutine/</link>
-        <pubDate>Sun, 02 Sep 2018 19:35:16 +0800</pubDate>
+        <title>ceph rgw高可用和负载均衡</title>
+        <link>https://starifly.github.io/posts/ceph-rgw-ha-and-load-balance/</link>
+        <pubDate>Wed, 06 Oct 2021 19:46:05 +0800</pubDate>
         <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Thu, 06 Sep 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/a-c-coroutine/</guid>
-        <description>本文为转载文章， 原文地址 https://coolshell.cn/articles/10975.html （感谢网友 @我的上铺叫路遥 投稿） 协程 (coroutine) 顾名思义就是“协作的例程”（co-operative routines）。跟具</description>
-        <content:encoded>&lt;blockquote&gt;
-&lt;p&gt;本文为转载文章， 原文地址 
-
-&lt;a href=&#34;https://coolshell.cn/articles/10975.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://coolshell.cn/articles/10975.html&lt;/a&gt;&lt;/p&gt;
+        <atom:modified>Wed, 06 Oct 2021 19:46:05 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-rgw-ha-and-load-balance/</guid>
+        <description>环境配置 安装依赖 yum install pcre-devel.x86_64 openssl-devel zlib-devel systemd-devel gcc gcc-c++ 内核调优 #vim /etc/sysctl.conf vm.swappiness = 0 net.ipv4.ip_forward = 1 net.ipv4.ip_nonlocal_bind = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.ip_local_port_range = 1025 65023 net.ipv4.tcp_max_syn_backlog = 10240 检查 /usr/sbin/sysctl net.ipv4.ip_nonlocal_bind /usr/sbin/sysctl net.ipv4.ip_forward cat /proc/sys/net/ipv4/ip_forward 查看是否开启了ip转发功能 如果上述文件中的</description>
+        <content:encoded>&lt;h2 id=&#34;环境配置&#34;&gt;环境配置&lt;/h2&gt;
+&lt;p&gt;安装依赖&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yum install pcre-devel.x86_64 openssl-devel   zlib-devel  systemd-devel gcc gcc-c++&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;内核调优&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#vim /etc/sysctl.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vm.swappiness &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net.ipv4.ip_forward &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net.ipv4.ip_nonlocal_bind &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net.ipv4.tcp_tw_reuse &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net.ipv4.ip_local_port_range &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1025&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;65023&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net.ipv4.tcp_max_syn_backlog &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10240&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;检查&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/sbin/sysctl net.ipv4.ip_nonlocal_bind
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/sbin/sysctl net.ipv4.ip_forward
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /proc/sys/net/ipv4/ip_forward
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;查看是否开启了ip转发功能&lt;br /&gt;
+如果上述文件中的值为0,说明禁止进行IP转发；如果是1,则说明IP转发功能已经打开。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;（感谢网友 &lt;strong&gt;
+&lt;h2 id=&#34;haproxy&#34;&gt;haproxy&lt;/h2&gt;
+&lt;p&gt;下载安装包&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wget https://src.fedoraproject.org/repo/pkgs/haproxy/haproxy-2.0.1.tar.gz/sha512/bcc2c6fa1fe5699f110a2b2ce5abcec7f4ebff94a2850d731f6d86aadeb7f4048b6f372db6724a91191c2ecc2853f5ac576233e0ff84ffef3de6c80d1250f1b6/haproxy-2.0.1.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;解压&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tar -zxvf haproxy-2.0.1.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;开始编译安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; haproxy-2.0.1/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 可指定安装目录PREFIX=/usr/local/haproxy，默认为/usr/local/sbin/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make &lt;span class=&#34;nv&#34;&gt;TARGET&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;linux-glibc   &lt;span class=&#34;nv&#34;&gt;USE_OPENSSL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;USE_SYSTEMD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;USE_PCRE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;USE_ZLIB&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注册到系统服务&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim /usr/lib/systemd/system/haproxy.service&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;[Unit]
+Description=HAProxy Load Balancer
+After=syslog.target network.target
 
-&lt;a href=&#34;http://weibo.com/fullofbull&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;@我的上铺叫路遥&lt;/strong&gt;&lt;/a&gt;&lt;/strong&gt; 投稿）&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;协程 (coroutine) 顾名思义就是“协作的例程”（co-operative routines）。跟具有操作系统概念的线程不一样，协程是在用户空间利用程序语言的语法语义就能实现逻辑上类似多任务的编程技巧。实际上协程的概念比线程还要早，按照 Knuth 的说法 &lt;strong&gt;“子例程是协程的特例”&lt;/strong&gt;，一个子例程就是一次子函数调用，那么实际上协程就是类函数一样的程序组件，你可以在一个线程里面轻松创建数十万个协程，就像数十万次函数调用一样。只不过子例程只有一个调用入口起始点，返回之后就结束了，而协程入口既可以是起始点，又可以从上一个返回点继续执行，也就是说协程之间可以通过 yield 方式转移执行权，&lt;strong&gt;对称（symmetric）、平级&lt;/strong&gt;地调用对方，而不是像例程那样上下级调用关系。当然 Knuth 的 “特例” 指的是协程也可以模拟例程那样实现上下级调用关系，这就叫&lt;strong&gt;非对称协程&lt;/strong&gt;（asymmetric coroutines）。&lt;/p&gt;
-&lt;h2 id=&#34;基于事件驱动模型&#34;&gt;基于事件驱动模型&lt;/h2&gt;
-&lt;p&gt;我们举一个例子来看看一种&lt;strong&gt;对称协程&lt;/strong&gt;调用场景，大家最熟悉的 “生产者 - 消费者” 事件驱动模型，一个协程负责生产产品并将它们加入队列，另一个负责从队列中取出产品并使用它。为了提高效率，你想一次增加或删除多个产品。伪代码可以是这样的：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;# producer coroutine
-loop
-while queue is not full
-  create some new items
-  add the items to queue
-yield to consumer
+[Service]
+ExecStartPre=/usr/local/sbin/haproxy -f /etc/haproxy/haproxy.cfg   -c -q
+ExecStart=/usr/local/sbin/haproxy -Ws -f /etc/haproxy/haproxy.cfg  -p /run/haproxy.pid
+ExecReload=/bin/kill -USR2 $MAINPID
 
-# consumer coroutine
-loop
-while queue is not empty
-  remove some items from queue
-  use the items
-yield to producer&lt;/pre&gt;
-&lt;p&gt;大多数教材上拿这种模型作为多线程的例子，实际上多线程在此的应用还是显得有点 “重量级”，由于缺乏 yield 语义，线程之间不得不使用同步机制来避免产生全局资源的竟态，这就不可避免产生了休眠、调度、切换上下文一类的系统开销，而且线程调度还会产生时序上的不确定性。而对于协程来说，“挂起” 的概念只不过是转让代码执行权并调用另外的协程，待到转让的协程告一段落后重新得到调用并从挂起点“唤醒”，这种协程间的调用是逻辑上可控的，时序上确定的，可谓一切尽在掌握中。&lt;/p&gt;
-&lt;p&gt;当今一些具备协程语义的语言，比较重量级的如 C#、erlang、golang，以及轻量级的 python、lua、javascript、ruby，还有函数式的 scala、scheme 等。相比之下，作为原生态语言的 C 反而处于尴尬的地位，原因在于 C 依赖于一种叫做&lt;strong&gt;栈帧&lt;/strong&gt;的例程调用，例程内部的状态量和返回值都保留在堆栈上，这意味着生产者和消费者相互之间无法实现平级调用，当然你可以改写成把生产者作为主例程然后将产品作为传递参数调用消费者例程，这样的代码写起来费力不讨好而且看起来会很难受，特别当协程数目达到十万数量级，这种写法就过于僵化了。&lt;/p&gt;
-&lt;p&gt;这就引出了协程的概念，**如果将每个协程的上下文（比如程序计数器）保存在其它地方而不是堆栈上，协程之间相互调用时，被调用的协程只要从堆栈以外的地方恢复上次出让点之前的上下文即可，这有点类似于 CPU 的上下文切换，**遗憾的是似乎只有更底层的汇编语言才能做到这一点。&lt;/p&gt;
-&lt;p&gt;难道 C 语言只能用多线程吗？幸运的是，C 标准库给我们提供了两种协程调度原语：一种是 
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改配置&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim /etc/haproxy/haproxy.cfg&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;global
+log 127.0.0.1 local0
+log 127.0.0.1 local1 notice
+maxconn 4096
+# 注 下面完成了工作进程数及亲缘性绑定，若想做的极致一点还可以通过在内核启动文件即 grub 文件启动参数来实现 内核进程绑定以及进程隔离
+nbproc 3 # 配置进程数，不包含 status
+cpu-map 1 1 # 亲缘性绑定。前一个数字是进程号，后一个数字是CPU内核的号，注意将0号cpu留给内核
+cpu-map	2 2
+cpu-map	3 3
+stats bind-process 3
+#chroot /usr/share/haproxy
+#user haproxy
+#group haproxy
+daemon
 
-&lt;a href=&#34;http://zh.wikipedia.org/wiki/Setjmp.h&#34; title=&#34;http://zh.wikipedia.org/wiki/Setjmp.h&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;setjmp/longjmp&lt;/a&gt;，另一种是 
+defaults
+  mode                    http
+  log                     global
+  option                  httplog
+  option                  dontlognull
+  option http-server-close
+  option forwardfor       except 127.0.0.0/8
+  option                  redispatch
+  retries                 3
+  timeout http-request    10s
+  timeout queue           1m
+  timeout connect         10s
+  timeout client          1m
+  timeout server          1m
+  timeout http-keep-alive 10s
+  timeout check           10s
 
-&lt;a href=&#34;http://pubs.opengroup.org/onlinepubs/7990989799/xsh/ucontext.h.html&#34; title=&#34;http://pubs.opengroup.org/onlinepubs/7990989799/xsh/ucontext.h.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ucontext 组件&lt;/a&gt;，它们内部（当然是用汇编语言）实现了协程的上下文切换，相较之下前者在应用上会产生相当的不确定性（比如不好封装，具体说明参考联机文档），所以后者应用更广泛一些，网上绝大多数 C 协程库也是基于 ucontext 组件实现的。&lt;/p&gt;
-&lt;h2 id=&#34;蝇量级-的协程库&#34;&gt;“蝇量级” 的协程库&lt;/h2&gt;
-&lt;p&gt;在此，我来介绍一种 “蝇量级” 的开源 C 协程库 
+frontend http_web
+  bind *:2003
+  mode tcp
+  #timeout client 1h
+  #log global
+  #option tcplog
+  default_backend rgw
+  #acl is_websocket hdr(Upgrade) -i WebSocket
+  #acl is_websocket hdr_beg(Host) -i ws
 
-&lt;a href=&#34;http://dunkels.com/adam/pt/&#34; title=&#34;http://dunkels.com/adam/pt/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;protothreads&lt;/a&gt;。这是一个全部用 ANSI C 写成的库，之所以称为 “蝇量级” 的，就是说，实现已经不能再精简了，几乎就是原语级别。事实上 protothreads 整个库不需要链接加载，因为所有源码都是头文件，类似于 STL 这样不依赖任何第三方库，在任何平台上可移植；总共也就 5 个头文件，有效代码量不足 100 行；API 都是宏定义的，所以不存在调用开销；最后，每个协程的空间开销是 2 个字节（是的，你没有看错，就是一个 short 单位的“栈”！）当然这种精简是要以使用上的局限为代价的，接下来的分析会说明这一点。&lt;/p&gt;
-&lt;p&gt;先来看看 protothreads 作者，
+backend rgw
+  mode tcp
+  #timeout queue 1h
+  #timeout server 1h
+  #timeout connect 1h
+  #log global
+  balance roundrobin
+  #hash-type consistent
+  server ceph001 192.168.5.203:20003 check inter 3s fall 2 rise 2
+  server ceph002 192.168.5.204:20003 check inter 3s fall 2 rise 2
+  server ceph003 192.168.5.205:20003 check inter 3s fall 2 rise 2
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;启动&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl start haproxy &amp;amp;&amp;amp; systemctl enable haproxy&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;keepalived&#34;&gt;keepalived&lt;/h2&gt;
+&lt;p&gt;下载安装包&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wget --no-check-certificate http://www.keepalived.org/software/keepalived-1.2.22.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;解压&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tar -zxvf keepalived-1.2.22.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;编译安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; keepalived-1.2.22
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./configure --prefix&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/opt/keepalived
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /opt/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /opt/keepalived/etc/sysconfig/keepalived /etc/sysconfig/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /etc/keepalived
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /opt/keepalived/etc/keepalived/keepalived.conf /etc/keepalived
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /opt/keepalived/sbin/keepalived /usr/sbin/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;修改配置&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;全部节点采用backup且priority值一样，为了减少VIP来回切换。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;vim /etc/keepalived/keepalived.conf&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;! Configuration File for keepalived
 
-&lt;a href=&#34;http://dunkels.com/adam/&#34; title=&#34;http://dunkels.com/adam/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Adam Dunkels&lt;/a&gt;，一位来自瑞典皇家理工学院的计算机天才帅哥。话说这哥们挺有意思的，写了好多轻量级的作品，都是 BSD 许可证。顺便说一句，轻量级开源软件全世界多如牛毛，可像这位哥们写得如此出名的并不多。比如嵌入式网络操作系统 
-
-&lt;a href=&#34;http://www.contiki-os.org/&#34; title=&#34;http://www.contiki-os.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contiki&lt;/a&gt;，国人耳熟能详的 TCP/IP 协议栈 
-
-&lt;a href=&#34;http://en.wikipedia.org/wiki/UIP_%28micro_IP%29&#34; title=&#34;http://en.wikipedia.org/wiki/UIP_(micro_IP)&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;uIP&lt;/a&gt; 和 
-
-&lt;a href=&#34;http://savannah.nongnu.org/projects/lwip/&#34; title=&#34;http://savannah.nongnu.org/projects/lwip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;lwIP&lt;/a&gt; 也是出自其手。上述这些软件都是经过数十年企业级应用的考验，质量之高可想而知。&lt;/p&gt;
-&lt;p&gt;很多人会好奇如此 “蝇量级” 的代码究竟是怎么实现的呢？在分析 protothreads 源码之前，我先来给大家补一补 C 语言的基础课;-^)简而言之，这利用了 C 语言特性上的一个“奇技淫巧”，而且这种技巧恐怕连许多具备十年以上经验的 C 程序员老手都不见得知晓。当然这里先要声明我不是推荐大家都这么用，实际上这是以破坏语言的代码规范为代价，在一些严肃的项目工程中需要谨慎对待，除非你想被炒鱿鱼。&lt;/p&gt;
-&lt;h2 id=&#34;c-语言的-yield-语义&#34;&gt;C 语言的 “yield 语义”&lt;/h2&gt;
-&lt;p&gt;下面的教程来自于一位 ARM 工程师、天才黑客 
-
-&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/&#34; title=&#34;http://www.chiark.greenend.org.uk/~sgtatham/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Simon Tatham&lt;/a&gt;（开源 Telnet/SSH 客户端 
-
-&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/putty/&#34; title=&#34;http://www.chiark.greenend.org.uk/~sgtatham/putty/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PuTTY&lt;/a&gt; 和汇编器 
-
-&lt;a href=&#34;http://www.nasm.us/&#34; title=&#34;http://www.nasm.us/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NASM&lt;/a&gt; 的作者，吐槽一句，PuTTY 的源码号称是所有正式项目里最难 hack 的 C，你应该猜到作者是什么语言出身）的博文：
-
-&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/coroutines.html&#34; title=&#34;http://www.chiark.greenend.org.uk/~sgtatham/coroutines.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coroutines in C&lt;/a&gt;。中文译文在
-
-&lt;a href=&#34;http://www.oschina.net/translate/coroutines-in-c&#34; title=&#34;http://www.oschina.net/translate/coroutines-in-c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;我们知道 python 的 yield 语义功能类似于一种迭代生成器，函数会保留上次的调用状态，并在下次调用时会从上个返回点继续执行。用 C 语言来写就像这样：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;int function(void) {
-  int i;
-  for (i = 0; i &lt; 10; i++)
-    return i;   /* won&#39;t work, but wouldn&#39;t it be nice */
-}&lt;/pre&gt;
-&lt;p&gt;连续对它调用 10 次，它能分别返回 0 到 9。该怎样实现呢？可以利用 goto 语句，如果我们在函数中加入一个状态变量，就可以这样实现：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;int function(void) {
-  static int i, state = 0;
-  switch (state) {
-    case 0: goto LABEL0;
-    case 1: goto LABEL1;
-  }
-  LABEL0: /* start of function */
-  for (i = 0; i &lt; 10; i++) {
-    state = 1; /* so we will come back to LABEL1 */
-    return i;
-    LABEL1:; /* resume control straight after the return */
-  }
-}&lt;/pre&gt;
-&lt;p&gt;这个方法是可行的。我们在所有需要 yield 的位置都加上标签：起始位置加一个，还有所有 return 语句之后都加一个。每个标签用数字编号，我们在状态变量中保存这个编号，这样就能在我们下次调用时告诉我们应该跳到哪个标签上。每次返回前，更新状态变量，指向到正确的标签；不论调用多少次，针对状态变量的 switch 语句都能找到我们要跳转到的位置。&lt;/p&gt;
-&lt;p&gt;但这还是难看得很。最糟糕的部分是所有的标签都需要手工维护，还必须保证函数中的标签和开头 switch 语句中的一致。每次新增一个 return 语句，就必须想一个新的标签名并将其加到 switch 语句中；每次删除 return 语句时，同样也必须删除对应的标签。这使得维护代码的工作量增加了一倍。&lt;/p&gt;
-&lt;p&gt;仔细想想，其实我们可以不用 switch 语句来决定要跳转到哪里去执行，而是&lt;strong&gt;直接利用 switch 语句本身来实现跳转&lt;/strong&gt;：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;int function(void) {
-  static int i, state = 0;
-  switch (state) {
-    case 0: /* start of function */
-    for (i = 0; i &lt; 10; i++) {
-      state = 1; /* so we will come back to &#34;case 1&#34; */
-      return i;
-      case 1:; /* resume control straight after the return */
-    }
-  }
-}&lt;/pre&gt;
-&lt;p&gt;酷！没想到 switch-case 语句可以这样用，其实说白了 C 语言就是脱胎于汇编语言的，switch-case 跟 if-else 一样，无非就是汇编的条件跳转指令的另类实现而已（这也间接解释了为何汇编程序员经常揶揄 C 语言是 “大便一样的代码”）。我们还可以用 &lt;strong&gt;LINE&lt;/strong&gt; 宏使其更加一般化：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;int function(void) {
-  static int i, state = 0;
-  switch (state) {
-    case 0: /* start of function */
-    for (i = 0; i &lt; 10; i++) {
-      state = __LINE__ + 2; /* so we will come back to &#34;case __LINE__&#34; */
-      return i;
-      case __LINE__:; /* resume control straight after the return */
-    }
-  }
-}&lt;/pre&gt;
-&lt;p&gt;这样一来我们可以用宏提炼出一种范式，封装成组件：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;#define Begin() static int state=0; switch(state) { case 0:
-#define Yield(x) do { state=__LINE__; return x; case __LINE__:; } while (0)
-#define End() }
-int function(void) {
-  static int i;
-  Begin();
-  for (i = 0; i &lt; 10; i++)
-    Yield(i);
-  End();
-}&lt;/pre&gt;
-&lt;p&gt;怎么样，看起来像不像发明了一种全新的语言？&lt;strong&gt;实际上我们利用了 switch-case 的分支跳转特性，以及预编译的 &lt;strong&gt;LINE&lt;/strong&gt; 宏，实现了一种隐式状态机，最终实现了 “yield 语义”。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;还有一个问题，当你欢天喜地地将这种鲜为人知的技巧运用到你的项目中，并成功地拿去向你的上司邀功问赏的时候，你的上司会怎样看待你的代码呢？你的宏定义中大括号没有匹配完整，在代码块中包含了未用到的 case，Begin 和 Yield 宏里面不完整的七拼八凑…… 你简直就是公司里不遵守编码规范的反面榜样！&lt;/p&gt;
-&lt;p&gt;别着急，在原文中 Simon Tatham 大牛帮你找到一个坚定的反驳理由，我觉得对程序员来说简直是金玉良言。&lt;/p&gt;
-&lt;p&gt;将编程规范用在这里是不对的。文章里给出的示例代码不是很长，也不很复杂，即便以状态机的方式改写还是能够看懂的。但是随着代码越来越长，改写的难度将越来越大，改写对直观性造成的损失也变得相当相当大。&lt;/p&gt;
-&lt;p&gt;想一想，一个函数如果包含这样的小代码块：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;case STATE1:
-/* perform some activity */
-if (condition) state = STATE2; else state = STATE3;&lt;/pre&gt;
-&lt;p&gt;对于看代码的人说，这和包含下面小代码块的函数没有多大区别：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;LABEL1:
-/* perform some activity */
-if (condition) goto LABEL2; else goto LABEL3;&lt;/pre&gt;
-&lt;p&gt;是的，这两个函数的结构在视觉上是一样的，而对于函数中实现的算法，两个函数都一样不利于查看。因为你使用协程的宏而炒你鱿鱼的人，一样会因为你写的函数是由小块的代码和 goto 语句组成而吼着炒了你。只是这次他们没有冤枉你，因为像那样设计的函数会严重扰乱算法的结构。&lt;/p&gt;
-&lt;p&gt;**编程规范的目标就是为了代码清晰。**如果将一些重要的东西，像 switch、return 以及 case 语句，隐藏到起 “障眼” 作用的宏中，从编程规范的角度讲，可以说你扰乱了程序的语法结构，并且违背了代码清晰这一要求。但是我们这样做是为了突出程序的算法结构，而算法结构恰恰是看代码的人更想了解的。&lt;/p&gt;
-&lt;p&gt;**任何编程规范，坚持牺牲算法清晰度来换取语法清晰度的，都应该重写。**如果你的上司因为使用了这一技巧而解雇你，那么在保安把你往外拖的时候要不断告诉他这一点。&lt;/p&gt;
-&lt;p&gt;原文作者最后给出了一个 MIT 许可证的 
-
-&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/coroutine.h&#34; title=&#34;http://www.chiark.greenend.org.uk/~sgtatham/coroutine.h&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;coroutine.h&lt;/a&gt; 头文件。值得一提的是，正如文中所说，这种协程实现方法有个使用上的局限，就是&lt;strong&gt;协程调度状态的保存依赖于 static 变量，而不是堆栈上的局部变量&lt;/strong&gt;，实际上也无法用局部变量（堆栈）来保存状态，这就使得代码不具备可重入性和多线程应用。后来作者补充了一种技巧，就是将局部变量包装成函数参数传入的一个虚构的上下文结构体指针，然后用动态分配的堆来 “模拟” 堆栈，解决了线程可重入问题。但这样一来反而有损代码清晰，比如所有局部变量都要写成对象成员的引用方式，特别是局部变量很多的时候很麻烦，再比如宏定义 malloc/free 的玩法过于托大，不易控制，搞不好还增加了被炒鱿鱼的风险（只不过这次是你活该）。&lt;/p&gt;
-&lt;p&gt;我个人认为，既然协程本身是一种单线程的方案，那么我们应该假定应用环境是单线程的，不存在代码重入问题，所以我们可以大胆地使用 static 变量，维持代码的简洁和可读性。事实上&lt;strong&gt;我们也不应该在多线程环境下考虑使用这么简陋的协程&lt;/strong&gt;，非要用的话，前面提到 glibc 的 ucontext 组件也是一种可行的替代方案，它提供了一种协程私有堆栈的上下文，当然这种用法在跨线程上也并非没有限制，请仔细阅读联机文档。&lt;/p&gt;
-&lt;h2 id=&#34;protothreads-的上下文&#34;&gt;Protothreads 的上下文&lt;/h2&gt;
-&lt;p&gt;感谢 Simon Tatham 的淳淳教诲，接下来我们可以 hack 一下源码了。先来看看实现 protothreads 的数据结构， 实际上它就是协程的&lt;strong&gt;上下文结构体&lt;/strong&gt;，用以保存状态变量，相信你很快就明白为何它的 “堆栈” 只有 2 个字节：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;struct pt {
-  lc_t lc;
-}&lt;/pre&gt;
-&lt;p&gt;里面只有一个 short 类型的变量，实际上它是用来保存上一次出让点的程序计数器。这也映证了协程比线程的灵活之处，就是协程可以是 stackless 的，如果需要实现的功能很单一，比如像生产者 - 消费者模型那样用来做事件通知，那么实际上协程需要保存的状态变量仅仅是一个程序计数器即可。像 python generator 也是 stackless 的，当然实现一个迭代生成器可能还需要保留上一个迭代值，前面 C 的例子是用 static 变量保存，你也可以设置成员变量添加到上下文结构体里面。如果你真的不确定用协程调度时需要保存多少状态变量，那还是用 ucontext 好了，它的上下文提供了堆栈和信号，但是由用户负责分配资源，详细使用方法见联机文档。。&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;typedef struct ucontext {
-  struct ucontext_t *uc_link;
-  sigset_t uc_sigmask;
-  stack_t uc_stack;
-  ...
-} ucontext_t;&lt;/pre&gt;
-&lt;h2 id=&#34;protothreads-的原语和组件&#34;&gt;Protothreads 的原语和组件&lt;/h2&gt;
-&lt;p&gt;有点扯远了，回到 protothreads，看看提供的协程 “原语”。有两种实现方法，在 ANSI C 下，就是传统的 switch-case 语句：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;#define LC_INIT（s） s = 0;  // 源码中是有分号的，一个低级 bug，啊哈～
-#define LC_RESUME(s) switch (s) { case 0:
-#define LC_SET(s) s = __LINE__; case __LINE__:
-#define LC_END(s) }
-&lt;/pre&gt;
-&lt;p&gt;但这种 “原语” 有个难以察觉的缺陷：**就是你无法在 LC_RESUME 和 LC_END （或者包含它们的组件）之间的代码中使用 switch-case 语句，因为这会引起外围的 switch 跳转错误！**为此，protothreads 又实现了基于 GNU C 的调度 “原语”。在 GNU C 下还有一种语法糖叫做标签指针，就是在一个 label 前面加 &amp;amp;&amp;amp;（不是地址的地址，是 GNU 自定义的符号），可以用 void 指针类型保存，然后 goto 跳转：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;typedef void * lc_t；
-#define LC_INIT(s) s = NULL
-#define LC_RESUME(s) \
-  do { \
-    if (s != NULL) { \
-      goto *s; \
-    }
-  } while (0)
-#define LC_CONCAT2(s1, s2) s1##s2
-#define LC_CONCAT(s1, s2) LC_CONCAT2(s1, s2)
-#define LC_SET(s) \
-  do { \
-    LC_CONCAT(LC_LABEL, __LINE__): \
-    （s） = &amp;&amp;LC_CONCAT(LC_LABEL, __LINE__); \
-  } while (0)&lt;/pre&gt;
-&lt;p&gt;好了，有了前面的基础知识，理解这些 “原语” 就是小菜一叠，下面看看如何建立“组件”，同时也是 protothreads API，我们先定义四个退出码作为协程的&lt;strong&gt;调度状态机&lt;/strong&gt;：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;#define PT_WAITING 0
-#define PT_YIELDED 1
-#define PT_EXITED  2
-#define PT_ENDED   3&lt;/pre&gt;
-&lt;p&gt;下面这些 API 可直接在应用程序中调用：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;/* 初始化一个协程，也即初始化状态变量 */
-#define PT_INIT(pt) LC_INIT((pt)-&gt;lc)
-
-/* 声明一个函数，返回值为 char 即退出码，表示函数体内使用了 proto thread，（个人觉得有些多此一举） */
-#define PT_THREAD(name_args) char name_args
-
-/* 协程入口点， PT_YIELD_FLAG=0表示出让，=1表示不出让，放在 switch 语句前面，下次调用的时候可以跳转到上次出让点继续执行 */
-#define PT_BEGIN(pt) { char PT_YIELD_FLAG = 1; LC_RESUME((pt)-&gt;lc)
-
-/* 协程退出点，至此一个协程算是终止了，清空所有上下文和标志 */
-#define PT_END(pt) LC_END((pt)-&gt;lc); PT_YIELD_FLAG = 0; \
-                   PT_INIT(pt); return PT_ENDED; }
-
-/* 协程出让点，如果此时协程状态变量 lc 已经变为 __LINE__ 跳转过来的，那么 PT_YIELD_FLAG = 1，表示从出让点继续执行。 */
-#define PT_YIELD(pt)        \
-  do {            \
-    PT_YIELD_FLAG = 0;        \
-    LC_SET((pt)-&gt;lc);       \
-    if(PT_YIELD_FLAG == 0) {      \
-      return PT_YIELDED;      \
-    }           \
-  } while(0)
-
-/* 附加出让条件 */
-#define PT_YIELD_UNTIL(pt, cond)    \
-  do {            \
-    PT_YIELD_FLAG = 0;        \
-    LC_SET((pt)-&gt;lc);       \
-    if((PT_YIELD_FLAG == 0) || !(cond)) { \
-      return PT_YIELDED;      \
-    }           \
-  } while(0)
-
-/* 协程阻塞点(blocking),本质上等同于 PT_YIELD_UNTIL，只不过退出码是 PT_WAITING，用来模拟信号量同步 */
-#define PT_WAIT_UNTIL(pt, condition)          \
-  do {            \
-    LC_SET((pt)-&gt;lc);       \
-    if(!(condition)) {        \
-      return PT_WAITING;      \
-    }           \
-  } while(0)
-
-/* 同 PT_WAIT_UNTIL 条件反转 */
-#define PT_WAIT_WHILE(pt, cond)  PT_WAIT_UNTIL((pt), !(cond))
-
-/* 协程调度，调用协程 f 并检查它的退出码，直到协程终止返回 0，否则返回 1。 */
-#define PT_SCHEDULE(f) ((f) &lt; PT_EXITED)
-
-/* 这用于非对称协程，调用者是主协程，pt 是和子协程 thread （可以是多个）关联的上下文句柄，主协程阻塞自己调度子协程，直到所有子协程终止 */
-#define PT_WAIT_THREAD(pt, thread) PT_WAIT_WHILE((pt), PT_SCHEDULE(thread))
-
-/* 用于协程嵌套调度，child 是子协程的上下文句柄 */
-#define PT_SPAWN(pt, child, thread)   \
-  do {            \
-    PT_INIT((child));       \
-    PT_WAIT_THREAD((pt), (thread));   \
-  } while(0)&lt;/pre&gt;
-&lt;p&gt;暂时介绍这么多，用户还可以根据自己的需求随意扩展组件，比如实现信号量，你会发现脱离了操作系统环境下的信号量竟是如此简单：&lt;/p&gt;
-&lt;pre title=&#34;&#34;&gt;struct pt_sem {
-  unsigned int count;
-};
-
-#define PT_SEM_INIT(s, c) (s)-&gt;count = c
-
-#define PT_SEM_WAIT(pt, s)  \
-  do {            \
-    PT_WAIT_UNTIL(pt, (s)-&gt;count &gt; 0);    \
-    --(s)-&gt;count;       \
-  } while(0)
-
-#define PT_SEM_SIGNAL(pt, s) ++(s)-&gt;count&lt;/pre&gt;
-&lt;p&gt;这些应该不需要我多说了吧，呵呵，让我们回到最初例举的生产者 - 消费者模型，看看 protothreads 表现怎样。&lt;/p&gt;
-&lt;h2 id=&#34;protothreads-实战&#34;&gt;Protothreads 实战&lt;/h2&gt;
-&lt;pre title=&#34;&#34;&gt;#include &#34;pt-sem.h&#34;
-
-#define NUM_ITEMS 32
-#define BUFSIZE 8
-
-static struct pt_sem mutex, full, empty;
-
-PT_THREAD(producer(struct pt *pt))
-{
-  static int produced;
-
-  PT_BEGIN(pt);
-  for (produced = 0; produced &lt; NUM_ITEMS; ++produced) {
-    PT_SEM_WAIT(pt, &amp;full);
-    PT_SEM_WAIT(pt, &amp;mutex);
-    add_to_buffer(produce_item());
-    PT_SEM_SIGNAL(pt, &amp;mutex);
-    PT_SEM_SIGNAL(pt, &amp;empty);
-  }
-  PT_END(pt);
+global_defs {
+   router_id LVS_DEVEL
 }
 
-PT_THREAD(consumer(struct pt *pt))
-{
-  static int consumed;
-
-  PT_BEGIN(pt);
-  for (consumed = 0; consumed &lt; NUM_ITEMS; ++consumed) {
-    PT_SEM_WAIT(pt, &amp;empty);
-    PT_SEM_WAIT(pt, &amp;mutex);
-    consume_item(get_from_buffer());
-    PT_SEM_SIGNAL(pt, &amp;mutex);
-    PT_SEM_SIGNAL(pt, &amp;full);
-  }
-  PT_END(pt);
+vrrp_script check_haproxy {
+    script &amp;#34;killall -0 haproxy&amp;#34;
+    interval 2
+    weight -2
 }
 
-PT_THREAD(driver_thread(struct pt *pt))
-{
-  static struct pt pt_producer, pt_consumer;
-
-  PT_BEGIN(pt);
-  PT_SEM_INIT(&amp;empty, 0);
-  PT_SEM_INIT(&amp;full, BUFSIZE);
-  PT_SEM_INIT(&amp;mutex, 1);
-  PT_INIT(&amp;pt_producer);
-  PT_INIT(&amp;pt_consumer);
-  PT_WAIT_THREAD(pt, producer(&amp;pt_producer) &amp; consumer(&amp;pt_consumer));
-  PT_END(pt);
-}&lt;/pre&gt;
-&lt;p&gt;源码包中的 example-buffer.c 包含了可运行的完整示例，我就不全部贴了。整体框架就是一个 asymmetric coroutines，包括一个主协程 driver_thread 和两个子协程 producer 和 consumer ，其实不用多说大家也懂的，代码非常清晰直观。我们完全可以通过单线程实现一个简单的事件处理需求，你可以任意添加数十万个协程，几乎不会引起任何额外的系统开销和资源占用。唯一需要留意的地方就是没有一个局部变量，因为 protothreads 是 stackless 的，但这不是问题，首先我们已经假定运行环境是单线程的，其次在一个简化的需求下也用不了多少 “局部变量”。如果在协程出让时需要保存一些额外的状态量，像迭代生成器，只要数目和大小都是确定并且可控的话，自行扩展协程上下文结构体即可。&lt;/p&gt;
-&lt;p&gt;当然这不是说 protothreads 是万能的，它只是贡献了一种模型，你要使用它首先就得学会适应它。下面列举一些 protothreads 的使用限制：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;由于协程是 stackless 的，尽量不要使用局部变量，除非该变量对于协程状态是无关紧要的，同理可推，协程所在的代码是不可重入的。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果协程使用 switch-case 原语封装的组件，那么禁止在实际应用中使用 switch-case 语句，除非用 GNU C 语法中的标签指针替代。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;一个协程内部可以调用其它例程，比如库函数或系统调用，但必须保证该例程是非阻塞的，否则所在线程内的所有协程都将被阻塞。毕竟线程才是执行的最小单位，协程不过是按 “时间片轮度” 的例程而已。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;官网上还例举了更多
-
-&lt;a href=&#34;http://dunkels.com/adam/pt/examples.html&#34; title=&#34;http://dunkels.com/adam/pt/examples.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;实例&lt;/a&gt;，都非常实用。另外，一个叫 Craig Graham 的工程师扩展了 pt.h，使得 protothreads 支持 sleep/wake/kill 等操作，文件在此 
-
-&lt;a href=&#34;http://dunkels.com/adam/download/graham-pt.h&#34; title=&#34;http://dunkels.com/adam/download/graham-pt.h&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;graham-pt.h&lt;/a&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;协程库-diy-攻略&#34;&gt;协程库 DIY 攻略&lt;/h2&gt;
-&lt;p&gt;看到这里，手养的你是否想迫不及待地 DIY 一个协程组件呢？哪怕很多动态语言本身已经支持了协程语义，很多 C 程序员仍然倾向于自己实现组件，网上很多开源代码底层用的主要还是 glibc 的 ucontext 组件，毕竟提供堆栈的协程组件使用起来更加通用方便。你可以自己写一个调度器，然后模拟线程上下文，再然后…… 你就能搞出一个跨平台的 COS 了（笑）。GNU Pth 线程库就是这么实现的，其原作者德国人 
-
-&lt;a href=&#34;http://engelschall.com/&#34; title=&#34;http://engelschall.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ralf S. Engelschall&lt;/a&gt; （又是个开源大牛，还写了 
-
-&lt;a href=&#34;http://engelschall.com/software-artist.php&#34; title=&#34;http://engelschall.com/software-artist.php&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;OpenSSL 等许多作品&lt;/a&gt;）就写了一篇
-
-&lt;a href=&#34;http://xmailserver.org/rse-pmt.pdf&#34; title=&#34;http://xmailserver.org/rse-pmt.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;论文&lt;/a&gt;教大家如何实现一个线程库。另外 protothreads 官网上也有一大堆
-
-&lt;a href=&#34;http://dunkels.com/adam/pt/links.html&#34; title=&#34;http://dunkels.com/adam/pt/links.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;推荐阅读&lt;/a&gt;。Have fun！&lt;/p&gt;
-</content:encoded>
-        <dc:creator>starifly</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>c</category>
-            
-          
-            
-              <category>coroutine</category>
-            
-          
-        
-        
-            
-              <category>[c]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>Git分支管理</title>
-        <link>https://starifly.github.io/posts/git-branch/</link>
-        <pubDate>Thu, 30 Aug 2018 21:48:45 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sun, 02 Sep 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/git-branch/</guid>
-        <description>git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。</description>
-        <content:encoded>&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;
-&lt;p&gt;阅读前面的博文有助于理解本文：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;《
-
-&lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》&lt;/li&gt;
-&lt;li&gt;《
-
-&lt;a href=&#34;https://starifly.github.io/post/git-reset/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git的撤销更改&lt;/a&gt;》&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;查看分支&#34;&gt;查看分支&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看当前仓库的分支，分支前的*表示当前所处的分支
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看远程仓库的分支
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch -r
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看所有分支
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch -a
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看所有分支和该分支上最后的一次提交
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch -v
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看已经合入当前分支的所有分支
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch --merged
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看未被合入分支
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch --no-merged
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看当前分支对应的远程分支（追踪关系）
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch -vv
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//可视化目前的分支状态
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git log --oneline --graph --all
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;分支创建和切换&#34;&gt;分支创建和切换&lt;/h2&gt;
-&lt;p&gt;我们可以使用&lt;code&gt;git branch &amp;lt;分支名&amp;gt;&lt;/code&gt;命令来创建一个分支，然后使用&lt;code&gt;git checkout &amp;lt;分支名&amp;gt;&lt;/code&gt;来切换分支。&lt;/p&gt;
-&lt;p&gt;如果觉得麻烦，我们可以使用一个简便的命令创建并切换到该分支上：&lt;code&gt;git checkout -b &amp;lt;分支名&amp;gt;&lt;/code&gt;。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;也可以使用&lt;code&gt;git checkout -&lt;/code&gt;命令来切换回上一个分支&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;分支合并&#34;&gt;分支合并&lt;/h2&gt;
-&lt;p&gt;假设当前仓库存在两个分支，我们先切换到master分支，然后通过&lt;code&gt;git merge --no-ff &amp;lt;分支名&amp;gt;&lt;/code&gt;命令将分支合并到master分支上。&lt;/p&gt;
-&lt;p&gt;其中&lt;code&gt;--no-ff&lt;/code&gt;表示强行关闭fast-forward方式，fast-forward方式表示当条件允许时，git直接把HEAD指针指向合并分支的头，完成合并，这种方式合并速度快，但是在整个过程中没有创建commit，所以如果当我们删除掉这个分支时就再也找不回来了，因此在这里我们将之关闭。&lt;/p&gt;
-&lt;p&gt;如果&lt;code&gt;git merge&lt;/code&gt;合并分支时出现冲突，先重新编辑冲突文件，编辑完成之后，再执行&lt;code&gt;git add&lt;/code&gt;和&lt;code&gt;git commit&lt;/code&gt;即可。&lt;/p&gt;
-&lt;h2 id=&#34;分支衍合&#34;&gt;分支衍合&lt;/h2&gt;
-&lt;p&gt;衍合（rebase）又称变基，其实也是分支合并的一种方式，既然也是合并，那它跟上文讲的合并（merge）有什么区别呢？&lt;/p&gt;
-&lt;p&gt;假如我们现在有master和experiment两条分支：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;现在想把experiment分支合并到master分支上来，最容易的方法是 &lt;code&gt;merge&lt;/code&gt; 命令。它会把两个分支的最新快照（C3 和 C4）以及二者最近的共同祖先（C2）进行三方比较合并，合并的结果是生成一个新的快照（并提交）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;其实，还有一种方法：你可以提取在 （C4）中引入的补丁和修改，然后在（C3）的基础上应用一次。 在git中，这种操作就叫做变基。 你可以使用 &lt;code&gt;rebase&lt;/code&gt; 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。&lt;/p&gt;
-&lt;p&gt;具体做法：&lt;/p&gt;
-&lt;p&gt;1.检出experiment分支，对master进行衍合&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout experiment
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git rebase master
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master）的最近共同祖先（C2），然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底（C3）, 最后以此将之前另存为临时文件的修改依序应用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;可以看出，在衍合得过程中，experiment分支会丢弃现有的提交（C4），然后相应地新建一些内容一样但实际上不同的提交（C4’）。&lt;/p&gt;
-&lt;p&gt;2.再回到master分支，进行一次快进合并&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout master
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git merge experiment
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;在衍合过程中有可能会发生冲突，方案有两种：一种是通过&lt;code&gt;git rebase --abort&lt;/code&gt;命令直接退回到之前的状态，另一种就是解决冲突继续合并。&lt;/p&gt;
-&lt;p&gt;解决冲突后，要&lt;code&gt;git add&lt;/code&gt;冲突的文件，标识冲突解决，然后再执行&lt;code&gt;git rebase --continue&lt;/code&gt;，注意&lt;code&gt;git add&lt;/code&gt;后不要执行&lt;code&gt;git commit&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;分支的推送和拉取&#34;&gt;分支的推送和拉取&lt;/h2&gt;
-&lt;p&gt;git push与git pull是一对推送/拉取分支的git命令。&lt;br /&gt;
-&lt;strong&gt;git push 使用本地的对应分支来更新对应的远程分支。&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push &amp;lt;远程主机名&amp;gt; &amp;lt;本地分支名&amp;gt;:&amp;lt;远程分支名&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支(通常两者同名)，如果该远程分支不存在，则会被新建。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push origin master
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。&lt;/p&gt;
-&lt;p&gt;如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支，这条命令是删除远程master分支。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push origin :&amp;lt;分支名&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//等同于
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin --delete &amp;lt;分支名&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果当前分支与远程分支之间存在追踪关系（即分支名相同），则本地分支和远程分支都可以省略。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push origin
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令表示，将当前分支推送到origin主机的对应分支。&lt;/p&gt;
-&lt;p&gt;如果当前分支只有一个追踪分支，那么主机名都可以省略。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用&lt;code&gt;git push&lt;/code&gt;。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push -u origin master
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用&lt;code&gt;git push&lt;/code&gt;了。&lt;/p&gt;
-&lt;p&gt;不带任何参数的&lt;code&gt;git push&lt;/code&gt;，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用&lt;code&gt;git config&lt;/code&gt;命令。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git config --global push.default matching
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//或者
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git config --global push.default simple
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;更详细的push.default属性，请参考《
-
-&lt;a href=&#34;https://segmentfault.com/a/1190000002783245&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git push与pull的默认行为&lt;/a&gt;》&lt;/p&gt;
-&lt;p&gt;还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用–all选项。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push --all origin
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令表示，将所有本地分支都推送到origin主机。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;git pull 取回远程主机某个分支的更新，再与本地的指定分支合并。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;git pull&lt;/code&gt;与&lt;code&gt;git push&lt;/code&gt;操作的目的相同，但是操作的目标相反。命令格式如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt;:&amp;lt;本地分支名&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master:my-test
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的命令是将origin厂库的master分支拉取并合并到本地的my-test分支上。&lt;/p&gt;
-&lt;p&gt;如果省略本地分支，则将自动合并到当前所在分支上。如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull origin master
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在某些场合，git会自动在本地分支与远程分支之间，建立一种追踪关系(tracking)。比如，在&lt;code&gt;git clone&lt;/code&gt;的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动”追踪”origin/master分支。&lt;/p&gt;
-&lt;p&gt;以下也能自动建立追踪关系：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;检出时：&lt;code&gt;git checkout -b master origin/master&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;推送时：&lt;code&gt;git push -u origin &amp;lt;远程分支名&amp;gt;&lt;/code&gt;或&lt;code&gt;git push --set-upstream origin &amp;lt;远程分支名&amp;gt;&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意，上述使用的前提：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;检出的本地分支必须和远程分支同名才能自动建立追踪关系&lt;/li&gt;
-&lt;li&gt;推送时，如果远程没有同名关联分支，则会推送失败。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;git也允许手动建立追踪关系。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git branch --set-upstream master origin/next
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令指定master分支追踪origin/next分支。&lt;/p&gt;
-&lt;p&gt;如果当前分支与远程分支存在追踪关系，&lt;code&gt;git pull&lt;/code&gt;就可以省略远程分支名。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git pull origin
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令表示，本地的当前分支自动与对应的origin主机”追踪分支”(remote-tracking branch)进行合并。&lt;/p&gt;
-&lt;p&gt;如果当前分支只有一个追踪分支，连远程主机名都可以省略。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git pull
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面命令表示，当前分支自动与唯一一个追踪分支进行合并。&lt;/p&gt;
-&lt;p&gt;如果合并需要采用rebase模式，可以使用&lt;code&gt;--rebase&lt;/code&gt;选项。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git pull --rebase &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt;:&amp;lt;本地分支名&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;分支的删除&#34;&gt;分支的删除&lt;/h2&gt;
-&lt;p&gt;有时候当我们完成功能等分支的开发时，我们会把它合并到上一层分支，此时我们不再需要这个功能分支了，我们可以通过&lt;code&gt;git branch -d &amp;lt;分支名&amp;gt;&lt;/code&gt;来删除它。&lt;/p&gt;
-&lt;p&gt;实际上，对分支的删除只是删除的指向该commit号的指针，并不会删除其相关的提交号, 在日志中仍然可以找到之前的commit记录，也仍然可以在该commit上创建新的分支。&lt;/p&gt;
-&lt;p&gt;如果你还想删除远程分支，要使用&lt;code&gt;git push origin --delete &amp;lt;分支名&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://segmentfault.com/a/1190000011927868#articleHeader5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://segmentfault.com/a/1190000011927868#articleHeader5&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://www.yiibai.com/git/git_push.html#article-start&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.yiibai.com/git/git_push.html#article-start&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://www.yiibai.com/git/git_pull.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.yiibai.com/git/git_pull.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content:encoded>
-        <dc:creator>starifly</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>git</category>
-            
-          
-        
-        
-            
-              <category>[git]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>Git的撤销更改</title>
-        <link>https://starifly.github.io/posts/git-reset/</link>
-        <pubDate>Wed, 29 Aug 2018 13:20:00 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sun, 09 Sep 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/git-reset/</guid>
-        <description>&lt;p&gt;前文《
-
-&lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》介绍了Git的基本概念和一些基本操作。&lt;/p&gt;
-&lt;p&gt;本文将介绍Git四个阶段的撤销更改：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;工作区的代码撤销&lt;/li&gt;
-&lt;li&gt;add到暂存区的代码想撤销&lt;/li&gt;
-&lt;li&gt;提交到本地仓库的代码想撤销&lt;/li&gt;
-&lt;li&gt;推送到远程仓库的代码想撤销&lt;/li&gt;
-&lt;/ul&gt;</description>
-        <content:encoded>&lt;p&gt;前文《
-
-&lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》介绍了Git的基本概念和一些基本操作。&lt;/p&gt;
-&lt;p&gt;本文将介绍Git四个阶段的撤销更改：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;工作区的代码撤销&lt;/li&gt;
-&lt;li&gt;add到暂存区的代码想撤销&lt;/li&gt;
-&lt;li&gt;提交到本地仓库的代码想撤销&lt;/li&gt;
-&lt;li&gt;推送到远程仓库的代码想撤销&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;工作区代码的撤销&#34;&gt;工作区代码的撤销&lt;/h2&gt;
-&lt;p&gt;如果我们在工作区修改了文件，状态会变为Modified，这时忽然发现写错了想回到一开始未修改状态，愚蠢的办法是打开文件一个一个的去恢复，其实可以通过&lt;code&gt;git checkout .&lt;/code&gt;命令来一键撤销工作区的代码修改，&lt;br /&gt;
-当然也可以通过&lt;code&gt;git checkout -- &amp;lt;filename&amp;gt;&lt;/code&gt;命令来指定撤销的文件。&lt;/p&gt;
-&lt;h2 id=&#34;add到暂存区的代码想撤销&#34;&gt;add到暂存区的代码想撤销&lt;/h2&gt;
-&lt;p&gt;如果&lt;code&gt;add&lt;/code&gt;到了暂存区，你发现了错误想要撤销，可以执行以下两个步骤：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;git reset HEAD&lt;/code&gt; or &lt;code&gt;git reset&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;同以上&amp;rsquo;工作区代码撤销&#39;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;git reset&lt;/code&gt;的参数，其值可以是hard、mixed及soft，mixed实现的是&lt;code&gt;add&lt;/code&gt;后的回撤，上文中关于暂存未提交回撤中的&lt;code&gt;git reset&lt;/code&gt;其实就是默认用的mixed参数，soft请听下文分解。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;三者的区别：&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;模式&lt;/th&gt;
-&lt;th&gt;HEAD的位置&lt;/th&gt;
-&lt;th&gt;索引&lt;/th&gt;
-&lt;th&gt;工作树&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;soft&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mixed&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;hard&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;提交到本地仓库的代码想撤销&#34;&gt;提交到本地仓库的代码想撤销&lt;/h2&gt;
-&lt;p&gt;如果执行了&lt;code&gt;git commit&lt;/code&gt;命令把代码提交到了本地仓库，如果你后悔了，怎么办？不要着急，同样也可以撤销。&lt;/p&gt;
-&lt;p&gt;有以下两种情形：&lt;/p&gt;
-&lt;h3 id=&#34;回撤到指定版本号&#34;&gt;回撤到指定版本号&lt;/h3&gt;
-&lt;p&gt;可以利用&lt;code&gt;git reset --hard &amp;lt;版本号&amp;gt;&lt;/code&gt;命令来实现版本回退，该命令中的版本号有几种不同的写法：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.可以使用HEAD^来描述版本，一个^表示前一个版本，两个^^表示前两个版本，以此类推。&lt;br /&gt;
-2.也可以使用数字来代替^，比如说前100个版本可以写作HEAD~100。&lt;br /&gt;
-3.也可以直接写版本号，表示跳转到某一个版本处（通过&lt;code&gt;git log&lt;/code&gt;查看当前提交日志）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;回撤到add之后未commit之前的状态&#34;&gt;回撤到add之后未commit之前的状态&lt;/h3&gt;
-&lt;p&gt;soft实现的是&lt;code&gt;commit&lt;/code&gt;之后回撤到&lt;code&gt;add&lt;/code&gt;之后未&lt;code&gt;commit&lt;/code&gt;之前的状态，所以，像在&lt;code&gt;commit&lt;/code&gt;之后发现少提交了一个文件等场景下，我们可以利用&lt;code&gt;git reset --soft HEAD^&lt;/code&gt;命令来回撤。&lt;/p&gt;
-&lt;h2 id=&#34;push到远程仓库的代码想撤销&#34;&gt;push到远程仓库的代码想撤销&lt;/h2&gt;
-&lt;p&gt;有时，在&lt;code&gt;git push&lt;/code&gt;之后，才发现还有一些代码需要进行很小的改动，这些改动在原则上不应该作为一次新的提交。&lt;br /&gt;
-这时，我们需要撤销这次推送(&lt;code&gt;git push&lt;/code&gt;)与提交(&lt;code&gt;git commit&lt;/code&gt;)，然后进行代码修改，再重新进行提交和推送。&lt;/p&gt;
-&lt;p&gt;为了实现这个目的，需要进行三步操作:&lt;/p&gt;
-&lt;h3 id=&#34;1撤销提交信息&#34;&gt;1.撤销提交信息&lt;/h3&gt;
-&lt;p&gt;通过执行&lt;code&gt;git reset --soft &amp;lt;版本号&amp;gt;&lt;/code&gt;重置至指定版本的提交，达到撤销提交的目的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参数soft指的是：保留当前工作区，以便重新提交。&lt;br /&gt;
-还可以选择参数hard，会撤销相应工作区的修改，而且有可能意外造成代码丢失，所以一定要谨慎使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;然后，通过&lt;code&gt;git log&lt;/code&gt;确认是否成功撤销。&lt;/p&gt;
-&lt;h3 id=&#34;2撤销&#34;&gt;2.撤销&lt;/h3&gt;
-&lt;p&gt;通过&lt;code&gt;git push origin master --force&lt;/code&gt;强制提交当前版本号，以达到撤销版本号的目的。&lt;/p&gt;
-&lt;p&gt;当他人在仓库的远程副本的同一分支上进行改动后，会发生强制推送的风险。当你强制推送已重写的历史记录时，某些提交将会丢失。这是&lt;code&gt;git push --force-with-lease&lt;/code&gt;出现的原因 - 如果远程分支已更新，它不会允许你执行强制推送，这将确保你不会丢弃他人的工作。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;必须添加参数force进行强制提交，否则会提交失败，并报错。&lt;br /&gt;
-报错原因：本地项目版本号低于远端仓库版本号。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;3修改代码重新提交和推送&#34;&gt;3.修改代码，重新提交和推送&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//修改代码，添加修改
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git add .
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//重新提交
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git commit -m &lt;span class=&#34;s2&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//重新推送
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push origin master
+vrrp_instance VI_1 {
+    state BACKUP
+    interface ens192
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 35f18af7190d51c9f7f78f37300a0cbd
+    }
+    virtual_ipaddress {
+        192.168.5.202
+    }
+    track_script {
+        check_haproxy
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;启动&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/etc/init.d/keepalived start
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; keepalived
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 
-&lt;a href=&#34;https://segmentfault.com/a/1190000011910766&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git中的各种后悔药&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded>
+&lt;a href=&#34;https://mp.weixin.qq.com/s/YSxzr4jNeyfQUWebuY38TA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;配置Ceph RGW (对象存储网关) 的高可用和负责均衡&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.jianshu.com/p/a99d3a124883&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HAproxy总结&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/66li/p/12058774.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;haproxy2.0-编译安装-centos7.6&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_33417703/article/details/112949909&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;l4 l7 代理_Haproxy-4层和7层代理负载实战&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.bianchengquan.com/article/431961.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;调优 Haproxy 代理 Ceph&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -1936,163 +1702,110 @@ PT_THREAD(driver_thread(struct pt *pt))
         
           
             
-              <category>git</category>
+              <category>ceph</category>
             
           
         
         
             
-              <category>[git]</category>
+              <category>[ceph]</category>
             
         
         
       </item>
       
       <item>
-        <title>Git基本操作</title>
-        <link>https://starifly.github.io/posts/git-base/</link>
-        <pubDate>Sat, 25 Aug 2018 22:16:03 +0800</pubDate>
+        <title>ceph 操作命令</title>
+        <link>https://starifly.github.io/posts/ceph-commands/</link>
+        <pubDate>Wed, 06 Oct 2021 19:43:27 +0800</pubDate>
         <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Sat, 08 Sep 2018 00:00:00 +0000</atom:modified>
-        <guid>https://starifly.github.io/posts/git-base/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
-&lt;h3 id=&#34;4个区&#34;&gt;4个区&lt;/h3&gt;
-&lt;p&gt;如上图所示，git有4个区，和svn有很大的不同，git中引入了暂存区/缓存区(Stage/Index)的概念&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;工作区(Workspace)&lt;/li&gt;
-&lt;li&gt;暂存区(Stage/Index)&lt;/li&gt;
-&lt;li&gt;本地仓库(Repository)&lt;/li&gt;
-&lt;li&gt;远程仓库(Remote)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在svn中我们都是直接将文件提交到版本仓库中去，而在git中，则多了一层关卡。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;工作区很好理解，就是我们能看到的工作目录，就是本地的文件夹。&lt;br /&gt;
-工作区最原始的状态是未修改状态(Origin)，如果修改了某些文件就会变成已修改(Modified)。&lt;br /&gt;
-我们要通过&lt;code&gt;git add&lt;/code&gt;命令先将他们添加到暂存区中，这时就会产生已暂存(Staged)状态。&lt;br /&gt;
-&lt;code&gt;git commit&lt;/code&gt;命令则可以将暂存区中的文件提交到本地仓库中去，状态变为已提交(Committed)。&lt;br /&gt;
-最后通过&lt;code&gt;git push&lt;/code&gt;推送到远程仓库，推送成功状态变为已推送(Pushed)。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;基本操作&#34;&gt;基本操作&lt;/h2&gt;
-&lt;h3 id=&#34;仓库初始化&#34;&gt;仓库初始化&lt;/h3&gt;
-&lt;p&gt;仓库的初始化有两种方式：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一种是直接从远程仓库克隆&lt;/li&gt;
-&lt;li&gt;另一种则是直接从当前目录初始化&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;从当前目录初始化的方式很简单，直接执行如下命令:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git init
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行完成后当前目录下会多出一个.git的隐藏文件夹，所有git需要的数据和资源都存放在该目录中。&lt;/p&gt;
-&lt;p&gt;然后正常的&lt;code&gt;add&lt;/code&gt;和&lt;code&gt;commit&lt;/code&gt;之后，&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git remote add origin &amp;lt;url&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git push -u origin master
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;查看仓库状态&#34;&gt;查看仓库状态&lt;/h3&gt;
-&lt;p&gt;可以通过&lt;code&gt;git status&lt;/code&gt;命令来查看仓库中文件的状态。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;git status -s&lt;/code&gt; : 文件状态的简写（M - 修改， A - 添加， D - 删除， R - 重命名，?? - 未追踪）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;提交命令&#34;&gt;提交命令&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;一种是直接通过&lt;code&gt;git commit -m &amp;quot;备注信息&amp;quot;&lt;/code&gt;命令&lt;/li&gt;
-&lt;li&gt;如果要写的备注很多，可以通过&lt;code&gt;git commit&lt;/code&gt;来打开指定编辑器，然后在编辑器中输入备注信息。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-commit.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;如图所示，在vim编辑器中按照既定的格式编辑内容，编辑完成后保存退出，此时文件就commit成功了。如果临时改变主意不想提交了，删除备注信息后保存退出，&lt;br /&gt;
-此时提交就会终止。&lt;/p&gt;
-&lt;p&gt;提交成功之后，我们可以通过如下命令重新编辑上次提交的备注信息：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git commit --amend
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;查看提交日志&#34;&gt;查看提交日志&lt;/h3&gt;
-&lt;p&gt;我们可以使用 &lt;code&gt;git log&lt;/code&gt; 命令来查看历史提交。&lt;code&gt;git log&lt;/code&gt; 命令因为其后边参数的多样性，使用起来是比较灵活而强大的，并且比较实用。&lt;br /&gt;
-下面列车一些常用的命令：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;使用&lt;code&gt;git log&lt;/code&gt;命令我们可以查看以往仓库中提交的日志&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --abbrev-commit&lt;/code&gt;命令缩短版本号&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --pretty=short&lt;/code&gt;命令查询简略信息&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --stat&lt;/code&gt;命令查看简化版的diff日志信息&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --name-only&lt;/code&gt;命令仅在提交信息后显示已修改的文件清单&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --name-status&lt;/code&gt;命令显示新增、修改、删除的文件清单&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --relative-date&lt;/code&gt;命令显示较短的相对时间&lt;/li&gt;
-&lt;li&gt;在&lt;code&gt;git log&lt;/code&gt;后面加上文件名查看指定文件的提交日志，如果还想查看提交时文件的变化，加上-p参数即可。&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log -p -1&lt;/code&gt;来查看最近一次提交的差异&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git log --graph&lt;/code&gt;命令可以让log以更直观的方式来展示&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我们还可以使用&lt;code&gt;git log --pretty&lt;/code&gt;来定义显示格式，如：&lt;code&gt;git log --graph --pretty=format:&amp;quot;%h - %an, %ar : %s&amp;quot;&lt;/code&gt;， &amp;ndash;pretty=format:后边跟着的是格式化的字符串。&lt;br /&gt;
-其中 %h 表示简化版的Hash值， %an 表示作者名字（Author Name）, %ar 表示多久以前提交的，%s 则是提交信息。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;查看更改前后的差异&#34;&gt;查看更改前后的差异&lt;/h3&gt;
-&lt;p&gt;已修改，未暂存&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;使用&lt;code&gt;git diff&lt;/code&gt;命令我们可以查看工作区和暂存区的差异。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;已暂存，未提交&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果我们执行&lt;code&gt;git add .&lt;/code&gt;把修改提交到暂存区，然后再执行&lt;code&gt;git diff&lt;/code&gt;，你会发现没有任何信息输出。这说明&lt;code&gt;git diff&lt;/code&gt;这个命令只检查我们的工作区和暂存区之间的差异。&lt;br /&gt;
-如果我们想看到暂存区和本地仓库之间的差异，就需要加一个参数&lt;code&gt;git diff --cached&lt;/code&gt;。&lt;br /&gt;
-或者通过命令&lt;code&gt;git diff HEAD&lt;/code&gt;来查看（实际上是工作区与当前分支最近一次commit之间的差异）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;已提交，未推送&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;现在，如果通过命令&lt;code&gt;git commit&lt;/code&gt;把修改从暂存区提交到本地仓库，然后再执行git diff &amp;ndash;cached，没有差异，执行&lt;code&gt;git diff master origin/master&lt;/code&gt;，可以看到差异&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;删除文件&#34;&gt;删除文件&lt;/h3&gt;
-&lt;p&gt;当我们需要删除工作区和暂存区上的文件，可以执行&lt;code&gt;git rm &amp;lt;filename&amp;gt;&lt;/code&gt;命令，该命令等同于以下两个命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//直接在文件管理器中把文件删了
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ rm file
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//提交到工作区
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git add file //或者 git rm file
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当我们希望某个文件不被版本控制，但是本地又需要使用，可以使用&lt;code&gt;git rm --cached &amp;lt;filename&amp;gt;&lt;/code&gt;。&lt;/p&gt;
-&lt;h3 id=&#34;重命名&#34;&gt;重命名&lt;/h3&gt;
-&lt;p&gt;可以通过&lt;code&gt;git mv &amp;lt;SourceFile&amp;gt; &amp;lt;RenameFile&amp;gt;&lt;/code&gt;命令将SourceFile重命名为RenameFile，该命令等同于以下三个命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ mv SourceFile RenameFile
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git rm SourceFile
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git add RenameFile
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;git-add--n&#34;&gt;git add -N&lt;/h3&gt;
-&lt;p&gt;你可以用&lt;code&gt;git add -N &amp;lt;filename&amp;gt;&lt;/code&gt;（“通知”）来告诉Git你想把新添加的文件包含在提交中在你第一次实际提交之前，使用该命令之后执行&lt;code&gt;git diff&lt;/code&gt;命令就可以查看到更改。&lt;/p&gt;
-&lt;h3 id=&#34;git-add--p&#34;&gt;git add -p&lt;/h3&gt;
-&lt;p&gt;交互式提交，询问你是否愿意将它提交，跳过，或者推迟决定（还有其他一些更强大的选项，你可以通过在运行这命令后选择？来查看）。&lt;code&gt;git add -p&lt;/code&gt;是一个神奇的工具来生产结构良好的提交。&lt;/p&gt;
-&lt;h3 id=&#34;git-checkout--p&#34;&gt;git checkout -p&lt;/h3&gt;
-&lt;p&gt;与&lt;code&gt;git add -p&lt;/code&gt;类似，&lt;code&gt;git checkout&lt;/code&gt;命令将使用 &lt;code&gt;--patch&lt;/code&gt; 或 &lt;code&gt;-p&lt;/code&gt; 选项，这会使 git 在本地工作副本中展示每个“大块”的改动，并允许丢弃对应改动 —— 简单地说就是恢复本地工作副本到你改变之前的状态。&lt;/p&gt;
-&lt;h3 id=&#34;压缩提交历史&#34;&gt;压缩提交历史&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;git rebase -i&lt;/code&gt;命令可以实现提交历史的压缩。比如我们在开发某一个功能时，提交了很多次，当所有功能都写完时，想将这些提交压缩为一个，就可以使用该命令。&lt;/p&gt;
-&lt;p&gt;如：通过执行&lt;code&gt;git rebase -i HEAD~2&lt;/code&gt;命令来压缩前两个版本的提交历史，会自动打开一个vim编辑器，压缩之后，最新一次的提交日志就没了，但是数据还在。&lt;/p&gt;
-&lt;h3 id=&#34;基于时间修改的指南&#34;&gt;基于时间修改的指南&lt;/h3&gt;
-&lt;p&gt;这个功能在某些时候会变得十分有用，比如当你处理最新出现的 bug，自言自语道：“这个功能明明昨天还是好好的，到底又改了些什么”，不用盯着满屏的 git 日志的输出试图弄清楚什么时候更改了提交，您只需运行&lt;code&gt;git diff HEAD@{yesterday}&lt;/code&gt;，会看到从昨天以来的所有修改，这也适用于较长的时间段（例如 &lt;code&gt;git diff HEAD@{&#39;2 months ago&#39;}&lt;/code&gt;） ，以及一个确切的日期（例如&lt;code&gt;git diff HEAD@{&#39;2010-01-01 12:00:00&#39;}&lt;/code&gt;）。&lt;/p&gt;
-&lt;p&gt;您还可以将这些基于日期的修改参数与使用修正参数的任何 Git 子命令一起使用。在 gitrevisions 手册页中有关于具体使用哪种格式的详细信息。&lt;/p&gt;
-&lt;h3 id=&#34;全知的-reflog&#34;&gt;全知的 reflog&lt;/h3&gt;
-&lt;p&gt;你是不是试过在 rebase 时干掉过某次提交，后来又发现你需要保留这次提交的一些东西？你可能觉得这些提交的东西已经永远找不回来了，只能从头再来了。其实不然，但如果你在本地工作副本中提交了，提交就会进入到 &amp;ldquo;引用日志&amp;rdquo; ，你仍然可以访问到。&lt;/p&gt;
-&lt;p&gt;运行 git reflog 将在本地工作副本中显示当前分支的所有活动的列表，并为您提供每个提交的 SHA1 值。一旦发现你 rebase 时放弃的那个提交，你可以运行 git checkout &lt;SHA1&gt; 来检出该次提交，复制好你需要的信息，然后再运行 git checkout HEAD 返回到分支最新的提交去。&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://mp.weixin.qq.com/s/S1T4wy3srmLvXgIjvpVEwg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mp.weixin.qq.com/s/S1T4wy3srmLvXgIjvpVEwg&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://opensource.com/article/18/4/git-tips&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://opensource.com/article/18/4/git-tips&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;extended&#34;&gt;Extended&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://segmentfault.com/a/1190000011972502&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git关联远程仓库&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://segmentfault.com/a/1190000011979949&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git工作区储藏兼谈分支管理中的一个小问题&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://segmentfault.com/a/1190000011995630&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git标签管理&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://blog.csdn.net/wzwdcld/article/details/80782561&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;git生成ssh key 避免每次push都要输入账号密码&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://www.jianshu.com/p/471c9537f45a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;你可能不知道的关于 Git stash 的技巧&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded>
+        <atom:modified>Wed, 06 Oct 2021 19:43:27 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-commands/</guid>
+        <description>查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph</description>
+        <content:encoded>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看ceph的实时运行状态
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph -w
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看ceph存储空间
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph df/ceph df detail
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看集群的详细配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph daemon mon.ceph001 config show &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; more
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;or
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看集群版本信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph versions
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看集群认证信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph auth list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看gc时间
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin gc list --include-all &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mon命令
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph mon stat#查看mon的状态信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mds命令
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph mds stat &lt;span class=&#34;c1&#34;&gt;#查看msd状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;osd命令
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd stat &lt;span class=&#34;c1&#34;&gt;#查看osd状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd df &lt;span class=&#34;c1&#34;&gt;#查看osd磁盘&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd dump &lt;span class=&#34;c1&#34;&gt;#osd的映射信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd perf &lt;span class=&#34;c1&#34;&gt;#查看osd性能和延迟&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd tree#查看osd目录树
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rgw命令
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket list &lt;span class=&#34;c1&#34;&gt;#查看所有桶&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket list --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;asdas &lt;span class=&#34;c1&#34;&gt;#查看桶内对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket stats --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;asdas &lt;span class=&#34;c1&#34;&gt;#查看桶信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket rm --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;s3test1 &lt;span class=&#34;c1&#34;&gt;#删除一个桶&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket rm --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;s3test1 --purge-objects &lt;span class=&#34;c1&#34;&gt;#默认只能删空的bucket，强制删除非空的bucket需要加上“--purge-objects ”选项&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket check --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;s3test1 &lt;span class=&#34;c1&#34;&gt;#查看桶的索引信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin object rm --object&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1.jpg --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;s3test3 &lt;span class=&#34;c1&#34;&gt;#删除桶中的对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin object unlink --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;s3test3 —object&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1.jpg &lt;span class=&#34;c1&#34;&gt;#从桶索引里去除对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket limit check &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--uid test&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#查看Sharding Stat&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin bucket stats --bucket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;bucketname&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep -w &lt;span class=&#34;s1&#34;&gt;&amp;#39;num_objects&amp;#39;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#查询桶的对象个数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;创建realm：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;realm里所有的元數據名稱都是全局唯一的，無法創建同名的用戶（uid）和bucket， container；
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin realm create --rgw-realm&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Giant --default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看存在的realm：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin realm list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看bucket 的信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin metadata get bucket:bucketname
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;获取bucket id 并根据 bucket id 从bucket.instace中获取真实shards，可以看到num_shards的值
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin  metadata get bucket.instance:api_image_test:4fb0079d-88d8-404e-9e3f-1375ba40a870.324279.2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看index 下保留的shard数量（包含历史的分片）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rados ls -p default.rgw.buckets.index
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看bucket : bucketname 当前的shard分片,首先找到 当前bucket id
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;找到bucket id后查询具体的shard编号，如下
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rados ls -p default.rgw.buckets.index &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;s2&#34;&gt;&amp;#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;统计当前使用的shard数
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rados ls -p default.rgw.buckets.index &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;s2&#34;&gt;&amp;#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; wc -l
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;查看当前shard 存在的index数据
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rados -p default.rgw.buckets.index listomapkeys .dir.555c6dcf-7320-4b34-8922-5e005dedc130.164465.1.769
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -2100,39 +1813,102 @@ PT_THREAD(driver_thread(struct pt *pt))
         
           
             
-              <category>git</category>
+              <category>ceph</category>
             
           
         
         
             
-              <category>[git]</category>
+              <category>[ceph]</category>
             
         
         
       </item>
       
       <item>
-        <title>git add -A 和 git add . 的区别</title>
-        <link>https://starifly.github.io/posts/git-add-difference/</link>
-        <pubDate>Thu, 23 Aug 2018 20:18:10 +0800</pubDate>
+        <title>ceph剔除主机脚本</title>
+        <link>https://starifly.github.io/posts/ceph-remove-hosts-script/</link>
+        <pubDate>Wed, 06 Oct 2021 19:41:13 +0800</pubDate>
         <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Thu, 23 Aug 2018 20:18:10 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/git-add-difference/</guid>
-        <description>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;
-&lt;h2 id=&#34;区别&#34;&gt;区别&lt;/h2&gt;
-&lt;p&gt;Git Version 1.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 1.x&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Git Version 2.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-02.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 2.x&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+        <atom:modified>Wed, 06 Oct 2021 19:41:13 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-remove-hosts-script/</guid>
+        <description>操作步骤 1. Monitor操作，将OSD的状态设置Out 2. 登录对应OSD节点 ，停止OSD守护进程 3. Crushmap中删除OSD 4. 删除OSD的认</description>
+        <content:encoded>&lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤&lt;/h2&gt;
+&lt;p&gt;　　1. Monitor操作，将OSD的状态设置Out&lt;/p&gt;
+&lt;p&gt;　　2. 登录对应OSD节点 ，停止OSD守护进程&lt;/p&gt;
+&lt;p&gt;　　3. Crushmap中删除OSD&lt;/p&gt;
+&lt;p&gt;　　4. 删除OSD的认证信息&lt;/p&gt;
+&lt;p&gt;　　5. 登录对应OSD节点 ，取消挂载文件系统&lt;/p&gt;
+&lt;h2 id=&#34;注意事项&#34;&gt;注意事项&lt;/h2&gt;
+&lt;p&gt;停止OSD和删除Crushmao的信息，都将导致PG的重新收敛，所以最好每一个步骤都确保当前ceph状态是OK才进行下一步。&lt;/p&gt;
+&lt;p&gt;　　######参考脚本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;####judge state of ceph&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;judge&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    sleep &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph -s &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep HEALTH_OK
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt; -eq &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        sleep &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;####rdel osd from host14&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; host in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; 39&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;now.... ,del osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; from host14&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt;stat.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd out &lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ssh 192.168.220.14 &lt;span class=&#34;s2&#34;&gt;&amp;#34;/etc/init.d/ceph stop osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd crush remove osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph auth del osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd rm osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ssh 192.168.220.14 &lt;span class=&#34;s2&#34;&gt;&amp;#34;umount /var/lib/ceph/osd/ceph-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;del osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; from host14 suceess!!!!&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt;stat.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;######del osd from host16&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; host in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq &lt;span class=&#34;m&#34;&gt;40&lt;/span&gt; 45&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;now.... ,del osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; from host16&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt;stat.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd out &lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ssh 192.168.220.16 &lt;span class=&#34;s2&#34;&gt;&amp;#34;/etc/init.d/ceph stop osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd crush remove osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph auth del osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ceph osd rm osd.&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ssh 192.168.220.16 &lt;span class=&#34;s2&#34;&gt;&amp;#34;umount /var/lib/ceph/osd/ceph-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    judge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;del osd.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; from host16 suceess!!!!&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt;stat.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;git add -A就不用介绍了，它在任何情况下都是包括所有的变动。&lt;/li&gt;
-&lt;li&gt;git add .在git版本是2.x的时候等同于git add -A，而当版本是1.x的时候&lt;strong&gt;不包括被删除的文件&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;git add -u仅监控已经被add的文件（即tracked file），&lt;strong&gt;不会提交新文件（untracked file）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://my.oschina.net/u/4383702/blog/3678436&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph剔除主机，Crushmap遗留脏数据&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;希望本文对你有所帮助。&lt;/p&gt;</content:encoded>
+</content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -2140,13 +1916,13 @@ PT_THREAD(driver_thread(struct pt *pt))
         
           
             
-              <category>git</category>
+              <category>ceph</category>
             
           
         
         
             
-              <category>[git]</category>
+              <category>[ceph]</category>
             
         
         
