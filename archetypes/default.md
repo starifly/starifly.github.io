@@ -6,7 +6,7 @@ date: {{ .Date }}
 lastmod: {{ .Date }}
 description:
 draft: true 
-author: 飞鸟
+author: starifly
 hideToc: false
 enableToc: true
 enableTocContent: false
