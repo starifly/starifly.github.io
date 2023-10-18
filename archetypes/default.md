@@ -4,7 +4,7 @@ keywords:
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 lastmod: {{ .Date }}
-description:
+description: ""
 draft: true 
 author: starifly
 hideToc: false
@@ -13,7 +13,7 @@ enableTocContent: false
 tocFolding: false
 tocLevels: ["h2", "h3", "h4"]
 tags: []
-slug: {{ .Name  }}
 categories: []
+slug: {{ .Name  }}
 img:
 ---
