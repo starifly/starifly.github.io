@@ -742,42 +742,17 @@
         <link>https://starifly.github.io/posts/draw/</link>
         <pubDate>Mon, 30 Jan 2023 18:38:49 +0800</pubDate>
         <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Tue, 17 Oct 2023 00:00:00 +0000</atom:modified>
+        <atom:modified>Wed, 25 Oct 2023 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/draw/</guid>
-        <description>工具 5款程序员必备的免费在线画图工具，超级好用！ zen flowchart visual paradigm online，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板</description>
+        <description>工具 draw.io 这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。</description>
         <content:encoded>&lt;h2 id=&#34;工具&#34;&gt;工具&lt;/h2&gt;
-&lt;h3 id=&#34;5款程序员必备的免费在线画图工具超级好用httpsmpweixinqqcomsbepidiecd-fcnl8fyertwq&#34;&gt;
-
-&lt;a href=&#34;https://mp.weixin.qq.com/s/bePIDiecd-fCNL8fyerTwQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;5款程序员必备的免费在线画图工具，超级好用！&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://www.zenflowchart.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zen flowchart&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://online.visual-paradigm.com/cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visual paradigm online&lt;/a&gt;，这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板，能够直接选择并使用。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://app.diagrams.net/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;draw io&lt;/a&gt;，这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。
+&lt;h3 id=&#34;drawio&#34;&gt;draw.io&lt;/h3&gt;
+&lt;p&gt;这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。
 
 &lt;a href=&#34;https://mp.weixin.qq.com/s/139F5K6yGEYNAAT-yaEmBA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;干掉visio，这个画图神器真的绝了！！！&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
 &lt;p&gt;
 
-&lt;a href=&#34;https://www.liuchengtu.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;迅捷画图&lt;/a&gt;，要论模板，论制作简单，迅捷画图也拿得出手！国产的软件，可能大家更能接受。但是，比较差的体验就是好多模板要付费。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://www.microsoftstore.com.cn/visio/visio-standard-2019&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Visio&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;a href=&#34;https://app.diagrams.net/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;draw.io&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;excalidraw&#34;&gt;Excalidraw&lt;/h3&gt;
 &lt;p&gt;Excalidraw 是一款虚拟白板开源在线应用，方便画出流程图、示意图等图表。多语言支持(包含中文)。白板为手绘风格的图画，可导入第三方图形素材库，支持多人协作、支持快捷键，可从 Excel 粘贴表格等功能。&lt;/p&gt;
 &lt;p&gt;功能特色&lt;/p&gt;
@@ -790,7 +765,7 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://excalidraw.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Excalidraw&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;visual-paradigm-online&#34;&gt;visual paradigm online&lt;/h3&gt;
+&lt;h3 id=&#34;visual-paradigm-online&#34;&gt;Visual Paradigm Online&lt;/h3&gt;
 &lt;p&gt;这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板，能够直接选择并使用。多功能设计及制图工具，包括信息图编辑器、电子书编辑器、图表编辑器、拼贴画编辑器等。在线创建惊人的视觉效果、UML、BPMN、ArchiMate。&lt;/p&gt;
 &lt;p&gt;产品特色&lt;/p&gt;
 &lt;ul&gt;
@@ -806,6 +781,16 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://online.visual-paradigm.com/cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visual paradigm online&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;迅捷画图&#34;&gt;迅捷画图&lt;/h3&gt;
+&lt;p&gt;要论模板，论制作简单，迅捷画图也拿得出手！国产的软件，可能大家更能接受。但是，比较差的体验就是好多模板要付费，这也是我最讨厌的地方。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.liuchengtu.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;迅捷画图&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;visio&#34;&gt;Visio&lt;/h3&gt;
+&lt;p&gt;Visio是微软推出的画图工具。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.microsoft.com/zh-cn/microsoft-365/visio/flowchart-software&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Visio&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;le5le&#34;&gt;le5le&lt;/h3&gt;
 &lt;p&gt;
 
@@ -815,6 +800,14 @@
 &lt;a href=&#34;https://t.le5le.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;乐吾乐&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;飞书文档&#34;&gt;飞书文档&lt;/h3&gt;
 &lt;p&gt;支持文档、脑图、流程图、表格等等，还可以很好的外链分享和协作。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://docs.feishu.cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;飞书文档&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;zen-flowchart&#34;&gt;Zen Flowchart&lt;/h3&gt;
+&lt;p&gt;zen flowchart是一个在线画流程图的工具，英文界面&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.zenflowchart.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zen flowchart&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;d2&#34;&gt;D2&lt;/h3&gt;
 &lt;p&gt;
 
