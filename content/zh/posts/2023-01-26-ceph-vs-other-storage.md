@@ -1,5 +1,5 @@
 ---
-title: Ceph,TFS,FastDFS,MogileFS,MooseFS,GlusterFS,Seaweedfs 对比
+title: Ceph与其它存储系统对比
 author: starifly
 date: 2023-01-26T18:51:55+08:00
 lastmod: 2023-01-26T18:51:55+08:00
