@@ -1980,6 +1980,50 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/portable-makefile-tutorial/'>可移植的 Makefile 教程</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月16日 </time>
+          
+          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年08月19日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;12&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;liuchengxu</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            <p>在我写 Makefile 的头 10 年里，我养成了一个非常不好的习惯</p>
+<p>&ndash; 完全严格使用 GNU Make 的扩展名。过去我并不知道， GNU Make 与 POSIX 所保证的可移植特性之间的区别与联系。通常情况，它并不十分重要，但是当在非 Linux 系统上进行构建时，比如在各种 BSD 系统上，就会变成一件麻烦事儿。我不得不指定安装 GNU Make，然后在心里记住不要使用系统自带的 make ，而是使用 gmake 这样的工具来调用它。</p>
+<p>我已经对 
+
+<a href="https://link.jianshu.com?t=http://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html" target="_blank" rel="noopener">make 官方规范</a> 十分熟悉，并且在过去的一年，我都在严格要求自己编写可移植的 Makefile。现在，我的构建不仅可以在各种类 unix 的系统之间进行移植，而且 Makefile 看起来更清晰与健壮。许多常见的 make 扩展名 &ndash; 尤其是条件判断 &ndash; 会导致不够健壮的却又复杂的 Makefile, 因此最好避免这些情况。能够确信你的构建系统能够各司其职，正常工作是非常重要的。</p>
+<p><strong>本指南不仅适用于之前从来没有写过 Makefile 的 make 初学者，同样适用于想要学习如何写出可移植 Makefile 的资深开发者。</strong> 但不管怎样，为了能够理解文中的示例，你必须首先对命令行（编译器，链接器，目标文件等等）构建程序的常规步骤十分熟悉。我不会建议使用任何花哨的技巧，也不会提供任何标准的初学者模板。当项目不大的时候，Makefile 应该是相当的简单，并且随着项目的成长，以一种可预见，清晰的方式不断丰富。</p>
+<p>我不会覆盖 make 的每一个特性。如果想要学习所有完整的内容，你需要自行阅读它的规范。本指南将会详细讨论一些重要特性和约定俗成的规定。遵守已有的约定是非常重要的，这样使用你的 Makefile 的其他人，才能知道它能够完成和如何完成一些基本的任务。</p>
+<p>如果你的系统是 Debian, 或是基于 Debian 的系统，比如 Ubuntu，<code>bmake</code> 和 <code>freebsd-buildutils</code> 包将会分别提供 <code>bmake</code> 和 <code>fmake</code> 程序。这些可供选择的 make 实现，对于测试 Makefile 的可移植性十分有用，尤其是当你不小心使用了 GNU Make 的特性。虽然每个实现都实现了与 GNU Make 完全相同的一些扩展，但是它会捕获一些常见的错误。</p>
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/cmake-clang/'>使用 CMake 不用路径地调用 libclang</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2018年08月16日 </time>
@@ -2472,6 +2516,17 @@
         
         
 	
+            <span class="tag">
+                <a href="/tags/ingress/" class="is-tags taxo__link" data-dir="ltr">
+                    <span class="taxo__text">
+                        ingress
+                    </span>
+                    <span class="taxo__num" dir="auto">
+                        2
+                    </span>
+                </a>
+            </span>
+        
         
 	
         
@@ -2482,7 +2537,7 @@
                         k8s
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        4
                     </span>
                 </a>
             </span>
@@ -2692,6 +2747,17 @@
 	
         
 	
+            <span class="tag">
+                <a href="/categories/ingress/" class="is-categories taxo__link" data-dir="ltr">
+                    <span class="taxo__text">
+                        ingress
+                    </span>
+                    <span class="taxo__num" dir="auto">
+                        2
+                    </span>
+                </a>
+            </span>
+        
         
 	
             <span class="tag">
@@ -2700,7 +2766,7 @@
                         k8s
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        4
                     </span>
                 </a>
             </span>
