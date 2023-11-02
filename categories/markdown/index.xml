@@ -123,9 +123,9 @@ N 与图片高度有关。
 &lt;h2 id=&#34;使用-emoji&#34;&gt;使用 Emoji&lt;/h2&gt;
 &lt;p&gt;这个是 GitHub 对标准 Markdown 标记之外的扩展了，用得好能让文字生动一些。&lt;/p&gt;
 &lt;p&gt;示例代码：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;我和我的小伙伴们都笑了。😄
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;我和我的小伙伴们都笑了。:smile:
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
-&lt;p&gt;我和我的小伙伴们都笑了。😄&lt;/p&gt;
+&lt;p&gt;我和我的小伙伴们都笑了。&amp;#x1f604;&lt;/p&gt;
 &lt;p&gt;更多可用 Emoji 代码参见 
 
 &lt;a href=&#34;https://www.webpagefx.com/tools/emoji-cheat-sheet/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.webpagefx.com/tools/emoji-cheat-sheet/&lt;/a&gt;。&lt;/p&gt;

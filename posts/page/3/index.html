@@ -1383,7 +1383,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.120.3">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1980,6 +1980,41 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rbd/'>Ceph rbd简单使用</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/'>Ceph 硬件选型、crush规则及region</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
@@ -2413,44 +2448,6 @@
 
 
             
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/hugo-deploy-script/'>Hugo 自动化部署脚本</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月18日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;CoderZh</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>之前我写了一个脚本用来自动部署我的 Hugo 博客，今天闲来无事完善了一下这个脚本，使这个脚本更加通用一些。</p>
-<p>脚本路径：
-
-<a href="https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py" target="_blank" rel="noopener">https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py</a></p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
             
 
 
@@ -2682,13 +2679,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/k8s/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         k8s
                     </span>
                     <span class="taxo__num" dir="auto">
-                        2
+                        3
                     </span>
                 </a>
             </span>
@@ -2898,13 +2897,15 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/categories/k8s/" class="is-categories taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         k8s
                     </span>
                     <span class="taxo__num" dir="auto">
-                        2
+                        3
                     </span>
                 </a>
             </span>
@@ -3299,7 +3300,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.119.0</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.120.3</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

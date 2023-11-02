@@ -97,6 +97,24 @@
       </item>
       
       <item>
+        <title>ingress</title>
+        <link>https://starifly.github.io/categories/ingress/</link>
+        <pubDate>Thu, 26 Jan 2023 14:58:22 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/categories/ingress/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
         <title>linux</title>
         <link>https://starifly.github.io/categories/linux/</link>
         <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate>
@@ -175,24 +193,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/categories/vim/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>cross compile</title>
-        <link>https://starifly.github.io/categories/cross-compile/</link>
-        <pubDate>Fri, 17 Aug 2018 17:04:47 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/categories/cross-compile/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>
