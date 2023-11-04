@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>mysql授予账户权限问题 – 飞鸟的博客站</title>
+    <title>Mysql Galera Cluster – 飞鸟的博客站</title>
     
 
   
@@ -661,7 +661,7 @@
     
     var baseurl = JSON.parse("\"https://starifly.github.io/\"");
     
-    var permalink = JSON.parse("\"https://starifly.github.io/posts/mysql-account-permission-grant-problem/\"");
+    var permalink = JSON.parse("\"https://starifly.github.io/posts/mysql-galera-cluster/\"");
     
     var langprefix = JSON.parse("\"\"");
     var searchResults = null;
@@ -1365,26 +1365,26 @@
 
 
     
-<meta name="description" content="mysql授予账户权限问题" />
+<meta name="description" content="" />
 
 <meta name="keywords" content="">
 
 
 <meta name="keywords" content="mysql">
 
-<meta name="created" content="2023-11-04T10:49:13&#43;0800">
-<meta name="modified" content="2023-11-04T10:49:13&#43;0800">
-<meta property="article:published_time" content="2023-11-04T10:49:13&#43;0800">
+<meta name="created" content="2023-11-04T10:58:51&#43;0800">
+<meta name="modified" content="2023-11-04T10:58:51&#43;0800">
+<meta property="article:published_time" content="2023-11-04T10:58:51&#43;0800">
 
 <meta name="author" content="starifly">
-<meta property="article:author" content="https://starifly.github.io/posts/mysql-account-permission-grant-problem/@starifly">
+<meta property="article:author" content="https://starifly.github.io/posts/mysql-galera-cluster/@starifly">
 
 
 <meta property="og:site_name" content="飞鸟的博客站">
-<meta property="og:title" content="mysql授予账户权限问题">
-<meta property="og:url" content="https://starifly.github.io/posts/mysql-account-permission-grant-problem/">
+<meta property="og:title" content="Mysql Galera Cluster">
+<meta property="og:url" content="https://starifly.github.io/posts/mysql-galera-cluster/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="mysql授予账户权限问题">
+<meta property="og:description" content="">
 
 <meta name="generator" content="Hugo 0.120.3">
 <meta name="msapplication-TileColor" content="#fff">
@@ -1395,7 +1395,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://starifly.github.io/posts/mysql-account-permission-grant-problem/">
+<link rel="canonical" href="https://starifly.github.io/posts/mysql-galera-cluster/">
 
 <link rel="manifest" href="/favicon/manifest.json">
 
@@ -1421,11 +1421,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "mysql授予账户权限问题",
-    "datePublished": "2023-11-04T10:49:13+08:00",
-    "dateModified": "2023-11-04T10:49:13+08:00",
-    "url" : "https://starifly.github.io/posts/mysql-account-permission-grant-problem/",
-    "description": "mysql授予账户权限问题",
+    "headline": "Mysql Galera Cluster",
+    "datePublished": "2023-11-04T10:58:51+08:00",
+    "dateModified": "2023-11-04T10:58:51+08:00",
+    "url" : "https://starifly.github.io/posts/mysql-galera-cluster/",
+    "description": "介绍 Galera Cluster主要功能 同步复制 真正的multi-master，即所有节点可以同时读写数据库 自动的节点成员控制，失效节点自动被清除 新节点",
     "keywords": ["mysql"],
     "author": {
       "@type": "Person",
@@ -1974,7 +1974,7 @@
   
   <li  class="is-active" >
     
-      <span>mysql授予账户权限问题</span>
+      <span>Mysql Galera Cluster</span>
     
   </li>
   
@@ -1986,14 +1986,14 @@
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title colorful" data-ani="true">mysql授予账户权限问题</h2>
+    <h2 class="single__title colorful" data-ani="true">Mysql Galera Cluster</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2023年11月04日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;1&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;6&nbsp;分钟 </span>
   
   &nbsp;&middot;&nbsp; <span class="single__info" title="作者">✍️&nbsp;starifly</span>
   
@@ -2018,22 +2018,263 @@
         
 
         
-          <p>mysql通过root账号登录，新建账户并授予权限会报错：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;select_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ERROR</span><span class="w"> </span><span class="mi">1045</span><span class="w"> </span><span class="p">(</span><span class="mi">28000</span><span class="p">):</span><span class="w"> </span><span class="k">Access</span><span class="w"> </span><span class="n">denied</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="p">(</span><span class="k">using</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="n">YES</span><span class="p">)</span><span class="w">
-</span></span></span></code></pre></div><p>解决方案：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">Grant_priv</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Rows</span><span class="w"> </span><span class="n">matched</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="n">Changed</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="n">Warnings</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span></code></pre></div><p>然后退出登录，重启mysql服务，之后就能正常授权了。</p>
-<h2 id="reference">Reference</h2>
+          <h2 id="介绍">介绍</h2>
+<p><strong>Galera Cluster主要功能</strong></p>
+<ol>
+<li>同步复制</li>
+<li>真正的multi-master，即所有节点可以同时读写数据库</li>
+<li>自动的节点成员控制，失效节点自动被清除</li>
+<li>新节点加入数据自动复制</li>
+<li>真正的并行复制，行级</li>
+<li>用户可以直接连接集群，使用感受上与MySQL完全一致</li>
+</ol>
+<p><strong>优势</strong></p>
+<ol>
+<li>因为是多主，所以不存在Slavelag(延迟)</li>
+<li>不存在丢失事务的情况</li>
+<li>同时具有读和写的扩展能力</li>
+<li>更小的客户端延迟</li>
+<li>节点间数据是同步的，而Master/Slave模式是异步的，不同slave上的binlog可能是不同的</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>加入新节点时开销大，需要复制完整的数据</li>
+<li>不能有效地解决写扩展的问题，所有的写操作都发生在所有的节点</li>
+<li>有多少个节点，就有多少份重复的数据</li>
+<li>由于事务提交需要跨节点通信，即涉及分布式事务操作，因此写入会比主从复制慢很多，节点越多，写入越慢，死锁和回滚也会更加频繁</li>
+<li>对网络要求比较高，如果网络出现波动不稳定，则可能会造成两个节点失联，Galera Cluster集群会发生脑裂，服务将不可用</li>
+</ol>
+<p><strong>存在局限</strong></p>
+<ol>
+<li>仅支持InnoDB/XtraDB存储引擎，任何写入其他引擎的表，包括mysql.*表都不会被复制。但是DDL语句可以复制，但是insert into mysql.user(MyISAM存储引擎)之类的插入数据不会被复制</li>
+<li>Delete操作不支持没有主键的表，因为没有主键的表在不同的节点上的顺序不同，如果执行select … limit …将出现不同的结果集</li>
+<li>LOCK/UNLOCK TABLES/FLUSH TABLES WITH READ LOCKS不支持单表所锁，以及锁函数GET_LOCK()、RELEASE_LOCK()，但FLUSH TABLES WITH READ LOCK支持全局表锁</li>
+<li>General Query Log日志不能保存在表中，如果开始查询日志，则只能保存到文件中</li>
+<li>不能有大事务写入，不能操作wsrep_max_ws_rows=131072(行)，且写入集不能超过wsrep_max_ws_size=1073741824(1GB)，否则客户端直接报错</li>
+<li>由于集群是乐观锁并发控制，因此，在commit阶段会有事务冲突发生。如果两个事务在集群中的不同节点上对同一行写入并提交，则失败的节点将回滚，客户端返回死锁报错</li>
+<li>XA分布式事务不支持Codership Galera Cluster，在提交时可能会回滚</li>
+<li>整个集群的写入吞吐量取决于最弱的节点限制，集群要使用同一的配置</li>
+</ol>
+<p>没有特别说明的，均是三节点都需执行</p>
+<h2 id="准备工作">准备工作</h2>
+<p>禁用selinux</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/^SELINUX=.*$/SELINUX=disabled/&#39;</span> /etc/selinux/config
+</span></span></code></pre></div><p>卸载系统自带的mariadb</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">yum erase <span class="sb">`</span>rpm -qa <span class="p">|</span> grep mariadb<span class="sb">`</span>
+</span></span></code></pre></div><p>添加yum源</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">cat /etc/yum.repos.d/galera.repo</span>
+</span></span><span class="line"><span class="cl"><span class="k">[galera4]</span>
+</span></span><span class="line"><span class="cl"><span class="na">name</span> <span class="o">=</span> <span class="s">Galera</span>
+</span></span><span class="line"><span class="cl"><span class="na">baseurl</span> <span class="o">=</span> <span class="s">https://releases.galeracluster.com/galera-4/centos/7/x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpgkey</span> <span class="o">=</span> <span class="s">https://releases.galeracluster.com/GPG-KEY-galeracluster.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpgcheck</span> <span class="o">=</span> <span class="s">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">[mysql-wsrep8]</span>
+</span></span><span class="line"><span class="cl"><span class="na">name</span> <span class="o">=</span> <span class="s">MySQL-wsrep</span>
+</span></span><span class="line"><span class="cl"><span class="na">baseurl</span> <span class="o">=</span> <span class="s">https://releases.galeracluster.com/mysql-wsrep-8.0/centos/7/x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpgkey</span> <span class="o">=</span> <span class="s">https://releases.galeracluster.com/GPG-KEY-galeracluster.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpgcheck</span> <span class="o">=</span> <span class="s">1</span>
+</span></span></code></pre></div><h2 id="安装">安装</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">yum install galera-4 mysql-wsrep-8.0
+</span></span></code></pre></div><h2 id="数据库配置">数据库配置</h2>
+<p>节点一：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="c1"># For advice on how to change settings please see</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># http://dev.mysql.com/doc/refman/8.0/en/server-configuration-defaults.html</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[mysqld]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove leading # and set to the amount of RAM for the most important data</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># innodb_buffer_pool_size = 128M</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove the leading &#34;# &#34; to disable binary logging</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Binary logging captures changes between backups and is enabled by</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># default. It&#39;s default setting is log_bin=binlog</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># disable_log_bin</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove leading # to set options mainly useful for reporting servers.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The server defaults are faster for transactions and fast SELECTs.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adjust sizes as needed, experiment to find the optimal values.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># join_buffer_size = 128M</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sort_buffer_size = 2M</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># read_rnd_buffer_size = 2M</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove leading # to revert to previous value for default_authentication_plugin,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># this will increase compatibility with older clients. For background, see:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_default_authentication_plugin</span>
+</span></span><span class="line"><span class="cl"><span class="na">default-authentication-plugin</span><span class="o">=</span><span class="s">mysql_native_password</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">datadir</span><span class="o">=</span><span class="s">/var/lib/mysql</span>
+</span></span><span class="line"><span class="cl"><span class="na">socket</span><span class="o">=</span><span class="s">/var/lib/mysql/mysql.sock</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">log-error</span><span class="o">=</span><span class="s">/var/log/mysqld.log</span>
+</span></span><span class="line"><span class="cl"><span class="na">pid-file</span><span class="o">=</span><span class="s">/var/run/mysqld/mysqld.pid</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">server_id</span><span class="o">=</span><span class="s">1</span>
+</span></span><span class="line"><span class="cl"><span class="na">log_timestamps</span><span class="o">=</span><span class="s">SYSTEM</span>
+</span></span><span class="line"><span class="cl"><span class="na">lower_case_table_names</span><span class="o">=</span><span class="s">1</span>
+</span></span><span class="line"><span class="cl"><span class="na">default_storage_engine</span><span class="o">=</span><span class="s">InnoDB</span>
+</span></span><span class="line"><span class="cl"><span class="na">innodb_autoinc_lock_mode</span><span class="o">=</span><span class="s">2</span>
+</span></span><span class="line"><span class="cl"><span class="na">innodb_flush_log_at_trx_commit</span><span class="o">=</span><span class="s">0</span>
+</span></span><span class="line"><span class="cl"><span class="na">innodb_buffer_pool_size</span><span class="o">=</span><span class="s">128M</span>
+</span></span><span class="line"><span class="cl"><span class="na">binlog_format</span><span class="o">=</span><span class="s">ROW</span>
+</span></span><span class="line"><span class="cl"><span class="na">character_set_server</span> <span class="o">=</span> <span class="s">utf8mb4</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_on</span><span class="o">=</span><span class="s">ON</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_provider</span><span class="o">=</span><span class="s">/usr/lib64/galera-4/libgalera_smm.so</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_node_name</span><span class="o">=</span><span class="s">&#34;node1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_node_address</span><span class="o">=</span><span class="s">&#34;192.168.5.31&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_cluster_name</span><span class="o">=</span><span class="s">&#34;galera&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_cluster_address</span><span class="o">=</span><span class="s">&#34;gcomm://192.168.5.31,192.168.5.32,192.168.5.36&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_provider_options</span><span class="o">=</span><span class="s">&#34;gcache.size=128M; gcache.page_size=128M&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_slave_threads</span><span class="o">=</span><span class="s">4</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_sst_method</span><span class="o">=</span><span class="s">rsync</span>
+</span></span><span class="line"><span class="cl"><span class="na">wsrep_sst_auth</span><span class="o">=</span><span class="s">rsync:rsync123</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[client]</span>
+</span></span><span class="line"><span class="cl"><span class="na">default-character-set</span><span class="o">=</span><span class="s">utf8mb4</span>
+</span></span><span class="line"><span class="cl"><span class="na">socket</span><span class="o">=</span><span class="s">/var/lib/mysql/mysql.sock</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[mysql]</span>
+</span></span><span class="line"><span class="cl"><span class="na">default-character-set</span><span class="o">=</span><span class="s">utf8mb4</span>
+</span></span><span class="line"><span class="cl"><span class="na">socket</span><span class="o">=</span><span class="s">/var/lib/mysql/mysql.sock</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[mysqldump]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#socket=/var/lib/mysql/mysql.sock</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#max_allowed_packet = 512M</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#[mysqld_safe]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 内存分配算法调优（默认malloc）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#malloc-lib=/usr/lib64/libjemalloc.so.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#[mysqladmin]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#socket=/var/lib/mysql/mysql.sock</span>
+</span></span></code></pre></div><p>节点二：</p>
+<p>只是<code>server_id</code>、<code>wsrep_node_name</code>和<code>wsrep_node_address</code>配置和节点一不一样</p>
+<p>节点三：</p>
+<p>只是<code>server_id</code>、<code>wsrep_node_name</code>和<code>wsrep_node_address</code>配置和节点一不一样</p>
+<h2 id="启动galera">启动galera</h2>
+<p>节点一：</p>
+<p>如果数据目录下存在galera.cache和gvwstate.dat文件，要先删掉这两个文件，再执行命令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mysqld_bootstrap
+</span></span></code></pre></div><p>节点二：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl start mysqld
+</span></span></code></pre></div><p>节点三：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl start mysqld
+</span></span></code></pre></div><h2 id="数据库初始化在节点一执行即可">数据库初始化，在节点一执行即可</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">grep -i <span class="s1">&#39;temporary password&#39;</span> /var/log/mysqld.log
+</span></span><span class="line"><span class="cl">mysql_secure_installation
+</span></span></code></pre></div><p>完成初始化后，登录mysql，新增远程用户访问或直接允许root用户远程访问，此处使用root直接远程登陆。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">update</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">host</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="集群状态监控">集群状态监控</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">Variable_name</span><span class="w">                </span><span class="o">|</span><span class="w"> </span><span class="n">Value</span><span class="w">                                                                                                                                           </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_state_uuid</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">7</span><span class="n">b94331e</span><span class="o">-</span><span class="mi">35</span><span class="n">d1</span><span class="o">-</span><span class="mi">11</span><span class="n">ee</span><span class="o">-</span><span class="mi">85</span><span class="n">c9</span><span class="o">-</span><span class="mi">8657</span><span class="n">a425f634</span><span class="w">                                                                                                            </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_protocol_version</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="w">                                                                                                                                              </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_last_committed</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">344</span><span class="w">                                                                                                                                             </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_replicated</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_replicated_bytes</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_repl_keys</span><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_repl_keys_bytes</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_repl_data_bytes</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_repl_other_bytes</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_received</span><span class="w">               </span><span class="o">|</span><span class="w"> </span><span class="mi">4</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_received_bytes</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">440</span><span class="w">                                                                                                                                             </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_commits</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_cert_failures</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_replays</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_send_queue</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_send_queue_max</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_send_queue_min</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_send_queue_avg</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_recv_queue</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_recv_queue_max</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_recv_queue_min</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_recv_queue_avg</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_cached_downto</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_paused_ns</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_paused</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_sent</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_recv</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_active</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="k">false</span><span class="w">                                                                                                                                           </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_flow_control_requested</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">false</span><span class="w">                                                                                                                                           </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cert_deps_distance</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_apply_oooe</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_apply_oool</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_apply_window</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_apply_waits</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_commit_oooe</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_commit_oool</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_commit_window</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_state</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">4</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_state_comment</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Synced</span><span class="w">                                                                                                                                          </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cert_index_size</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_causal_reads</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cert_interval</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_open_transactions</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_open_connections</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_incoming_addresses</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">AUTO</span><span class="p">,</span><span class="n">AUTO</span><span class="p">,</span><span class="n">AUTO</span><span class="w">                                                                                                                                  </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_weight</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_desync_count</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_evs_delayed</span><span class="w">            </span><span class="o">|</span><span class="w">                                                                                                                                                 </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_evs_evict_list</span><span class="w">         </span><span class="o">|</span><span class="w">                                                                                                                                                 </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_evs_repl_latency</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="w">                                                                                                                                       </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_evs_state</span><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="n">OPERATIONAL</span><span class="w">                                                                                                                                     </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_gcomm_uuid</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="n">c71deac</span><span class="o">-</span><span class="mi">374</span><span class="n">b</span><span class="o">-</span><span class="mi">11</span><span class="n">ee</span><span class="o">-</span><span class="n">b8be</span><span class="o">-</span><span class="mi">7</span><span class="n">b9e717a4383</span><span class="w">                                                                                                            </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_gmcast_segment</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_capabilities</span><span class="w">   </span><span class="o">|</span><span class="w">                                                                                                                                                 </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_conf_id</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">18446744073709551615</span><span class="w">                                                                                                                            </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_size</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_state_uuid</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">7</span><span class="n">b94331e</span><span class="o">-</span><span class="mi">35</span><span class="n">d1</span><span class="o">-</span><span class="mi">11</span><span class="n">ee</span><span class="o">-</span><span class="mi">85</span><span class="n">c9</span><span class="o">-</span><span class="mi">8657</span><span class="n">a425f634</span><span class="w">                                                                                                            </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_cluster_status</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="k">Primary</span><span class="w">                                                                                                                                         </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_connected</span><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="k">ON</span><span class="w">                                                                                                                                              </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_bf_aborts</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_local_index</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">                                                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_provider_capabilities</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">:</span><span class="n">MULTI_PRIMARY</span><span class="p">:</span><span class="n">CERTIFICATION</span><span class="p">:</span><span class="n">PARALLEL_APPLYING</span><span class="p">:</span><span class="n">TRX_REPLAY</span><span class="p">:</span><span class="k">ISOLATION</span><span class="p">:</span><span class="n">PAUSE</span><span class="p">:</span><span class="n">CAUSAL_READS</span><span class="p">:</span><span class="n">INCREMENTAL_WRITESET</span><span class="p">:</span><span class="n">UNORDERED</span><span class="p">:</span><span class="n">PREORDERED</span><span class="p">:</span><span class="n">STREAMING</span><span class="p">:</span><span class="n">NBO</span><span class="p">:</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_provider_name</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">Galera</span><span class="w">                                                                                                                                          </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_provider_vendor</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Codership</span><span class="w"> </span><span class="n">Oy</span><span class="w"> </span><span class="o">&lt;</span><span class="n">info</span><span class="o">@</span><span class="n">codership</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="w">                                                                                                               </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_provider_version</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">15</span><span class="p">(</span><span class="n">r86ced4c6</span><span class="p">)</span><span class="w">                                                                                                                                 </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">wsrep_ready</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="k">ON</span><span class="w">                                                                                                                                              </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">66</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>参数说明：</p>
+<ul>
+<li>wsrep_local_index = 2 在集群中的索引值</li>
+<li>wsrep_cluster_status为Primary，表示节点为主节点，正常读写。</li>
+<li>wsrep_ready为ON，表示集群正常运行。</li>
+<li>wsrep_connected: 如果该值为Off,且wsrep_ready的值也为Off,则说明该节点没有连接到集群</li>
+<li>wsrep_cluster_size为3，表示集群有三个节点。</li>
+<li>wsrep_cluster_state_uuid:在集群所有节点的值应该是相同的,有不同值的节点,说明其没有连接入集群。</li>
+<li>wsrep_cluster_conf_id:正常情况下所有节点上该值是一样的.如果值不同,说明该节点被临时”分区”了.当节点之间网络连接恢复的时候应该会恢复一样的值。</li>
+<li>wsrep_flow_control_paused:表示复制停止了多长时间.即表明集群因为Slave延迟而慢的程度.值为0~1,越靠近0越好,值为1表示复制完全停止.可优化wsrep_slave_threads的值来改善.</li>
+<li>wsrep_flow_control_sent:表示该节点已经停止复制了多少次.</li>
+</ul>
+<p>常用命令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 集群状态监控：</span>
+</span></span><span class="line"><span class="cl">show global status like <span class="s1">&#39;wsrep_%&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看集群节点数：</span>
+</span></span><span class="line"><span class="cl">show status like <span class="s1">&#39;wsrep_cluster_size&#39;</span>；
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看集群同步状态：</span>
+</span></span><span class="line"><span class="cl">show status like <span class="s1">&#39;wsrep_local_state_comment&#39;</span>；
+</span></span></code></pre></div><h2 id="reference">Reference</h2>
 <ul>
 <li>
 
-<a href="https://www.cnblogs.com/Dog1363786601/p/17226101.html" target="_blank" rel="noopener">MySQL错误：Access denied for user 'root'@'%' to database 'xxx' - 我想养只狗 - 博客园</a></li>
+<a href="https://wbinks.com/archives/centos8%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgaleracluster%E9%9B%86%E7%BE%A4" target="_blank" rel="noopener">centos8安装配置galeracluster集群</a></li>
+<li>
+
+<a href="http://dbaselife.com/doc/946/" target="_blank" rel="noopener">MariaDB Galera Cluster - MySQL - dbaselife</a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1120419" target="_blank" rel="noopener">MariaDB Galera Cluster部署实战-腾讯云开发者社区-腾讯云</a></li>
+<li>
+
+<a href="https://blog.gmem.cc/galera-study-note" target="_blank" rel="noopener">绿色记忆:Galera学习笔记</a></li>
 </ul>
 
         
@@ -2235,13 +2476,13 @@
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-account-permission-grant-problem%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-galera-cluster%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
     
       
-        <a href="https://twitter.com/intent/tweet?text=mysql%e6%8e%88%e4%ba%88%e8%b4%a6%e6%88%b7%e6%9d%83%e9%99%90%e9%97%ae%e9%a2%98&url=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-account-permission-grant-problem%2f&hashtags=mysql&via=starifly" title="Twitter" aria-label="Twitter Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://twitter.com/intent/tweet?text=Mysql%20Galera%20Cluster&url=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-galera-cluster%2f&hashtags=mysql&via=starifly" title="Twitter" aria-label="Twitter Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="twitter" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m21.534 7.113c.976-.693 1.797-1.558 2.466-2.554v-.001c-.893.391-1.843.651-2.835.777 1.02-.609 1.799-1.566 2.165-2.719-.951.567-2.001.967-3.12 1.191-.903-.962-2.19-1.557-3.594-1.557-2.724 0-4.917 2.211-4.917 4.921 0 .39.033.765.114 1.122-4.09-.2-7.71-2.16-10.142-5.147-.424.737-.674 1.58-.674 2.487 0 1.704.877 3.214 2.186 4.089-.791-.015-1.566-.245-2.223-.606v.054c0 2.391 1.705 4.377 3.942 4.835-.401.11-.837.162-1.29.162-.315 0-.633-.018-.931-.084.637 1.948 2.447 3.381 4.597 3.428-1.674 1.309-3.8 2.098-6.101 2.098-.403 0-.79-.018-1.177-.067 2.18 1.405 4.762 2.208 7.548 2.208 8.683 0 14.342-7.244 13.986-14.637z"/></svg>
         </a>
       
@@ -2253,7 +2494,7 @@
       
     
       
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-account-permission-grant-problem%2f&title=mysql%e6%8e%88%e4%ba%88%e8%b4%a6%e6%88%b7%e6%9d%83%e9%99%90%e9%97%ae%e9%a2%98 &summary=mysql%e6%8e%88%e4%ba%88%e8%b4%a6%e6%88%b7%e6%9d%83%e9%99%90%e9%97%ae%e9%a2%98&source=The%20site%20of%20Flybird%27s%20Blog" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn Share Button" class="donation__item" data-type="share">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fstarifly.github.io%2fposts%2fmysql-galera-cluster%2f&title=Mysql%20Galera%20Cluster &summary=&source=The%20site%20of%20Flybird%27s%20Blog" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn Share Button" class="donation__item" data-type="share">
           <svg data-name="linkedin" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m23.994 24v-.001h.006v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07v-2.185h-4.773v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243v7.801z"/><path d="m.396 7.977h4.976v16.023h-4.976z"/><path d="m2.882 0c-1.591 0-2.882 1.291-2.882 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909c-.001-1.591-1.292-2.882-2.882-2.882z"/></svg>
         </a>
       
@@ -2406,6 +2647,10 @@
     <ul class="related-ul">
         
         <li>
+          <a href="/posts/mysql-account-permission-grant-problem/" class="related__link">mysql授予账户权限问题</a>
+        </li>
+        
+        <li>
           <a href="/posts/install-redhat-via-usb-disk/" class="related__link">U盘安装RedHat</a>
         </li>
         
@@ -2424,21 +2669,14 @@
 <nav class="pagination-single">
   
     
-      <a href="https://starifly.github.io/posts/install-redhat-via-usb-disk/" class="pagination-single__left">
+      <a href="https://starifly.github.io/posts/mysql-account-permission-grant-problem/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">U盘安装RedHat</div>      
+        <div class="pagination-single__left-title">mysql授予账户权限问题</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://starifly.github.io/posts/mysql-galera-cluster/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Mysql Galera Cluster</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3672,6 +3910,13 @@ jQuery(document).ready(function($) {
         <div class="toc toc__outer " data-dir="ltr" data-folding="false" data-ani="true">
           <nav id="TableOfContents">
   <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#数据库配置">数据库配置</a></li>
+    <li><a href="#启动galera">启动galera</a></li>
+    <li><a href="#数据库初始化在节点一执行即可">数据库初始化，在节点一执行即可</a></li>
+    <li><a href="#集群状态监控">集群状态监控</a></li>
     <li><a href="#reference">Reference</a></li>
   </ul>
 </nav>
