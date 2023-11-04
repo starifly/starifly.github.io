@@ -7,7 +7,7 @@
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>redhat on 飞鸟的博客站</title>
-    <link>https://starifly.github.io/tags/redhat/</link>
+    <link>https://starifly.github.io/categories/redhat/</link>
     <description>Recent content in redhat on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
@@ -17,7 +17,7 @@
     <lastBuildDate>Sat, 04 Nov 2023 10:17:22 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
-        <atom:link href="https://starifly.github.io/tags/redhat/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://starifly.github.io/categories/redhat/index.xml" rel="self" type="application/rss+xml" />
     
     
     

@@ -12,7 +12,7 @@ enableToc: true
 enableTocContent: false
 tocFolding: false
 tocLevels: ["h2", "h3", "h4"]
-categories: [linux]
+categories: [linux,redhat]
 tags: [linux,redhat]
 slug: install-redhat-via-usb-disk
 img:
