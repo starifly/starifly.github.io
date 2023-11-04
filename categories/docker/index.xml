@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>docker on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/docker/</link>
+    <description>Recent content in docker on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Sat, 04 Nov 2023 09:42:36 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>docker部署java应用乱码问题</title>
+        <link>https://starifly.github.io/posts/java-application-garbled-code-in-docker/</link>
+        <pubDate>Sat, 04 Nov 2023 09:42:36 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 04 Nov 2023 09:42:36 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/java-application-garbled-code-in-docker/</guid>
+        <description>在dockerfile中添加ENV LANG=en_US.utf8</description>
+        <content:encoded>&lt;p&gt;在dockerfile中添加&lt;code&gt;ENV LANG=en_US.utf8&lt;/code&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>java</category>
+            
+          
+            
+              <category>docker</category>
+            
+          
+        
+        
+            
+              <category>[java docker]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

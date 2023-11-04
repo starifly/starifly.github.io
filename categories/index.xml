@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 17 Feb 2023 16:25:55 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 04 Nov 2023 09:42:36 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,42 @@
     
 
       
+      
+      <item>
+        <title>docker</title>
+        <link>https://starifly.github.io/categories/docker/</link>
+        <pubDate>Sat, 04 Nov 2023 09:42:36 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/categories/docker/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>java</title>
+        <link>https://starifly.github.io/categories/java/</link>
+        <pubDate>Sat, 04 Nov 2023 09:42:36 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/categories/java/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>k8s</title>
@@ -157,42 +193,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/categories/git/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>CI</title>
-        <link>https://starifly.github.io/categories/ci/</link>
-        <pubDate>Sat, 18 Aug 2018 12:18:32 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/categories/ci/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>vim</title>
-        <link>https://starifly.github.io/categories/vim/</link>
-        <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/categories/vim/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>
