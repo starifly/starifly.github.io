@@ -3,10 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://starifly.github.io/</loc>
-    <lastmod>2023-11-04T09:50:50+08:00</lastmod>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/categories/</loc>
-    <lastmod>2023-11-04T09:50:50+08:00</lastmod>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/linux/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/categories/linux/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/redhat/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/tags/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
+  </url><url>
+    <loc>https://starifly.github.io/posts/install-redhat-via-usb-disk/</loc>
+    <lastmod>2023-11-04T10:17:22+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/tags/cronjob/</loc>
     <lastmod>2023-11-04T09:50:50+08:00</lastmod>
@@ -18,12 +36,6 @@
     <lastmod>2023-11-04T09:50:50+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/k8s-cronjob-time-zone/</loc>
-    <lastmod>2023-11-04T09:50:50+08:00</lastmod>
-  </url><url>
-    <loc>https://starifly.github.io/posts/</loc>
-    <lastmod>2023-11-04T09:50:50+08:00</lastmod>
-  </url><url>
-    <loc>https://starifly.github.io/tags/</loc>
     <lastmod>2023-11-04T09:50:50+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/tags/docker/</loc>
@@ -219,12 +231,6 @@
     <lastmod>2021-10-06T16:16:07+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/tags/centos/</loc>
-    <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-  </url><url>
-    <loc>https://starifly.github.io/tags/linux/</loc>
-    <lastmod>2020-05-30T21:59:57+08:00</lastmod>
-  </url><url>
-    <loc>https://starifly.github.io/categories/linux/</loc>
     <lastmod>2020-05-30T21:59:57+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</loc>

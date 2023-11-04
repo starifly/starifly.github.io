@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 04 Nov 2023 09:50:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 04 Nov 2023 10:17:22 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,42 @@
     
 
       
+      
+      <item>
+        <title>linux</title>
+        <link>https://starifly.github.io/tags/linux/</link>
+        <pubDate>Sat, 04 Nov 2023 10:17:22 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/linux/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>redhat</title>
+        <link>https://starifly.github.io/tags/redhat/</link>
+        <pubDate>Sat, 04 Nov 2023 10:17:22 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/redhat/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>cronjob</title>
@@ -157,42 +193,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/tags/ceph/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>rgw</title>
-        <link>https://starifly.github.io/tags/rgw/</link>
-        <pubDate>Thu, 26 Jan 2023 18:56:35 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/rgw/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>ingress</title>
-        <link>https://starifly.github.io/tags/ingress/</link>
-        <pubDate>Thu, 26 Jan 2023 15:02:40 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/ingress/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>

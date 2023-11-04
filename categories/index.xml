@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 04 Nov 2023 09:50:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 04 Nov 2023 10:17:22 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,24 @@
     
 
       
+      
+      <item>
+        <title>linux</title>
+        <link>https://starifly.github.io/categories/linux/</link>
+        <pubDate>Sat, 04 Nov 2023 10:17:22 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/categories/linux/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>k8s</title>
@@ -139,24 +157,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/categories/ingress/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>linux</title>
-        <link>https://starifly.github.io/categories/linux/</link>
-        <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/categories/linux/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>
