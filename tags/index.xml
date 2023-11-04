@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 04 Nov 2023 09:42:36 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 04 Nov 2023 09:50:50 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,42 @@
     
 
       
+      
+      <item>
+        <title>cronjob</title>
+        <link>https://starifly.github.io/tags/cronjob/</link>
+        <pubDate>Sat, 04 Nov 2023 09:50:50 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/cronjob/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>k8s</title>
+        <link>https://starifly.github.io/tags/k8s/</link>
+        <pubDate>Sat, 04 Nov 2023 09:50:50 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/tags/k8s/</guid>
+        <description></description>
+        <content:encoded></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>docker</title>
@@ -49,24 +85,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/tags/java/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>k8s</title>
-        <link>https://starifly.github.io/tags/k8s/</link>
-        <pubDate>Fri, 17 Feb 2023 16:25:55 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/k8s/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>
@@ -175,24 +193,6 @@
         <author>efim@163.com (飞鸟)</author>
         
         <guid>https://starifly.github.io/tags/ingress/</guid>
-        <description></description>
-        <content:encoded></content:encoded>
-        <dc:creator>飞鸟</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>s3</title>
-        <link>https://starifly.github.io/tags/s3/</link>
-        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        
-        <guid>https://starifly.github.io/tags/s3/</guid>
         <description></description>
         <content:encoded></content:encoded>
         <dc:creator>飞鸟</dc:creator>
