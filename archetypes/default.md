@@ -12,8 +12,8 @@ enableToc: true
 enableTocContent: false
 tocFolding: false
 tocLevels: ["h2", "h3", "h4"]
-tags: []
 categories: []
+tags: []
 slug: {{ .Name  }}
 img:
 ---
