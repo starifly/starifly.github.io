@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>linux on 飞鸟的博客站</title>
+    <title>Linux on 飞鸟的博客站</title>
     <link>https://starifly.github.io/categories/linux/</link>
-    <description>Recent content in linux on 飞鸟的博客站</description>
+    <description>Recent content in Linux on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -308,18 +308,18 @@ XDG_VIDEOS_DIR=&amp;#34;$HOME/videos&amp;#34;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;打开 xdiagnose&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;勾选 Debug 下的所有选项&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;重启&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;安装增强功能&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /media/&amp;lt;username&amp;gt;/VBOXADDITIONS_X.X.XX_XXXXX
 sudo ./VBoxLinuxAdditions.run

@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>git on 飞鸟的博客站</title>
+    <title>Git on 飞鸟的博客站</title>
     <link>https://starifly.github.io/tags/git/</link>
-    <description>Recent content in git on 飞鸟的博客站</description>
+    <description>Recent content in Git on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -79,21 +79,21 @@
 &lt;h2 id=&#34;分支衍合&#34;&gt;分支衍合&lt;/h2&gt;
 &lt;p&gt;衍合（rebase）又称变基，其实也是分支合并的一种方式，既然也是合并，那它跟上文讲的合并（merge）有什么区别呢？&lt;/p&gt;
 &lt;p&gt;假如我们现在有master和experiment两条分支：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;现在想把experiment分支合并到master分支上来，最容易的方法是 &lt;code&gt;merge&lt;/code&gt; 命令。它会把两个分支的最新快照（C3 和 C4）以及二者最近的共同祖先（C2）进行三方比较合并，合并的结果是生成一个新的快照（并提交）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;其实，还有一种方法：你可以提取在 （C4）中引入的补丁和修改，然后在（C3）的基础上应用一次。 在git中，这种操作就叫做变基。 你可以使用 &lt;code&gt;rebase&lt;/code&gt; 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。&lt;/p&gt;
 &lt;p&gt;具体做法：&lt;/p&gt;
 &lt;p&gt;1.检出experiment分支，对master进行衍合&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout experiment
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git rebase master
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master）的最近共同祖先（C2），然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底（C3）, 最后以此将之前另存为临时文件的修改依序应用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-3.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以看出，在衍合得过程中，experiment分支会丢弃现有的提交（C4），然后相应地新建一些内容一样但实际上不同的提交（C4’）。&lt;/p&gt;
 &lt;p&gt;2.再回到master分支，进行一次快进合并&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout master
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git merge experiment
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-4.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在衍合过程中有可能会发生冲突，方案有两种：一种是通过&lt;code&gt;git rebase --abort&lt;/code&gt;命令直接退回到之前的状态，另一种就是解决冲突继续合并。&lt;/p&gt;
 &lt;p&gt;解决冲突后，要&lt;code&gt;git add&lt;/code&gt;冲突的文件，标识冲突解决，然后再执行&lt;code&gt;git rebase --continue&lt;/code&gt;，注意&lt;code&gt;git add&lt;/code&gt;后不要执行&lt;code&gt;git commit&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;分支的推送和拉取&#34;&gt;分支的推送和拉取&lt;/h2&gt;
@@ -335,8 +335,8 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 08 Sep 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/git-base/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34;&gt;&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
 &lt;h3 id=&#34;4个区&#34;&gt;4个区&lt;/h3&gt;
 &lt;p&gt;如上图所示，git有4个区，和svn有很大的不同，git中引入了暂存区/缓存区(Stage/Index)的概念&lt;/p&gt;
@@ -380,7 +380,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-commit.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-commit.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;如图所示，在vim编辑器中按照既定的格式编辑内容，编辑完成后保存退出，此时文件就commit成功了。如果临时改变主意不想提交了，删除备注信息后保存退出，&lt;br /&gt;
 此时提交就会终止。&lt;/p&gt;
 &lt;p&gt;提交成功之后，我们可以通过如下命令重新编辑上次提交的备注信息：&lt;/p&gt;
@@ -503,9 +503,9 @@
         <content:encoded>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;
 &lt;h2 id=&#34;区别&#34;&gt;区别&lt;/h2&gt;
 &lt;p&gt;Git Version 1.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 1.x&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; title=&#34;Git Version 1.x&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Git Version 2.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-02.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 2.x&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-02.jpg&#34; title=&#34;Git Version 2.x&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;git add -A就不用介绍了，它在任何情况下都是包括所有的变动。&lt;/li&gt;

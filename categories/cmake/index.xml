@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>cmake on 飞鸟的博客站</title>
+    <title>Cmake on 飞鸟的博客站</title>
     <link>https://starifly.github.io/categories/cmake/</link>
-    <description>Recent content in cmake on 飞鸟的博客站</description>
+    <description>Recent content in Cmake on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -57,7 +57,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GLOB_RECURSE&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box2d_source_files&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;${CMAKE_CURRENT_SOURCE_DIR}/Box2D/*.cpp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我的CMakeLists.txt和Box2D的文件结构关系如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zilongshanren.com/img/box2d-cmake.png&#34; alt=&#34;box2d_cmake&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;box2d_cmake&#34; src=&#34;https://zilongshanren.com/img/box2d-cmake.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这里的&lt;code&gt;${CMAKE_CURRENT_SOURCE_DIR}&lt;/code&gt;表示CMakeLists.txt所在的目录。而GLOB_RECURSE可以递归地去搜索Box2D目录下面所有的.cpp文件来参与静态库的编译。而include_directories和file指令，显而易见，它们是用来指定静态库的头文件和实现文件。&lt;/p&gt;
 &lt;h3 id=&#34;指定库的名字&#34;&gt;指定库的名字&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add_library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Box2D&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;STATIC&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box2d_source_files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;

@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>vim on 飞鸟的博客站</title>
+    <title>Vim on 飞鸟的博客站</title>
     <link>https://starifly.github.io/categories/vim/</link>
-    <description>Recent content in vim on 飞鸟的博客站</description>
+    <description>Recent content in Vim on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -477,11 +477,11 @@ ctrl-^ | 跳转到上一个编辑的文件&lt;/p&gt;
 &lt;p&gt;
 
 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines/blob/Simplified/README.en.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的英文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;
 
 &lt;a href=&#34;https://mazhuang.org/wiki/chinese-copywriting-guidelines/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的中文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;

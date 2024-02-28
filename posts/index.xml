@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 04 Nov 2023 11:11:17 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jan 2024 22:20:25 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -33,19 +33,19 @@
         <guid>https://starifly.github.io/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/</guid>
         <description>keepalived高可用介绍及改造方案 具体配置-passwd方式 192.168.5.31 # keepalived.conf ! Configuration File for keepalived global_defs { router_id db01 } vrrp_sync_group G1 { group { VI_1 } } vrrp_script check_run { script &amp;#34;/etc/keepalived/mysql_check.sh&amp;#34; interval 10 fall 3 } vrrp_instance VI_1 { state BACKUP interface</description>
         <content:encoded>&lt;h2 id=&#34;keepalived高可用介绍及改造方案&#34;&gt;keepalived高可用介绍及改造方案&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_01.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_02.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_03.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_06.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_07.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_08.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_09.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_10.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_11.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_12.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_13.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_01.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_02.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_03.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_04.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_05.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_06.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_07.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_08.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_09.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_10.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_11.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_12.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_13.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;具体配置-passwd方式&#34;&gt;具体配置-passwd方式&lt;/h2&gt;
 &lt;h3 id=&#34;192168531&#34;&gt;192.168.5.31&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cfg&#34; data-lang=&#34;cfg&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# keepalived.conf&lt;/span&gt;
@@ -2677,10 +2677,10 @@
 &lt;a href=&#34;https://github.com/kubernetes/community/tree/master/icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kubernetes/community/tree/master/icons&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;一些案例&#34;&gt;一些案例&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-02.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-03.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-02.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-03.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-04.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/arch-05.png&#34;&gt;&lt;/p&gt;
 </content:encoded>
         <dc:creator>starifly</dc:creator>
         
@@ -2975,9 +2975,9 @@
         <guid>https://starifly.github.io/posts/ceph-hardware-layout-reference/</guid>
         <description>1、网络拓扑参考 2、设备位置图参考 3、服务器配置信息及运行服务统计 一般来说，内存越多越好。 对于一个中等规模的集群，监视/管理器节点可以使用6</description>
         <content:encoded>&lt;p&gt;1、网络拓扑参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-01.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-01.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;2、设备位置图参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-02.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-02.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;3、服务器配置信息及运行服务统计&lt;/p&gt;
 &lt;p&gt;一般来说，内存越多越好。&lt;/p&gt;
 &lt;p&gt;对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。&lt;/p&gt;
@@ -2985,10 +2985,10 @@
 &lt;p&gt;最低硬件建议，详解见
 
 &lt;a href=&#34;https://docs.ceph.com/en/latest/start/hardware-recommendations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/start/hardware-recommendations/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-03.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-04.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-05.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-06.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-03.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-04.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-05.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-06.jpg&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;

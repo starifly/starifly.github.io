@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>makefile on 飞鸟的博客站</title>
+    <title>Makefile on 飞鸟的博客站</title>
     <link>https://starifly.github.io/categories/makefile/</link>
-    <description>Recent content in makefile on 飞鸟的博客站</description>
+    <description>Recent content in Makefile on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -50,7 +50,7 @@
 &lt;h2 id=&#34;什么是-makefile&#34;&gt;什么是 Makefile?&lt;/h2&gt;
 &lt;p&gt;make 的核心就是一个或多个依赖树（dependency tree），这些依赖树是由 *规则（rule）*构造而来。树中的每个节点叫做“目标（target）”。构建（build）的最后产物（可执行程序，文档等等）位于树根。Makefile 指定了依赖树的内容，并且提供了 Shell 命令来从目标的 &lt;em&gt;先决条件（prerequisite）&lt;/em&gt; 生成目标。&lt;/p&gt;
 &lt;p&gt;dependency tree:&lt;br /&gt;
-&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/127313-ef76e294290be648.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/127313-ef76e294290be648.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在上面的图示中，“.c” 结尾的文件是事先写好的源文件，而不是由命令生成的文件，所以它们没有先决条件。在依赖树中，指定一条或多条边的语法非常简单：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;target [target...]: [prerequisite...]
 &lt;/code&gt;&lt;/pre&gt;

@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>markdown on 飞鸟的博客站</title>
+    <title>Markdown on 飞鸟的博客站</title>
     <link>https://starifly.github.io/tags/markdown/</link>
-    <description>Recent content in markdown on 飞鸟的博客站</description>
+    <description>Recent content in Markdown on 飞鸟的博客站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
@@ -129,11 +129,11 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines/blob/Simplified/README.en.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的英文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;
 
 &lt;a href=&#34;https://mazhuang.org/wiki/chinese-copywriting-guidelines/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的中文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -238,7 +238,7 @@ N 与图片高度有关。
 &amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt;&amp;lt;img width=&amp;#34;65&amp;#34; height=&amp;#34;75&amp;#34; src=&amp;#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&amp;#34;/&amp;gt;&amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;图片默认显示效果：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;加以控制后的效果：&lt;/strong&gt;&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;&lt;img width=&#34;65&#34; height=&#34;75&#34; src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34;/&gt;&lt;/div&gt;
 &lt;h2 id=&#34;格式化表格&#34;&gt;格式化表格&lt;/h2&gt;
@@ -291,13 +291,13 @@ N 与图片高度有关。
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在网页下部拷贝 URL Encoded 的内容，比如以上公式生成的是 &lt;code&gt;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&lt;/code&gt;；&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/latex-img.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/latex-img.png&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在文档需要的地方使用以上 URL 贴图，比如&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;![](https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;任务列表&#34;&gt;任务列表&lt;/h2&gt;
@@ -324,7 +324,7 @@ N 与图片高度有关。
 &lt;p&gt;如果你使用 Vim 编辑器，那可以使用我维护的插件 
 
 &lt;a href=&#34;https://github.com/mzlogin/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vim-markdown-toc&lt;/a&gt; 来帮你完美地解决此事：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;插件地址：
 
 &lt;a href=&#34;https://github.com/mzlogin/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mzlogin/vim-markdown-toc&lt;/a&gt;&lt;/p&gt;
