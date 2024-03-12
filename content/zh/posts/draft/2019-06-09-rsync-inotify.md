@@ -408,7 +408,7 @@ do
 
         do
 
-                rsync -vzrtopg --update --progress $src $user@$hostip::$dest --password-file=/root/rsyncd.secrets
+                rsync -vzrtopg --update --delay-updates --exlude='*.swp' --progress $src $user@$hostip::$dest --password-file=/root/rsyncd.secrets
 
                 echo "${file} was rsynced" >> /tmp/rsync.log 2>&1
 
@@ -454,7 +454,7 @@ do
 
         do
 
-                rsync -vzrtopg --update --progress $src $user@$hostip::$dest --password-file=/root/rsyncd.secrets
+                rsync -vzrtopg --update --delay-updates --exlude='*.swp' --progress $src $user@$hostip::$dest --password-file=/root/rsyncd.secrets
 
                 echo "${file} was rsynced" >> /tmp/rsync.log 2>&1
 
