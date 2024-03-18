@@ -18,4 +18,4 @@ slug: java-application-garbled-code-in-docker
 img:
 ---
 
-在dockerfile中添加`ENV LANG=en_US.utf8`
+在dockerfile中添加`ENV LANG=en_US.utf8`即可
