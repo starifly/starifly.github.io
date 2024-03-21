@@ -32,11 +32,21 @@ done
 
 以上内容保存成脚本执行即可
 
+接着，添加局域网IP地址段，防止局域网IP地址被拦截
+
+```cfg
+ipset add china 10.0.0.0/8
+ipset add china 172.16.0.0/12
+ipset add china 192.168.0.0/16
+```
+
 查看一下：`ipset list china`
 
 **持久化 ipset**
 
 `service ipset save`
+
+`systemctl start ipset && systemctl enable ipset`
 
 然后还得修改配置文件 `/etc/sysconfig/ipset-config` ，把其中的“no”改为“yes”
 
@@ -45,8 +55,26 @@ done
 **增加防火墙规则**
 
 ```conf
--A INPUT -s 192.168.5.0/24 -p udp -m state --state NEW -m udp --dport 5090 -j ACCEPT # 内网段允许访问内线端口
--A INPUT -m set --match-set china src -p udp -m udp --dport 5078 -j ACCEPT # 外线端口只允许中国 IP 访问
+iptables -A INPUT -i lo -j ACCEPT                                  # 允许来自本机的全部连接
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT   # 允许已建立的连接不中断
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT       # 允许icmp协议，即允许ping服务器
+iptables -A INPUT -m set ! --match-set china src -j DROP           # 匹配china链，非国内IP则直接丢弃包
+iptables -A INPUT -p udp --dport 5060 -j ACCEPT                    # 允许UDP协议的5060端口
+iptables -A INPUT -p udp --dport 20000:30000 -j ACCEPT             # 允许UDP协议的20000-30000端口
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT                      # 允许TCP协议的80端口
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT                     # 允许TCP协议的443端口
+```
+
+**持久化iptables规则**
+
+让服务器重启时，通过脚本在加载 `/etc/sysconfig/iptables` 中的数据。
+
+
+
+```bash
+iptables-save > /etc/sysconfig/iptables  # 持久化Iptables规则
+chmod +x /etc/rc.d/rc.local
+echo "/usr/sbin/iptables-restore < /etc/sysconfig/iptables" >> /etc/rc.d/rc.local
 ```
 
 ## 修改外联模式相关配置

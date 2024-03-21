@@ -2590,6 +2590,11 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://excalidraw.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Excalidraw&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;mermaid&#34;&gt;mermaid&lt;/h3&gt;
+&lt;p&gt;以类似markdown的文本生成流程图或序列图等图表，可以结合 ChatGPT 使用。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://github.com/mermaid-js/mermaid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mermaid&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;gliffy&#34;&gt;Gliffy&lt;/h3&gt;
 &lt;p&gt;Gliffy是一款在线绘图工具，专注于帮助用户创建各种类型的图表，包括流程图、组织架构图、思维导图等。&lt;/p&gt;
 &lt;ul&gt;
