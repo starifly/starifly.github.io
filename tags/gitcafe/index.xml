@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Gitcafe on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/gitcafe/</link>
+    <description>Recent content in Gitcafe on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Thu, 16 Aug 2018 21:13:08 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/gitcafe/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages</title>
+        <link>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</link>
+        <pubDate>Thu, 16 Aug 2018 21:13:08 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 18 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</guid>
+        <description>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;
+&lt;p&gt;首先，必须解释一下，为什么需要自动部署，以及为什么需要需要同时部署到GitHub Pages和GitCafe Pages。&lt;/p&gt;
+&lt;h3 id=&#34;为什么要自动部署&#34;&gt;为什么要自动部署&lt;/h3&gt;
+&lt;p&gt;使用Hugo生成的静态页面是在public文件夹里，部署的时候需要把public文件夹里的内容push到GitHub的gh-pages分支里。每次写完文章，除了push markdown格式的文章，还需要单独push生成的public文件夹里的东西，步骤稍显麻烦。&lt;/p&gt;
+&lt;p&gt;之前参照了官方的做法，使用subtree来push public，步骤简化不少。然而，这还是不够简单。因为每次修改文章之后，必须依赖一个脚本才能正确提交和部署。假如你在手机里浏览时，发现一个错别字，顺手就在GitHub的Web界面就把错别字改了，然而这样并不会重新生成静态页面和部署。有些不方便。&lt;/p&gt;
+&lt;p&gt;Hugo生成静态页面和部署的过程应该让机器自动来完成。&lt;strong&gt;写作应该是一个相对单纯的事情，使用Hugo的人应该更专注于写作。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;为什么需要同时部署到github-pages和gitcafe-pages&#34;&gt;为什么需要同时部署到GitHub Pages和GitCafe Pages&lt;/h3&gt;
+&lt;p&gt;大公司很喜欢的一个词：容灾。GitHub出现不可访问的事情在国内也是常有的，而GitCafe作为国内的代码托管厂商，是否是一个稳定的存在也不好说。所以，将网站同时部署到这两个上面。通过DnsPod里CNAME设置线路“国内”和“国外”，不仅起到了任何一个挂掉，另一个可以继续工作的目的，还起到了CDN就近访问的作用。&lt;/p&gt;
+&lt;p&gt;使用GitCafe还有另外一个原因。GitHub Pages拒绝了一切百度的爬虫，所以，百度无法索引到GitHub Pages的网页。对于国内的搜索市场来说，百度的份额还是比较大的，虽然我认为看我的博客的人都不应该使用百度，但现实总是残酷的。如果希望网站被百度收录，就必须放到GitHub以外的地方。GitCafe就是一种比较好的选择。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://gitcafe.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://gitcafe.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果，你只是希望使用官方的Hugo自动化部署到GitHub Pages，下面的内容你可以不用看了。你可以直接使用Wercker的服务来自动部署。&lt;/p&gt;
+&lt;p&gt;文档见：
+
+&lt;a href=&#34;http://gohugo.io/tutorials/automated-deployments/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;br /&gt;
+http://gohugo.io/tutorials/automated-deployments/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;由于Wercker还不支持GitCafe的部署，以及我需要使用特定的修改版本的Hugo来生成静态网页，并且希望这些步骤比较可控，所以，还是自己来折腾整个过程吧。&lt;/p&gt;
+&lt;h3 id=&#34;webhook&#34;&gt;webhook&lt;/h3&gt;
+&lt;p&gt;webhook是GitHub上提供的Git的一种Hook机制，当代码发生变化时，比如代码被Push到GitHub的Repo时，GitHub会自动请求一个你指定的网页，并且把变更相关的参数都传递过来。入口在Repo的Settings - webhooks &amp;amp; services&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;webhook&#34; src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/WebHook.png-w&#34;&gt;&lt;/p&gt;
+&lt;p&gt;说明文档：
+
+&lt;a href=&#34;https://developer.github.com/webhooks/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://developer.github.com/webhooks/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;借助webhook的机制，我们就可实现当有新的文章Push之后，自动通知远程的一台机器执行一个脚本，脚本的内容就是生成静态页面和Push部署到最终的服务器。&lt;/p&gt;
+&lt;p&gt;webhook的Server接收webhook通知，然后执行一个脚本。这样的需求太普遍了，以至于完全不需要自己来实现。在GitHub里搜webhook可以搜出来很多。我主要挑选了Go语言的版本。主要有两个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/qiniu/webhook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/qiniu/webhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/adnanh/webhook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/adnanh/webhook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第一个是七牛写的，代码很简单，用法也很简单。开始打算用七牛的版本。最后调试的时候发现json解析失败，完全不可用啊！有点坑爹。于是换成了第二个，这个Repo有200多个Star。还是靠谱很多，最后部署，调试，非常顺利。&lt;/p&gt;
+&lt;p&gt;用法也很简单，首先安装webhook：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ go get github.com/adnanh/webhook
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;写一个配置文件hooks.json，里面指定需要执行的脚本：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[
+  {
+    &amp;#34;id&amp;#34;: &amp;#34;redeploy-webhook&amp;#34;,
+    &amp;#34;execute-command&amp;#34;: &amp;#34;/var/scripts/redeploy.sh&amp;#34;,
+    &amp;#34;command-working-directory&amp;#34;: &amp;#34;/var/webhook&amp;#34;
+  }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;指定端口启动：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ /path/to/webhook -hooks hooks.json -port=9876 -verbose
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后它将接受webhook地址：（把它填到GitHub里的webhook里）&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;http://yourserver:9876/hooks/redeploy-webhook
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;自动部署&#34;&gt;自动部署&lt;/h3&gt;
+&lt;p&gt;&lt;img alt=&#34;AutoDeploy&#34; src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/AutoDeploy.png-w&#34;&gt;&lt;/p&gt;
+&lt;p&gt;大致的流程如上图。上图的DigitalOcean是一台VPS服务器，我用了很长时间了，速度和稳定性都不错。需要的同学使用这个链接购买，可以获得10美元的优惠：
+
+&lt;a href=&#34;https://www.digitalocean.com/?refcode=e131e2bba197&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.digitalocean.com/?refcode=e131e2bba197&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;整个流程中，复杂度主要是在DigitalOcean的VPS上部署服务和脚本。&lt;/p&gt;
+&lt;p&gt;部署的脚本可以在我的GitHub上看到：
+
+&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/coderzh/coderzh-hugo-blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;需要的同学可以参考下，代码见：
+
+&lt;a href=&#34;https://github.com/coderzh/coderzh-hugo-blog/blob/master/deploy.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;deploy.py&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;deploy.py放到你的主工程，也就是你写markdown的Repo下。比如：/var/coderzh-hugo-blog/下&lt;/p&gt;
+&lt;p&gt;adnanh-webhook的配置文件：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[
+  {
+    &amp;#34;id&amp;#34;: &amp;#34;hugo-deploy&amp;#34;,
+    &amp;#34;execute-command&amp;#34;: &amp;#34;/var/webhook/hugo-deploy.sh&amp;#34;
+  }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;hugo-deploy.sh里执行deploy.py：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#!/bin/bash
+ 
+python /var/coderzh-hugo-blog/deploy.py --auto
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;剩下的是怎么在DigitalOcean的VPS上把这套东西部署起来。我使用nginx + supervisor搭建webhook的Server。&lt;/p&gt;
+&lt;p&gt;关于nginx和supervisor可以参考之前的一篇文章：
+
+&lt;a href=&#34;http://blog.coderzh.com/2014/05/19/digitalocean/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.coderzh.com/2014/05/19/digitalocean/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;supervisor的配置如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[program:webhook]
+command=/root/gocode/bin/webhook -hooks /var/webhook/hooks.json -verbose -port=9876
+user=root
+directory=/var/webhook
+autorestart=true
+redirect_stderr=true
+environment=HOME=&amp;#34;/root&amp;#34;,USER=&amp;#34;root&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;关于VPS上SSH Key的设置，见：
+
+&lt;a href=&#34;https://help.github.com/articles/generating-ssh-keys/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://help.github.com/articles/generating-ssh-keys/&lt;/a&gt;  为了自动部署方便，可以不设置密码。&lt;/p&gt;
+&lt;p&gt;当然，还有个大前提，在VPS上安装最新版本的golang。推荐使用gvm来安装。（记得安装1.5之前必须先把1.4先装上）&lt;/p&gt;
+&lt;p&gt;golang 安装：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+source ~/.bashrc
+gvm version
+gvm install go1.4
+gvm install go1.5.1
+gvm use go1.5.1 --default
+go version
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，Good Luck！&lt;/p&gt;</content:encoded>
+        <dc:creator>coderzh</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CI</category>
+            
+          
+            
+              <category>webhook</category>
+            
+          
+            
+              <category>github</category>
+            
+          
+            
+              <category>gitcafe</category>
+            
+          
+        
+        
+            
+              <category>[CI]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

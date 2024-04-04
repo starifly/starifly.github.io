@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Ceph on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/tags/ceph/</link>
+    <description>Recent content in Ceph on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Thu, 26 Jan 2023 19:06:05 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>ceph硬件布置参考</title>
+        <link>https://starifly.github.io/posts/ceph-hardware-layout-reference/</link>
+        <pubDate>Thu, 26 Jan 2023 19:06:05 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 19:06:05 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-hardware-layout-reference/</guid>
+        <description>1、网络拓扑参考 2、设备位置图参考 3、服务器配置信息及运行服务统计 一般来说，内存越多越好。 对于一个中等规模的集群，监视/管理器节点可以使用6</description>
+        <content:encoded>&lt;p&gt;1、网络拓扑参考&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-01.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;2、设备位置图参考&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-02.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;3、服务器配置信息及运行服务统计&lt;/p&gt;
+&lt;p&gt;一般来说，内存越多越好。&lt;/p&gt;
+&lt;p&gt;对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。&lt;/p&gt;
+&lt;p&gt;OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以&lt;/p&gt;
+&lt;p&gt;最低硬件建议，详解见
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/start/hardware-recommendations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/start/hardware-recommendations/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-03.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-04.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-05.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-06.jpg&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/387112707&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;附录2、ceph安装配置介绍与主机优化&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph故障域</title>
+        <link>https://starifly.github.io/posts/ceph-crushmap/</link>
+        <pubDate>Thu, 26 Jan 2023 19:01:44 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 19:01:44 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-crushmap/</guid>
+        <description>准备 1、执行ceph -s确认存储集群状态，保证为健康状态。 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum ceph001,ceph002,ceph003 (age 41m) mgr: ceph001(active, since 43m), standbys: ceph003 mds: cephfs:1 {0=ceoh002=up:active} 2 up:standby osd: 6 osds: 6 up (since 3m), 6 in (since 3m) rgw: 3</description>
+        <content:encoded>&lt;h2 id=&#34;准备&#34;&gt;准备&lt;/h2&gt;
+&lt;p&gt;1、执行ceph -s确认存储集群状态，保证为健康状态。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph -s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  cluster:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    id:     d00c744a-17f6-4768-95de-1243202557f2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    health: HEALTH_OK
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  services:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mon: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; daemons, quorum ceph001,ceph002,ceph003 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;age 41m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mgr: ceph001&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;active, since 43m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, standbys: ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    mds: cephfs:1 &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ceoh002&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;up:active&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; up:standby
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    osd: &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; osds: &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; up &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;since 3m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; in &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;since 3m&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    rgw: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; daemons active &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ceph001, ceph002, ceph003&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  task status:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  data:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    pools:   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; pools, &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt; pgs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    objects: &lt;span class=&#34;m&#34;&gt;803&lt;/span&gt; objects, 2.1 GiB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    usage:   &lt;span class=&#34;m&#34;&gt;13&lt;/span&gt; GiB used, &lt;span class=&#34;m&#34;&gt;62&lt;/span&gt; GiB / &lt;span class=&#34;m&#34;&gt;75&lt;/span&gt; GiB avail
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    pgs:     &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt; active+clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、执行ceph osd tree ,记录变更前的结构。以及存储池pool及其他信息。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   hdd 0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   hdd 0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   hdd 0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看存储池pool规则及其他详细信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd pool ls detail&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;.rgw.root&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1108&lt;/span&gt; lfor 0/1108/1106 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.control&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1472&lt;/span&gt; lfor 0/1472/1470 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rbd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.meta&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1691&lt;/span&gt; lfor 0/1691/1689 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.log&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1580&lt;/span&gt; lfor 0/1580/1578 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;cephfs_data&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application cephfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;cephfs_metadata&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; pg_autoscale_bias &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; pg_num_min &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; recovery_priority &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; application cephfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;testpool&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;908&lt;/span&gt; lfor 0/908/906 flags hashpspool,selfmanaged_snaps stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rbd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	removed_snaps &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1~3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.index&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1247&lt;/span&gt; lfor 0/1247/1245 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.data&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1177&lt;/span&gt; lfor 0/1177/1175 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;m&#34;&gt;13&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;default.rgw.buckets.non-ec&amp;#39;&lt;/span&gt; replicated size &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; min_size &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; crush_rule &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; object_hash rjenkins pg_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; pgp_num &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; autoscale_mode warn last_change &lt;span class=&#34;m&#34;&gt;1362&lt;/span&gt; lfor 0/1362/1360 flags hashpspool stripe_width &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; application rgw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、备份集群的crushmap文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd getcrushmap -o crushmap.bak
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置-crush-class&#34;&gt;配置 crush class&lt;/h2&gt;
+&lt;p&gt;默认情况下，所有 osd 都会 class 的类型是 hdd：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush class ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hdd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当前3个节点，每个节点上有2个OSD，因为没有挂SSD硬盘，所以把OSD3-5模拟为一组SSD。首先，需要将 osd3-5 从 hdd 组中去除掉：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# for i in {3..5};do ceph osd crush rm-device-class osd.$i;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt; removing class of osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看 osd&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;       0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;       0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;       0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到 osd3-5  class 列已经没有 hdd 标识了。此时就可以通过命令将osd3-5添加到 ssd 组了，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# for i in {3..5}; do ceph osd crush set-device-class ssd osd.$i;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; osd&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;s&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; to class &lt;span class=&#34;s1&#34;&gt;&amp;#39;ssd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看 osd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID CLASS WEIGHT  TYPE NAME        STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-1       0.07315 root default
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-3       0.02438     host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949         osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   ssd 0.00490         osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-5       0.02438     host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949         osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   ssd 0.00490         osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-7       0.02438     host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949         osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   ssd 0.00490         osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看 class&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush class ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hdd&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;ssd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以发现 osd3-5 的 class 列都变为 ssd，查看 crush class 也多出一个 ssd 的组，接下来就需要创建ssd 的规则。&lt;/p&gt;
+&lt;h2 id=&#34;命令生成osd树形结构&#34;&gt;命令生成osd树形结构&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建数据中心：datacenter0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket datacenter0 datacenter
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建机房：room0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket room0 room
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建机架：rack0、rack1、rack2（模拟3个机架）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack0 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack1 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush add-bucket rack2 rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把机房room0移动到数据中心datacenter0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move room0 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把机架rack0、rack1、rack2移动到机房room0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack1 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move rack2 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph001移动到：datacenter0/room0/rack0下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph001 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph002移动到：datacenter0/room0/rack1下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph002 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;​
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 把主机ceph003移动到：datacenter0/room0/rack2下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush move ceph003 &lt;span class=&#34;nv&#34;&gt;datacenter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;datacenter0 &lt;span class=&#34;nv&#34;&gt;room&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;room0 &lt;span class=&#34;nv&#34;&gt;rack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rack2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看osd&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ID  CLASS WEIGHT  TYPE NAME                STATUS REWEIGHT PRI-AFF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-13       0.07315 datacenter datacenter0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-14       0.07315     room room0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-15       0.02438         rack rack0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -3       0.02438             host ceph001
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   hdd 0.01949                 osd.0        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   ssd 0.00490                 osd.3        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-16       0.02438         rack rack1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -5       0.02438             host ceph002
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   hdd 0.01949                 osd.1        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   ssd 0.00490                 osd.4        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-17       0.02438         rack rack2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -7       0.02438             host ceph003
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   hdd 0.01949                 osd.2        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   ssd 0.00490                 osd.5        up  1.00000 1.00000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -1             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; root default
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;规则&#34;&gt;规则&lt;/h2&gt;
+&lt;p&gt;crushmap配置中最核心的当属rule了，crush rule决定了三点重要事项：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、从OSDMap中的哪个节点开始查找&lt;/li&gt;
+&lt;li&gt;2、使用那个节点作为故障隔离域&lt;/li&gt;
+&lt;li&gt;3、定位副本的搜索模式（广度优先 or 深度优先）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pg 选择osd的过程，首先要知道在rules中 指明从osdmap中哪个节点开始查找，入口点默认为default也就是root节点，&lt;br /&gt;
+然后隔离域为host节点(也就是同一个host下面不能选择两个子节点)。由default到3个host的选择过程，&lt;br /&gt;
+这里由default根据节点的bucket类型选择下一个子节点，由子节点再根据本身的类型继续选择，直到选择到host，然后在host下选择一个osd。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里创建如下两个规则：&lt;/p&gt;
+&lt;p&gt;replicated_rule_rack：用于hdd分组的osd，以rack为故障域的应用规则；&lt;br /&gt;
+replicated_rule_rack_ssd：用于普通ssd分区为osd，以rack为故障域的应用规则；&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;name&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;root&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;failure-domain-type&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;class&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//root，The name of the node under which data should be placed.即应该放置数据的root bucket的名称,例如default。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated replicated_rule_rack datacenter0 rack hdd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule create-replicated replicated_rule_rack_ssd datacenter0 rack ssd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看 rule&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph001 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# ceph osd crush rule ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;replicated_rule_rack_ssd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看规则具体信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd crush rule dump rule_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for i in $(rados lspools | grep -v ssdpool);do  ceph osd pool set $i crush_rule replicated_rule_rack ;done&lt;/p&gt;
+&lt;p&gt;存储池应用规则&lt;/p&gt;
+&lt;p&gt;应用上一步创建的replicated_rule_rack_ssd规则到除了数据池以外的存储池&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;rados lspools &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v cephfs_data &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v default.rgw.buckets.data &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v testpool&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;  ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; crush_rule replicated_rule_rack_ssd &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;应用上一步创建的replicated_rule_rack规则到数据池&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; testpool crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; default.rgw.buckets.data crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ceph osd pool &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; cephfs_data crush_rule replicated_rule_rack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.51cto.com/wendashuai/2509156&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph rack故障域调整&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/hukey/p/11975109.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;[ ceph ] CEPH 部署完整版（CentOS 7 + luminous）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386560600&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;03 分布式存储ceph之crush规则配置&lt;/a&gt;÷&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph如何扩展到超过十亿个对象</title>
+        <link>https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/</link>
+        <pubDate>Thu, 26 Jan 2023 18:58:29 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 18:58:29 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/</guid>
+        <description>https://stor.51cto.com/art/202006/618273.htm#topx</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://stor.51cto.com/art/202006/618273.htm#topx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stor.51cto.com/art/202006/618273.htm#topx&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph在不复制rgw的情况下配置多个区域</title>
+        <link>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</link>
+        <pubDate>Thu, 26 Jan 2023 18:56:35 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 18:56:35 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</guid>
+        <description>ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以</description>
+        <content:encoded>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
+
+&lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph rgw同步</title>
+        <link>https://starifly.github.io/posts/ceph-rgw-sync/</link>
+        <pubDate>Thu, 26 Jan 2023 18:53:34 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 18:53:34 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-rgw-sync/</guid>
+        <description>环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到</description>
+        <content:encoded>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;源 ceph 集群（192.168.5.203:20003）&lt;/li&gt;
+&lt;li&gt;基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者&lt;/li&gt;
+&lt;li&gt;S3 目标（192.168.4.13:7480）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;准备存储池&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; pool in sync.rgw.meta sync.rgw.log sync.rgw.control sync.rgw.buckets.non-ec sync.rgw.buckets.index sync.rgw.buckets.data&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ceph osd pool create &lt;span class=&#34;nv&#34;&gt;$pool&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; replicated&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;创建新区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone create --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --endpoints&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.5.128:7480/ --tier-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cloud
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;修改现有区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --endpoints&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.5.203:20003
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置同步区域以使用此系统用户&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我们将更改两个区域以使用我们的新系统用户。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --access-key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GVGIA33TY7G86W1QDYKV --secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --access-key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GVGIA33TY7G86W1QDYKV --secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0t1IyppTAdQHfpdrUJh1NfPJPBTF9Qb4weByuK8L
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;确保默认区域是主区域&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zonegroup get，实际上虽然查询default zone是master，但是下面这条语句还是要执行一次。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果defaultzone 不是 master，则可以通过执行强制它radosgw-admin zone modify &amp;ndash;rgw-zonegroup=default &amp;ndash;rgw-zone=default &amp;ndash;master &amp;ndash;default&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提交更改并验证配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin period update --commit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置新区域以同步数据到目的集群&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --tier-config&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;connection.endpoint&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.4.13:7480,connection.access_key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;JO4RQ1787A6OGI6XMFDW,connection.secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\$\{&lt;/span&gt;bucket&lt;span class=&#34;se&#34;&gt;\}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;其中的 target_path 代表同步的目的位置，这里我们配置成源 bucket 对应的位置。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;提交更改&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone get --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置 RGW&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我们须修改源集群 rgw（192.168.5.203） 的配置和 同步 rgw（192.168.5.128） 实例的配置&lt;/p&gt;
+&lt;p&gt;在 ceph 配置 rgw 段增加如下配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cfg&#34; data-lang=&#34;cfg&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;host&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;ceph001&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;rgw zone&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[client.rgw.vm128]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;host&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;vm128&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;rgw zone&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;sync&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重启 rgw 以使更改生效。&lt;/p&gt;
+&lt;p&gt;至此我们就可以测试两个集群之间的数据同步了。&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/NewTyun/article/details/120735475&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;【大咖专栏】如何配置CEPH RGW对象存储与公有云同步&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/multisite/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/multisite/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/cloud-sync-module/#cloud-sync-tier-type-configuration&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/cloud-sync-module/#cloud-sync-tier-type-configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://croit.io/blog/setting-up-ceph-cloud-sync-module&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SETTING UP CEPH CLOUD SYNC MODULE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph与其它存储系统对比</title>
+        <link>https://starifly.github.io/posts/ceph-vs-other-storage/</link>
+        <pubDate>Thu, 26 Jan 2023 18:51:55 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Thu, 26 Jan 2023 18:51:55 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-vs-other-storage/</guid>
+        <description>https://blog.csdn.net/Michaelwubo/article/details/113109341</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/Michaelwubo/article/details/113109341&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/Michaelwubo/article/details/113109341&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph运维操作</title>
+        <link>https://starifly.github.io/posts/ceph-opetations/</link>
+        <pubDate>Wed, 06 Oct 2021 21:38:48 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:38:48 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-opetations/</guid>
+        <description>07 分布式存储ceph运维操作</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561535&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;07 分布式存储ceph运维操作&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph理论篇</title>
+        <link>https://starifly.github.io/posts/ceph-theory/</link>
+        <pubDate>Wed, 06 Oct 2021 21:36:45 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:36:45 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-theory/</guid>
+        <description>01 分布式存储Ceph理论篇</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386556651&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;01 分布式存储Ceph理论篇&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>ceph s3 java开发相关</title>
+        <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
+        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:18:38 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-s3-java-related/</guid>
+        <description>ceps s3 java开发相关： AWS s3 java api使用 - https://blog.csdn.net/smallhujiu/article/details/87204090 https://hub.fastgit.org/aws-samples/aws-java-sample 使用 AWS SDK for Java 的 Amazon S3示例 - https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3 https://hub.fastgit.org/aws/aws-sdk-java 适用于 Java 的 AWS 开发工具包 - https://aws.amazon.com/cn/sdk-for-java/ https://docs.ceph.com/en/latest/radosgw/s3/java/ Uploading and copying objects using multipart upload - https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html 另外可以使用 https://github.com/minio/minio-java 开发</description>
+        <content:encoded>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
+&lt;p&gt;AWS s3 java api使用 - 
+
+&lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;适用于 Java 的 AWS 开发工具包 - 
+
+&lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Uploading and copying objects using multipart upload - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另外可以使用 
+
+&lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+            
+              <category>s3</category>
+            
+          
+            
+              <category>java</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>Ceph RGW使用</title>
+        <link>https://starifly.github.io/posts/ceph-rgw-use/</link>
+        <pubDate>Wed, 06 Oct 2021 21:07:15 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Wed, 06 Oct 2021 21:07:15 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/ceph-rgw-use/</guid>
+        <description>Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口</description>
+        <content:encoded>&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/openinfra/article/details/106856875&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph使用系列之——Ceph RGW使用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/u012720518/article/details/106650382/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph-对象存储：S3使用手册实践&lt;/a&gt; 中的文件夹部分&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561293&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;06 分布式存储ceph创建rgw接口&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>ceph</category>
+            
+          
+            
+              <category>rgw</category>
+            
+          
+        
+        
+            
+              <category>[ceph]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

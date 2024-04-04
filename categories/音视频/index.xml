@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>音视频 on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</link>
+    <description>Recent content in 音视频 on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Thu, 16 Aug 2018 18:31:24 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>使用flv.js做直播</title>
+        <link>https://starifly.github.io/posts/live-streaming-with-flv/</link>
+        <pubDate>Thu, 16 Aug 2018 18:31:24 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/live-streaming-with-flv/</guid>
+        <description>&lt;p&gt;为什么要在这个时候探索flv.js做直播呢？原因在于各大浏览器厂商已经默认禁用Flash，之前常见的Flash直播方案需要用户同意使用Flash后才可以正常使用直播功能，这样的用户体验很致命。&lt;/p&gt;
+&lt;p&gt;在介绍flv.js之前先介绍下常见的直播协议以及给出我对它们的延迟与性能所做的测试得出的数据。&lt;br /&gt;
+如果你看的很吃力可以先了解下音视频技术的一些
+
+&lt;a href=&#34;https://github.com/gwuhaolin/blog/issues/5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基础概念&lt;/a&gt;。&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;为什么要在这个时候探索flv.js做直播呢？原因在于各大浏览器厂商已经默认禁用Flash，之前常见的Flash直播方案需要用户同意使用Flash后才可以正常使用直播功能，这样的用户体验很致命。&lt;/p&gt;
+&lt;p&gt;在介绍flv.js之前先介绍下常见的直播协议以及给出我对它们的延迟与性能所做的测试得出的数据。&lt;br /&gt;
+如果你看的很吃力可以先了解下音视频技术的一些
+
+&lt;a href=&#34;https://github.com/gwuhaolin/blog/issues/5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基础概念&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;常见直播协议&#34;&gt;常见直播协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;RTMP&lt;/strong&gt;: 底层基于&lt;code&gt;TCP&lt;/code&gt;，在浏览器端依赖Flash。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;HTTP-FLV&lt;/strong&gt;: 基于&lt;code&gt;HTTP&lt;/code&gt;流式IO传输FLV，依赖浏览器支持播放FLV。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WebSocket-FLV&lt;/strong&gt;: 基于&lt;code&gt;WebSocket&lt;/code&gt;传输FLV，依赖浏览器支持播放FLV。&lt;code&gt;WebSocket&lt;/code&gt;建立在&lt;code&gt;HTTP&lt;/code&gt;之上，建立&lt;code&gt;WebSocket&lt;/code&gt;连接前还要先建立&lt;code&gt;HTTP&lt;/code&gt;连接。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;HLS&lt;/strong&gt;: Http Live Streaming，苹果提出基于&lt;code&gt;HTTP&lt;/code&gt;的流媒体传输协议。&lt;code&gt;HTML5&lt;/code&gt;可以直接打开播放。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RTP&lt;/strong&gt;: 基于&lt;code&gt;UDP&lt;/code&gt;，延迟1秒，浏览器不支持。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;常见直播协议延迟与性能数据subsup以下数据只做对比参考supsub&#34;&gt;常见直播协议延迟与性能数据&lt;sub&gt;&lt;sup&gt;以下数据只做对比参考&lt;/sup&gt;&lt;/sub&gt;&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;传输协议&lt;/th&gt;
+&lt;th&gt;播放器&lt;/th&gt;
+&lt;th&gt;延迟&lt;/th&gt;
+&lt;th&gt;内存&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;RTMP&lt;/td&gt;
+&lt;td&gt;Flash&lt;/td&gt;
+&lt;td&gt;1s&lt;/td&gt;
+&lt;td&gt;430M&lt;/td&gt;
+&lt;td&gt;11%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HTTP-FLV&lt;/td&gt;
+&lt;td&gt;Video&lt;/td&gt;
+&lt;td&gt;1s&lt;/td&gt;
+&lt;td&gt;310M&lt;/td&gt;
+&lt;td&gt;4.4%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HLS&lt;/td&gt;
+&lt;td&gt;Video&lt;/td&gt;
+&lt;td&gt;20s&lt;/td&gt;
+&lt;td&gt;205M&lt;/td&gt;
+&lt;td&gt;3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;在支持浏览器的协议里，延迟排序是：&lt;br /&gt;
+&lt;strong&gt;RTMP = HTTP-FLV = WebSocket-FLV  &amp;lt; HLS&lt;/strong&gt;&lt;br /&gt;
+而性能排序恰好相反：&lt;br /&gt;
+&lt;strong&gt;RTMP &amp;gt; HTTP-FLV = WebSocket-FLV  &amp;gt; HLS&lt;/strong&gt;&lt;br /&gt;
+也就是说延迟小的性能不好。&lt;/p&gt;
+&lt;p&gt;可以看出在浏览器里做直播，使用HTTP-FLV协议是不错的，性能优于RTMP+Flash，延迟可以做到和RTMP+Flash一样甚至更好。&lt;/p&gt;
+&lt;h2 id=&#34;flvjs-简介&#34;&gt;flv.js 简介&lt;/h2&gt;
+&lt;p&gt;flv.js是来自Bilibli的开源项目。它解析FLV文件喂给原生HTML5 Video标签播放音视频数据，使浏览器在不借助Flash的情况下播放FLV成为可能。&lt;/p&gt;
+&lt;h2 id=&#34;flvjs-优势&#34;&gt;flv.js 优势&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;由于浏览器对原生Video标签采用了硬件加速，性能很好，支持高清。&lt;/li&gt;
+&lt;li&gt;同时支持录播和直播&lt;/li&gt;
+&lt;li&gt;去掉对Flash的依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;flvjs-限制&#34;&gt;flv.js 限制&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;FLV里所包含的视频编码必须是&lt;code&gt;H.264&lt;/code&gt;，音频编码必须是&lt;code&gt;AAC&lt;/code&gt;或&lt;code&gt;MP3&lt;/code&gt;， IE11和Edge浏览器不支持MP3音频编码，所以FLV里采用的编码最好是H.264+AAC，这个让音视频服务兼容不是问题。&lt;/li&gt;
+&lt;li&gt;对于录播，依赖 &lt;code&gt;原生HTML5 Video标签&lt;/code&gt; 和 
+
+&lt;a href=&#34;https://w3c.github.io/media-source/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Media Source Extensions&lt;/a&gt; API&lt;/li&gt;
+&lt;li&gt;对于直播，依赖录播所需要的播放技术，同时依赖 &lt;code&gt;HTTP FLV&lt;/code&gt; 或者 &lt;code&gt;WebSocket&lt;/code&gt; 中的一种协议来传输FLV。其中&lt;code&gt;HTTP FLV&lt;/code&gt;需通过流式IO去拉取数据，支持流式IO的有
+
+&lt;a href=&#34;https://fetch.spec.whatwg.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;fetch&lt;/a&gt;或者
+
+&lt;a href=&#34;https://streams.spec.whatwg.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;stream&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt; flv.min.js&lt;/code&gt; 文件大小 164Kb，gzip后 35.5Kb，flash播放器gzip后差不多也是这么大。&lt;/li&gt;
+&lt;li&gt;由于依赖&lt;code&gt;Media Source Extensions&lt;/code&gt;，目前所有iOS和Android4.4.4以下里的浏览器都不支持，也就是说目前对于移动端flv.js基本是不能用的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flvjs依赖的浏览器特性兼容列表&#34;&gt;flv.js依赖的浏览器特性兼容列表&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://caniuse.com/#feat=webm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HTML5 Video&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://caniuse.com/#feat=mediasource&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Media Source Extensions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://caniuse.com/#feat=websockets&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;WebSocket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP FLV: 
+
+&lt;a href=&#34;http://caniuse.com/#feat=fetch&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;fetch&lt;/a&gt; 或 
+
+&lt;a href=&#34;http://caniuse.com/#feat=http-live-streaming&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;stream&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;flvjs-原理&#34;&gt;flv.js 原理&lt;/h2&gt;
+&lt;p&gt;flv.js只做了一件事，在获取到FLV格式的音视频数据后通过原生的JS去解码FLV数据，再通过
+
+&lt;a href=&#34;https://w3c.github.io/media-source/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Media Source Extensions&lt;/a&gt; API 喂给原生HTML5 Video标签。(HTML5 原生仅支持播放 mp4/webm 格式，不支持 FLV)&lt;/p&gt;
+&lt;p&gt;flv.js 为什么要绕一圈，从服务器获取FLV再解码转换后再喂给Video标签呢？原因如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;兼容目前的直播方案：目前大多数直播方案的音视频服务都是采用FLV容器格式传输音视频数据。&lt;/li&gt;
+&lt;li&gt;FLV容器格式相比于MP4格式更加简单，解析起来更快更方便。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;flvjs兼容方案&#34;&gt;flv.js兼容方案&lt;/h2&gt;
+&lt;p&gt;由于目前flv.js兼容性还不是很好，要用在产品中必要要兼顾到不支持flv.js的浏览器。兼容方案如下：&lt;/p&gt;
+&lt;h4 id=&#34;pc端&#34;&gt;PC端&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;优先使用 HTTP-FLV，因为它延迟小，性能也不差1080P都很流畅。&lt;/li&gt;
+&lt;li&gt;不支持 flv.js 就使用 Flash播放器播 RTMP 流。Flash兼容性很好，但是性能差默认被很多浏览器禁用。&lt;/li&gt;
+&lt;li&gt;不想用Flash兼容也可以用HLS，但是PC端只有Safari支持HLS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;移动端&#34;&gt;移动端&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;优先使用 HTTP-FLV，因为它延迟小，支持HTTP-FLV的设备性能运行 flv.js 足够了。&lt;/li&gt;
+&lt;li&gt;不支持 flv.js 就使用 HLS，但是 HLS延迟非常大。&lt;/li&gt;
+&lt;li&gt;HLS 也不支持就没法直播了，因为移动端都不支持Flash。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;flvjs实战&#34;&gt;flv.js实战&lt;/h2&gt;
+&lt;p&gt;说了这么多介绍与原理，接下来教大家如何用flv.js搭建一个完整的直播系统。&lt;br /&gt;
+我已经搭建好了
+
+&lt;a href=&#34;http://rawgit.com/gwuhaolin/reflv/gh-pages/live.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一个demo&lt;/a&gt;可以供大家体验。&lt;/p&gt;
+&lt;h4 id=&#34;搭建音视频服务&#34;&gt;搭建音视频服务&lt;/h4&gt;
+&lt;p&gt;主播推流到音视频服务，音视频服务再转发给所有连接的客户端。为了让你快速搭建服务推荐我用go语言实现的
+
+&lt;a href=&#34;https://github.com/gwuhaolin/livego&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;livego&lt;/a&gt;，因为它可以运行在任何操作系统上，对Golang感兴趣？请看
+
+&lt;a href=&#34;http://go.wuhaolin.cn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Golang 中文学习资料汇总&lt;/a&gt;。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/gwuhaolin/livego/releases&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;下载livego&lt;/a&gt;，注意选对你的操作系统和位数。&lt;/li&gt;
+&lt;li&gt;解压，执行&lt;code&gt;livego&lt;/code&gt;，服务就启动好了。它会启动RTMP(1935端口)服务用于主播推流，以及HTTP-FLV(7001端口)服务用于播放。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;实现播放页&#34;&gt;实现播放页&lt;/h4&gt;
+&lt;p&gt;在react体系里使用react flv.js 组件
+
+&lt;a href=&#34;https://github.com/gwuhaolin/reflv&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;reflv&lt;/a&gt; 快速实现。&lt;br /&gt;
+先安装&lt;code&gt;npm i reflv&lt;/code&gt;，再写代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;React&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;PureComponent&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;react&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Reflv&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;reflv&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HttpFlv&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;PureComponent&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;render&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Reflv&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`http://localhost:7001/live/test.flv`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;flv&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;isLive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;cors&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;o&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;让以上代码在浏览器里运行。这是你还看不到直播，是因为还没有主播推流。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;你可以使用
+
+&lt;a href=&#34;https://obsproject.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;OBS&lt;/a&gt;来推流，注意要配置好OBS：&lt;br /&gt;
+&lt;img width=&#34;961&#34; alt=&#34;screen shot 2017-06-07 at 5 41 32 pm&#34; src=&#34;https://user-images.githubusercontent.com/5773264/26872300-9c1c5bb4-4ba8-11e7-98eb-98e6d6ba751f.png&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;也可以使用
+
+&lt;a href=&#34;https://ffmpeg.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ffmpeg&lt;/a&gt;来推流，推流命令&lt;code&gt;ffmpeg -f avfoundation -i &amp;quot;0&amp;quot; -vcodec h264 -acodec aac -f flv rtmp://localhost/live/test&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;flvjs延迟优化&#34;&gt;flv.js延迟优化&lt;/h2&gt;
+&lt;p&gt;按照上面的教程运行起来的直播延迟大概有3秒，经过优化可以到1秒。在教你怎么优化前先要介绍下直播运行流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;主播端在采集到一段时间的音视频原数据后，因为音视频原数据庞大需要先压缩数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过H264视频编码压缩数据数据&lt;/li&gt;
+&lt;li&gt;通过PCM音频编码压缩音频AAC数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;压缩完后再通过FLV容器格式封装压缩后的数据，封装成一个FLV TAG&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;再把FLV TAG通过RTMP协议推流到音视频服务器，音视频服务器再从RTMP协议里解析出FLV TAG。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;音视频服务器再通过HTTP协议通过和浏览器建立的长链接流式把FLV TAG传给浏览器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;flv.js 获取FLV TAG后解析出压缩后的音视频数据喂给Video播放。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;知道流程后我们就知道从哪入手优化了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主播端采集时收集了一段时间的音视频原数据，它专业的叫法是
+
+&lt;a href=&#34;http://blog.csdn.net/zqj6893/article/details/50262189&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GOP&lt;/a&gt;。缩短这个收集时间(也就是减少GOP长度)可以优化延迟，但这样做的坏处是导致视频压缩率不高，传输效率低。&lt;/li&gt;
+&lt;li&gt;关闭音视频服务器的I桢缓存可以优化延迟，坏处是用户看到直播首屏的时间变大。&lt;/li&gt;
+&lt;li&gt;减少音视频服务器的buffer可以优化延迟，坏处是音视频服务器处理效率降低。&lt;/li&gt;
+&lt;li&gt;减少浏览器端flv.js的buffer可以优化延迟，坏处是浏览器端处理效率降低。&lt;/li&gt;
+&lt;li&gt;浏览器端开启flv.js的Worker，多线程运行flv.js提升解析速度可以优化延迟，这样做的flv.js配置代码是：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;enableWorker&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;enableStashBuffer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;stashInitialSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 减少首桢显示等待时长
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里是
+
+&lt;a href=&#34;https://github.com/gwuhaolin/reflv/blob/master/doc/live/http-flv.js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;优化后的完整代码&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://wuhaolin.cn/2017/05/17/%E4%BD%BF%E7%94%A8flv.js%E5%81%9A%E7%9B%B4%E6%92%AD/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;</content:encoded>
+        <dc:creator>浩麟</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>音视频</category>
+            
+          
+        
+        
+            
+              <category>[音视频]</category>
+            
+        
+        
+      </item>
+      
+      <item>
+        <title>音视频技术参考资料</title>
+        <link>https://starifly.github.io/posts/audio-video-tech-references/</link>
+        <pubDate>Thu, 16 Aug 2018 11:41:15 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/audio-video-tech-references/</guid>
+        <description>&lt;h2 id=&#34;入门与概念&#34;&gt;入门与概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/leixiaohua1020/article/details/18893769&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;[总结]视音频编解码技术零基础学习方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.ruoxu.me/yin-shi-pin-qi-fa&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;入门启发：音视频的简单理解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://wuyuans.com/2012/01/video_encode_frame&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;视频编码基础&amp;ndash;帧的类型&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;容器格式&#34;&gt;容器格式&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/leixiaohua1020/article/details/17934487&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;视音频编解码学习工程：FLV封装格式分析器&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;传输协议&#34;&gt;传输协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://chenlichao.gitbooks.io/rtmp-zh_cn/content/1-introduction.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP协议规范&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://mingyangshang.github.io/2016/03/06/RTMP%e5%8d%8f%e8%ae%ae/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;带你吃透RTMP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/win_lin/article/details/12615591&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP服务器的延迟，多级边缘不影响延迟，gop为最大因素&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;编解码&#34;&gt;编解码&lt;/h2&gt;</description>
+        <content:encoded>&lt;h2 id=&#34;入门与概念&#34;&gt;入门与概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/leixiaohua1020/article/details/18893769&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;[总结]视音频编解码技术零基础学习方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.ruoxu.me/yin-shi-pin-qi-fa&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;入门启发：音视频的简单理解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://wuyuans.com/2012/01/video_encode_frame&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;视频编码基础&amp;ndash;帧的类型&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;容器格式&#34;&gt;容器格式&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/leixiaohua1020/article/details/17934487&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;视音频编解码学习工程：FLV封装格式分析器&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;传输协议&#34;&gt;传输协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://chenlichao.gitbooks.io/rtmp-zh_cn/content/1-introduction.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP协议规范&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://mingyangshang.github.io/2016/03/06/RTMP%e5%8d%8f%e8%ae%ae/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;带你吃透RTMP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://blog.csdn.net/win_lin/article/details/12615591&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP服务器的延迟，多级边缘不影响延迟，gop为最大因素&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;编解码&#34;&gt;编解码&lt;/h2&gt;</content:encoded>
+        <dc:creator>浩麟</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>音视频</category>
+            
+          
+        
+        
+            
+              <category>[音视频]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

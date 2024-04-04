@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Tools on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/tools/</link>
+    <description>Recent content in Tools on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 17 Aug 2018 11:58:38 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>无比强大的 Alfred Workflow</title>
+        <link>https://starifly.github.io/posts/alfred-workflow/</link>
+        <pubDate>Fri, 17 Aug 2018 11:58:38 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Fri, 17 Aug 2018 11:58:38 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/alfred-workflow/</guid>
+        <description>这是一篇非常有价值，里面的每一个都非常值得大家实践。 Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以</description>
+        <content:encoded>&lt;p&gt;这是一篇非常有价值，里面的每一个都非常值得大家实践。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;插件名&lt;/th&gt;
+&lt;th&gt;插件快捷键&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Baidu Weather&lt;/td&gt;
+&lt;td&gt;tq&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Chrome Bookmarks&lt;/td&gt;
+&lt;td&gt;,b&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dash&lt;/td&gt;
+&lt;td&gt;dash&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Douban&lt;/td&gt;
+&lt;td&gt;book/music/movie&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Evernote&lt;/td&gt;
+&lt;td&gt;en/ennew/typenote&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Github repos&lt;/td&gt;
+&lt;td&gt;gh&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Github Trending&lt;/td&gt;
+&lt;td&gt;all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Kill Process&lt;/td&gt;
+&lt;td&gt;kill&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MacVim&lt;/td&gt;
+&lt;td&gt;vi/vim/mvim&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Network Tools&lt;/td&gt;
+&lt;td&gt;flush/ping/nslookup/traceroute&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Open with Visual Studio Code&lt;/td&gt;
+&lt;td&gt;code&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+
+&lt;a href=&#34;https://github.com/wensonsmith/QRcodeCreator&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;QRcode Creator&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;qr&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Search&lt;/td&gt;
+&lt;td&gt;复制内容，然后按快捷键：option+w&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Slack&lt;/td&gt;
+&lt;td&gt;slack&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;StackOverflow&lt;/td&gt;
+&lt;td&gt;.so&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Sublime Text&lt;/td&gt;
+&lt;td&gt;subl/subl*&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;V2EX&lt;/td&gt;
+&lt;td&gt;v2ex new&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+
+&lt;a href=&#34;https://github.com/TKkk-iOSer/wechat-alfred-workflow&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;WeChat Plugin&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;wx xxx 选中人，然后直接在Alfred输入框中输入内容即可发送&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;What&amp;rsquo;s my ip&lt;/td&gt;
+&lt;td&gt;ip&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YouTube&lt;/td&gt;
+&lt;td&gt;yt/youtube xxx&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+
+&lt;a href=&#34;https://github.com/wensonsmith/YoudaoTranslate&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;有道翻译加强版&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;yd&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+
+&lt;a href=&#34;https://github.com/KJlmfe/Alfred-workflows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;知乎&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;zh/zhdaily&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Github Search: alfred workflow：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/franzheidl/alfred-workflows&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/franzheidl/alfred-workflows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/hzlzh/Alfred-Workflows&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/hzlzh/Alfred-Workflows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/deanishe/alfred-workflow&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/deanishe/alfred-workflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/willfarrell/alfred-workflows&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/willfarrell/alfred-workflows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/zenorocha/alfred-workflows&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/zenorocha/alfred-workflows&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://louiszhai.github.io/2018/05/31/alfred/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Alfred神器使用手册&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;http://www.alfredworkflow.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Alfred Workflow 列表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/38135929&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;效率启动器 Aflred 中最强大的 Workflow 功能，都有哪些进阶玩法？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://github.com/TKkk-iOSer/WeChatPlugin-MacOS&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Alfred Workflow 微信插件 macOS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/31570047&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Windows上的效率神器&lt;/a&gt;/
+
+&lt;a href=&#34;https://github.com/Wox-launcher/Wox&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Wox-launcher/Wox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.voidtools.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Everything-Windows上的绝对顶级搜索工具&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+</content:encoded>
+        <dc:creator>茶歇驿站</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>alfred</category>
+            
+          
+            
+              <category>workflow</category>
+            
+          
+        
+        
+            
+              <category>[tools]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

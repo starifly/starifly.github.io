@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Learning on 飞鸟的博客站</title>
+    <link>https://starifly.github.io/categories/learning/</link>
+    <description>Recent content in Learning on 飞鸟的博客站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>efim@163.com (飞鸟)</managingEditor>
+    <webMaster>efim@163.com (飞鸟)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 17 Aug 2018 15:51:10 +0800</lastBuildDate>
+    <sy:updatePeriod>daily</sy:updatePeriod>
+    
+        <atom:link href="https://starifly.github.io/categories/learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      
+      <item>
+        <title>Learning Something</title>
+        <link>https://starifly.github.io/posts/learning-something/</link>
+        <pubDate>Fri, 17 Aug 2018 15:51:10 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Tue, 28 Aug 2018 00:00:00 +0000</atom:modified>
+        <guid>https://starifly.github.io/posts/learning-something/</guid>
+        <description>Learning How to Learn 关于编程的练习方法——读《刻意练习》有感 《如何阅读一本书》阅读笔记 工作流 笔记：有关开源项目 有一种焦虑叫：什么都想学，但什么都学不会 你</description>
+        <content:encoded>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://zilongshanren.com/blog/2017-05-09-learning-how-to-learn.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Learning How to Learn&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://www.xianmin.org/post/read-peak/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;关于编程的练习方法——读《刻意练习》有感&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://www.xianmin.org/post/read-how-to-read-a-book/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《如何阅读一本书》阅读笔记&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://zilongshanren.com/blog/2015-10-14-pesudo-perfect-workflow.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;工作流&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;http://www.xianmin.org/post/note-opensource-project/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;笔记：有关开源项目&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/25063081&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;有一种焦虑叫：什么都想学，但什么都学不会&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://www.jianshu.com/p/6a449b5f1e43&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;你该如何打破自己停滞不前的状态？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>learning</category>
+            
+          
+        
+        
+            
+              <category>[learning]</category>
+            
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
