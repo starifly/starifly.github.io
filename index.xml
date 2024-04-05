@@ -66,7 +66,7 @@
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_10.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_11.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_12.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_13.png&#34;&gt;&lt;/p&gt;
+&lt;!-- ![](/images/keealived_13.png) --&gt;
 &lt;h2 id=&#34;具体配置-passwd方式&#34;&gt;具体配置-passwd方式&lt;/h2&gt;
 &lt;h3 id=&#34;192168531&#34;&gt;192.168.5.31&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cfg&#34; data-lang=&#34;cfg&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# keepalived.conf&lt;/span&gt;
