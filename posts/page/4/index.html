@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/posts/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -1994,7 +1997,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删
+            <p>之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。</p>
+<p><strong>查找可疑进程</strong></p>
+<p>执行命令<code>ll /proc/ID/exe</code>，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用<code>chattr +ai /path</code>再次生成，并 kill 掉可疑进程。</p>
           
         </div>
       </div>
@@ -2068,7 +2073,7 @@
       <div>
         <div class="summary-classic__text p2">
           
-            git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。
+            <p>git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。</p>
           
         </div>
       </div>
@@ -2151,7 +2156,7 @@
       <div>
         <div class="summary-classic__text p2">
           
-            <p><img src="/images/git-base.png"></p>
+            <p><img src="/images/git-base.png" alt=""></p>
           
         </div>
       </div>
@@ -2420,7 +2425,43 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Learning How to Learn 关于编程的练习方法——读《刻意练习》有感 《如何阅读一本书》阅读笔记 工作流 笔记：有关开源项目 有一种焦虑叫：什么都想学，但什么都学不会 你
+            <ol>
+<li>
+<p>
+
+<a href="https://zilongshanren.com/blog/2017-05-09-learning-how-to-learn.html" target="_blank" rel="noopener">Learning How to Learn</a></p>
+</li>
+<li>
+<p>
+
+<a href="http://www.xianmin.org/post/read-peak/" target="_blank" rel="noopener">关于编程的练习方法——读《刻意练习》有感</a></p>
+</li>
+<li>
+<p>
+
+<a href="http://www.xianmin.org/post/read-how-to-read-a-book/" target="_blank" rel="noopener">《如何阅读一本书》阅读笔记</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://zilongshanren.com/blog/2015-10-14-pesudo-perfect-workflow.html" target="_blank" rel="noopener">工作流</a></p>
+</li>
+<li>
+<p>
+
+<a href="http://www.xianmin.org/post/note-opensource-project/" target="_blank" rel="noopener">笔记：有关开源项目</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://zhuanlan.zhihu.com/p/25063081" target="_blank" rel="noopener">有一种焦虑叫：什么都想学，但什么都学不会</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://www.jianshu.com/p/6a449b5f1e43" target="_blank" rel="noopener">你该如何打破自己停滞不前的状态？</a></p>
+</li>
+</ol>
           
         </div>
       </div>
@@ -2467,8 +2508,7 @@
 <li>能提高搜索引擎的优化排名</li>
 </ul>
 <blockquote>
-<p>HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。</p>
-</blockquote>
+<p>HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。</p></blockquote>
 <p>Github Pages 本身支持 HTTPS，但仅支持 <code>github.io</code> 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。</p>
           
         </div>
@@ -3409,7 +3449,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3420,7 +3460,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

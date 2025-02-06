@@ -31,7 +31,7 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sun, 02 Sep 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/git-branch/</guid>
-        <description>git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。</description>
+        <description>&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;
 &lt;p&gt;阅读前面的博文有助于理解本文：&lt;/p&gt;
 &lt;ol&gt;
@@ -70,8 +70,7 @@
 &lt;p&gt;我们可以使用&lt;code&gt;git branch &amp;lt;分支名&amp;gt;&lt;/code&gt;命令来创建一个分支，然后使用&lt;code&gt;git checkout &amp;lt;分支名&amp;gt;&lt;/code&gt;来切换分支。&lt;/p&gt;
 &lt;p&gt;如果觉得麻烦，我们可以使用一个简便的命令创建并切换到该分支上：&lt;code&gt;git checkout -b &amp;lt;分支名&amp;gt;&lt;/code&gt;。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;也可以使用&lt;code&gt;git checkout -&lt;/code&gt;命令来切换回上一个分支&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;也可以使用&lt;code&gt;git checkout -&lt;/code&gt;命令来切换回上一个分支&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;分支合并&#34;&gt;分支合并&lt;/h2&gt;
 &lt;p&gt;假设当前仓库存在两个分支，我们先切换到master分支，然后通过&lt;code&gt;git merge --no-ff &amp;lt;分支名&amp;gt;&lt;/code&gt;命令将分支合并到master分支上。&lt;/p&gt;
 &lt;p&gt;其中&lt;code&gt;--no-ff&lt;/code&gt;表示强行关闭fast-forward方式，fast-forward方式表示当条件允许时，git直接把HEAD指针指向合并分支的头，完成合并，这种方式合并速度快，但是在整个过程中没有创建commit，所以如果当我们删除掉这个分支时就再也找不回来了，因此在这里我们将之关闭。&lt;/p&gt;
@@ -79,21 +78,21 @@
 &lt;h2 id=&#34;分支衍合&#34;&gt;分支衍合&lt;/h2&gt;
 &lt;p&gt;衍合（rebase）又称变基，其实也是分支合并的一种方式，既然也是合并，那它跟上文讲的合并（merge）有什么区别呢？&lt;/p&gt;
 &lt;p&gt;假如我们现在有master和experiment两条分支：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;现在想把experiment分支合并到master分支上来，最容易的方法是 &lt;code&gt;merge&lt;/code&gt; 命令。它会把两个分支的最新快照（C3 和 C4）以及二者最近的共同祖先（C2）进行三方比较合并，合并的结果是生成一个新的快照（并提交）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;其实，还有一种方法：你可以提取在 （C4）中引入的补丁和修改，然后在（C3）的基础上应用一次。 在git中，这种操作就叫做变基。 你可以使用 &lt;code&gt;rebase&lt;/code&gt; 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。&lt;/p&gt;
 &lt;p&gt;具体做法：&lt;/p&gt;
 &lt;p&gt;1.检出experiment分支，对master进行衍合&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout experiment
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git rebase master
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master）的最近共同祖先（C2），然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底（C3）, 最后以此将之前另存为临时文件的修改依序应用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以看出，在衍合得过程中，experiment分支会丢弃现有的提交（C4），然后相应地新建一些内容一样但实际上不同的提交（C4’）。&lt;/p&gt;
 &lt;p&gt;2.再回到master分支，进行一次快进合并&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git checkout master
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git merge experiment
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-4.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://git-scm.com/book/en/v2/images/basic-rebase-4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在衍合过程中有可能会发生冲突，方案有两种：一种是通过&lt;code&gt;git rebase --abort&lt;/code&gt;命令直接退回到之前的状态，另一种就是解决冲突继续合并。&lt;/p&gt;
 &lt;p&gt;解决冲突后，要&lt;code&gt;git add&lt;/code&gt;冲突的文件，标识冲突解决，然后再执行&lt;code&gt;git rebase --continue&lt;/code&gt;，注意&lt;code&gt;git add&lt;/code&gt;后不要执行&lt;code&gt;git commit&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;分支的推送和拉取&#34;&gt;分支的推送和拉取&lt;/h2&gt;
@@ -140,8 +139,7 @@
 &lt;li&gt;推送时：&lt;code&gt;git push -u origin &amp;lt;远程分支名&amp;gt;&lt;/code&gt;或&lt;code&gt;git push --set-upstream origin &amp;lt;远程分支名&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;注意，上述使用的前提：&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;注意，上述使用的前提：&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;检出的本地分支必须和远程分支同名才能自动建立追踪关系&lt;/li&gt;
 &lt;li&gt;推送时，如果远程没有同名关联分支，则会推送失败。&lt;/li&gt;
@@ -233,38 +231,37 @@
 &lt;li&gt;同以上&amp;rsquo;工作区代码撤销&#39;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;git reset&lt;/code&gt;的参数，其值可以是hard、mixed及soft，mixed实现的是&lt;code&gt;add&lt;/code&gt;后的回撤，上文中关于暂存未提交回撤中的&lt;code&gt;git reset&lt;/code&gt;其实就是默认用的mixed参数，soft请听下文分解。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;git reset&lt;/code&gt;的参数，其值可以是hard、mixed及soft，mixed实现的是&lt;code&gt;add&lt;/code&gt;后的回撤，上文中关于暂存未提交回撤中的&lt;code&gt;git reset&lt;/code&gt;其实就是默认用的mixed参数，soft请听下文分解。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;三者的区别：&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;模式&lt;/th&gt;
-&lt;th&gt;HEAD的位置&lt;/th&gt;
-&lt;th&gt;索引&lt;/th&gt;
-&lt;th&gt;工作树&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;soft&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mixed&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;不修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;hard&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;td&gt;修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;模式&lt;/th&gt;
+          &lt;th&gt;HEAD的位置&lt;/th&gt;
+          &lt;th&gt;索引&lt;/th&gt;
+          &lt;th&gt;工作树&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;soft&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+          &lt;td&gt;不修改&lt;/td&gt;
+          &lt;td&gt;不修改&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;mixed&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+          &lt;td&gt;不修改&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;hard&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+          &lt;td&gt;修改&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;提交到本地仓库的代码想撤销&#34;&gt;提交到本地仓库的代码想撤销&lt;/h2&gt;
 &lt;p&gt;如果执行了&lt;code&gt;git commit&lt;/code&gt;命令把代码提交到了本地仓库，如果你后悔了，怎么办？不要着急，同样也可以撤销。&lt;/p&gt;
@@ -274,8 +271,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;1.可以使用HEAD^来描述版本，一个^表示前一个版本，两个^^表示前两个版本，以此类推。&lt;br /&gt;
 2.也可以使用数字来代替^，比如说前100个版本可以写作HEAD~100。&lt;br /&gt;
-3.也可以直接写版本号，表示跳转到某一个版本处（通过&lt;code&gt;git log&lt;/code&gt;查看当前提交日志）。&lt;/p&gt;
-&lt;/blockquote&gt;
+3.也可以直接写版本号，表示跳转到某一个版本处（通过&lt;code&gt;git log&lt;/code&gt;查看当前提交日志）。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;回撤到add之后未commit之前的状态&#34;&gt;回撤到add之后未commit之前的状态&lt;/h3&gt;
 &lt;p&gt;soft实现的是&lt;code&gt;commit&lt;/code&gt;之后回撤到&lt;code&gt;add&lt;/code&gt;之后未&lt;code&gt;commit&lt;/code&gt;之前的状态，所以，像在&lt;code&gt;commit&lt;/code&gt;之后发现少提交了一个文件等场景下，我们可以利用&lt;code&gt;git reset --soft HEAD^&lt;/code&gt;命令来回撤。&lt;/p&gt;
 &lt;h2 id=&#34;push到远程仓库的代码想撤销&#34;&gt;push到远程仓库的代码想撤销&lt;/h2&gt;
@@ -286,16 +282,14 @@
 &lt;p&gt;通过执行&lt;code&gt;git reset --soft &amp;lt;版本号&amp;gt;&lt;/code&gt;重置至指定版本的提交，达到撤销提交的目的。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;参数soft指的是：保留当前工作区，以便重新提交。&lt;br /&gt;
-还可以选择参数hard，会撤销相应工作区的修改，而且有可能意外造成代码丢失，所以一定要谨慎使用。&lt;/p&gt;
-&lt;/blockquote&gt;
+还可以选择参数hard，会撤销相应工作区的修改，而且有可能意外造成代码丢失，所以一定要谨慎使用。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;然后，通过&lt;code&gt;git log&lt;/code&gt;确认是否成功撤销。&lt;/p&gt;
 &lt;h3 id=&#34;2撤销&#34;&gt;2.撤销&lt;/h3&gt;
 &lt;p&gt;通过&lt;code&gt;git push origin master --force&lt;/code&gt;强制提交当前版本号，以达到撤销版本号的目的。&lt;/p&gt;
 &lt;p&gt;当他人在仓库的远程副本的同一分支上进行改动后，会发生强制推送的风险。当你强制推送已重写的历史记录时，某些提交将会丢失。这是&lt;code&gt;git push --force-with-lease&lt;/code&gt;出现的原因 - 如果远程分支已更新，它不会允许你执行强制推送，这将确保你不会丢弃他人的工作。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;必须添加参数force进行强制提交，否则会提交失败，并报错。&lt;br /&gt;
-报错原因：本地项目版本号低于远端仓库版本号。&lt;/p&gt;
-&lt;/blockquote&gt;
+报错原因：本地项目版本号低于远端仓库版本号。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;3修改代码重新提交和推送&#34;&gt;3.修改代码，重新提交和推送&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//修改代码，添加修改
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git add .
@@ -335,8 +329,8 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 08 Sep 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/git-base/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34;&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34;&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
 &lt;h3 id=&#34;4个区&#34;&gt;4个区&lt;/h3&gt;
 &lt;p&gt;如上图所示，git有4个区，和svn有很大的不同，git中引入了暂存区/缓存区(Stage/Index)的概念&lt;/p&gt;
@@ -352,8 +346,7 @@
 工作区最原始的状态是未修改状态(Origin)，如果修改了某些文件就会变成已修改(Modified)。&lt;br /&gt;
 我们要通过&lt;code&gt;git add&lt;/code&gt;命令先将他们添加到暂存区中，这时就会产生已暂存(Staged)状态。&lt;br /&gt;
 &lt;code&gt;git commit&lt;/code&gt;命令则可以将暂存区中的文件提交到本地仓库中去，状态变为已提交(Committed)。&lt;br /&gt;
-最后通过&lt;code&gt;git push&lt;/code&gt;推送到远程仓库，推送成功状态变为已推送(Pushed)。&lt;/p&gt;
-&lt;/blockquote&gt;
+最后通过&lt;code&gt;git push&lt;/code&gt;推送到远程仓库，推送成功状态变为已推送(Pushed)。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;基本操作&#34;&gt;基本操作&lt;/h2&gt;
 &lt;h3 id=&#34;仓库初始化&#34;&gt;仓库初始化&lt;/h3&gt;
 &lt;p&gt;仓库的初始化有两种方式：&lt;/p&gt;
@@ -370,17 +363,15 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;查看仓库状态&#34;&gt;查看仓库状态&lt;/h3&gt;
 &lt;p&gt;可以通过&lt;code&gt;git status&lt;/code&gt;命令来查看仓库中文件的状态。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;git status -s&lt;/code&gt; : 文件状态的简写（M - 修改， A - 添加， D - 删除， R - 重命名，?? - 未追踪）。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;git status -s&lt;/code&gt; : 文件状态的简写（M - 修改， A - 添加， D - 删除， R - 重命名，?? - 未追踪）。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;提交命令&#34;&gt;提交命令&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;一种是直接通过&lt;code&gt;git commit -m &amp;quot;备注信息&amp;quot;&lt;/code&gt;命令&lt;/li&gt;
 &lt;li&gt;如果要写的备注很多，可以通过&lt;code&gt;git commit&lt;/code&gt;来打开指定编辑器，然后在编辑器中输入备注信息。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-commit.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-commit.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;如图所示，在vim编辑器中按照既定的格式编辑内容，编辑完成后保存退出，此时文件就commit成功了。如果临时改变主意不想提交了，删除备注信息后保存退出，&lt;br /&gt;
 此时提交就会终止。&lt;/p&gt;
 &lt;p&gt;提交成功之后，我们可以通过如下命令重新编辑上次提交的备注信息：&lt;/p&gt;
@@ -402,23 +393,19 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;我们还可以使用&lt;code&gt;git log --pretty&lt;/code&gt;来定义显示格式，如：&lt;code&gt;git log --graph --pretty=format:&amp;quot;%h - %an, %ar : %s&amp;quot;&lt;/code&gt;， &amp;ndash;pretty=format:后边跟着的是格式化的字符串。&lt;br /&gt;
-其中 %h 表示简化版的Hash值， %an 表示作者名字（Author Name）, %ar 表示多久以前提交的，%s 则是提交信息。&lt;/p&gt;
-&lt;/blockquote&gt;
+其中 %h 表示简化版的Hash值， %an 表示作者名字（Author Name）, %ar 表示多久以前提交的，%s 则是提交信息。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;查看更改前后的差异&#34;&gt;查看更改前后的差异&lt;/h3&gt;
 &lt;p&gt;已修改，未暂存&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;使用&lt;code&gt;git diff&lt;/code&gt;命令我们可以查看工作区和暂存区的差异。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;使用&lt;code&gt;git diff&lt;/code&gt;命令我们可以查看工作区和暂存区的差异。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;已暂存，未提交&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果我们执行&lt;code&gt;git add .&lt;/code&gt;把修改提交到暂存区，然后再执行&lt;code&gt;git diff&lt;/code&gt;，你会发现没有任何信息输出。这说明&lt;code&gt;git diff&lt;/code&gt;这个命令只检查我们的工作区和暂存区之间的差异。&lt;br /&gt;
 如果我们想看到暂存区和本地仓库之间的差异，就需要加一个参数&lt;code&gt;git diff --cached&lt;/code&gt;。&lt;br /&gt;
-或者通过命令&lt;code&gt;git diff HEAD&lt;/code&gt;来查看（实际上是工作区与当前分支最近一次commit之间的差异）。&lt;/p&gt;
-&lt;/blockquote&gt;
+或者通过命令&lt;code&gt;git diff HEAD&lt;/code&gt;来查看（实际上是工作区与当前分支最近一次commit之间的差异）。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;已提交，未推送&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;现在，如果通过命令&lt;code&gt;git commit&lt;/code&gt;把修改从暂存区提交到本地仓库，然后再执行git diff &amp;ndash;cached，没有差异，执行&lt;code&gt;git diff master origin/master&lt;/code&gt;，可以看到差异&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;现在，如果通过命令&lt;code&gt;git commit&lt;/code&gt;把修改从暂存区提交到本地仓库，然后再执行git diff &amp;ndash;cached，没有差异，执行&lt;code&gt;git diff master origin/master&lt;/code&gt;，可以看到差异&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;删除文件&#34;&gt;删除文件&lt;/h3&gt;
 &lt;p&gt;当我们需要删除工作区和暂存区上的文件，可以执行&lt;code&gt;git rm &amp;lt;filename&amp;gt;&lt;/code&gt;命令，该命令等同于以下两个命令：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//直接在文件管理器中把文件删了
@@ -503,9 +490,9 @@
         <content:encoded>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;
 &lt;h2 id=&#34;区别&#34;&gt;区别&lt;/h2&gt;
 &lt;p&gt;Git Version 1.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; title=&#34;Git Version 1.x&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 1.x&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Git Version 2.x:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-02.jpg&#34; title=&#34;Git Version 2.x&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-02.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 2.x&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;git add -A就不用介绍了，它在任何情况下都是包括所有的变动。&lt;/li&gt;
@@ -539,7 +526,12 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 15 Aug 2018 21:51:39 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/git-intro/</guid>
-        <description>开始 拖延症与强迫症严重一直拖到了今天2月23号才开始写。这一段时间我也明白了博客最重要的是keep blogging,所以 想到什么就写什么，没</description>
+        <description>&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;
+&lt;p&gt;拖延症与强迫症严重一直拖到了今天2月23号才开始写。这一段时间我也明白了博客最重要的是&lt;code&gt;keep blogging&lt;/code&gt;,所以 想到什么就写什么，没有什么东西一次就能写的完美。这次我准备简单介绍一下当前非常火的代码托管与社会协作开发平台&amp;ndash;
+
+&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt; 和版本控制系统&amp;ndash;
+
+&lt;a href=&#34;http://git-scm.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;git&lt;/a&gt;。&lt;/p&gt;</description>
         <content:encoded>&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;
 &lt;p&gt;拖延症与强迫症严重一直拖到了今天2月23号才开始写。这一段时间我也明白了博客最重要的是&lt;code&gt;keep blogging&lt;/code&gt;,所以 想到什么就写什么，没有什么东西一次就能写的完美。这次我准备简单介绍一下当前非常火的代码托管与社会协作开发平台&amp;ndash;
 
@@ -641,8 +633,7 @@
 
 &lt;a href=&#34;https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;这里&lt;/a&gt;,按照步骤将ssh key添加到github账户。添加完成后，需要测试一下是否连接成功：&lt;code&gt;ssh -T git@github.com&lt;/code&gt; .顺利的话就将会看到这样的一句话：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Hi 你的用户名! You&amp;rsquo;ve successfully authenticated, but GitHub does not provide shell access.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Hi 你的用户名! You&amp;rsquo;ve successfully authenticated, but GitHub does not provide shell access.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;一个小例子&#34;&gt;一个小例子&lt;/h3&gt;
 &lt;p&gt;弄到了这一步也是不容易，下面简单介绍一下git的使用方法。现假设你在github上面已经建立了hello-world这个repository，里面有一个README和License文件。在一个文件夹里面，右键&lt;code&gt;git bash here&lt;/code&gt;,然后输入下面的代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 全局设置&lt;/span&gt;

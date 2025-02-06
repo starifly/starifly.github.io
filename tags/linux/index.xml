@@ -31,7 +31,7 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 04 Nov 2023 10:17:22 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/install-redhat-via-usb-disk/</guid>
-        <description>刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使</description>
+        <description>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;
 &lt;p&gt;后面查询其它的教程，得知可以使用Rufus制作，先格式化U盘，卷标名称位数不要超过11位，具体的刻录过程这里就不说明了。&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
@@ -80,7 +80,9 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 30 May 2020 21:59:57 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</guid>
-        <description>之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。 查找可疑进程 执行命令ll /proc/ID/exe，通过进程ID确定其执行路径，先删</description>
+        <description>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;
@@ -308,18 +310,18 @@ XDG_VIDEOS_DIR=&amp;#34;$HOME/videos&amp;#34;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;打开 xdiagnose&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;勾选 Debug 下的所有选项&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/xdiagnose-2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;重启&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;安装增强功能&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/linux/install-additions.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /media/&amp;lt;username&amp;gt;/VBOXADDITIONS_X.X.XX_XXXXX
 sudo ./VBoxLinuxAdditions.run

@@ -31,7 +31,8 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 04 Nov 2023 09:50:50 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/k8s-cronjob-time-zone/</guid>
-        <description>使用k8s中的cronjob备份数据库发现一个问题，设置一个固定的时间点执行job，但是到了设定的时间后却没有执行。 经过查资料才得知，是k8</description>
+        <description>&lt;p&gt;使用k8s中的cronjob备份数据库发现一个问题，设置一个固定的时间点执行job，但是到了设定的时间后却没有执行。&lt;/p&gt;
+&lt;p&gt;经过查资料才得知，是k8s中时区的问题，所以需要修改&lt;code&gt;/etc/kubernetes/manifests/kube-scheduler.yaml&lt;/code&gt;配置文件，增加相应的时区设置：&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;使用k8s中的cronjob备份数据库发现一个问题，设置一个固定的时间点执行job，但是到了设定的时间后却没有执行。&lt;/p&gt;
 &lt;p&gt;经过查资料才得知，是k8s中时区的问题，所以需要修改&lt;code&gt;/etc/kubernetes/manifests/kube-scheduler.yaml&lt;/code&gt;配置文件，增加相应的时区设置：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumeMounts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;

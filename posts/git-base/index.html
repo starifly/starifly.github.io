@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1423,7 +1425,7 @@
     "datePublished": "2018-08-25T22:16:03+08:00",
     "dateModified": "2018-09-08T00:00:00Z",
     "url" : "https://starifly.github.io/posts/git-base/",
-    "description": "\u003cp\u003e\u003cimg src=\u0022\/images\/git-base.png\u0022\u003e\u003c\/p\u003e",
+    "description": "\u003cp\u003e\u003cimg src=\u0022\/images\/git-base.png\u0022 alt=\u0022\u0022\u003e\u003c\/p\u003e",
     "keywords": ["git"],
     "author": {
       "@type": "Person",
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2020,7 +2023,7 @@
 
         
           
-          <p><img data-src="/images/git-base.png" class="lazyload"></p>
+          <p><img data-src="/images/git-base.png" class="lazyload" alt=""></p>
 <h2 id="基本概念">基本概念</h2>
 <h3 id="4个区">4个区</h3>
 <p>如上图所示，git有4个区，和svn有很大的不同，git中引入了暂存区/缓存区(Stage/Index)的概念</p>
@@ -2036,8 +2039,7 @@
 工作区最原始的状态是未修改状态(Origin)，如果修改了某些文件就会变成已修改(Modified)。<br />
 我们要通过<code>git add</code>命令先将他们添加到暂存区中，这时就会产生已暂存(Staged)状态。<br />
 <code>git commit</code>命令则可以将暂存区中的文件提交到本地仓库中去，状态变为已提交(Committed)。<br />
-最后通过<code>git push</code>推送到远程仓库，推送成功状态变为已推送(Pushed)。</p>
-</blockquote>
+最后通过<code>git push</code>推送到远程仓库，推送成功状态变为已推送(Pushed)。</p></blockquote>
 <h2 id="基本操作">基本操作</h2>
 <h3 id="仓库初始化">仓库初始化</h3>
 <p>仓库的初始化有两种方式：</p>
@@ -2054,17 +2056,15 @@
 </span></span></code></pre></div><h3 id="查看仓库状态">查看仓库状态</h3>
 <p>可以通过<code>git status</code>命令来查看仓库中文件的状态。</p>
 <blockquote>
-<p><code>git status -s</code> : 文件状态的简写（M - 修改， A - 添加， D - 删除， R - 重命名，?? - 未追踪）。</p>
-</blockquote>
+<p><code>git status -s</code> : 文件状态的简写（M - 修改， A - 添加， D - 删除， R - 重命名，?? - 未追踪）。</p></blockquote>
 <h3 id="提交命令">提交命令</h3>
 <ul>
 <li>一种是直接通过<code>git commit -m &quot;备注信息&quot;</code>命令</li>
 <li>如果要写的备注很多，可以通过<code>git commit</code>来打开指定编辑器，然后在编辑器中输入备注信息。</li>
 </ul>
 <blockquote>
-<p>在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim</p>
-</blockquote>
-<p><img data-src="/images/git-commit.jpg" class="lazyload"></p>
+<p>在.gitconfig文件中 [core] 段中加上 editor=vim来修改git提交信息到编辑器为vim</p></blockquote>
+<p><img data-src="/images/git-commit.jpg" class="lazyload" alt=""></p>
 <p>如图所示，在vim编辑器中按照既定的格式编辑内容，编辑完成后保存退出，此时文件就commit成功了。如果临时改变主意不想提交了，删除备注信息后保存退出，<br />
 此时提交就会终止。</p>
 <p>提交成功之后，我们可以通过如下命令重新编辑上次提交的备注信息：</p>
@@ -2086,23 +2086,19 @@
 </ul>
 <blockquote>
 <p>我们还可以使用<code>git log --pretty</code>来定义显示格式，如：<code>git log --graph --pretty=format:&quot;%h - %an, %ar : %s&quot;</code>， &ndash;pretty=format:后边跟着的是格式化的字符串。<br />
-其中 %h 表示简化版的Hash值， %an 表示作者名字（Author Name）, %ar 表示多久以前提交的，%s 则是提交信息。</p>
-</blockquote>
+其中 %h 表示简化版的Hash值， %an 表示作者名字（Author Name）, %ar 表示多久以前提交的，%s 则是提交信息。</p></blockquote>
 <h3 id="查看更改前后的差异">查看更改前后的差异</h3>
 <p>已修改，未暂存</p>
 <blockquote>
-<p>使用<code>git diff</code>命令我们可以查看工作区和暂存区的差异。</p>
-</blockquote>
+<p>使用<code>git diff</code>命令我们可以查看工作区和暂存区的差异。</p></blockquote>
 <p>已暂存，未提交</p>
 <blockquote>
 <p>如果我们执行<code>git add .</code>把修改提交到暂存区，然后再执行<code>git diff</code>，你会发现没有任何信息输出。这说明<code>git diff</code>这个命令只检查我们的工作区和暂存区之间的差异。<br />
 如果我们想看到暂存区和本地仓库之间的差异，就需要加一个参数<code>git diff --cached</code>。<br />
-或者通过命令<code>git diff HEAD</code>来查看（实际上是工作区与当前分支最近一次commit之间的差异）。</p>
-</blockquote>
+或者通过命令<code>git diff HEAD</code>来查看（实际上是工作区与当前分支最近一次commit之间的差异）。</p></blockquote>
 <p>已提交，未推送</p>
 <blockquote>
-<p>现在，如果通过命令<code>git commit</code>把修改从暂存区提交到本地仓库，然后再执行git diff &ndash;cached，没有差异，执行<code>git diff master origin/master</code>，可以看到差异</p>
-</blockquote>
+<p>现在，如果通过命令<code>git commit</code>把修改从暂存区提交到本地仓库，然后再执行git diff &ndash;cached，没有差异，执行<code>git diff master origin/master</code>，可以看到差异</p></blockquote>
 <h3 id="删除文件">删除文件</h3>
 <p>当我们需要删除工作区和暂存区上的文件，可以执行<code>git rm &lt;filename&gt;</code>命令，该命令等同于以下两个命令：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">//直接在文件管理器中把文件删了
@@ -3709,7 +3705,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3720,7 +3716,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

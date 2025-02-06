@@ -31,7 +31,9 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 26 Jan 2023 18:56:35 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</guid>
-        <description>ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以</description>
+        <description>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
+
+&lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;/a&gt;&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
 
 &lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;/a&gt;&lt;/p&gt;
@@ -66,7 +68,14 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 26 Jan 2023 18:53:34 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rgw-sync/</guid>
-        <description>环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到</description>
+        <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;源 ceph 集群（192.168.5.203:20003）&lt;/li&gt;
+&lt;li&gt;基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者&lt;/li&gt;
+&lt;li&gt;S3 目标（192.168.4.13:7480）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;准备存储池&lt;/strong&gt;&lt;/p&gt;</description>
         <content:encoded>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;源 ceph 集群（192.168.5.203:20003）&lt;/li&gt;
@@ -93,8 +102,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置新区域以同步数据到目的集群&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone modify --rgw-zonegroup&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync --tier-config&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;connection.endpoint&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;http://192.168.4.13:7480,connection.access_key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;JO4RQ1787A6OGI6XMFDW,connection.secret&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Dx5kKGUUeR0DaSRYueBWhV6oDRvJ9oXH2gPcVJ6s，target_path&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\$\{&lt;/span&gt;bucket&lt;span class=&#34;se&#34;&gt;\}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;其中的 target_path 代表同步的目的位置，这里我们配置成源 bucket 对应的位置。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;其中的 target_path 代表同步的目的位置，这里我们配置成源 bucket 对应的位置。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;提交更改&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin zone get --rgw-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;sync
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置 RGW&lt;/strong&gt;&lt;/p&gt;
@@ -154,7 +162,34 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 21:18:38 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-s3-java-related/</guid>
-        <description>ceps s3 java开发相关： AWS s3 java api使用 - https://blog.csdn.net/smallhujiu/article/details/87204090 https://hub.fastgit.org/aws-samples/aws-java-sample 使用 AWS SDK for Java 的 Amazon S3示例 - https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3 https://hub.fastgit.org/aws/aws-sdk-java 适用于 Java 的 AWS 开发工具包 - https://aws.amazon.com/cn/sdk-for-java/ https://docs.ceph.com/en/latest/radosgw/s3/java/ Uploading and copying objects using multipart upload - https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html 另外可以使用 https://github.com/minio/minio-java 开发</description>
+        <description>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
+&lt;p&gt;AWS s3 java api使用 - 
+
+&lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;适用于 Java 的 AWS 开发工具包 - 
+
+&lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Uploading and copying objects using multipart upload - 
+
+&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另外可以使用 
+
+&lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
 &lt;p&gt;AWS s3 java api使用 - 
 
@@ -222,7 +257,15 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 21:07:15 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rgw-use/</guid>
-        <description>Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口</description>
+        <description>&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/openinfra/article/details/106856875&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph使用系列之——Ceph RGW使用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/u012720518/article/details/106650382/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph-对象存储：S3使用手册实践&lt;/a&gt; 中的文件夹部分&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561293&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;06 分布式存储ceph创建rgw接口&lt;/a&gt;&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;
 
 &lt;a href=&#34;https://blog.csdn.net/openinfra/article/details/106856875&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph使用系列之——Ceph RGW使用&lt;/a&gt;&lt;/p&gt;
@@ -263,7 +306,10 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 19:35:17 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</guid>
-        <description>概念： 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.con</description>
+        <description>&lt;p&gt;概念：   &lt;br /&gt;
+1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
+2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
+3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;概念：   &lt;br /&gt;
 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
 2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
@@ -336,7 +382,8 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 19:31:32 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/</guid>
-        <description>背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非</description>
+        <description>&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;
+&lt;p&gt;RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。&lt;/p&gt;</description>
         <content:encoded>&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;
 &lt;p&gt;RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。&lt;/p&gt;
 &lt;p&gt;这隐含了两层意思：其一，在单个 bucket 索引对象上能存储的数据总量有限，默认情况下，每个 bucket 是只有一个索引对象的，所以每个 bucket 中能存储的对象数量就是有限的了。超大的索引对象会造成性能和可靠性的问题，极端情况下，可能因为缓慢的恢复操作，造成 OSD 进程挂掉。其二，这成了性能瓶颈，因为所有对同一 bucket 的写操作，都会对一个索引对象做修改和序列化操作。&lt;/p&gt;
@@ -391,8 +438,7 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;realm_id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;f43494f8-bfb6-4723-b169-6ba929cdca1c&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;修改 bucket_index_max_shards 参数&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;修改 bucket_index_max_shards 参数&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;重新导入zonegroup&lt;/p&gt;
 &lt;p&gt;导入前先确认默认zonegroup有没有realm，如果没有realm，要先创建并修改zonegroup的realm&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;radosgw-admin realm create --rgw-realm&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;my-realm --default
@@ -432,8 +478,7 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;提交配置，让配置生效，这一步不能少&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# radosgw-admin period update --commit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;这个参数会对所有在这个zonegroup下面的zone其效果，而且不需要重启&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;这个参数会对所有在这个zonegroup下面的zone其效果，而且不需要重启&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;方法一手动配置了rgw_override_bucket_index_max_shards参数，使得bucket在一定程度上保证不会有索引分片方面的性能问题，那么问题来了，手动设置该值，是让集群的bucket在一开始就分好片，产生的大量分片为即将进行的数据存储做好了准备，但是，线上业务反映，每天写入的文件量远不及我们一开始的配置，在分片数设置为768的情况下，单个bucket可以容纳7千6百80万个文件，而线上的业务进来的文件每天只有百万级别，事先分好的片不但浪费掉了，而且在持续写入之后会有性能不友好的问题。所以最好采用方法二，在创建bucket的时候就可以设置分片值，这样能很大程度减少浪费问题。&lt;/p&gt;
 &lt;p&gt;另外腾讯的cos还有阿里的oss对象存储理论上单桶可以存储无限个对象，据说是做了多桶联合，对外展示为一个桶，这个可能需要研发能力支撑，这里不做过多讨论。&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;

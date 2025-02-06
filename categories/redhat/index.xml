@@ -31,7 +31,7 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sat, 04 Nov 2023 10:17:22 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/install-redhat-via-usb-disk/</guid>
-        <description>刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使</description>
+        <description>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;
 &lt;p&gt;后面查询其它的教程，得知可以使用Rufus制作，先格式化U盘，卷标名称位数不要超过11位，具体的刻录过程这里就不说明了。&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;

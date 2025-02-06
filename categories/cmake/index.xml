@@ -57,7 +57,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GLOB_RECURSE&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box2d_source_files&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;${CMAKE_CURRENT_SOURCE_DIR}/Box2D/*.cpp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我的CMakeLists.txt和Box2D的文件结构关系如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;box2d_cmake&#34; src=&#34;https://zilongshanren.com/img/box2d-cmake.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zilongshanren.com/img/box2d-cmake.png&#34; alt=&#34;box2d_cmake&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这里的&lt;code&gt;${CMAKE_CURRENT_SOURCE_DIR}&lt;/code&gt;表示CMakeLists.txt所在的目录。而GLOB_RECURSE可以递归地去搜索Box2D目录下面所有的.cpp文件来参与静态库的编译。而include_directories和file指令，显而易见，它们是用来指定静态库的头文件和实现文件。&lt;/p&gt;
 &lt;h3 id=&#34;指定库的名字&#34;&gt;指定库的名字&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add_library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Box2D&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;STATIC&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box2d_source_files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
@@ -182,7 +182,7 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 16 Aug 2018 10:36:02 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/cmake-clang/</guid>
-        <description>作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、</description>
+        <description>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;
 &lt;p&gt;如果有 gradle, pip, gem, maven, sbt 这类基于包的构建工具的话，这根本就不是问题。别人写的依赖可以在远端调用，自己写的依赖也可以本地调用。&lt;br /&gt;
 如果有 npm, go get 这类基于版本控制的构建工具的话，这当作也只有一个小问题，就是项目维护者脑抽了一下，可能就会误伤在此期间构建程序的程序员。&lt;/p&gt;

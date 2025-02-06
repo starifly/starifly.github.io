@@ -31,7 +31,13 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 19:08:43 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-osd-troubleshooting/</guid>
-        <description>常见 OSD 故障处理 Reference 常见 OSD 故障处理</description>
+        <description>&lt;p&gt;常见 OSD 故障处理&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://blog.csdn.net/weixin_44389885/article/details/101478569&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;常见 OSD 故障处理&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
         <content:encoded>&lt;p&gt;常见 OSD 故障处理&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
@@ -70,7 +76,13 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 19:05:09 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-del-osd-node/</guid>
-        <description>删除Ceph OSD节点 Reference 删除Ceph OSD节点</description>
+        <description>&lt;p&gt;删除Ceph OSD节点&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/schangech/p/8036191.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;删除Ceph OSD节点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
         <content:encoded>&lt;p&gt;删除Ceph OSD节点&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;

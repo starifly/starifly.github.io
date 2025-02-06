@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/tags/ceph/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,90 @@
       <div>
         <div class="summary-classic__text p2">
           
-            查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">查看ceph的实时运行状态
+</span></span><span class="line"><span class="cl">ceph -w
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看ceph存储空间
+</span></span><span class="line"><span class="cl">ceph df/ceph df detail
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群的详细配置
+</span></span><span class="line"><span class="cl">ceph daemon mon.ceph001 config show <span class="p">|</span> more
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl">ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群版本信息
+</span></span><span class="line"><span class="cl">ceph versions
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群认证信息
+</span></span><span class="line"><span class="cl">ceph auth list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看gc时间
+</span></span><span class="line"><span class="cl">radosgw-admin gc list --include-all <span class="p">|</span> grep <span class="nb">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mon命令
+</span></span><span class="line"><span class="cl">ceph mon stat#查看mon的状态信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mds命令
+</span></span><span class="line"><span class="cl">ceph mds stat <span class="c1">#查看msd状态</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">osd命令
+</span></span><span class="line"><span class="cl">ceph osd stat <span class="c1">#查看osd状态</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd df <span class="c1">#查看osd磁盘</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd dump <span class="c1">#osd的映射信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd perf <span class="c1">#查看osd性能和延迟</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd tree#查看osd目录树
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">rgw命令
+</span></span><span class="line"><span class="cl">radosgw-admin bucket list <span class="c1">#查看所有桶</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket list --bucket<span class="o">=</span>asdas <span class="c1">#查看桶内对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>asdas <span class="c1">#查看桶信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 <span class="c1">#删除一个桶</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 --purge-objects <span class="c1">#默认只能删空的bucket，强制删除非空的bucket需要加上“--purge-objects ”选项</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket check --bucket<span class="o">=</span>s3test1 <span class="c1">#查看桶的索引信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin object rm --object<span class="o">=</span>1.jpg --bucket<span class="o">=</span>s3test3 <span class="c1">#删除桶中的对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin object unlink --bucket<span class="o">=</span>s3test3 —object<span class="o">=</span>1.jpg <span class="c1">#从桶索引里去除对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket limit check <span class="o">[</span>--uid test<span class="o">]</span> <span class="c1">#查看Sharding Stat</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>bucketname<span class="p">|</span>grep -w <span class="s1">&#39;num_objects&#39;</span> <span class="c1">#查询桶的对象个数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">创建realm：
+</span></span><span class="line"><span class="cl">realm里所有的元數據名稱都是全局唯一的，無法創建同名的用戶（uid）和bucket， container；
+</span></span><span class="line"><span class="cl">radosgw-admin realm create --rgw-realm<span class="o">=</span>Giant --default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看存在的realm：
+</span></span><span class="line"><span class="cl">radosgw-admin realm list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看bucket 的信息
+</span></span><span class="line"><span class="cl">radosgw-admin metadata get bucket:bucketname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">获取bucket id 并根据 bucket id 从bucket.instace中获取真实shards，可以看到num_shards的值
+</span></span><span class="line"><span class="cl">radosgw-admin  metadata get bucket.instance:api_image_test:4fb0079d-88d8-404e-9e3f-1375ba40a870.324279.2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看index 下保留的shard数量（包含历史的分片）
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看bucket : bucketname 当前的shard分片,首先找到 当前bucket id
+</span></span><span class="line"><span class="cl">找到bucket id后查询具体的shard编号，如下
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">统计当前使用的shard数
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span> <span class="p">|</span> wc -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看当前shard 存在的index数据
+</span></span><span class="line"><span class="cl">rados -p default.rgw.buckets.index listomapkeys .dir.555c6dcf-7320-4b34-8922-5e005dedc130.164465.1.769
+</span></span></code></pre></div>
           
         </div>
       </div>
@@ -2072,7 +2158,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            注意：此文档用于 Ceph Nautilus 版本（包括社区版 Ceph 14.2.x 和红帽版 Redhat Ceph Storage 4.x）内的小版本升级，不能用于 Ceph 大版本升级（例如从 Ceph Luminous 升级到 Ceph Nautilus）。 Ceph
+            <p>注意：此文档用于 Ceph Nautilus 版本（包括社区版 Ceph 14.2.x 和红帽版 Redhat Ceph Storage 4.x）内的小版本升级，不能用于 Ceph 大版本升级（例如从 Ceph Luminous 升级到 Ceph Nautilus）。</p>
+<h2 id="ceph-集群简介">Ceph 集群简介</h2>
+<p>Ceph Nautilus 集群（docker方式部署）包括的角色如下：</p>
           
         </div>
       </div>
@@ -2142,7 +2230,8 @@
       <div>
         <div class="summary-classic__text p2">
           
-            背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非
+            <h2 id="背景说明">背景说明</h2>
+<p>RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。</p>
           
         </div>
       </div>
@@ -2177,7 +2266,7 @@
       <div>
         <div class="summary-classic__text p2">
           
-            在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了P
+            <p>在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了Prometheus插件，内置了 Prometheus ceph exporter，可以使用Ceph mgr内置的exporter作为Prometheus的target。</p>
           
         </div>
       </div>
@@ -2212,7 +2301,7 @@
       <div>
         <div class="summary-classic__text p2">
           
-            ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（
+            <p>ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（/etc/ceph和/var/lib/ceph目录），而当前三个节点全部出现系统故障导致集群瘫痪的情况下，我们怎么恢复 ceph 集群。</p>
           
         </div>
       </div>
@@ -2247,7 +2336,13 @@
       <div>
         <div class="summary-classic__text p2">
           
-            常见 OSD 故障处理 Reference 常见 OSD 故障处理
+            <p>常见 OSD 故障处理</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>
+
+<a href="https://blog.csdn.net/weixin_44389885/article/details/101478569" target="_blank" rel="noopener">常见 OSD 故障处理</a></li>
+</ul>
           
         </div>
       </div>
@@ -2282,7 +2377,13 @@
       <div>
         <div class="summary-classic__text p2">
           
-            删除Ceph OSD节点 Reference 删除Ceph OSD节点
+            <p>删除Ceph OSD节点</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>
+
+<a href="https://www.cnblogs.com/schangech/p/8036191.html" target="_blank" rel="noopener">删除Ceph OSD节点</a></li>
+</ul>
           
         </div>
       </div>
@@ -2317,7 +2418,31 @@
       <div>
         <div class="summary-classic__text p2">
           
-            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
+            <h2 id="创建-rbd">创建 RBD</h2>
+<h3 id="服务器端操作">服务器端操作</h3>
+<h4 id="创建-pool">创建 pool</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph osd pool create rbd 64</span>
+</span></span><span class="line"><span class="cl">pool <span class="s1">&#39;rbd&#39;</span> created
+</span></span></code></pre></div><h4 id="创建客户端帐号">创建客户端帐号</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建客户端用户</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看用户及权限</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get client.rbd</span>
+</span></span><span class="line"><span class="cl">exported keyring <span class="k">for</span> client.rbd
+</span></span><span class="line"><span class="cl"><span class="o">[</span>client.rbd<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">key</span> <span class="o">=</span> <span class="nv">AQB6OAhfMN4jFhAAPmO17m5Z5gP5YC11JOJcTA</span><span class="o">==</span>
+</span></span><span class="line"><span class="cl">	caps <span class="nv">mon</span> <span class="o">=</span> <span class="s2">&#34;allow r&#34;</span>
+</span></span><span class="line"><span class="cl">	caps <span class="nv">osd</span> <span class="o">=</span> <span class="s2">&#34;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 导出客户端keyring</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get client.rbd -o ./ceph.client.rbd.keyring</span>
+</span></span><span class="line"><span class="cl">exported keyring <span class="k">for</span> client.rbd
+</span></span></code></pre></div><h4 id="pool-启动-rbd">pool 启动 RBD</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph osd pool application enable rbd rbd </span>
+</span></span><span class="line"><span class="cl">enabled application <span class="s1">&#39;rbd&#39;</span> on pool <span class="s1">&#39;rbd&#39;</span>
+</span></span></code></pre></div><h3 id="客户端操作">客户端操作</h3>
+<p>安装 ceph-common</p>
           
         </div>
       </div>
@@ -2352,7 +2477,51 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 + luminous） 03 分布式存储ceph之crush规则配置 动态设
+            <h2 id="reference">Reference</h2>
+<ul>
+<li>
+
+<a href="https://zhuanlan.zhihu.com/p/387112707" target="_blank" rel="noopener">附录2、ceph安装配置介绍与主机优化</a></li>
+<li>
+
+<a href="https://www.cnblogs.com/hukey/p/11975109.html" target="_blank" rel="noopener">[ ceph  ] CEPH 部署完整版（CentOS 7 + luminous）</a></li>
+<li>
+
+<a href="https://zhuanlan.zhihu.com/p/386560600" target="_blank" rel="noopener">03 分布式存储ceph之crush规则配置</a></li>
+<li>
+
+<a href="http://www.strugglesquirrel.com/2018/06/27/%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AEbucket-index-max-shards%E5%8F%82%E6%95%B0/" target="_blank" rel="noopener">动态设置bucket_index_max_shards参数</a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1032859?from=article.detail.1630684" target="_blank" rel="noopener">实弹军演-基于Ceph对象存储的实战兵法</a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411454?from=article.detail.1411467" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（一）</a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411459?from=article.detail.1411457" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（三）上</a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411461?from=article.detail.1411457" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（三）下 </a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411463?from=article.detail.1411465" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（五）上 </a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411465" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（五）中 </a></li>
+<li>
+
+<a href="https://cloud.tencent.com/developer/article/1411467?from=article.detail.1411465" target="_blank" rel="noopener">从传统运维到云运维演进历程之软件定义存储（五）下</a></li>
+<li>
+
+<a href="https://www.sohu.com/a/122822222_468741" target="_blank" rel="noopener">Ceph-RGW多活机制</a></li>
+<li>
+
+<a href="https://zhuanlan.zhihu.com/p/45084771" target="_blank" rel="noopener">BlueStore-先进的用户态文件系统《一》</a></li>
+<li>
+
+<a href="http://t.zoukankan.com/dengchj-p-9444437.html" target="_blank" rel="noopener">Ceph之对象存储网关RADOS Gateway(RGW)</a></li>
+</ul>
           
         </div>
       </div>
@@ -2387,7 +2556,59 @@
       <div>
         <div class="summary-classic__text p2">
           
-            操作系统基础配置 三节点创建文件夹： mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph 配置定时任务 systemctl start ntpd &amp;&amp; systemctl enable ntpd 将时间每隔1小时自动校准同步 0 */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;&amp;1; /sbin/hwclock -w 内核优化 #调整内核
+            <h2 id="操作系统基础配置">操作系统基础配置</h2>
+<ol>
+<li>三节点创建文件夹：</li>
+</ol>
+<p><code>mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph</code></p>
+<ol start="2">
+<li>配置定时任务</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ntpd <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> ntpd
+</span></span><span class="line"><span class="cl">将时间每隔1小时自动校准同步
+</span></span><span class="line"><span class="cl"><span class="m">0</span> */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;<span class="p">&amp;</span>1<span class="p">;</span> /sbin/hwclock -w
+</span></span></code></pre></div><ol start="3">
+<li>内核优化</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#调整内核参数</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># cat &gt;&gt; /etc/sysctl.conf &lt;&lt; EOF</span>
+</span></span><span class="line"><span class="cl">&gt; kernel.pid_max<span class="o">=</span><span class="m">4194303</span>
+</span></span><span class="line"><span class="cl">&gt; vm.swappiness <span class="o">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">&gt; EOF
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># sysctl -p</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># read_ahead, 通过数据预读并且记载到随机访问内存方式提高磁盘读操作，8192是比较理想的值</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># echo &#34;8192&#34; &gt; /sys/block/sda/queue/read_ahead_kb </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I/O Scheduler优化，如果SSD要用noop，SATA/SAS设备采用deadline。</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1">#echo &#34;deadline&#34; &gt; /sys/block/sda/queue/scheduler</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1">#echo &#34;noop&#34; &gt; /sys/block/sda/queue/scheduler</span>
+</span></span></code></pre></div><ol start="4">
+<li>关闭selinux</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vi /etc/selinux/config文件， 将SELINUX设为disabled, 永久生效。</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SELINUX</span><span class="o">=</span>disabled
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 临时生效：</span>
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span></code></pre></div><ol start="5">
+<li>修改主机名和hosts</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl set-hostname ceph001
+</span></span><span class="line"><span class="cl">hostnamectl set-hostname ceph002
+</span></span><span class="line"><span class="cl">hostnamectl set-hostname ceph003
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /etc/hosts</span>
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph001
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph002
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph003
+</span></span></code></pre></div><ol start="6">
+<li>编辑别名</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;alias ceph=&#34;docker exec mon ceph&#34;&#39;</span> &gt;&gt; /etc/profile
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></div><ol start="7">
+<li>准备磁盘</li>
+</ol>
+<p>三节点各准备一块磁盘，不用分区。</p>
           
         </div>
       </div>
@@ -2422,7 +2643,198 @@
       <div>
         <div class="summary-classic__text p2">
           
-            依赖 # centos yum install librados2-devel 源程序 #include &lt;iostream&gt; #include &lt;string&gt; #include &lt;rados/librados.hpp&gt; int main(int argc, const char **argv) { int ret = 0; /* Declare the cluster handle and required variables. */ librados::Rados cluster; char cluster_name[] = &#34;ceph&#34;; char user_name[] = &#34;client.admin&#34;; uint64_t flags = 0; /* Initialize the cluster handle with the &#34;ceph&#34; cluster name and &#34;client.admin&#34; user */ { ret = cluster.init2(user_name, cluster_name, flags);
+            <h2 id="依赖">依赖</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># centos</span>
+</span></span><span class="line"><span class="cl">yum install librados2-devel
+</span></span></code></pre></div><h2 id="源程序">源程序</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;rados/librados.hpp&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Declare the cluster handle and required variables. */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">librados</span><span class="o">::</span><span class="n">Rados</span> <span class="n">cluster</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">cluster_name</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;ceph&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">user_name</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;client.admin&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint64_t</span> <span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Initialize the cluster handle with the &#34;ceph&#34; cluster name and &#34;client.admin&#34; user */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="nf">init2</span><span class="p">(</span><span class="n">user_name</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t initialize the cluster handle! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Created a cluster handle.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Read a Ceph configuration file to configure the cluster handle. */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="nf">conf_read_file</span><span class="p">(</span><span class="s">&#34;/etc/ceph/ceph.conf&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t read the Ceph configuration file! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Read the Ceph configuration file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Read command line arguments */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="nf">conf_parse_argv</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t parse command line options! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Parsed command line options.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Connect to the cluster */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="nf">connect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t connect to cluster! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Connected to the cluster.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">librados</span><span class="o">::</span><span class="n">IoCtx</span> <span class="n">io_ctx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pool_name</span> <span class="o">=</span> <span class="s">&#34;testpool&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="nf">ioctx_create</span><span class="p">(</span><span class="n">pool_name</span><span class="p">,</span> <span class="n">io_ctx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t set up ioctx! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Created an ioctx for the pool.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* Write an object synchronously. */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">librados</span><span class="o">::</span><span class="n">bufferlist</span> <span class="n">bl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bl</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">&#34;Hello World!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">write_full</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">,</span> <span class="n">bl</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t write object! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Wrote new object &#39;hw&#39; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Add an xattr to the object.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">librados</span><span class="o">::</span><span class="n">bufferlist</span> <span class="n">lang_bl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">lang_bl</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">&#34;en_US&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">setxattr</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">,</span> <span class="s">&#34;lang&#34;</span><span class="p">,</span> <span class="n">lang_bl</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;failed to set xattr version entry! error &#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Set the xattr &#39;lang&#39; on our object!&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Read the object back asynchronously.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">librados</span><span class="o">::</span><span class="n">bufferlist</span> <span class="n">read_buf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">read_len</span> <span class="o">=</span> <span class="mi">4194304</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1">//Create I/O Completion.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">librados</span><span class="o">::</span><span class="n">AioCompletion</span> <span class="o">*</span><span class="n">read_completion</span> <span class="o">=</span> <span class="n">librados</span><span class="o">::</span><span class="n">Rados</span><span class="o">::</span><span class="nf">aio_create_completion</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1">//Send read request.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">aio_read</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">,</span> <span class="n">read_completion</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">read_buf</span><span class="p">,</span> <span class="n">read_len</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t start read object! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1">// Wait for the request to complete, and check that it succeeded.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">read_completion</span><span class="o">-&gt;</span><span class="nf">wait_for_complete</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">read_completion</span><span class="o">-&gt;</span><span class="nf">get_return_value</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t read object! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Read object hw asynchronously with contents.</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">&lt;&lt;</span> <span class="n">read_buf</span><span class="p">.</span><span class="nf">c_str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Read the xattr.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">librados</span><span class="o">::</span><span class="n">bufferlist</span> <span class="n">lang_res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">getxattr</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">,</span> <span class="s">&#34;lang&#34;</span><span class="p">,</span> <span class="n">lang_res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;failed to get xattr version entry! error &#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Got the xattr &#39;lang&#39; from object hw!&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">&lt;&lt;</span> <span class="n">lang_res</span><span class="p">.</span><span class="nf">c_str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Remove the xattr.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">rmxattr</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">,</span> <span class="s">&#34;lang&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Failed to remove xattr! error &#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Removed the xattr &#39;lang&#39; from our object!&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Remove the object.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="n">io_ctx</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="s">&#34;hw&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Couldn&#39;t remove object! error &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Removed object &#39;hw&#39;.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">io_ctx</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cluster</span><span class="p">.</span><span class="nf">shutdown</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="编译">编译</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">g++ -g -c cephclient.cc -o cephclient.o -std<span class="o">=</span>c++11
+</span></span><span class="line"><span class="cl">g++ -g cephclient.o -lrados -o cephclient
+</span></span></code></pre></div><h2 id="运行">运行</h2>
+<p>注意运行前要先创建“testpool”存储池</p>
           
         </div>
       </div>
@@ -3347,7 +3759,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3358,7 +3770,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

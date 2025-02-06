@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1423,7 +1425,7 @@
     "datePublished": "2021-10-06T16:47:55+08:00",
     "dateModified": "2021-10-06T16:47:55+08:00",
     "url" : "https://starifly.github.io/posts/ceph-pg-and-pgp/",
-    "description": "【前言】 ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？ PG (Placement Group)，p",
+    "description": "\u003cp\u003e\u003cstrong\u003e【前言】\u003c\/strong\u003e\u003c\/p\u003e \u003cp\u003eceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？\u003c\/p\u003e \u003cp\u003ePG (Placement Group)，pg是一个虚拟的概念，用于存放object，PGP(Placement Group for Placement purpose)，相当于是pg存放的一种osd排列组合。举个例 …\u003c\/p\u003e",
     "keywords": ["ceph","pg","pgp"],
     "author": {
       "@type": "Person",
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2069,8 +2072,7 @@
 </span></span><span class="line"><span class="cl">2.8 <span class="m">90</span> <span class="o">[</span>0,6<span class="o">]</span>
 </span></span></code></pre></div><p>通过上面的测试结果我们可以看到，新增加的pg数还是基于pgp=6的排列组合，并没有出现新的排列组合，因为我们当前的存储池的pgp是6，那么双副本2个osd的组合就是6个，因为当前的pg是12，分布只能从6中组合里面选择，所以会有重复的组合。</p>
 <blockquote>
-<p>结论：增加PG会引起PG内的对象进行分裂，也就是说在OSD上新建了PG目录，然后进行部分对象迁移的操作。即PG改变会引起数据迁移。</p>
-</blockquote>
+<p>结论：增加PG会引起PG内的对象进行分裂，也就是说在OSD上新建了PG目录，然后进行部分对象迁移的操作。即PG改变会引起数据迁移。</p></blockquote>
 <p>(2) 增加PGP</p>
 <p>我们将PGP从6调整为12：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@node1 ~<span class="o">]</span><span class="c1"># ceph osd pool set pool_1 pgp_num 12</span>
@@ -3658,7 +3660,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3669,7 +3671,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

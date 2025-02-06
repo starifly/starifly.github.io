@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/tags/pg/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            【前言】 ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？ PG (Placement Group)，p
+            <p><strong>【前言】</strong></p>
+<p>ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？</p>
+<p>PG (Placement Group)，pg是一个虚拟的概念，用于存放object，PGP(Placement Group for Placement purpose)，相当于是pg存放的一种osd排列组合。举个例子：假设集群有3个osd，即osd1，osd2，osd3，副本数为2，如果pgp=1，那么pg存放的osd的组合就有一种，可能是[osd1，osd2]，那么所有的pg主从副本都会存放到osd1和osd2上；如果pgp=2，那么其osd组合可能就两种，可能是[osd1,osd2]和[osd1,osd3]，pg的主从副本会落在[osd1,osd2]或者[osd1,osd3]中，和我们数学中的排列组合很像，所以pg是存放对象的归属组是一种虚拟概念，pgp就是pg对应的osd排列组合。一般情况下，存储池的pg和pgp的数量设置相等。</p>
           
         </div>
       </div>
@@ -2886,7 +2891,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -2897,7 +2902,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

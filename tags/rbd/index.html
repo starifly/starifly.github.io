@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/tags/rbd/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,31 @@
       <div>
         <div class="summary-classic__text p2">
           
-            创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &#39;rbd&#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]
+            <h2 id="创建-rbd">创建 RBD</h2>
+<h3 id="服务器端操作">服务器端操作</h3>
+<h4 id="创建-pool">创建 pool</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph osd pool create rbd 64</span>
+</span></span><span class="line"><span class="cl">pool <span class="s1">&#39;rbd&#39;</span> created
+</span></span></code></pre></div><h4 id="创建客户端帐号">创建客户端帐号</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建客户端用户</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get-or-create client.rbd mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看用户及权限</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get client.rbd</span>
+</span></span><span class="line"><span class="cl">exported keyring <span class="k">for</span> client.rbd
+</span></span><span class="line"><span class="cl"><span class="o">[</span>client.rbd<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">key</span> <span class="o">=</span> <span class="nv">AQB6OAhfMN4jFhAAPmO17m5Z5gP5YC11JOJcTA</span><span class="o">==</span>
+</span></span><span class="line"><span class="cl">	caps <span class="nv">mon</span> <span class="o">=</span> <span class="s2">&#34;allow r&#34;</span>
+</span></span><span class="line"><span class="cl">	caps <span class="nv">osd</span> <span class="o">=</span> <span class="s2">&#34;allow class-read object_prefix rbd_children,allow rwx pool=rbd&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 导出客户端keyring</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph auth get client.rbd -o ./ceph.client.rbd.keyring</span>
+</span></span><span class="line"><span class="cl">exported keyring <span class="k">for</span> client.rbd
+</span></span></code></pre></div><h4 id="pool-启动-rbd">pool 启动 RBD</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph-node1 ~/mycluster<span class="o">]</span><span class="c1">#ceph osd pool application enable rbd rbd </span>
+</span></span><span class="line"><span class="cl">enabled application <span class="s1">&#39;rbd&#39;</span> on pool <span class="s1">&#39;rbd&#39;</span>
+</span></span></code></pre></div><h3 id="客户端操作">客户端操作</h3>
+<p>安装 ceph-common</p>
           
         </div>
       </div>
@@ -2886,7 +2913,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -2897,7 +2924,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

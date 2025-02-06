@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2041,7 +2044,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">(</span><span class="n">GLOB_RECURSE</span> <span class="n">box2d_source_files</span> <span class="s">&#34;${CMAKE_CURRENT_SOURCE_DIR}/Box2D/*.cpp&#34;</span><span class="p">)</span>
 </span></span></code></pre></div><p>我的CMakeLists.txt和Box2D的文件结构关系如下图所示：</p>
-<p><img alt="box2d_cmake" data-src="https://zilongshanren.com/img/box2d-cmake.png" class="lazyload"></p>
+<p><img data-src="https://zilongshanren.com/img/box2d-cmake.png" class="lazyload" alt="box2d_cmake"></p>
 <p>这里的<code>${CMAKE_CURRENT_SOURCE_DIR}</code>表示CMakeLists.txt所在的目录。而GLOB_RECURSE可以递归地去搜索Box2D目录下面所有的.cpp文件来参与静态库的编译。而include_directories和file指令，显而易见，它们是用来指定静态库的头文件和实现文件。</p>
 <h3 id="指定库的名字">指定库的名字</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">add_library</span><span class="p">(</span><span class="n">Box2D</span> <span class="n">STATIC</span> <span class="err">$</span><span class="p">{</span><span class="n">box2d_source_files</span><span class="p">})</span>
@@ -3688,7 +3691,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3699,7 +3702,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

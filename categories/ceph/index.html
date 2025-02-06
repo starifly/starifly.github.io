@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/categories/ceph/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,13 @@
       <div>
         <div class="summary-classic__text p2">
           
-            1、网络拓扑参考 2、设备位置图参考 3、服务器配置信息及运行服务统计 一般来说，内存越多越好。 对于一个中等规模的集群，监视/管理器节点可以使用6
+            <p>1、网络拓扑参考</p>
+<p><img src="/images/ceph-01.jpg" alt=""></p>
+<p>2、设备位置图参考</p>
+<p><img src="/images/ceph-02.jpg" alt=""></p>
+<p>3、服务器配置信息及运行服务统计</p>
+<p>一般来说，内存越多越好。</p>
+<p>对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。</p>
           
         </div>
       </div>
@@ -2037,7 +2046,28 @@
       <div>
         <div class="summary-classic__text p2">
           
-            准备 1、执行ceph -s确认存储集群状态，保证为健康状态。 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum ceph001,ceph002,ceph003 (age 41m) mgr: ceph001(active, since 43m), standbys: ceph003 mds: cephfs:1 {0=ceoh002=up:active} 2 up:standby osd: 6 osds: 6 up (since 3m), 6 in (since 3m) rgw: 3
+            <h2 id="准备">准备</h2>
+<p>1、执行ceph -s确认存储集群状态，保证为健康状态。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph001 ~<span class="o">]</span><span class="c1"># ceph -s</span>
+</span></span><span class="line"><span class="cl">  cluster:
+</span></span><span class="line"><span class="cl">    id:     d00c744a-17f6-4768-95de-1243202557f2
+</span></span><span class="line"><span class="cl">    health: HEALTH_OK
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  services:
+</span></span><span class="line"><span class="cl">    mon: <span class="m">3</span> daemons, quorum ceph001,ceph002,ceph003 <span class="o">(</span>age 41m<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    mgr: ceph001<span class="o">(</span>active, since 43m<span class="o">)</span>, standbys: ceph003
+</span></span><span class="line"><span class="cl">    mds: cephfs:1 <span class="o">{</span><span class="nv">0</span><span class="o">=</span><span class="nv">ceoh002</span><span class="o">=</span>up:active<span class="o">}</span> <span class="m">2</span> up:standby
+</span></span><span class="line"><span class="cl">    osd: <span class="m">6</span> osds: <span class="m">6</span> up <span class="o">(</span>since 3m<span class="o">)</span>, <span class="m">6</span> in <span class="o">(</span>since 3m<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    rgw: <span class="m">3</span> daemons active <span class="o">(</span>ceph001, ceph002, ceph003<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  task status:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  data:
+</span></span><span class="line"><span class="cl">    pools:   <span class="m">10</span> pools, <span class="m">96</span> pgs
+</span></span><span class="line"><span class="cl">    objects: <span class="m">803</span> objects, 2.1 GiB
+</span></span><span class="line"><span class="cl">    usage:   <span class="m">13</span> GiB used, <span class="m">62</span> GiB / <span class="m">75</span> GiB avail
+</span></span><span class="line"><span class="cl">    pgs:     <span class="m">96</span> active+clean
+</span></span></code></pre></div><p>2、执行ceph osd tree ,记录变更前的结构。以及存储池pool及其他信息。</p>
           
         </div>
       </div>
@@ -2107,7 +2137,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以
+            <p>ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
+
+<a href="https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw</a></p>
           
         </div>
       </div>
@@ -2142,7 +2174,14 @@
       <div>
         <div class="summary-classic__text p2">
           
-            环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到
+            <h2 id="环境">环境</h2>
+<ul>
+<li>源 ceph 集群（192.168.5.203:20003）</li>
+<li>基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者</li>
+<li>S3 目标（192.168.4.13:7480）</li>
+</ul>
+<h2 id="操作步骤">操作步骤</h2>
+<p><strong>准备存储池</strong></p>
           
         </div>
       </div>
@@ -2212,7 +2251,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            07 分布式存储ceph运维操作
+            <p>
+
+<a href="https://zhuanlan.zhihu.com/p/386561535" target="_blank" rel="noopener">07 分布式存储ceph运维操作</a></p>
           
         </div>
       </div>
@@ -2247,7 +2288,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            01 分布式存储Ceph理论篇
+            <p>
+
+<a href="https://zhuanlan.zhihu.com/p/386556651" target="_blank" rel="noopener">01 分布式存储Ceph理论篇</a></p>
           
         </div>
       </div>
@@ -2317,7 +2360,15 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口
+            <p>
+
+<a href="https://blog.csdn.net/openinfra/article/details/106856875" target="_blank" rel="noopener">Ceph使用系列之——Ceph RGW使用</a></p>
+<p>
+
+<a href="https://blog.csdn.net/u012720518/article/details/106650382/" target="_blank" rel="noopener">Ceph-对象存储：S3使用手册实践</a> 中的文件夹部分</p>
+<p>
+
+<a href="https://zhuanlan.zhihu.com/p/386561293" target="_blank" rel="noopener">06 分布式存储ceph创建rgw接口</a></p>
           
         </div>
       </div>
@@ -2352,7 +2403,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ceph总结
+            <p>
+
+<a href="https://mp.weixin.qq.com/s/KfXhI73-8ZF8vCrUYui_RA" target="_blank" rel="noopener">Ceph总结</a></p>
           
         </div>
       </div>
@@ -2422,7 +2475,25 @@
       <div>
         <div class="summary-classic__text p2">
           
-            环境配置 安装依赖 yum install pcre-devel.x86_64 openssl-devel zlib-devel systemd-devel gcc gcc-c++ 内核调优 #vim /etc/sysctl.conf vm.swappiness = 0 net.ipv4.ip_forward = 1 net.ipv4.ip_nonlocal_bind = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.ip_local_port_range = 1025 65023 net.ipv4.tcp_max_syn_backlog = 10240 检查 /usr/sbin/sysctl net.ipv4.ip_nonlocal_bind /usr/sbin/sysctl net.ipv4.ip_forward cat /proc/sys/net/ipv4/ip_forward 查看是否开启了ip转发功能 如果上述文件中的
+            <h2 id="环境配置">环境配置</h2>
+<p>安装依赖</p>
+<p><code>yum install pcre-devel.x86_64 openssl-devel   zlib-devel  systemd-devel gcc gcc-c++</code></p>
+<p>内核调优</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#vim /etc/sysctl.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vm.swappiness <span class="o">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_nonlocal_bind <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_tw_reuse <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_local_port_range <span class="o">=</span> <span class="m">1025</span> <span class="m">65023</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">10240</span>
+</span></span></code></pre></div><p>检查</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_nonlocal_bind
+</span></span><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_forward
+</span></span><span class="line"><span class="cl">cat /proc/sys/net/ipv4/ip_forward
+</span></span></code></pre></div><blockquote>
+<p>查看是否开启了ip转发功能<br />
+如果上述文件中的值为0,说明禁止进行IP转发；如果是1,则说明IP转发功能已经打开。</p>
           
         </div>
       </div>
@@ -3347,7 +3418,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3358,7 +3429,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

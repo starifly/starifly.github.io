@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1423,7 +1425,7 @@
     "datePublished": "2018-08-17T12:11:32+08:00",
     "dateModified": "2018-08-19T00:00:00Z",
     "url" : "https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/",
-    "description": "\u003cpre\u003e\u003ccode\u003e这是转载文章。 \u003c\/code\u003e\u003c\/pre\u003e \u003chr \/\u003e \u003ch2 id=\u0022为什么要使用-https-协议呢\u0022\u003e为什么要使用 HTTPS 协议呢？\u003c\/h2\u003e \u003cul\u003e \u003cli\u003e在浏览器和网站之间提供更安全的通讯\u003c\/li\u003e \u003cli\u003eHTTPS 比 HTTP 的速度更快\u003c\/li\u003e \u003cli\u003e能提高搜索引擎的优化排名\u003c\/li\u003e \u003c\/ul\u003e \u003cblockquote\u003e \u003cp\u003eHTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。\u003c\/p\u003e \u003c\/blockquote\u003e \u003cp\u003eGithub Pages 本身支持 HTTPS， …\u003c\/p\u003e",
+    "description": "\u003cpre\u003e\u003ccode\u003e这是转载文章。 \u003c\/code\u003e\u003c\/pre\u003e \u003chr \/\u003e \u003ch2 id=\u0022为什么要使用-https-协议呢\u0022\u003e为什么要使用 HTTPS 协议呢？\u003c\/h2\u003e \u003cul\u003e \u003cli\u003e在浏览器和网站之间提供更安全的通讯\u003c\/li\u003e \u003cli\u003eHTTPS 比 HTTP 的速度更快\u003c\/li\u003e \u003cli\u003e能提高搜索引擎的优化排名\u003c\/li\u003e \u003c\/ul\u003e \u003cblockquote\u003e \u003cp\u003eHTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。\u003c\/p\u003e\u003c\/blockquote\u003e \u003cp\u003eGithub Pages 本身支持 HTTPS，但仅支持 \u003ccode\u003egithub.io …\u003c\/code\u003e\u003c\/p\u003e",
     "keywords": ["github","blog","https"],
     "author": {
       "@type": "Person",
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2034,38 +2037,35 @@
 <li>能提高搜索引擎的优化排名</li>
 </ul>
 <blockquote>
-<p>HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。</p>
-</blockquote>
+<p>HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。</p></blockquote>
 <p>Github Pages 本身支持 HTTPS，但仅支持 <code>github.io</code> 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。</p>
 <p>接下来就开始进入主题。</p>
 <h2 id="步骤一配置-github-pages">步骤一：配置 Github Pages</h2>
 <blockquote>
-<p>这里就默认大家已经有 Github Pages 仓库了。如果不太清楚怎么创建的，可以先搜索一下教程。</p>
-</blockquote>
+<p>这里就默认大家已经有 Github Pages 仓库了。如果不太清楚怎么创建的，可以先搜索一下教程。</p></blockquote>
 <p>在 Github Pages 仓库的根目录下新建一个 CNAME 文件，文件内容就是我们要绑定的域名，这一步可以直接在设置面板里配置，保存好之后回到仓库主页就能看到刚才添加的 CNAME 文件</p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_1.png" class="lazyload"><br />
-<img data-src="https://zhouhao.me/img/https_20170721_2.png" class="lazyload"></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_1.png" class="lazyload" alt=""><br />
+<img data-src="https://zhouhao.me/img/https_20170721_2.png" class="lazyload" alt=""></p>
 <h2 id="步骤二注册-cloudflarehttpswwwcloudflarecom-账号添加我们的域名">步骤二：注册 
 
 <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">CloudFlare</a> 账号，添加我们的域名</h2>
 <p>注册成功后在返回的页面中添加域名，点击扫描 DNS 记录，等待大约一分钟之后继续下一步。</p>
 <blockquote>
-<p>注意：输入的域名不需要带 www 前缀。例如：zhouhao.me</p>
-</blockquote>
-<p><img data-src="https://zhouhao.me/img/https_20170721_3.png" class="lazyload"></p>
+<p>注意：输入的域名不需要带 www 前缀。例如：zhouhao.me</p></blockquote>
+<p><img data-src="https://zhouhao.me/img/https_20170721_3.png" class="lazyload" alt=""></p>
 <h2 id="步骤三添加域名解析">步骤三：添加域名解析</h2>
 <p>CNAME 被称为规范名字，能将域名解析到另一个域名。本例中，我们将自己的域名重定向到 Github Pages URL。</p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_4.png" class="lazyload"></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_4.png" class="lazyload" alt=""></p>
 <p>然后下一步选择免费的 CloudFlare Plan。</p>
 <p>接下来，修改域名服务器。因为我用的是万网的 DNS，所以现在要在万网的域名控制台将 DNS 服务器修改至 CloudFlare 提供的域名服务器。</p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_5.png" class="lazyload"></p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_6.png" class="lazyload"></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_5.png" class="lazyload" alt=""></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_6.png" class="lazyload" alt=""></p>
 <h2 id="步骤四设置-ssl-为-flexible">步骤四：设置 SSL 为 Flexible</h2>
-<p><img data-src="https://zhouhao.me/img/https_20170721_7.png" class="lazyload"></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_7.png" class="lazyload" alt=""></p>
 <h2 id="步骤五添加路由重定向规则">步骤五：添加路由重定向规则</h2>
 <p>使用通配符将路由重定向到 HTTPS 的链接。本例中将路由设置为：http://<em>zhouhao.me/</em>，协议设置为：Always Use HTTPS</p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_8.png" class="lazyload"></p>
-<p><img data-src="https://zhouhao.me/img/https_20170721_9.png" class="lazyload"></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_8.png" class="lazyload" alt=""></p>
+<p><img data-src="https://zhouhao.me/img/https_20170721_9.png" class="lazyload" alt=""></p>
 <h2 id="总结">总结</h2>
 <p>至此，Github Pages 绑定的自定义域名启用 HTTPS 协议就完成了，打开自己的 Github Pages 主页就能看到启用 HTTPS 的域名。</p>
 <h2 id="参考资料">参考资料</h2>
@@ -3623,7 +3623,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3634,7 +3634,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

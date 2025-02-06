@@ -31,7 +31,7 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 16 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/vim-markdown-toc/</guid>
-        <description>因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（Update 2016/09/16: GitHub Pages 现在已经改为</description>
+        <description>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;
 &lt;p&gt;这算是我真正意义上完全独立开发的第一款实用 Vim 插件，当然开发过程中也参考了别人的做法。&lt;/p&gt;
 &lt;h2 id=&#34;下载地址&#34;&gt;下载地址&lt;/h2&gt;
@@ -129,11 +129,11 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines/blob/Simplified/README.en.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的英文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/english.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;
 
 &lt;a href=&#34;https://mazhuang.org/wiki/chinese-copywriting-guidelines/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;使用本插件生成 TOC 的中文文档在线示例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/mzlogin/vim-markdown-toc/raw/master/screenshots/chinese.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -188,18 +188,18 @@
 | item 1  | 1. one&amp;lt;br /&amp;gt;2. two&amp;lt;br /&amp;gt;3. three |
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Header1&lt;/th&gt;
-&lt;th&gt;Header2&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;item 1&lt;/td&gt;
-&lt;td&gt;1. one&lt;br /&gt;2. two&lt;br /&gt;3. three&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Header1&lt;/th&gt;
+          &lt;th&gt;Header2&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;item 1&lt;/td&gt;
+          &lt;td&gt;1. one&lt;br /&gt;2. two&lt;br /&gt;3. three&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;图文混排&#34;&gt;图文混排&lt;/h2&gt;
 &lt;p&gt;使用 &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; 标签来贴图，然后指定 &lt;code&gt;align&lt;/code&gt; 属性。&lt;/p&gt;
@@ -238,7 +238,7 @@ N 与图片高度有关。
 &amp;lt;div align=&amp;#34;center&amp;#34;&amp;gt;&amp;lt;img width=&amp;#34;65&amp;#34; height=&amp;#34;75&amp;#34; src=&amp;#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&amp;#34;/&amp;gt;&amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;图片默认显示效果：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;加以控制后的效果：&lt;/strong&gt;&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;&lt;img width=&#34;65&#34; height=&#34;75&#34; src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/demo.png&#34;/&gt;&lt;/div&gt;
 &lt;h2 id=&#34;格式化表格&#34;&gt;格式化表格&lt;/h2&gt;
@@ -291,13 +291,13 @@ N 与图片高度有关。
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在网页下部拷贝 URL Encoded 的内容，比如以上公式生成的是 &lt;code&gt;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&lt;/code&gt;；&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/latex-img.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/markdown/latex-img.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在文档需要的地方使用以上 URL 贴图，比如&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;![](https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://latex.codecogs.com/png.latex?%24%24x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D%24%24&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;任务列表&#34;&gt;任务列表&lt;/h2&gt;
@@ -324,7 +324,7 @@ N 与图片高度有关。
 &lt;p&gt;如果你使用 Vim 编辑器，那可以使用我维护的插件 
 
 &lt;a href=&#34;https://github.com/mzlogin/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vim-markdown-toc&lt;/a&gt; 来帮你完美地解决此事：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;插件地址：
 
 &lt;a href=&#34;https://github.com/mzlogin/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mzlogin/vim-markdown-toc&lt;/a&gt;&lt;/p&gt;

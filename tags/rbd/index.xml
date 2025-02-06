@@ -31,7 +31,31 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 17:28:22 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rbd/</guid>
-        <description>创建 RBD 服务器端操作 创建 pool [root@ceph-node1 ~/mycluster]#ceph osd pool create rbd 64 pool &amp;#39;rbd&amp;#39; created 创建客户端帐号 # 创建客户端用户 [root@ceph-node1 ~/mycluster]#ceph auth get-or-create client.rbd mon &amp;#39;allow r&amp;#39; osd &amp;#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&amp;#39; # 查看用户及权限 [root@ceph-node1 ~/mycluster]#ceph auth get client.rbd exported keyring for client.rbd [client.rbd]</description>
+        <description>&lt;h2 id=&#34;创建-rbd&#34;&gt;创建 RBD&lt;/h2&gt;
+&lt;h3 id=&#34;服务器端操作&#34;&gt;服务器端操作&lt;/h3&gt;
+&lt;h4 id=&#34;创建-pool&#34;&gt;创建 pool&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph osd pool create rbd 64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pool &lt;span class=&#34;s1&#34;&gt;&amp;#39;rbd&amp;#39;&lt;/span&gt; created
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;创建客户端帐号&#34;&gt;创建客户端帐号&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建客户端用户&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph auth get-or-create client.rbd mon &amp;#39;allow r&amp;#39; osd &amp;#39;allow class-read object_prefix rbd_children,allow rwx pool=rbd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看用户及权限&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph auth get client.rbd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;exported keyring &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; client.rbd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;client.rbd&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AQB6OAhfMN4jFhAAPmO17m5Z5gP5YC11JOJcTA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	caps &lt;span class=&#34;nv&#34;&gt;mon&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;allow r&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	caps &lt;span class=&#34;nv&#34;&gt;osd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;allow class-read object_prefix rbd_children,allow rwx pool=rbd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 导出客户端keyring&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph auth get client.rbd -o ./ceph.client.rbd.keyring&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;exported keyring &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; client.rbd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;pool-启动-rbd&#34;&gt;pool 启动 RBD&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph osd pool application enable rbd rbd &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;enabled application &lt;span class=&#34;s1&#34;&gt;&amp;#39;rbd&amp;#39;&lt;/span&gt; on pool &lt;span class=&#34;s1&#34;&gt;&amp;#39;rbd&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;客户端操作&#34;&gt;客户端操作&lt;/h3&gt;
+&lt;p&gt;安装 ceph-common&lt;/p&gt;</description>
         <content:encoded>&lt;h2 id=&#34;创建-rbd&#34;&gt;创建 RBD&lt;/h2&gt;
 &lt;h3 id=&#34;服务器端操作&#34;&gt;服务器端操作&lt;/h3&gt;
 &lt;h4 id=&#34;创建-pool&#34;&gt;创建 pool&lt;/h4&gt;

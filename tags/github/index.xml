@@ -161,8 +161,7 @@
 &lt;li&gt;能提高搜索引擎的优化排名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Github Pages 本身支持 HTTPS，但仅支持 &lt;code&gt;github.io&lt;/code&gt; 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。&lt;/p&gt;</description>
         <content:encoded>&lt;pre&gt;&lt;code&gt;这是转载文章。
 &lt;/code&gt;&lt;/pre&gt;
@@ -174,38 +173,35 @@
 &lt;li&gt;能提高搜索引擎的优化排名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Github Pages 本身支持 HTTPS，但仅支持 &lt;code&gt;github.io&lt;/code&gt; 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。&lt;/p&gt;
 &lt;p&gt;接下来就开始进入主题。&lt;/p&gt;
 &lt;h2 id=&#34;步骤一配置-github-pages&#34;&gt;步骤一：配置 Github Pages&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;这里就默认大家已经有 Github Pages 仓库了。如果不太清楚怎么创建的，可以先搜索一下教程。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;这里就默认大家已经有 Github Pages 仓库了。如果不太清楚怎么创建的，可以先搜索一下教程。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在 Github Pages 仓库的根目录下新建一个 CNAME 文件，文件内容就是我们要绑定的域名，这一步可以直接在设置面板里配置，保存好之后回到仓库主页就能看到刚才添加的 CNAME 文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_1.png&#34;&gt;&lt;br /&gt;
-&lt;img src=&#34;https://zhouhao.me/img/https_20170721_2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_1.png&#34; alt=&#34;&#34;&gt;&lt;br /&gt;
+&lt;img src=&#34;https://zhouhao.me/img/https_20170721_2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;步骤二注册-cloudflarehttpswwwcloudflarecom-账号添加我们的域名&#34;&gt;步骤二：注册 
 
 &lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CloudFlare&lt;/a&gt; 账号，添加我们的域名&lt;/h2&gt;
 &lt;p&gt;注册成功后在返回的页面中添加域名，点击扫描 DNS 记录，等待大约一分钟之后继续下一步。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;注意：输入的域名不需要带 www 前缀。例如：zhouhao.me&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;注意：输入的域名不需要带 www 前缀。例如：zhouhao.me&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;步骤三添加域名解析&#34;&gt;步骤三：添加域名解析&lt;/h2&gt;
 &lt;p&gt;CNAME 被称为规范名字，能将域名解析到另一个域名。本例中，我们将自己的域名重定向到 Github Pages URL。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_4.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后下一步选择免费的 CloudFlare Plan。&lt;/p&gt;
 &lt;p&gt;接下来，修改域名服务器。因为我用的是万网的 DNS，所以现在要在万网的域名控制台将 DNS 服务器修改至 CloudFlare 提供的域名服务器。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_5.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_6.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;步骤四设置-ssl-为-flexible&#34;&gt;步骤四：设置 SSL 为 Flexible&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_7.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;步骤五添加路由重定向规则&#34;&gt;步骤五：添加路由重定向规则&lt;/h2&gt;
 &lt;p&gt;使用通配符将路由重定向到 HTTPS 的链接。本例中将路由设置为：http://&lt;em&gt;zhouhao.me/&lt;/em&gt;，协议设置为：Always Use HTTPS&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_8.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_9.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_8.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_9.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;至此，Github Pages 绑定的自定义域名启用 HTTPS 协议就完成了，打开自己的 Github Pages 主页就能看到启用 HTTPS 的域名。&lt;/p&gt;
 &lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
@@ -270,7 +266,7 @@ http://gohugo.io/tutorials/automated-deployments/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;由于Wercker还不支持GitCafe的部署，以及我需要使用特定的修改版本的Hugo来生成静态网页，并且希望这些步骤比较可控，所以，还是自己来折腾整个过程吧。&lt;/p&gt;
 &lt;h3 id=&#34;webhook&#34;&gt;webhook&lt;/h3&gt;
 &lt;p&gt;webhook是GitHub上提供的Git的一种Hook机制，当代码发生变化时，比如代码被Push到GitHub的Repo时，GitHub会自动请求一个你指定的网页，并且把变更相关的参数都传递过来。入口在Repo的Settings - webhooks &amp;amp; services&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;webhook&#34; src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/WebHook.png-w&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/WebHook.png-w&#34; alt=&#34;webhook&#34;&gt;&lt;/p&gt;
 &lt;p&gt;说明文档：
 
 &lt;a href=&#34;https://developer.github.com/webhooks/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://developer.github.com/webhooks/&lt;/a&gt;&lt;/p&gt;
@@ -300,7 +296,7 @@ http://gohugo.io/tutorials/automated-deployments/&lt;/a&gt;&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后它将接受webhook地址：（把它填到GitHub里的webhook里）&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;http://yourserver:9876/hooks/redeploy-webhook
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;自动部署&#34;&gt;自动部署&lt;/h3&gt;
-&lt;p&gt;&lt;img alt=&#34;AutoDeploy&#34; src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/AutoDeploy.png-w&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://7xlx3k.com1.z0.glb.clouddn.com/AutoDeploy.png-w&#34; alt=&#34;AutoDeploy&#34;&gt;&lt;/p&gt;
 &lt;p&gt;大致的流程如上图。上图的DigitalOcean是一台VPS服务器，我用了很长时间了，速度和稳定性都不错。需要的同学使用这个链接购买，可以获得10美元的优惠：
 
 &lt;a href=&#34;https://www.digitalocean.com/?refcode=e131e2bba197&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.digitalocean.com/?refcode=e131e2bba197&lt;/a&gt;&lt;/p&gt;

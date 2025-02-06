@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/tags/k8s/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,8 @@
       <div>
         <div class="summary-classic__text p2">
           
-            使用k8s中的cronjob备份数据库发现一个问题，设置一个固定的时间点执行job，但是到了设定的时间后却没有执行。 经过查资料才得知，是k8
+            <p>使用k8s中的cronjob备份数据库发现一个问题，设置一个固定的时间点执行job，但是到了设定的时间后却没有执行。</p>
+<p>经过查资料才得知，是k8s中时区的问题，所以需要修改<code>/etc/kubernetes/manifests/kube-scheduler.yaml</code>配置文件，增加相应的时区设置：</p>
           
         </div>
       </div>
@@ -2037,7 +2041,14 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Loki 架构 Loki：主服务，用于存储日志和处理查询。 Promtail：代理服务，用于采集日志，并转发给 Loki。 Grafana：通过 Web 界面来提供
+            <h2 id="loki-架构">Loki 架构</h2>
+<ul>
+<li>Loki：主服务，用于存储日志和处理查询。</li>
+<li>Promtail：代理服务，用于采集日志，并转发给 Loki。</li>
+<li>Grafana：通过 Web 界面来提供数据展示、查询、告警等功能。</li>
+</ul>
+<h2 id="安装-loki">安装 Loki</h2>
+<p>1）创建 RBAC 授权</p>
           
         </div>
       </div>
@@ -2107,7 +2118,11 @@
       <div>
         <div class="summary-classic__text p2">
           
-            之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress 版本说明 inrress-nginx版本为1.4.0，k8s版本为1.
+            <p>之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress</p>
+<h2 id="版本说明">版本说明</h2>
+<p>inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
+
+<a href="https://github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">https://github.com/kubernetes/ingress-nginx</a>。</p>
           
         </div>
       </div>
@@ -2142,7 +2157,40 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ingress简介 service的作用 对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod
+            <h2 id="ingress简介">Ingress简介</h2>
+<h3 id="service的作用">service的作用</h3>
+<ol>
+<li>对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod的服务发现机制</li>
+<li>对集群外部，他类似负载均衡器，可以在集群内外部对pod进行访问</li>
+</ol>
+<h3 id="外部访问k8s集群内的服务">外部访问k8s集群内的服务</h3>
+<ul>
+<li>NodePort: 测试环境使用还行，当有几十上百的服务在集群中运行时，NodePort的端口管理就是个灾难</li>
+<li>LoadBalancer: 受限于云平台，且通常在云平台部署LoadBalancer还需要额外的费用</li>
+<li>Ingress: 可以简单理解为service的service，它其实就是一组基于域名和URL路径，把用户的请求转发到一个或多个service的规则</li>
+</ul>
+<h2 id="ingress组成">Ingress组成</h2>
+<h3 id="ingress">ingress</h3>
+<ol>
+<li>ingress是一个API对象，通过yaml文件来配置，ingress对象的作用是定义请求如何转发到service的规则，可以理解为配置模板</li>
+<li>ingress通过http或https暴露集群内部service，给service提供外部URL、负载均衡、SSL/TLs能力以及基于域名的反向代理。ingress要依靠ingress-controller来具体实现以上功能</li>
+</ol>
+<h3 id="ingress-controller">ingress-controller</h3>
+<ol>
+<li>ingress-controller是具体实现反向代理及负载均衡的程序，对ingress定义的规则进行解析，根据配置的规则来实现请求转发</li>
+<li>ingress -controller并不是k8s自带的组件，实际上ingress-controller只是一个统称，用户可以选择不同的ingress-controller实现，目前，由k8s维护的ingress-controller只有google云的ccz与ingress-nginx两个，其他还有很多第三方维护的ingres-controller，具体可以参考官方文档。但是不管哪一种ingress-controller，实现的机制都大同小异，只是在具体配置上有差异<br />
+3.一般来说，ingress-controller的形式都是一个pod,里面跑着daemon程序和反向代理程序。daemon负责不断监控集群的变化，根据ingress对象生成配置并应用新配置到反向代理，比如ingress -nginx就是动态生成nginx配置，动态更新upstream，并在需要的时候reload程序应用新配置。为了方便，后面的例子都以k8s官方维护的ingress-nginx为例</li>
+</ol>
+<h2 id="ingress工作原理">Ingress工作原理</h2>
+<ol>
+<li>ingress-controller通过和 kubernetes APIServer 交互，动态的去感知集群中ingress规则变化</li>
+<li>然后读取它，按照自定义的规则，规则就是写明了哪个域名对应哪个service，生成一段nginx配置</li>
+<li>再写到nginx-ingress-controller的pod里，这个ingress-controller的pod里运行着一个nginx服务，控制器会把生成的nginx配置写入/etc/nginx.conf文件中</li>
+<li>然后reload一下使配置生效。以此达到域名区分配置和动态更新的作用</li>
+</ol>
+<h2 id="ingress暴露服务的方式">ingress暴露服务的方式</h2>
+<h3 id="deploymentloadbalancer模式的service">Deployment+LoadBalancer模式的Service</h3>
+<p>如果要把ingress部署在公有云，那用这种方式比较合适。用Deployment部署ingress-controller，创建一个type为 LoadBalancer的 service关联这组pod。大部分公有云，都会为 LoadBalancer的 service自动创建一个负载均衡器，通常还绑定了公网地址。只要把域名解析指向该地址，就实现了集群服务的对外暴露</p>
           
         </div>
       </div>
@@ -3042,7 +3090,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3053,7 +3101,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

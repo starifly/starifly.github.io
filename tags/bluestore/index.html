@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/tags/bluestore/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2002,7 +2005,59 @@
       <div>
         <div class="summary-classic__text p2">
           
-            操作系统基础配置 三节点创建文件夹： mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph 配置定时任务 systemctl start ntpd &amp;&amp; systemctl enable ntpd 将时间每隔1小时自动校准同步 0 */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;&amp;1; /sbin/hwclock -w 内核优化 #调整内核
+            <h2 id="操作系统基础配置">操作系统基础配置</h2>
+<ol>
+<li>三节点创建文件夹：</li>
+</ol>
+<p><code>mkdir -p /etc/ceph /var/lib/ceph /var/log/ceph</code></p>
+<ol start="2">
+<li>配置定时任务</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ntpd <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> ntpd
+</span></span><span class="line"><span class="cl">将时间每隔1小时自动校准同步
+</span></span><span class="line"><span class="cl"><span class="m">0</span> */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;<span class="p">&amp;</span>1<span class="p">;</span> /sbin/hwclock -w
+</span></span></code></pre></div><ol start="3">
+<li>内核优化</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#调整内核参数</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># cat &gt;&gt; /etc/sysctl.conf &lt;&lt; EOF</span>
+</span></span><span class="line"><span class="cl">&gt; kernel.pid_max<span class="o">=</span><span class="m">4194303</span>
+</span></span><span class="line"><span class="cl">&gt; vm.swappiness <span class="o">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">&gt; EOF
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># sysctl -p</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># read_ahead, 通过数据预读并且记载到随机访问内存方式提高磁盘读操作，8192是比较理想的值</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1"># echo &#34;8192&#34; &gt; /sys/block/sda/queue/read_ahead_kb </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I/O Scheduler优化，如果SSD要用noop，SATA/SAS设备采用deadline。</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1">#echo &#34;deadline&#34; &gt; /sys/block/sda/queue/scheduler</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CENTOS7-1 ~<span class="o">]</span><span class="c1">#echo &#34;noop&#34; &gt; /sys/block/sda/queue/scheduler</span>
+</span></span></code></pre></div><ol start="4">
+<li>关闭selinux</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vi /etc/selinux/config文件， 将SELINUX设为disabled, 永久生效。</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SELINUX</span><span class="o">=</span>disabled
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 临时生效：</span>
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span></code></pre></div><ol start="5">
+<li>修改主机名和hosts</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl set-hostname ceph001
+</span></span><span class="line"><span class="cl">hostnamectl set-hostname ceph002
+</span></span><span class="line"><span class="cl">hostnamectl set-hostname ceph003
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /etc/hosts</span>
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph001
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph002
+</span></span><span class="line"><span class="cl">192.168.5.203 ceph003
+</span></span></code></pre></div><ol start="6">
+<li>编辑别名</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;alias ceph=&#34;docker exec mon ceph&#34;&#39;</span> &gt;&gt; /etc/profile
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></div><ol start="7">
+<li>准备磁盘</li>
+</ol>
+<p>三节点各准备一块磁盘，不用分区。</p>
           
         </div>
       </div>
@@ -2886,7 +2941,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -2897,7 +2952,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

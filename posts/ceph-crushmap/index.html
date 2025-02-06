@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1423,7 +1425,7 @@
     "datePublished": "2023-01-26T19:01:44+08:00",
     "dateModified": "2023-01-26T19:01:44+08:00",
     "url" : "https://starifly.github.io/posts/ceph-crushmap/",
-    "description": "准备 1、执行ceph -s确认存储集群状态，保证为健康状态。 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum …",
+    "description": "\u003ch2 id=\u0022准备\u0022\u003e准备\u003c\/h2\u003e \u003cp\u003e1、执行ceph -s确认存储集群状态，保证为健康状态。\u003c\/p\u003e \u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 class=\u0022chroma\u0022\u003e\u003ccode class=\u0022language-bash\u0022 data-lang=\u0022bash\u0022\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e\u003cspan class=\u0022o\u0022\u003e[\u003c\/span\u003eroot@ceph001 ~\u003cspan class=\u0022o\u0022\u003e]\u003c\/span\u003e\u003cspan class=\u0022c1\u0022\u003e# ceph -s\u003c\/span\u003e \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e  cluster: \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e    id:     d00c744a-17f6-4768-95de-1243202557f2 \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e    health: HEALTH_OK \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e  services: \u003c\/span\u003e\u003c\/span\u003e\u003cspan class=\u0022line\u0022\u003e\u003cspan class=\u0022cl\u0022\u003e    mon: \u003cspan class=\u0022m\u0022\u003e3 …\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e",
     "keywords": ["ceph"],
     "author": {
       "@type": "Person",
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2171,8 +2174,7 @@
 <blockquote>
 <p>pg 选择osd的过程，首先要知道在rules中 指明从osdmap中哪个节点开始查找，入口点默认为default也就是root节点，<br />
 然后隔离域为host节点(也就是同一个host下面不能选择两个子节点)。由default到3个host的选择过程，<br />
-这里由default根据节点的bucket类型选择下一个子节点，由子节点再根据本身的类型继续选择，直到选择到host，然后在host下选择一个osd。</p>
-</blockquote>
+这里由default根据节点的bucket类型选择下一个子节点，由子节点再根据本身的类型继续选择，直到选择到host，然后在host下选择一个osd。</p></blockquote>
 <p>这里创建如下两个规则：</p>
 <p>replicated_rule_rack：用于hdd分组的osd，以rack为故障域的应用规则；<br />
 replicated_rule_rack_ssd：用于普通ssd分区为osd，以rack为故障域的应用规则；</p>
@@ -3773,7 +3775,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3784,7 +3786,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

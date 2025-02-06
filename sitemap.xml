@@ -140,6 +140,9 @@
     <loc>https://starifly.github.io/posts/k8s-ingress/</loc>
     <lastmod>2023-01-26T14:58:22+08:00</lastmod>
   </url><url>
+    <loc>https://starifly.github.io/about/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://starifly.github.io/posts/ceph-opetations/</loc>
     <lastmod>2021-10-06T21:38:48+08:00</lastmod>
   </url><url>
@@ -462,7 +465,5 @@
     <lastmod>2018-08-15T14:33:35+08:00</lastmod>
   </url><url>
     <loc>https://starifly.github.io/series/</loc>
-  </url><url>
-    <loc>https://starifly.github.io/about/</loc>
   </url>
 </urlset>

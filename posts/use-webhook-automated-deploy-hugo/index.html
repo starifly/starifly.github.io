@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
@@ -1384,7 +1386,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1472,6 +1474,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -2045,7 +2048,7 @@ http://gohugo.io/tutorials/automated-deployments/</a></p>
 <p>由于Wercker还不支持GitCafe的部署，以及我需要使用特定的修改版本的Hugo来生成静态网页，并且希望这些步骤比较可控，所以，还是自己来折腾整个过程吧。</p>
 <h3 id="webhook">webhook</h3>
 <p>webhook是GitHub上提供的Git的一种Hook机制，当代码发生变化时，比如代码被Push到GitHub的Repo时，GitHub会自动请求一个你指定的网页，并且把变更相关的参数都传递过来。入口在Repo的Settings - webhooks &amp; services</p>
-<p><img alt="webhook" src="http://7xlx3k.com1.z0.glb.clouddn.com/WebHook.png-w"></p>
+<p><img src="http://7xlx3k.com1.z0.glb.clouddn.com/WebHook.png-w" alt="webhook"></p>
 <p>说明文档：
 
 <a href="https://developer.github.com/webhooks/" target="_blank" rel="noopener">https://developer.github.com/webhooks/</a></p>
@@ -2075,7 +2078,7 @@ http://gohugo.io/tutorials/automated-deployments/</a></p>
 </code></pre><p>然后它将接受webhook地址：（把它填到GitHub里的webhook里）</p>
 <pre tabindex="0"><code>http://yourserver:9876/hooks/redeploy-webhook
 </code></pre><h3 id="自动部署">自动部署</h3>
-<p><img alt="AutoDeploy" src="http://7xlx3k.com1.z0.glb.clouddn.com/AutoDeploy.png-w"></p>
+<p><img src="http://7xlx3k.com1.z0.glb.clouddn.com/AutoDeploy.png-w" alt="AutoDeploy"></p>
 <p>大致的流程如上图。上图的DigitalOcean是一台VPS服务器，我用了很长时间了，速度和稳定性都不错。需要的同学使用这个链接购买，可以获得10美元的优惠：
 
 <a href="https://www.digitalocean.com/?refcode=e131e2bba197" target="_blank" rel="noopener">https://www.digitalocean.com/?refcode=e131e2bba197</a></p>
@@ -3671,7 +3674,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3682,7 +3685,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

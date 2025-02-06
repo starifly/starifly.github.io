@@ -31,7 +31,11 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 26 Jan 2023 15:02:40 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/k8s-ingress-2022/</guid>
-        <description>之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress 版本说明 inrress-nginx版本为1.4.0，k8s版本为1.</description>
+        <description>&lt;p&gt;之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress&lt;/p&gt;
+&lt;h2 id=&#34;版本说明&#34;&gt;版本说明&lt;/h2&gt;
+&lt;p&gt;inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
+
+&lt;a href=&#34;https://github.com/kubernetes/ingress-nginx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kubernetes/ingress-nginx&lt;/a&gt;。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress&lt;/p&gt;
 &lt;h2 id=&#34;版本说明&#34;&gt;版本说明&lt;/h2&gt;
 &lt;p&gt;inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
@@ -756,8 +760,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;port&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意根据查询k8s中的classname配置ingressClassName&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;注意根据查询k8s中的classname配置ingressClassName&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl create -f ingress-http
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样配置好后我们在系统中配置好相应的域名和端口就能正常访问应用了。&lt;/p&gt;
 </content:encoded>
@@ -791,7 +794,40 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Thu, 26 Jan 2023 14:58:22 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/k8s-ingress/</guid>
-        <description>Ingress简介 service的作用 对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod</description>
+        <description>&lt;h2 id=&#34;ingress简介&#34;&gt;Ingress简介&lt;/h2&gt;
+&lt;h3 id=&#34;service的作用&#34;&gt;service的作用&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod的服务发现机制&lt;/li&gt;
+&lt;li&gt;对集群外部，他类似负载均衡器，可以在集群内外部对pod进行访问&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;外部访问k8s集群内的服务&#34;&gt;外部访问k8s集群内的服务&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;NodePort: 测试环境使用还行，当有几十上百的服务在集群中运行时，NodePort的端口管理就是个灾难&lt;/li&gt;
+&lt;li&gt;LoadBalancer: 受限于云平台，且通常在云平台部署LoadBalancer还需要额外的费用&lt;/li&gt;
+&lt;li&gt;Ingress: 可以简单理解为service的service，它其实就是一组基于域名和URL路径，把用户的请求转发到一个或多个service的规则&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ingress组成&#34;&gt;Ingress组成&lt;/h2&gt;
+&lt;h3 id=&#34;ingress&#34;&gt;ingress&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;ingress是一个API对象，通过yaml文件来配置，ingress对象的作用是定义请求如何转发到service的规则，可以理解为配置模板&lt;/li&gt;
+&lt;li&gt;ingress通过http或https暴露集群内部service，给service提供外部URL、负载均衡、SSL/TLs能力以及基于域名的反向代理。ingress要依靠ingress-controller来具体实现以上功能&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;ingress-controller&#34;&gt;ingress-controller&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;ingress-controller是具体实现反向代理及负载均衡的程序，对ingress定义的规则进行解析，根据配置的规则来实现请求转发&lt;/li&gt;
+&lt;li&gt;ingress -controller并不是k8s自带的组件，实际上ingress-controller只是一个统称，用户可以选择不同的ingress-controller实现，目前，由k8s维护的ingress-controller只有google云的ccz与ingress-nginx两个，其他还有很多第三方维护的ingres-controller，具体可以参考官方文档。但是不管哪一种ingress-controller，实现的机制都大同小异，只是在具体配置上有差异&lt;br /&gt;
+3.一般来说，ingress-controller的形式都是一个pod,里面跑着daemon程序和反向代理程序。daemon负责不断监控集群的变化，根据ingress对象生成配置并应用新配置到反向代理，比如ingress -nginx就是动态生成nginx配置，动态更新upstream，并在需要的时候reload程序应用新配置。为了方便，后面的例子都以k8s官方维护的ingress-nginx为例&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ingress工作原理&#34;&gt;Ingress工作原理&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;ingress-controller通过和 kubernetes APIServer 交互，动态的去感知集群中ingress规则变化&lt;/li&gt;
+&lt;li&gt;然后读取它，按照自定义的规则，规则就是写明了哪个域名对应哪个service，生成一段nginx配置&lt;/li&gt;
+&lt;li&gt;再写到nginx-ingress-controller的pod里，这个ingress-controller的pod里运行着一个nginx服务，控制器会把生成的nginx配置写入/etc/nginx.conf文件中&lt;/li&gt;
+&lt;li&gt;然后reload一下使配置生效。以此达到域名区分配置和动态更新的作用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ingress暴露服务的方式&#34;&gt;ingress暴露服务的方式&lt;/h2&gt;
+&lt;h3 id=&#34;deploymentloadbalancer模式的service&#34;&gt;Deployment+LoadBalancer模式的Service&lt;/h3&gt;
+&lt;p&gt;如果要把ingress部署在公有云，那用这种方式比较合适。用Deployment部署ingress-controller，创建一个type为 LoadBalancer的 service关联这组pod。大部分公有云，都会为 LoadBalancer的 service自动创建一个负载均衡器，通常还绑定了公网地址。只要把域名解析指向该地址，就实现了集群服务的对外暴露&lt;/p&gt;</description>
         <content:encoded>&lt;h2 id=&#34;ingress简介&#34;&gt;Ingress简介&lt;/h2&gt;
 &lt;h3 id=&#34;service的作用&#34;&gt;service的作用&lt;/h3&gt;
 &lt;ol&gt;

@@ -1329,6 +1329,7 @@
     
 
 
+
 <link rel="stylesheet" href="/css/main.min.css">
 
 
@@ -1364,6 +1365,7 @@
   
 
 
+
     
 <link rel="alternate" type="application/rss&#43;xml" title="rss" href="https://starifly.github.io/posts/index.xml">
 
@@ -1383,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.143.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1464,6 +1466,7 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
 
 
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -1994,7 +1997,14 @@
       <div>
         <div class="summary-classic__text p2">
           
-            环境 源 ceph 集群（192.168.5.203:20003） 基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到
+            <h2 id="环境">环境</h2>
+<ul>
+<li>源 ceph 集群（192.168.5.203:20003）</li>
+<li>基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者</li>
+<li>S3 目标（192.168.4.13:7480）</li>
+</ul>
+<h2 id="操作步骤">操作步骤</h2>
+<p><strong>准备存储池</strong></p>
           
         </div>
       </div>
@@ -2064,7 +2074,11 @@
       <div>
         <div class="summary-classic__text p2">
           
-            之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress 版本说明 inrress-nginx版本为1.4.0，k8s版本为1.
+            <p>之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress</p>
+<h2 id="版本说明">版本说明</h2>
+<p>inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
+
+<a href="https://github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">https://github.com/kubernetes/ingress-nginx</a>。</p>
           
         </div>
       </div>
@@ -2099,7 +2113,40 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ingress简介 service的作用 对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod
+            <h2 id="ingress简介">Ingress简介</h2>
+<h3 id="service的作用">service的作用</h3>
+<ol>
+<li>对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod的服务发现机制</li>
+<li>对集群外部，他类似负载均衡器，可以在集群内外部对pod进行访问</li>
+</ol>
+<h3 id="外部访问k8s集群内的服务">外部访问k8s集群内的服务</h3>
+<ul>
+<li>NodePort: 测试环境使用还行，当有几十上百的服务在集群中运行时，NodePort的端口管理就是个灾难</li>
+<li>LoadBalancer: 受限于云平台，且通常在云平台部署LoadBalancer还需要额外的费用</li>
+<li>Ingress: 可以简单理解为service的service，它其实就是一组基于域名和URL路径，把用户的请求转发到一个或多个service的规则</li>
+</ul>
+<h2 id="ingress组成">Ingress组成</h2>
+<h3 id="ingress">ingress</h3>
+<ol>
+<li>ingress是一个API对象，通过yaml文件来配置，ingress对象的作用是定义请求如何转发到service的规则，可以理解为配置模板</li>
+<li>ingress通过http或https暴露集群内部service，给service提供外部URL、负载均衡、SSL/TLs能力以及基于域名的反向代理。ingress要依靠ingress-controller来具体实现以上功能</li>
+</ol>
+<h3 id="ingress-controller">ingress-controller</h3>
+<ol>
+<li>ingress-controller是具体实现反向代理及负载均衡的程序，对ingress定义的规则进行解析，根据配置的规则来实现请求转发</li>
+<li>ingress -controller并不是k8s自带的组件，实际上ingress-controller只是一个统称，用户可以选择不同的ingress-controller实现，目前，由k8s维护的ingress-controller只有google云的ccz与ingress-nginx两个，其他还有很多第三方维护的ingres-controller，具体可以参考官方文档。但是不管哪一种ingress-controller，实现的机制都大同小异，只是在具体配置上有差异<br />
+3.一般来说，ingress-controller的形式都是一个pod,里面跑着daemon程序和反向代理程序。daemon负责不断监控集群的变化，根据ingress对象生成配置并应用新配置到反向代理，比如ingress -nginx就是动态生成nginx配置，动态更新upstream，并在需要的时候reload程序应用新配置。为了方便，后面的例子都以k8s官方维护的ingress-nginx为例</li>
+</ol>
+<h2 id="ingress工作原理">Ingress工作原理</h2>
+<ol>
+<li>ingress-controller通过和 kubernetes APIServer 交互，动态的去感知集群中ingress规则变化</li>
+<li>然后读取它，按照自定义的规则，规则就是写明了哪个域名对应哪个service，生成一段nginx配置</li>
+<li>再写到nginx-ingress-controller的pod里，这个ingress-controller的pod里运行着一个nginx服务，控制器会把生成的nginx配置写入/etc/nginx.conf文件中</li>
+<li>然后reload一下使配置生效。以此达到域名区分配置和动态更新的作用</li>
+</ol>
+<h2 id="ingress暴露服务的方式">ingress暴露服务的方式</h2>
+<h3 id="deploymentloadbalancer模式的service">Deployment+LoadBalancer模式的Service</h3>
+<p>如果要把ingress部署在公有云，那用这种方式比较合适。用Deployment部署ingress-controller，创建一个type为 LoadBalancer的 service关联这组pod。大部分公有云，都会为 LoadBalancer的 service自动创建一个负载均衡器，通常还绑定了公网地址。只要把域名解析指向该地址，就实现了集群服务的对外暴露</p>
           
         </div>
       </div>
@@ -2134,7 +2181,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            07 分布式存储ceph运维操作
+            <p>
+
+<a href="https://zhuanlan.zhihu.com/p/386561535" target="_blank" rel="noopener">07 分布式存储ceph运维操作</a></p>
           
         </div>
       </div>
@@ -2169,7 +2218,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            01 分布式存储Ceph理论篇
+            <p>
+
+<a href="https://zhuanlan.zhihu.com/p/386556651" target="_blank" rel="noopener">01 分布式存储Ceph理论篇</a></p>
           
         </div>
       </div>
@@ -2239,7 +2290,15 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ceph使用系列之——Ceph RGW使用 Ceph-对象存储：S3使用手册实践 中的文件夹部分 06 分布式存储ceph创建rgw接口
+            <p>
+
+<a href="https://blog.csdn.net/openinfra/article/details/106856875" target="_blank" rel="noopener">Ceph使用系列之——Ceph RGW使用</a></p>
+<p>
+
+<a href="https://blog.csdn.net/u012720518/article/details/106650382/" target="_blank" rel="noopener">Ceph-对象存储：S3使用手册实践</a> 中的文件夹部分</p>
+<p>
+
+<a href="https://zhuanlan.zhihu.com/p/386561293" target="_blank" rel="noopener">06 分布式存储ceph创建rgw接口</a></p>
           
         </div>
       </div>
@@ -2274,7 +2333,9 @@
       <div>
         <div class="summary-classic__text p2">
           
-            Ceph总结
+            <p>
+
+<a href="https://mp.weixin.qq.com/s/KfXhI73-8ZF8vCrUYui_RA" target="_blank" rel="noopener">Ceph总结</a></p>
           
         </div>
       </div>
@@ -2344,7 +2405,25 @@
       <div>
         <div class="summary-classic__text p2">
           
-            环境配置 安装依赖 yum install pcre-devel.x86_64 openssl-devel zlib-devel systemd-devel gcc gcc-c++ 内核调优 #vim /etc/sysctl.conf vm.swappiness = 0 net.ipv4.ip_forward = 1 net.ipv4.ip_nonlocal_bind = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.ip_local_port_range = 1025 65023 net.ipv4.tcp_max_syn_backlog = 10240 检查 /usr/sbin/sysctl net.ipv4.ip_nonlocal_bind /usr/sbin/sysctl net.ipv4.ip_forward cat /proc/sys/net/ipv4/ip_forward 查看是否开启了ip转发功能 如果上述文件中的
+            <h2 id="环境配置">环境配置</h2>
+<p>安装依赖</p>
+<p><code>yum install pcre-devel.x86_64 openssl-devel   zlib-devel  systemd-devel gcc gcc-c++</code></p>
+<p>内核调优</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#vim /etc/sysctl.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vm.swappiness <span class="o">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_nonlocal_bind <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_tw_reuse <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">net.ipv4.ip_local_port_range <span class="o">=</span> <span class="m">1025</span> <span class="m">65023</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">10240</span>
+</span></span></code></pre></div><p>检查</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_nonlocal_bind
+</span></span><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_forward
+</span></span><span class="line"><span class="cl">cat /proc/sys/net/ipv4/ip_forward
+</span></span></code></pre></div><blockquote>
+<p>查看是否开启了ip转发功能<br />
+如果上述文件中的值为0,说明禁止进行IP转发；如果是1,则说明IP转发功能已经打开。</p>
           
         </div>
       </div>
@@ -2379,7 +2458,90 @@
       <div>
         <div class="summary-classic__text p2">
           
-            查看ceph的实时运行状态 ceph -w 查看ceph存储空间 ceph df/ceph df detail 查看集群的详细配置 ceph daemon mon.ceph001 config show | more or ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show 查看集群版本信息 ceph versions 查看集群认证信息 ceph
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">查看ceph的实时运行状态
+</span></span><span class="line"><span class="cl">ceph -w
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看ceph存储空间
+</span></span><span class="line"><span class="cl">ceph df/ceph df detail
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群的详细配置
+</span></span><span class="line"><span class="cl">ceph daemon mon.ceph001 config show <span class="p">|</span> more
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl">ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群版本信息
+</span></span><span class="line"><span class="cl">ceph versions
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看集群认证信息
+</span></span><span class="line"><span class="cl">ceph auth list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看gc时间
+</span></span><span class="line"><span class="cl">radosgw-admin gc list --include-all <span class="p">|</span> grep <span class="nb">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mon命令
+</span></span><span class="line"><span class="cl">ceph mon stat#查看mon的状态信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mds命令
+</span></span><span class="line"><span class="cl">ceph mds stat <span class="c1">#查看msd状态</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">osd命令
+</span></span><span class="line"><span class="cl">ceph osd stat <span class="c1">#查看osd状态</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd df <span class="c1">#查看osd磁盘</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd dump <span class="c1">#osd的映射信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd perf <span class="c1">#查看osd性能和延迟</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ceph osd tree#查看osd目录树
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">rgw命令
+</span></span><span class="line"><span class="cl">radosgw-admin bucket list <span class="c1">#查看所有桶</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket list --bucket<span class="o">=</span>asdas <span class="c1">#查看桶内对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>asdas <span class="c1">#查看桶信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 <span class="c1">#删除一个桶</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 --purge-objects <span class="c1">#默认只能删空的bucket，强制删除非空的bucket需要加上“--purge-objects ”选项</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket check --bucket<span class="o">=</span>s3test1 <span class="c1">#查看桶的索引信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin object rm --object<span class="o">=</span>1.jpg --bucket<span class="o">=</span>s3test3 <span class="c1">#删除桶中的对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin object unlink --bucket<span class="o">=</span>s3test3 —object<span class="o">=</span>1.jpg <span class="c1">#从桶索引里去除对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket limit check <span class="o">[</span>--uid test<span class="o">]</span> <span class="c1">#查看Sharding Stat</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>bucketname<span class="p">|</span>grep -w <span class="s1">&#39;num_objects&#39;</span> <span class="c1">#查询桶的对象个数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">创建realm：
+</span></span><span class="line"><span class="cl">realm里所有的元數據名稱都是全局唯一的，無法創建同名的用戶（uid）和bucket， container；
+</span></span><span class="line"><span class="cl">radosgw-admin realm create --rgw-realm<span class="o">=</span>Giant --default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看存在的realm：
+</span></span><span class="line"><span class="cl">radosgw-admin realm list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看bucket 的信息
+</span></span><span class="line"><span class="cl">radosgw-admin metadata get bucket:bucketname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">获取bucket id 并根据 bucket id 从bucket.instace中获取真实shards，可以看到num_shards的值
+</span></span><span class="line"><span class="cl">radosgw-admin  metadata get bucket.instance:api_image_test:4fb0079d-88d8-404e-9e3f-1375ba40a870.324279.2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看index 下保留的shard数量（包含历史的分片）
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看bucket : bucketname 当前的shard分片,首先找到 当前bucket id
+</span></span><span class="line"><span class="cl">找到bucket id后查询具体的shard编号，如下
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">统计当前使用的shard数
+</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span> <span class="p">|</span> wc -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">查看当前shard 存在的index数据
+</span></span><span class="line"><span class="cl">rados -p default.rgw.buckets.index listomapkeys .dir.555c6dcf-7320-4b34-8922-5e005dedc130.164465.1.769
+</span></span></code></pre></div>
           
         </div>
       </div>
@@ -3354,7 +3516,7 @@ jQuery(document).ready(function($) {
                     
 
                     
-                        ©2024, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
+                        ©2025, All Rights Reserved<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">自由转载-非商用-非衍生-保持署名</a>
                     
                 
             </p>
@@ -3365,7 +3527,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.124.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

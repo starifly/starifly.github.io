@@ -31,7 +31,10 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Wed, 06 Oct 2021 19:35:17 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</guid>
-        <description>概念： 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.con</description>
+        <description>&lt;p&gt;概念：   &lt;br /&gt;
+1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
+2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
+3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;</description>
         <content:encoded>&lt;p&gt;概念：   &lt;br /&gt;
 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
 2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
