@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Ubuntu 使用笔记</title>
         <link>https://starifly.github.io/posts/use-ubuntu-notes/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/use-ubuntu-notes/</guid>
         <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
 &lt;h2 id=&#34;使用-git-pull-遇到问题&#34;&gt;使用 git pull 遇到问题&lt;/h2&gt;
 &lt;p&gt;提示&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Agent admitted failure to sign using the key.
@@ -166,7 +163,7 @@ sudo ./VBoxLinuxAdditions.run
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-r--r--  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin  &lt;span class=&#34;m&#34;&gt;399&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa.pub
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;]]></content:encoded>
         <dc:creator>码志</dc:creator>
         
         
@@ -183,14 +180,14 @@ sudo ./VBoxLinuxAdditions.run
           
         
         
+          
             
-              <category>[linux]</category>
+              <category>linux</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

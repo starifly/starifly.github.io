@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>一分钟告诉你究竟DevOps是什么鬼？</title>
         <link>https://starifly.github.io/posts/what-the-hell-is-devops/</link>
@@ -31,11 +28,11 @@
         <author>efim@163.com (飞鸟)</author>
         <atom:modified>Sun, 17 Mar 2019 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/what-the-hell-is-devops/</guid>
-        <description>&lt;h1 id=&#34;一分钟告诉你究竟devops是什么鬼httpswwwcnblogscomjetzhangp6068773html&#34;&gt;
+        <description>&lt;h1 id=&#34;一分钟告诉你究竟devops是什么鬼&#34;&gt;
 
 &lt;a href=&#34;https://www.cnblogs.com/jetzhang/p/6068773.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一分钟告诉你究竟DevOps是什么鬼？&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&#34;http://www.uml.org.cn/SoftWareProcess/images/2015122311.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;h1 id=&#34;一分钟告诉你究竟devops是什么鬼httpswwwcnblogscomjetzhangp6068773html&#34;&gt;
+        <content:encoded>&lt;![CDATA[&lt;h1 id=&#34;一分钟告诉你究竟devops是什么鬼&#34;&gt;
 
 &lt;a href=&#34;https://www.cnblogs.com/jetzhang/p/6068773.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一分钟告诉你究竟DevOps是什么鬼？&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&#34;http://www.uml.org.cn/SoftWareProcess/images/2015122311.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
@@ -144,7 +141,7 @@
 &lt;/ul&gt;
 &lt;p&gt;
 
-&lt;a href=&#34;https://www.cnblogs.com/jetzhang/p/6068773.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;</content:encoded>
+&lt;a href=&#34;https://www.cnblogs.com/jetzhang/p/6068773.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;]]></content:encoded>
         <dc:creator>瓏曦</dc:creator>
         
         
@@ -157,14 +154,14 @@
           
         
         
+          
             
-              <category>[DevOps]</category>
+              <category>DevOps</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

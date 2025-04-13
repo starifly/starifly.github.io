@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>ceph s3 java开发相关</title>
         <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
@@ -59,7 +56,7 @@
 &lt;p&gt;另外可以使用 
 
 &lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
 &lt;p&gt;AWS s3 java api使用 - 
 
 &lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
@@ -87,7 +84,7 @@
 &lt;p&gt;另外可以使用 
 
 &lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -112,14 +109,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

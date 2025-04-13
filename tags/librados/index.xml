@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>ceph librados库c&#43;&#43;使用</title>
         <link>https://starifly.github.io/posts/ceph-librados-c&#43;&#43;-use/</link>
@@ -223,7 +220,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;g++ -g cephclient.o -lrados -o cephclient
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;运行&#34;&gt;运行&lt;/h2&gt;
 &lt;p&gt;注意运行前要先创建“testpool”存储池&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# centos&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;yum install librados2-devel
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;源程序&#34;&gt;源程序&lt;/h2&gt;
@@ -437,7 +434,7 @@
 
 &lt;a href=&#34;https://www.jianshu.com/p/31e83854be28&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;librados/c++/N版&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -454,14 +451,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

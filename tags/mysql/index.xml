@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>keepalived&#43;mysql双主集群单主可写</title>
         <link>https://starifly.github.io/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/</link>
@@ -1336,7 +1333,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/sbin/arping -I &lt;span class=&#34;nv&#34;&gt;$NIC&lt;/span&gt; -c &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -s &lt;span class=&#34;nv&#34;&gt;$VIP&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GATEWAY&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;注意：如果两台mysql数据库先于keepalived启动，当keepalived启动后，第一次需要手动去除VIP所在节点数据库的只读属性。&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;keepalived高可用介绍及改造方案&#34;&gt;keepalived高可用介绍及改造方案&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;keepalived高可用介绍及改造方案&#34;&gt;keepalived高可用介绍及改造方案&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_03.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
@@ -2641,7 +2638,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/sbin/arping -I &lt;span class=&#34;nv&#34;&gt;$NIC&lt;/span&gt; -c &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -s &lt;span class=&#34;nv&#34;&gt;$VIP&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GATEWAY&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;注意：如果两台mysql数据库先于keepalived启动，当keepalived启动后，第一次需要手动去除VIP所在节点数据库的只读属性。&lt;/p&gt;&lt;/blockquote&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -2658,13 +2655,19 @@
           
         
         
+          
             
-              <category>[mysql keepalived]</category>
+              <category>mysql</category>
             
+          
+            
+              <category>keepalived</category>
+            
+          
         
         
       </item>
-      
+    
       <item>
         <title>Mysql Galera Cluster</title>
         <link>https://starifly.github.io/posts/mysql-galera-cluster/</link>
@@ -2683,7 +2686,7 @@
 &lt;li&gt;用户可以直接连接集群，使用感受上与MySQL完全一致&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Galera Cluster主要功能&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;同步复制&lt;/li&gt;
@@ -2941,7 +2944,7 @@
 
 &lt;a href=&#34;https://blog.gmem.cc/galera-study-note&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;绿色记忆:Galera学习笔记&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -2954,13 +2957,15 @@
           
         
         
+          
             
-              <category>[mysql]</category>
+              <category>mysql</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>mysql授予账户权限问题</title>
         <link>https://starifly.github.io/posts/mysql-account-permission-grant-problem/</link>
@@ -2979,7 +2984,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;flush&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;privileges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Query&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;rows&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;affected&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;00&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后退出登录，重启mysql服务，之后就能正常授权了。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;mysql通过root账号登录，新建账户并授予权限会报错：&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;mysql通过root账号登录，新建账户并授予权限会报错：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GRANT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;select_user&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;%&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ERROR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1045&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;28000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Access&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;denied&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;root&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;%&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解决方案：&lt;/p&gt;
@@ -2996,7 +3001,7 @@
 
 &lt;a href=&#34;https://www.cnblogs.com/Dog1363786601/p/17226101.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL错误：Access denied for user &#39;root&#39;@&#39;%&#39; to database &#39;xxx&#39; - 我想养只狗 - 博客园&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -3009,14 +3014,14 @@
           
         
         
+          
             
-              <category>[mysql]</category>
+              <category>mysql</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

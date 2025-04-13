@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>k8s中部署loki</title>
         <link>https://starifly.github.io/posts/loki/</link>
@@ -39,7 +36,7 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;安装-loki&#34;&gt;安装 Loki&lt;/h2&gt;
 &lt;p&gt;1）创建 RBAC 授权&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;loki-架构&#34;&gt;Loki 架构&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;loki-架构&#34;&gt;Loki 架构&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Loki：主服务，用于存储日志和处理查询。&lt;/li&gt;
 &lt;li&gt;Promtail：代理服务，用于采集日志，并转发给 Loki。&lt;/li&gt;
@@ -720,7 +717,7 @@
 
 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/532984838&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;K8S搭建日志和监控平台&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -737,14 +734,18 @@
           
         
         
+          
             
-              <category>[k8s loki]</category>
+              <category>k8s</category>
             
+          
+            
+              <category>loki</category>
+            
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

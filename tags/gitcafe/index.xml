@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages</title>
         <link>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Sat, 18 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</guid>
         <description>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;
 &lt;p&gt;首先，必须解释一下，为什么需要自动部署，以及为什么需要需要同时部署到GitHub Pages和GitCafe Pages。&lt;/p&gt;
 &lt;h3 id=&#34;为什么要自动部署&#34;&gt;为什么要自动部署&lt;/h3&gt;
 &lt;p&gt;使用Hugo生成的静态页面是在public文件夹里，部署的时候需要把public文件夹里的内容push到GitHub的gh-pages分支里。每次写完文章，除了push markdown格式的文章，还需要单独push生成的public文件夹里的东西，步骤稍显麻烦。&lt;/p&gt;
@@ -129,7 +126,7 @@ gvm install go1.4
 gvm install go1.5.1
 gvm use go1.5.1 --default
 go version
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，Good Luck！&lt;/p&gt;</content:encoded>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，Good Luck！&lt;/p&gt;]]></content:encoded>
         <dc:creator>coderzh</dc:creator>
         
         
@@ -154,14 +151,14 @@ go version
           
         
         
+          
             
-              <category>[CI]</category>
+              <category>CI</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

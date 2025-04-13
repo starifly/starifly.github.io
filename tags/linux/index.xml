@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>U盘安装RedHat</title>
         <link>https://starifly.github.io/posts/install-redhat-via-usb-disk/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Sat, 04 Nov 2023 10:17:22 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/install-redhat-via-usb-disk/</guid>
         <description>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;刚开始网上查教程，大部分都说使用UltraISO刻录U盘启动盘，但是坑爹的是通过这种方式刻录的启动盘在安装过程中会找不到安装介质，所以不能使用这种方式。&lt;/p&gt;
 &lt;p&gt;后面查询其它的教程，得知可以使用Rufus制作，先格式化U盘，卷标名称位数不要超过11位，具体的刻录过程这里就不说明了。&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
@@ -49,7 +46,7 @@
 
 &lt;a href=&#34;https://zangchuantao.com/tech-zh/2021/rhel-8-install-ssh-firewalld-config/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RHEL 8 使用总结/避坑指南（一） 安装及配置SSH和防火墙 - Chuantao&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -66,13 +63,19 @@
           
         
         
+          
             
-              <category>[linux redhat]</category>
+              <category>linux</category>
             
+          
+            
+              <category>redhat</category>
+            
+          
         
         
       </item>
-      
+    
       <item>
         <title>Linux中病毒后的处理过程</title>
         <link>https://starifly.github.io/posts/draft/virus-process-in-linux-system/</link>
@@ -83,7 +86,7 @@
         <description>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;删除定时任务及文件以及开机启动文件&lt;/strong&gt;&lt;/p&gt;
@@ -107,7 +110,7 @@
 
 &lt;a href=&#34;https://mp.weixin.qq.com/s/eOQy1_rJdwdYcBZB0Mf-yg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;11个步骤完美排查Linux机器是否已经被入侵&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -124,13 +127,15 @@
           
         
         
+          
             
-              <category>[linux]</category>
+              <category>linux</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Linux 中 profile，bashrc，bash_profile等的区别</title>
         <link>https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/</link>
@@ -148,7 +153,7 @@
 &lt;p&gt;&lt;code&gt;~/.bashrc&lt;/code&gt;: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 &lt;code&gt;.bashrc&lt;/code&gt; 文件，在用户目录下）&lt;br /&gt;
 此文件类似于 &lt;code&gt;/etc/bashrc&lt;/code&gt;，不需要重启就可以生效，重新打开一个 bash 即可生效，&lt;code&gt;/etc/bashrc&lt;/code&gt; 对所有用户新打开的 bash 都生效，但 &lt;code&gt;~/.bashrc&lt;/code&gt; 只对当前用户新打开的 bash 生效。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;~/.bash_logout&lt;/code&gt;: 当每次退出系统(退出 bash shell)时，执行该文件。&lt;/p&gt;</description>
-        <content:encoded>&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。
+        <content:encoded>&lt;![CDATA[&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt;: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 &lt;code&gt;/etc/profile.d&lt;/code&gt; 目录的配置文件中收集 shell 的设置。如果你有对 &lt;code&gt;/etc/profile&lt;/code&gt; 有修改的话必须得 source 一下 你的修改才会生效，此修改对&lt;em&gt;每个用户&lt;/em&gt;都生效。&lt;/p&gt;
@@ -169,7 +174,7 @@
 
 &lt;a href=&#34;https://blog.csdn.net/ithomer/article/details/6322892&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux 之 /etc/profile、~/.bash_profile 等几个文件的执行过程&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr /&gt;</content:encoded>
+&lt;hr /&gt;]]></content:encoded>
         <dc:creator>茶歇驿站</dc:creator>
         
         
@@ -190,13 +195,15 @@
           
         
         
+          
             
-              <category>[linux]</category>
+              <category>linux</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Ubuntu 使用笔记</title>
         <link>https://starifly.github.io/posts/use-ubuntu-notes/</link>
@@ -205,7 +212,7 @@
         <atom:modified>Sun, 19 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/use-ubuntu-notes/</guid>
         <description>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;使用 Ubuntu 过程中遇到的问题及解决方案。&lt;/p&gt;
 &lt;h2 id=&#34;使用-git-pull-遇到问题&#34;&gt;使用 git pull 遇到问题&lt;/h2&gt;
 &lt;p&gt;提示&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Agent admitted failure to sign using the key.
@@ -339,7 +346,7 @@ sudo ./VBoxLinuxAdditions.run
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-rw-r--r--  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mzlogin mzlogin  &lt;span class=&#34;m&#34;&gt;399&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; 05:17 id_rsa.pub
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;]]></content:encoded>
         <dc:creator>码志</dc:creator>
         
         
@@ -356,14 +363,14 @@ sudo ./VBoxLinuxAdditions.run
           
         
         
+          
             
-              <category>[linux]</category>
+              <category>linux</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

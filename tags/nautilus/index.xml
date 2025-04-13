@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Docker安装ceph nautilus</title>
         <link>https://starifly.github.io/posts/docker-install-ceph-nautilus/</link>
@@ -84,7 +81,7 @@
 &lt;li&gt;准备磁盘&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;三节点各准备一块磁盘，不用分区。&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;操作系统基础配置&#34;&gt;操作系统基础配置&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;操作系统基础配置&#34;&gt;操作系统基础配置&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;三节点创建文件夹：&lt;/li&gt;
 &lt;/ol&gt;
@@ -288,7 +285,7 @@
 
 &lt;a href=&#34;https://github.com/ceph/ceph-container/issues/1406&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Update Documentation: OSD_TYPE=disk does not work in nautilus #1406&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -309,14 +306,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

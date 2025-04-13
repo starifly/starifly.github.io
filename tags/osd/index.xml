@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>ceph常见OSD故障处理</title>
         <link>https://starifly.github.io/posts/ceph-osd-troubleshooting/</link>
@@ -38,14 +35,14 @@
 
 &lt;a href=&#34;https://blog.csdn.net/weixin_44389885/article/details/101478569&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;常见 OSD 故障处理&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
-        <content:encoded>&lt;p&gt;常见 OSD 故障处理&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;常见 OSD 故障处理&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 
 &lt;a href=&#34;https://blog.csdn.net/weixin_44389885/article/details/101478569&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;常见 OSD 故障处理&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -62,13 +59,15 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>删除osd的正确方式</title>
         <link>https://starifly.github.io/posts/ceph-del-osd-node/</link>
@@ -83,14 +82,14 @@
 
 &lt;a href=&#34;https://www.cnblogs.com/schangech/p/8036191.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;删除Ceph OSD节点&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
-        <content:encoded>&lt;p&gt;删除Ceph OSD节点&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;删除Ceph OSD节点&lt;/p&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 
 &lt;a href=&#34;https://www.cnblogs.com/schangech/p/8036191.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;删除Ceph OSD节点&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -107,14 +106,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

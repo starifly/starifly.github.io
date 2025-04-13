@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>使用CMake编译跨平台静态库</title>
         <link>https://starifly.github.io/posts/how-to-use-cmake-to-compile-static-library/</link>
@@ -36,7 +33,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;make&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;make&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;install&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;相信手动在类Unix系统上面编译过开源程序的同学对上面的命令肯定非常熟悉。但是，如果不配置编译器和一些编译、链接参数，这样的操作，最后编译出来的静态库只能在本系统上面被链接使用。比如你在mac上面运行上面的命令，编译出来的静态库就只能给mac程序链接使用。如果在Linux上面运行上述命令，则也只能给Linux上面的程序所链接使用。如果我们想要在Mac上面编译出ios和android的静态库，就必须要用到交叉编译。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;在开始介绍如何使用CMake编译跨平台的静态库之前，先讲讲我在没有使用CMake之前所趟过的坑。因为很多开源的程序，比如png，都是自带编译脚本的。我们可以使用下列脚本来进行编译：&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;在开始介绍如何使用CMake编译跨平台的静态库之前，先讲讲我在没有使用CMake之前所趟过的坑。因为很多开源的程序，比如png，都是自带编译脚本的。我们可以使用下列脚本来进行编译：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;configure&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xxx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xx&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;YES&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;make&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;make&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;install&lt;/span&gt;
@@ -155,7 +152,7 @@
 &lt;/ul&gt;
 &lt;p&gt;
 
-&lt;a href=&#34;https://zilongshanren.com/blog/2014-08-31-how-to-use-cmake-to-compile-static-library.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;</content:encoded>
+&lt;a href=&#34;https://zilongshanren.com/blog/2014-08-31-how-to-use-cmake-to-compile-static-library.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;]]></content:encoded>
         <dc:creator>0owen</dc:creator>
         
         
@@ -168,13 +165,15 @@
           
         
         
+          
             
-              <category>[cmake]</category>
+              <category>cmake</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>使用 CMake 不用路径地调用 libclang</title>
         <link>https://starifly.github.io/posts/cmake-clang/</link>
@@ -183,7 +182,7 @@
         <atom:modified>Thu, 16 Aug 2018 10:36:02 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/cmake-clang/</guid>
         <description>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;
 &lt;p&gt;如果有 gradle, pip, gem, maven, sbt 这类基于包的构建工具的话，这根本就不是问题。别人写的依赖可以在远端调用，自己写的依赖也可以本地调用。&lt;br /&gt;
 如果有 npm, go get 这类基于版本控制的构建工具的话，这当作也只有一个小问题，就是项目维护者脑抽了一下，可能就会误伤在此期间构建程序的程序员。&lt;/p&gt;
 &lt;p&gt;不过至少他们都能自主寻找包并下载安装，只要包是正确的就能成功安装，安装的配置是由包的开发者提供的。&lt;/p&gt;
@@ -364,7 +363,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;目前我还没找到如何正确编译和链接程序的方法，这个代码会导致 unresolved reference:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmake&#34; data-lang=&#34;cmake&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;target_link_libraries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;clang_test&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LIBCLANG_LIBRARIES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;网上也找不到解决方案，只能自己脑补程序运行的样子。&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>ice1000</dc:creator>
         
         
@@ -381,14 +380,14 @@
           
         
         
+          
             
-              <category>[cmake]</category>
+              <category>cmake</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

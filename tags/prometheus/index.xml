@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>使用grafana&#43;prometheus监控ceph集群并实现钉钉报警</title>
         <link>https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Wed, 06 Oct 2021 19:20:04 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/</guid>
         <description>&lt;p&gt;在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了Prometheus插件，内置了 Prometheus ceph exporter，可以使用Ceph mgr内置的exporter作为Prometheus的target。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了Prometheus插件，内置了 Prometheus ceph exporter，可以使用Ceph mgr内置的exporter作为Prometheus的target。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了Prometheus插件，内置了 Prometheus ceph exporter，可以使用Ceph mgr内置的exporter作为Prometheus的target。&lt;/p&gt;
 &lt;p&gt;本系统组件（都是部署在 docker 容器中）如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ceph-nautilus（14.2.20）版本&lt;/li&gt;
@@ -132,7 +129,7 @@
 
 &lt;a href=&#34;https://docs.ceph.com/en/nautilus/mgr/dashboard/#enabling-the-embedding-of-grafana-dashboards&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/nautilus/mgr/dashboard/#enabling-the-embedding-of-grafana-dashboards&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -157,14 +154,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

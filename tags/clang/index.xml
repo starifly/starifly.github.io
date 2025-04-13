@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>使用 CMake 不用路径地调用 libclang</title>
         <link>https://starifly.github.io/posts/cmake-clang/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Thu, 16 Aug 2018 10:36:02 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/cmake-clang/</guid>
         <description>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;
 &lt;p&gt;如果有 gradle, pip, gem, maven, sbt 这类基于包的构建工具的话，这根本就不是问题。别人写的依赖可以在远端调用，自己写的依赖也可以本地调用。&lt;br /&gt;
 如果有 npm, go get 这类基于版本控制的构建工具的话，这当作也只有一个小问题，就是项目维护者脑抽了一下，可能就会误伤在此期间构建程序的程序员。&lt;/p&gt;
 &lt;p&gt;不过至少他们都能自主寻找包并下载安装，只要包是正确的就能成功安装，安装的配置是由包的开发者提供的。&lt;/p&gt;
@@ -213,7 +210,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;目前我还没找到如何正确编译和链接程序的方法，这个代码会导致 unresolved reference:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmake&#34; data-lang=&#34;cmake&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;target_link_libraries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;clang_test&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LIBCLANG_LIBRARIES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;网上也找不到解决方案，只能自己脑补程序运行的样子。&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>ice1000</dc:creator>
         
         
@@ -230,14 +227,14 @@
           
         
         
+          
             
-              <category>[cmake]</category>
+              <category>cmake</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

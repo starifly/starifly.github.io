@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Ceph 硬件选型、crush规则及region</title>
         <link>https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/</link>
@@ -76,7 +73,7 @@
 
 &lt;a href=&#34;http://t.zoukankan.com/dengchj-p-9444437.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph之对象存储网关RADOS Gateway(RGW)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 
@@ -121,7 +118,7 @@
 
 &lt;a href=&#34;http://t.zoukankan.com/dengchj-p-9444437.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph之对象存储网关RADOS Gateway(RGW)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -138,14 +135,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

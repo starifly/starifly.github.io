@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>无比强大的 Alfred Workflow</title>
         <link>https://starifly.github.io/posts/alfred-workflow/</link>
@@ -34,7 +31,7 @@
         <description>&lt;p&gt;这是一篇非常有价值，里面的每一个都非常值得大家实践。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;这是一篇非常有价值，里面的每一个都非常值得大家实践。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;这是一篇非常有价值，里面的每一个都非常值得大家实践。&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：&lt;/p&gt;
 &lt;table&gt;
@@ -185,7 +182,7 @@
 &lt;a href=&#34;https://www.voidtools.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Everything-Windows上的绝对顶级搜索工具&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr /&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>茶歇驿站</dc:creator>
         
         
@@ -202,14 +199,14 @@
           
         
         
+          
             
-              <category>[tools]</category>
+              <category>tools</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

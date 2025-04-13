@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>使用Webhook和Github实现hugo的自动部署</title>
         <link>https://starifly.github.io/posts/webhook-github-autodeploy/</link>
@@ -36,7 +33,7 @@
 &lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
 &lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
 &lt;p&gt;就通知该监听程序，由该监听程序执行相应的命令。现在记录一下。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;之前
+        <content:encoded>&lt;![CDATA[&lt;p&gt;之前
 
 &lt;a href=&#34;https://itlaws.cn/post/hugo-caddy-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;《通过github和caddy实现hugo的自动部署》&lt;/a&gt;，使用的是 caddy 的 http.git 插件。最近发现，那方法不管用了，不知道原因。&lt;/p&gt;
 &lt;p&gt;所以决定使用传统的 webhook 。原理是：在 vps 运行 webhook 监听程序，github 收到 push 事件后，&lt;/p&gt;
@@ -112,7 +109,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;好了，大功告成。&lt;/p&gt;
 &lt;p&gt;
 
-&lt;a href=&#34;https://itlaws.cn/post/webhook-github-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;</content:encoded>
+&lt;a href=&#34;https://itlaws.cn/post/webhook-github-autodeplay/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;原文链接&lt;/a&gt;&lt;/p&gt;]]></content:encoded>
         <dc:creator>zhoucaiqi@gmail.com</dc:creator>
         
         
@@ -137,13 +134,15 @@
           
         
         
+          
             
-              <category>[CI]</category>
+              <category>CI</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>为 Github Pages 自定义域名博客开启 HTTPS</title>
         <link>https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/</link>
@@ -163,7 +162,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Github Pages 本身支持 HTTPS，但仅支持 &lt;code&gt;github.io&lt;/code&gt; 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。&lt;/p&gt;</description>
-        <content:encoded>&lt;pre&gt;&lt;code&gt;这是转载文章。
+        <content:encoded>&lt;![CDATA[&lt;pre&gt;&lt;code&gt;这是转载文章。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h2 id=&#34;为什么要使用-https-协议呢&#34;&gt;为什么要使用 HTTPS 协议呢？&lt;/h2&gt;
@@ -182,7 +181,7 @@
 &lt;p&gt;在 Github Pages 仓库的根目录下新建一个 CNAME 文件，文件内容就是我们要绑定的域名，这一步可以直接在设置面板里配置，保存好之后回到仓库主页就能看到刚才添加的 CNAME 文件&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_1.png&#34; alt=&#34;&#34;&gt;&lt;br /&gt;
 &lt;img src=&#34;https://zhouhao.me/img/https_20170721_2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;步骤二注册-cloudflarehttpswwwcloudflarecom-账号添加我们的域名&#34;&gt;步骤二：注册 
+&lt;h2 id=&#34;步骤二注册-cloudflare-账号添加我们的域名&#34;&gt;步骤二：注册 
 
 &lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CloudFlare&lt;/a&gt; 账号，添加我们的域名&lt;/h2&gt;
 &lt;p&gt;注册成功后在返回的页面中添加域名，点击扫描 DNS 记录，等待大约一分钟之后继续下一步。&lt;/p&gt;
@@ -210,7 +209,7 @@
 
 &lt;a href=&#34;https://zhouhao.me/2017/07/21/using-https-with-custom-domain-name-on-github-pages/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://zhouhao.me/2017/07/21/using-https-with-custom-domain-name-on-github-pages/&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr /&gt;</content:encoded>
+&lt;hr /&gt;]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -231,13 +230,19 @@
           
         
         
+          
             
-              <category>[github blog]</category>
+              <category>github</category>
             
+          
+            
+              <category>blog</category>
+            
+          
         
         
       </item>
-      
+    
       <item>
         <title>通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages</title>
         <link>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</link>
@@ -246,7 +251,7 @@
         <atom:modified>Sat, 18 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/</guid>
         <description>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;本文的主要内容如标题所示，通过webhook将Hugo自动部署至GitHub Pages和GitCafe Pages。如果你正好有这个需求，看这篇文章正好，可以节省你不少时间。如果不是，了解一下也无妨。&lt;/p&gt;
 &lt;p&gt;首先，必须解释一下，为什么需要自动部署，以及为什么需要需要同时部署到GitHub Pages和GitCafe Pages。&lt;/p&gt;
 &lt;h3 id=&#34;为什么要自动部署&#34;&gt;为什么要自动部署&lt;/h3&gt;
 &lt;p&gt;使用Hugo生成的静态页面是在public文件夹里，部署的时候需要把public文件夹里的内容push到GitHub的gh-pages分支里。每次写完文章，除了push markdown格式的文章，还需要单独push生成的public文件夹里的东西，步骤稍显麻烦。&lt;/p&gt;
@@ -343,7 +348,7 @@ gvm install go1.4
 gvm install go1.5.1
 gvm use go1.5.1 --default
 go version
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，Good Luck！&lt;/p&gt;</content:encoded>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，Good Luck！&lt;/p&gt;]]></content:encoded>
         <dc:creator>coderzh</dc:creator>
         
         
@@ -368,14 +373,14 @@ go version
           
         
         
+          
             
-              <category>[CI]</category>
+              <category>CI</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

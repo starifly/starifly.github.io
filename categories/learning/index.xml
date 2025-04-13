@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Learning Something</title>
         <link>https://starifly.github.io/posts/learning-something/</link>
@@ -68,7 +65,7 @@
 &lt;a href=&#34;https://www.jianshu.com/p/6a449b5f1e43&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;你该如何打破自己停滞不前的状态？&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;</description>
-        <content:encoded>&lt;ol&gt;
+        <content:encoded>&lt;![CDATA[&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;
 
@@ -105,7 +102,7 @@
 &lt;a href=&#34;https://www.jianshu.com/p/6a449b5f1e43&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;你该如何打破自己停滞不前的状态？&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -118,14 +115,14 @@
           
         
         
+          
             
-              <category>[learning]</category>
+              <category>learning</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

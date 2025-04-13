@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Docker安装ceph luminous</title>
         <link>https://starifly.github.io/posts/docker-install-ceph-luminous/</link>
@@ -79,7 +76,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; /etc/profile
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;启动mon&#34;&gt;启动mon&lt;/h2&gt;
 &lt;p&gt;主节点启动mon：&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;本文基于centos7以docker方式安装ceph 12.2.13版本&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;本文基于centos7以docker方式安装ceph 12.2.13版本&lt;/p&gt;
 &lt;h2 id=&#34;操作系统基础配置&#34;&gt;操作系统基础配置&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;三节点创建文件夹：&lt;/li&gt;
@@ -281,7 +278,7 @@
 
 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/163537273&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph架构简介及使用&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -302,14 +299,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

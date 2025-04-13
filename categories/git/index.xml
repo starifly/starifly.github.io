@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Git分支管理</title>
         <link>https://starifly.github.io/posts/git-branch/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Sun, 02 Sep 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/git-branch/</guid>
         <description>&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;git的分支管理十分强大，本文主要涉及git中分支的查看和最基本的分支管理操作，主要包括分支的创建、切换、合并、衍合以及分支的推送和拉取等。同时还介绍了如何删除本地分支以及远程分支。&lt;/p&gt;
 &lt;p&gt;阅读前面的博文有助于理解本文：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;《
@@ -174,7 +171,7 @@
 
 &lt;a href=&#34;https://www.yiibai.com/git/git_pull.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.yiibai.com/git/git_pull.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -187,13 +184,15 @@
           
         
         
+          
             
-              <category>[git]</category>
+              <category>git</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Git的撤销更改</title>
         <link>https://starifly.github.io/posts/git-reset/</link>
@@ -211,7 +210,7 @@
 &lt;li&gt;提交到本地仓库的代码想撤销&lt;/li&gt;
 &lt;li&gt;推送到远程仓库的代码想撤销&lt;/li&gt;
 &lt;/ul&gt;</description>
-        <content:encoded>&lt;p&gt;前文《
+        <content:encoded>&lt;![CDATA[&lt;p&gt;前文《
 
 &lt;a href=&#34;https://starifly.github.io/post/git-base/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git基本操作&lt;/a&gt;》介绍了Git的基本概念和一些基本操作。&lt;/p&gt;
 &lt;p&gt;本文将介绍Git四个阶段的撤销更改：&lt;/p&gt;
@@ -302,7 +301,7 @@
 &lt;li&gt;
 
 &lt;a href=&#34;https://segmentfault.com/a/1190000011910766&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Git中的各种后悔药&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded>
+&lt;/ul&gt;]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -315,13 +314,15 @@
           
         
         
+          
             
-              <category>[git]</category>
+              <category>git</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Git基本操作</title>
         <link>https://starifly.github.io/posts/git-base/</link>
@@ -330,7 +331,7 @@
         <atom:modified>Sat, 08 Sep 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/git-base/</guid>
         <description>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-base.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
 &lt;h3 id=&#34;4个区&#34;&gt;4个区&lt;/h3&gt;
 &lt;p&gt;如上图所示，git有4个区，和svn有很大的不同，git中引入了暂存区/缓存区(Stage/Index)的概念&lt;/p&gt;
@@ -459,7 +460,7 @@
 &lt;li&gt;
 
 &lt;a href=&#34;https://www.jianshu.com/p/471c9537f45a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;你可能不知道的关于 Git stash 的技巧&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded>
+&lt;/ul&gt;]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -472,13 +473,15 @@
           
         
         
+          
             
-              <category>[git]</category>
+              <category>git</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>git add -A 和 git add . 的区别</title>
         <link>https://starifly.github.io/posts/git-add-difference/</link>
@@ -487,7 +490,7 @@
         <atom:modified>Thu, 23 Aug 2018 20:18:10 +0800</atom:modified>
         <guid>https://starifly.github.io/posts/git-add-difference/</guid>
         <description>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;git add -A、git add .和git add -u在功能上看似相近，但是有细微的差别，而且功能会随着git版本的不同而不同。&lt;/p&gt;
 &lt;h2 id=&#34;区别&#34;&gt;区别&lt;/h2&gt;
 &lt;p&gt;Git Version 1.x:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/git-add-difference-01.jpg&#34; alt=&#34;&#34; title=&#34;Git Version 1.x&#34;&gt;&lt;/p&gt;
@@ -499,7 +502,7 @@
 &lt;li&gt;git add .在git版本是2.x的时候等同于git add -A，而当版本是1.x的时候&lt;strong&gt;不包括被删除的文件&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;git add -u仅监控已经被add的文件（即tracked file），&lt;strong&gt;不会提交新文件（untracked file）&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;希望本文对你有所帮助。&lt;/p&gt;</content:encoded>
+&lt;p&gt;希望本文对你有所帮助。&lt;/p&gt;]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -512,13 +515,15 @@
           
         
         
+          
             
-              <category>[git]</category>
+              <category>git</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Git 和 GitHub简易入门</title>
         <link>https://starifly.github.io/posts/git-intro/</link>
@@ -532,7 +537,7 @@
 &lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt; 和版本控制系统&amp;ndash;
 
 &lt;a href=&#34;http://git-scm.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;git&lt;/a&gt;。&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;
 &lt;p&gt;拖延症与强迫症严重一直拖到了今天2月23号才开始写。这一段时间我也明白了博客最重要的是&lt;code&gt;keep blogging&lt;/code&gt;,所以 想到什么就写什么，没有什么东西一次就能写的完美。这次我准备简单介绍一下当前非常火的代码托管与社会协作开发平台&amp;ndash;
 
 &lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt; 和版本控制系统&amp;ndash;
@@ -653,7 +658,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里就简单写一个例子，更多的请见上面提到的教程。&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;看一遍，再操作一遍应该就能掌握基本的使用。然后教程刷一遍，就算是入门了。下篇小赵将总结git常用的操作。&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>Bruce Zhao</dc:creator>
         
         
@@ -666,14 +671,14 @@
           
         
         
+          
             
-              <category>[git]</category>
+              <category>git</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

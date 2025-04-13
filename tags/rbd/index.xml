@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Ceph rbd简单使用</title>
         <link>https://starifly.github.io/posts/ceph-rbd/</link>
@@ -56,7 +53,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;enabled application &lt;span class=&#34;s1&#34;&gt;&amp;#39;rbd&amp;#39;&lt;/span&gt; on pool &lt;span class=&#34;s1&#34;&gt;&amp;#39;rbd&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;客户端操作&#34;&gt;客户端操作&lt;/h3&gt;
 &lt;p&gt;安装 ceph-common&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;创建-rbd&#34;&gt;创建 RBD&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;创建-rbd&#34;&gt;创建 RBD&lt;/h2&gt;
 &lt;h3 id=&#34;服务器端操作&#34;&gt;服务器端操作&lt;/h3&gt;
 &lt;h4 id=&#34;创建-pool&#34;&gt;创建 pool&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@ceph-node1 ~/mycluster&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#ceph osd pool create rbd 64&lt;/span&gt;
@@ -313,7 +310,7 @@
 
 &lt;a href=&#34;https://blog.csdn.net/weixin_42551719/article/details/81386909&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ceph的rbd使用和理解（全）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -330,14 +327,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

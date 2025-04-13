@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>Ceph中的PG和PGP的关系</title>
         <link>https://starifly.github.io/posts/ceph-pg-and-pgp/</link>
@@ -34,7 +31,7 @@
         <description>&lt;p&gt;&lt;strong&gt;【前言】&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？&lt;/p&gt;
 &lt;p&gt;PG (Placement Group)，pg是一个虚拟的概念，用于存放object，PGP(Placement Group for Placement purpose)，相当于是pg存放的一种osd排列组合。举个例子：假设集群有3个osd，即osd1，osd2，osd3，副本数为2，如果pgp=1，那么pg存放的osd的组合就有一种，可能是[osd1，osd2]，那么所有的pg主从副本都会存放到osd1和osd2上；如果pgp=2，那么其osd组合可能就两种，可能是[osd1,osd2]和[osd1,osd3]，pg的主从副本会落在[osd1,osd2]或者[osd1,osd3]中，和我们数学中的排列组合很像，所以pg是存放对象的归属组是一种虚拟概念，pgp就是pg对应的osd排列组合。一般情况下，存储池的pg和pgp的数量设置相等。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;&lt;strong&gt;【前言】&lt;/strong&gt;&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;&lt;strong&gt;【前言】&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;ceph创建存储池需要pg数和pgp数的两个参数，在前面我们介绍了ceph的pg，那么pgp和pg有什么关系呢？&lt;/p&gt;
 &lt;p&gt;PG (Placement Group)，pg是一个虚拟的概念，用于存放object，PGP(Placement Group for Placement purpose)，相当于是pg存放的一种osd排列组合。举个例子：假设集群有3个osd，即osd1，osd2，osd3，副本数为2，如果pgp=1，那么pg存放的osd的组合就有一种，可能是[osd1，osd2]，那么所有的pg主从副本都会存放到osd1和osd2上；如果pgp=2，那么其osd组合可能就两种，可能是[osd1,osd2]和[osd1,osd3]，pg的主从副本会落在[osd1,osd2]或者[osd1,osd3]中，和我们数学中的排列组合很像，所以pg是存放对象的归属组是一种虚拟概念，pgp就是pg对应的osd排列组合。一般情况下，存储池的pg和pgp的数量设置相等。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;【实践】&lt;/strong&gt;&lt;/p&gt;
@@ -121,7 +118,7 @@
 
 &lt;a href=&#34;https://blog.csdn.net/mpu_nice/article/details/106942865&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph中的PG和PGP的关系&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -142,14 +139,14 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

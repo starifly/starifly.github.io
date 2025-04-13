@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>keepalived&#43;mysql双主集群单主可写</title>
         <link>https://starifly.github.io/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/</link>
@@ -1336,7 +1333,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/sbin/arping -I &lt;span class=&#34;nv&#34;&gt;$NIC&lt;/span&gt; -c &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -s &lt;span class=&#34;nv&#34;&gt;$VIP&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GATEWAY&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;注意：如果两台mysql数据库先于keepalived启动，当keepalived启动后，第一次需要手动去除VIP所在节点数据库的只读属性。&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;keepalived高可用介绍及改造方案&#34;&gt;keepalived高可用介绍及改造方案&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;keepalived高可用介绍及改造方案&#34;&gt;keepalived高可用介绍及改造方案&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/keealived_03.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
@@ -2641,7 +2638,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/sbin/arping -I &lt;span class=&#34;nv&#34;&gt;$NIC&lt;/span&gt; -c &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -s &lt;span class=&#34;nv&#34;&gt;$VIP&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GATEWAY&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;注意：如果两台mysql数据库先于keepalived启动，当keepalived启动后，第一次需要手动去除VIP所在节点数据库的只读属性。&lt;/p&gt;&lt;/blockquote&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -2658,14 +2655,18 @@
           
         
         
+          
             
-              <category>[mysql keepalived]</category>
+              <category>mysql</category>
             
+          
+            
+              <category>keepalived</category>
+            
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>为 Markdown 生成 TOC 的 Vim 插件</title>
         <link>https://starifly.github.io/posts/vim-markdown-toc/</link>
@@ -32,7 +29,7 @@
         <atom:modified>Thu, 16 Aug 2018 00:00:00 +0000</atom:modified>
         <guid>https://starifly.github.io/posts/vim-markdown-toc/</guid>
         <description>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;
 &lt;p&gt;这算是我真正意义上完全独立开发的第一款实用 Vim 插件，当然开发过程中也参考了别人的做法。&lt;/p&gt;
 &lt;h2 id=&#34;下载地址&#34;&gt;下载地址&lt;/h2&gt;
 &lt;ul&gt;
@@ -143,7 +140,7 @@
 
 &lt;a href=&#34;https://github.com/ajorgensen/vim-markdown-toc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ajorgensen/vim-markdown-toc&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>码志</dc:creator>
         
         
@@ -160,13 +157,15 @@
           
         
         
+          
             
-              <category>[vim]</category>
+              <category>vim</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>关于 Markdown 的一些奇技淫巧</title>
         <link>https://starifly.github.io/posts/markdown-odd-skills/</link>
@@ -177,7 +176,7 @@
         <description>&lt;p&gt;自从几年前开始在 GitHub 玩耍，接触到 Markdown 之后，就一发不可收拾，在各种文档编辑上，有条件用 Markdown 的尽量用，不能用的创造条件也要用——README、博客、公众号、接口文档等等全都是，比如当前这篇文章就是用 Markdown 编辑而成。&lt;/p&gt;
 &lt;p&gt;这几年也发现越来越多的网站和程序提供了对 Markdown 的支持，从最初接触的 GitHub、Jekyll，到简书、掘金、CSDN 等等，由此也从别人做得好的文档中，学到了一些『奇技淫巧』，所以本文不是对 Markdown 基础语法的介绍，而是一些相对高级、能将 Markdown 玩出更多花样的小技巧。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;注：如下技巧大多是利用 Markdown 兼容部分 HTML 标签的特性来完成，不一定在所有网站和软件里都完全支持，主要以 GitHub 支持为准。&lt;/em&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;自从几年前开始在 GitHub 玩耍，接触到 Markdown 之后，就一发不可收拾，在各种文档编辑上，有条件用 Markdown 的尽量用，不能用的创造条件也要用——README、博客、公众号、接口文档等等全都是，比如当前这篇文章就是用 Markdown 编辑而成。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;自从几年前开始在 GitHub 玩耍，接触到 Markdown 之后，就一发不可收拾，在各种文档编辑上，有条件用 Markdown 的尽量用，不能用的创造条件也要用——README、博客、公众号、接口文档等等全都是，比如当前这篇文章就是用 Markdown 编辑而成。&lt;/p&gt;
 &lt;p&gt;这几年也发现越来越多的网站和程序提供了对 Markdown 的支持，从最初接触的 GitHub、Jekyll，到简书、掘金、CSDN 等等，由此也从别人做得好的文档中，学到了一些『奇技淫巧』，所以本文不是对 Markdown 基础语法的介绍，而是一些相对高级、能将 Markdown 玩出更多花样的小技巧。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;注：如下技巧大多是利用 Markdown 兼容部分 HTML 标签的特性来完成，不一定在所有网站和软件里都完全支持，主要以 GitHub 支持为准。&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;在表格单元格里换行&#34;&gt;在表格单元格里换行&lt;/h2&gt;
@@ -344,7 +343,7 @@ N 与图片高度有关。
 &lt;li&gt;
 
 &lt;a href=&#34;https://www.zybuluo.com/songpfei/note/247346&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.zybuluo.com/songpfei/note/247346&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded>
+&lt;/ul&gt;]]></content:encoded>
         <dc:creator>码志</dc:creator>
         
         
@@ -357,14 +356,14 @@ N 与图片高度有关。
           
         
         
+          
             
-              <category>[markdown]</category>
+              <category>markdown</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

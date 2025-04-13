@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>为 Github Pages 自定义域名博客开启 HTTPS</title>
         <link>https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/</link>
@@ -43,7 +40,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Github Pages 本身支持 HTTPS，但仅支持 &lt;code&gt;github.io&lt;/code&gt; 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。&lt;/p&gt;</description>
-        <content:encoded>&lt;pre&gt;&lt;code&gt;这是转载文章。
+        <content:encoded>&lt;![CDATA[&lt;pre&gt;&lt;code&gt;这是转载文章。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h2 id=&#34;为什么要使用-https-协议呢&#34;&gt;为什么要使用 HTTPS 协议呢？&lt;/h2&gt;
@@ -62,7 +59,7 @@
 &lt;p&gt;在 Github Pages 仓库的根目录下新建一个 CNAME 文件，文件内容就是我们要绑定的域名，这一步可以直接在设置面板里配置，保存好之后回到仓库主页就能看到刚才添加的 CNAME 文件&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://zhouhao.me/img/https_20170721_1.png&#34; alt=&#34;&#34;&gt;&lt;br /&gt;
 &lt;img src=&#34;https://zhouhao.me/img/https_20170721_2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;步骤二注册-cloudflarehttpswwwcloudflarecom-账号添加我们的域名&#34;&gt;步骤二：注册 
+&lt;h2 id=&#34;步骤二注册-cloudflare-账号添加我们的域名&#34;&gt;步骤二：注册 
 
 &lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CloudFlare&lt;/a&gt; 账号，添加我们的域名&lt;/h2&gt;
 &lt;p&gt;注册成功后在返回的页面中添加域名，点击扫描 DNS 记录，等待大约一分钟之后继续下一步。&lt;/p&gt;
@@ -90,7 +87,7 @@
 
 &lt;a href=&#34;https://zhouhao.me/2017/07/21/using-https-with-custom-domain-name-on-github-pages/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://zhouhao.me/2017/07/21/using-https-with-custom-domain-name-on-github-pages/&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr /&gt;</content:encoded>
+&lt;hr /&gt;]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -111,14 +108,18 @@
           
         
         
+          
             
-              <category>[github blog]</category>
+              <category>github</category>
             
+          
+            
+              <category>blog</category>
+            
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

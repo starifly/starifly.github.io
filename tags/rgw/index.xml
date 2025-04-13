@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>ceph在不复制rgw的情况下配置多个区域</title>
         <link>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</link>
@@ -34,10 +31,10 @@
         <description>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
 
 &lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;/a&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
+        <content:encoded>&lt;![CDATA[&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
 
 &lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;/a&gt;&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -54,13 +51,15 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>ceph rgw同步</title>
         <link>https://starifly.github.io/posts/ceph-rgw-sync/</link>
@@ -76,7 +75,7 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;准备存储池&lt;/strong&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;源 ceph 集群（192.168.5.203:20003）&lt;/li&gt;
 &lt;li&gt;基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者&lt;/li&gt;
@@ -131,7 +130,7 @@
 
 &lt;a href=&#34;https://croit.io/blog/setting-up-ceph-cloud-sync-module&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SETTING UP CEPH CLOUD SYNC MODULE&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -148,13 +147,15 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>ceph s3 java开发相关</title>
         <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
@@ -190,7 +191,7 @@
 &lt;p&gt;另外可以使用 
 
 &lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
 &lt;p&gt;AWS s3 java api使用 - 
 
 &lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
@@ -218,7 +219,7 @@
 &lt;p&gt;另外可以使用 
 
 &lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -243,13 +244,15 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>Ceph RGW使用</title>
         <link>https://starifly.github.io/posts/ceph-rgw-use/</link>
@@ -266,7 +269,7 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561293&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;06 分布式存储ceph创建rgw接口&lt;/a&gt;&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;
 
 &lt;a href=&#34;https://blog.csdn.net/openinfra/article/details/106856875&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ceph使用系列之——Ceph RGW使用&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
@@ -275,7 +278,7 @@
 &lt;p&gt;
 
 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561293&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;06 分布式存储ceph创建rgw接口&lt;/a&gt;&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -292,13 +295,15 @@
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>ceph rgw创建新的region</title>
         <link>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</link>
@@ -310,7 +315,7 @@
 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
 2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
 3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;概念：   &lt;br /&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;概念：   &lt;br /&gt;
 1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br /&gt;
 2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br /&gt;
 3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;
@@ -347,7 +352,7 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
 
 &lt;a href=&#34;http://www.strugglesquirrel.com/2018/06/27/%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AEbucket-index-max-shards%E5%8F%82%E6%95%B0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;动态设置bucket_index_max_shards参数&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -368,13 +373,15 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>ceph rgw桶分片问题</title>
         <link>https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/</link>
@@ -384,7 +391,7 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
         <guid>https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/</guid>
         <description>&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;
 &lt;p&gt;RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;
 &lt;p&gt;RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。&lt;/p&gt;
 &lt;p&gt;这隐含了两层意思：其一，在单个 bucket 索引对象上能存储的数据总量有限，默认情况下，每个 bucket 是只有一个索引对象的，所以每个 bucket 中能存储的对象数量就是有限的了。超大的索引对象会造成性能和可靠性的问题，极端情况下，可能因为缓慢的恢复操作，造成 OSD 进程挂掉。其二，这成了性能瓶颈，因为所有对同一 bucket 的写操作，都会对一个索引对象做修改和序列化操作。&lt;/p&gt;
 &lt;p&gt;为此 ceph 引入bucket 分片功能来解决 bucket 中存储大量数据的问题，bucket 的索引数据可以存储在多个 RADOS 对象上了，这样 bucket 中存储对象的数量就可以随着索引数据的分片数量的增加而增加了。而且从 Luminous 开始最终引入了动态 bucket 分片，现在随着存储对象的增加，bucket 可以自动分片了。这项功能是默认打开的，将变量 rgw dynamic resharding 设置为 false（默认为 true），关闭自动分片；每个分片可存储的对象数量由该变量控制，rgw max objs per shard，默认是十万；自动分片线程扫描的间隔可以通过 rgw reshard thread interval 选项配置，默认为十分钟。虽然官方宣称自动分片是自动化的且不会阻塞业务的读写，但是实际上自动分片存在bug，会造成IO阻塞，所以建议最好关闭此项功能。&lt;/p&gt;
@@ -493,7 +500,7 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
 
 &lt;a href=&#34;https://www.dovefi.com/post/rgw%E8%AE%BE%E7%BD%AEshard%E9%81%BF%E5%85%8D%E5%8D%95bucket%E4%B8%8B%E6%95%B0%E9%87%8F%E8%BF%87%E5%A4%A7%E5%AF%BC%E8%87%B4%E6%80%A7%E8%83%BD%E4%B8%8B%E9%99%8D%E7%9A%84%E6%96%B9%E6%B3%95/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Rgw设置shard避免单bucket下数量过大导致性能下降的方法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -518,14 +525,14 @@ radosgw-admin period update &amp;ndash;commit&lt;/p&gt;
           
         
         
+          
             
-              <category>[ceph]</category>
+              <category>ceph</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

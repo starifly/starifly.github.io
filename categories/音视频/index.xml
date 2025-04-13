@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>使用flv.js做直播</title>
         <link>https://starifly.github.io/posts/live-streaming-with-flv/</link>
@@ -36,7 +33,7 @@
 如果你看的很吃力可以先了解下音视频技术的一些
 
 &lt;a href=&#34;https://github.com/gwuhaolin/blog/issues/5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;基础概念&lt;/a&gt;。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;为什么要在这个时候探索flv.js做直播呢？原因在于各大浏览器厂商已经默认禁用Flash，之前常见的Flash直播方案需要用户同意使用Flash后才可以正常使用直播功能，这样的用户体验很致命。&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;为什么要在这个时候探索flv.js做直播呢？原因在于各大浏览器厂商已经默认禁用Flash，之前常见的Flash直播方案需要用户同意使用Flash后才可以正常使用直播功能，这样的用户体验很致命。&lt;/p&gt;
 &lt;p&gt;在介绍flv.js之前先介绍下常见的直播协议以及给出我对它们的延迟与性能所做的测试得出的数据。&lt;br /&gt;
 如果你看的很吃力可以先了解下音视频技术的一些
 
@@ -49,7 +46,7 @@
 &lt;li&gt;&lt;strong&gt;HLS&lt;/strong&gt;: Http Live Streaming，苹果提出基于&lt;code&gt;HTTP&lt;/code&gt;的流媒体传输协议。&lt;code&gt;HTML5&lt;/code&gt;可以直接打开播放。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;RTP&lt;/strong&gt;: 基于&lt;code&gt;UDP&lt;/code&gt;，延迟1秒，浏览器不支持。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;常见直播协议延迟与性能数据subsup以下数据只做对比参考supsub&#34;&gt;常见直播协议延迟与性能数据&lt;sub&gt;&lt;sup&gt;以下数据只做对比参考&lt;/sup&gt;&lt;/sub&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;常见直播协议延迟与性能数据以下数据只做对比参考&#34;&gt;常见直播协议延迟与性能数据&lt;sub&gt;&lt;sup&gt;以下数据只做对比参考&lt;/sup&gt;&lt;/sub&gt;&lt;/h4&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -246,7 +243,7 @@
 &lt;a href=&#34;https://github.com/gwuhaolin/reflv/blob/master/doc/live/http-flv.js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;优化后的完整代码&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
 
-&lt;a href=&#34;http://wuhaolin.cn/2017/05/17/%E4%BD%BF%E7%94%A8flv.js%E5%81%9A%E7%9B%B4%E6%92%AD/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;</content:encoded>
+&lt;a href=&#34;http://wuhaolin.cn/2017/05/17/%E4%BD%BF%E7%94%A8flv.js%E5%81%9A%E7%9B%B4%E6%92%AD/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;阅读原文&lt;/a&gt;&lt;/p&gt;]]></content:encoded>
         <dc:creator>浩麟</dc:creator>
         
         
@@ -259,13 +256,15 @@
           
         
         
+          
             
-              <category>[音视频]</category>
+              <category>音视频</category>
             
+          
         
         
       </item>
-      
+    
       <item>
         <title>音视频技术参考资料</title>
         <link>https://starifly.github.io/posts/audio-video-tech-references/</link>
@@ -304,7 +303,7 @@
 &lt;a href=&#34;http://blog.csdn.net/win_lin/article/details/12615591&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP服务器的延迟，多级边缘不影响延迟，gop为最大因素&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;编解码&#34;&gt;编解码&lt;/h2&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;入门与概念&#34;&gt;入门与概念&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;入门与概念&#34;&gt;入门与概念&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 
@@ -334,7 +333,7 @@
 
 &lt;a href=&#34;http://blog.csdn.net/win_lin/article/details/12615591&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RTMP服务器的延迟，多级边缘不影响延迟，gop为最大因素&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;编解码&#34;&gt;编解码&lt;/h2&gt;</content:encoded>
+&lt;h2 id=&#34;编解码&#34;&gt;编解码&lt;/h2&gt;]]></content:encoded>
         <dc:creator>浩麟</dc:creator>
         
         
@@ -347,14 +346,14 @@
           
         
         
+          
             
-              <category>[音视频]</category>
+              <category>音视频</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

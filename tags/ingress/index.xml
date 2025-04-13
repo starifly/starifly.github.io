@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>k8s ingress 2022部署方案</title>
         <link>https://starifly.github.io/posts/k8s-ingress-2022/</link>
@@ -36,7 +33,7 @@
 &lt;p&gt;inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
 
 &lt;a href=&#34;https://github.com/kubernetes/ingress-nginx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kubernetes/ingress-nginx&lt;/a&gt;。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress&lt;/p&gt;
+        <content:encoded>&lt;![CDATA[&lt;p&gt;之前的文章已经介绍过ingress，这里说明怎么部署新版的ingress&lt;/p&gt;
 &lt;h2 id=&#34;版本说明&#34;&gt;版本说明&lt;/h2&gt;
 &lt;p&gt;inrress-nginx版本为1.4.0，k8s版本为1.23.6，具体版本匹配参考
 
@@ -763,7 +760,7 @@
 &lt;p&gt;注意根据查询k8s中的classname配置ingressClassName&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl create -f ingress-http
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样配置好后我们在系统中配置好相应的域名和端口就能正常访问应用了。&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -780,13 +777,19 @@
           
         
         
+          
             
-              <category>[k8s ingress]</category>
+              <category>k8s</category>
             
+          
+            
+              <category>ingress</category>
+            
+          
         
         
       </item>
-      
+    
       <item>
         <title>k8s ingress</title>
         <link>https://starifly.github.io/posts/k8s-ingress/</link>
@@ -828,7 +831,7 @@
 &lt;h2 id=&#34;ingress暴露服务的方式&#34;&gt;ingress暴露服务的方式&lt;/h2&gt;
 &lt;h3 id=&#34;deploymentloadbalancer模式的service&#34;&gt;Deployment+LoadBalancer模式的Service&lt;/h3&gt;
 &lt;p&gt;如果要把ingress部署在公有云，那用这种方式比较合适。用Deployment部署ingress-controller，创建一个type为 LoadBalancer的 service关联这组pod。大部分公有云，都会为 LoadBalancer的 service自动创建一个负载均衡器，通常还绑定了公网地址。只要把域名解析指向该地址，就实现了集群服务的对外暴露&lt;/p&gt;</description>
-        <content:encoded>&lt;h2 id=&#34;ingress简介&#34;&gt;Ingress简介&lt;/h2&gt;
+        <content:encoded>&lt;![CDATA[&lt;h2 id=&#34;ingress简介&#34;&gt;Ingress简介&lt;/h2&gt;
 &lt;h3 id=&#34;service的作用&#34;&gt;service的作用&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;对集群内部，它不断跟踪pod的变化，更新endpoint中对应pod的对象，提供了ip不断变化的pod的服务发现机制&lt;/li&gt;
@@ -1041,7 +1044,7 @@
 &lt;a href=&#34;https://blog.csdn.net/yrx420909/article/details/105724292&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;k8s 对外服务之ingress&lt;br /&gt;
 &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -1058,14 +1061,18 @@
           
         
         
+          
             
-              <category>[k8s ingress]</category>
+              <category>k8s</category>
             
+          
+            
+              <category>ingress</category>
+            
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

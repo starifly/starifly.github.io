@@ -21,9 +21,6 @@
     
     
     
-
-      
-      
       <item>
         <title>一个“蝇量级” C 语言协程库</title>
         <link>https://starifly.github.io/posts/a-c-coroutine/</link>
@@ -39,7 +36,7 @@
 
 &lt;a href=&#34;http://weibo.com/fullofbull&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;@我的上铺叫路遥&lt;/strong&gt;&lt;/a&gt;&lt;/strong&gt; 投稿）&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;协程 (coroutine) 顾名思义就是“协作的例程”（co-operative routines）。跟具有操作系统概念的线程不一样，协程是在用户空间利用程序语言的语法语义就能实现逻辑上类似多任务的编程技巧。实际上协程的概念比线程还要早，按照 Knuth 的说法 &lt;strong&gt;“子例程是协程的特例”&lt;/strong&gt;，一个子例程就是一次子函数调用，那么实际上协程就是类函数一样的程序组件，你可以在一个线程里面轻松创建数十万个协程，就像数十万次函数调用一样。只不过子例程只有一个调用入口起始点，返回之后就结束了，而协程入口既可以是起始点，又可以从上一个返回点继续执行，也就是说协程之间可以通过 yield 方式转移执行权，&lt;strong&gt;对称（symmetric）、平级&lt;/strong&gt;地调用对方，而不是像例程那样上下级调用关系。当然 Knuth 的 “特例” 指的是协程也可以模拟例程那样实现上下级调用关系，这就叫&lt;strong&gt;非对称协程&lt;/strong&gt;（asymmetric coroutines）。&lt;/p&gt;</description>
-        <content:encoded>&lt;blockquote&gt;
+        <content:encoded>&lt;![CDATA[&lt;blockquote&gt;
 &lt;p&gt;本文为转载文章， 原文地址 
 
 &lt;a href=&#34;https://coolshell.cn/articles/10975.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://coolshell.cn/articles/10975.html&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
@@ -364,7 +361,7 @@ PT_THREAD(driver_thread(struct pt *pt))
 &lt;a href=&#34;http://xmailserver.org/rse-pmt.pdf&#34; title=&#34;http://xmailserver.org/rse-pmt.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;论文&lt;/a&gt;教大家如何实现一个线程库。另外 protothreads 官网上也有一大堆
 
 &lt;a href=&#34;http://dunkels.com/adam/pt/links.html&#34; title=&#34;http://dunkels.com/adam/pt/links.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;推荐阅读&lt;/a&gt;。Have fun！&lt;/p&gt;
-</content:encoded>
+]]></content:encoded>
         <dc:creator>starifly</dc:creator>
         
         
@@ -381,14 +378,14 @@ PT_THREAD(driver_thread(struct pt *pt))
           
         
         
+          
             
-              <category>[c]</category>
+              <category>c</category>
             
+          
         
         
       </item>
-      
-
     
   </channel>
 </rss>

@@ -1373,7 +1373,7 @@
 
 
 <meta name="created" content="2025-02-06T18:00:39&#43;0800">
-<meta name="modified" content="2025-02-06T18:00:39&#43;0800">
+<meta name="modified" content="2025-03-14T23:03:00&#43;0800">
 <meta property="article:published_time" content="2025-02-06T18:00:39&#43;0800">
 
 <meta name="author" content="飞鸟">
@@ -1385,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.143.1">
+<meta name="generator" content="Hugo 0.146.3">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -2034,6 +2034,134 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-crushmap/'>ceph故障域</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;5&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            <h2 id="准备">准备</h2>
+<p>1、执行ceph -s确认存储集群状态，保证为健康状态。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@ceph001 ~<span class="o">]</span><span class="c1"># ceph -s</span>
+</span></span><span class="line"><span class="cl">  cluster:
+</span></span><span class="line"><span class="cl">    id:     d00c744a-17f6-4768-95de-1243202557f2
+</span></span><span class="line"><span class="cl">    health: HEALTH_OK
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  services:
+</span></span><span class="line"><span class="cl">    mon: <span class="m">3</span> daemons, quorum ceph001,ceph002,ceph003 <span class="o">(</span>age 41m<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    mgr: ceph001<span class="o">(</span>active, since 43m<span class="o">)</span>, standbys: ceph003
+</span></span><span class="line"><span class="cl">    mds: cephfs:1 <span class="o">{</span><span class="nv">0</span><span class="o">=</span><span class="nv">ceoh002</span><span class="o">=</span>up:active<span class="o">}</span> <span class="m">2</span> up:standby
+</span></span><span class="line"><span class="cl">    osd: <span class="m">6</span> osds: <span class="m">6</span> up <span class="o">(</span>since 3m<span class="o">)</span>, <span class="m">6</span> in <span class="o">(</span>since 3m<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    rgw: <span class="m">3</span> daemons active <span class="o">(</span>ceph001, ceph002, ceph003<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  task status:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  data:
+</span></span><span class="line"><span class="cl">    pools:   <span class="m">10</span> pools, <span class="m">96</span> pgs
+</span></span><span class="line"><span class="cl">    objects: <span class="m">803</span> objects, 2.1 GiB
+</span></span><span class="line"><span class="cl">    usage:   <span class="m">13</span> GiB used, <span class="m">62</span> GiB / <span class="m">75</span> GiB avail
+</span></span><span class="line"><span class="cl">    pgs:     <span class="m">96</span> active+clean
+</span></span></code></pre></div><p>2、执行ceph osd tree ,记录变更前的结构。以及存储池pool及其他信息。</p>
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/'>Ceph如何扩展到超过十亿个对象</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            Ceph如何扩展到超过十亿个对象
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/'>ceph在不复制rgw的情况下配置多个区域</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            <p>ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 
+
+<a href="https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw</a></p>
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-sync/'>ceph rgw同步</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2023年01月26日 </time>
@@ -2363,327 +2491,6 @@
 
 
             
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-s3-java-related/'>ceph s3 java开发相关</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            本文介绍了ceph对象存储使用java开发的方法和工具
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-use/'>Ceph RGW使用</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>
-
-<a href="https://blog.csdn.net/openinfra/article/details/106856875" target="_blank" rel="noopener">Ceph使用系列之——Ceph RGW使用</a></p>
-<p>
-
-<a href="https://blog.csdn.net/u012720518/article/details/106650382/" target="_blank" rel="noopener">Ceph-对象存储：S3使用手册实践</a> 中的文件夹部分</p>
-<p>
-
-<a href="https://zhuanlan.zhihu.com/p/386561293" target="_blank" rel="noopener">06 分布式存储ceph创建rgw接口</a></p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-summary/'>Ceph总结</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>
-
-<a href="https://mp.weixin.qq.com/s/KfXhI73-8ZF8vCrUYui_RA" target="_blank" rel="noopener">Ceph总结</a></p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-op-tells-you-the-pits-of-distribute-storage/'>Ceph运维告诉你分布式存储的那些“坑”</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;3&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            Ceph运维告诉你分布式存储的那些“坑”
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-rgw-ha-and-load-balance/'>ceph rgw高可用和负载均衡</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <h2 id="环境配置">环境配置</h2>
-<p>安装依赖</p>
-<p><code>yum install pcre-devel.x86_64 openssl-devel   zlib-devel  systemd-devel gcc gcc-c++</code></p>
-<p>内核调优</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#vim /etc/sysctl.conf</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">vm.swappiness <span class="o">=</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_nonlocal_bind <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.tcp_tw_reuse <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_local_port_range <span class="o">=</span> <span class="m">1025</span> <span class="m">65023</span>
-</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">10240</span>
-</span></span></code></pre></div><p>检查</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_nonlocal_bind
-</span></span><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_forward
-</span></span><span class="line"><span class="cl">cat /proc/sys/net/ipv4/ip_forward
-</span></span></code></pre></div><blockquote>
-<p>查看是否开启了ip转发功能<br />
-如果上述文件中的值为0,说明禁止进行IP转发；如果是1,则说明IP转发功能已经打开。</p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/ceph-commands/'>ceph 操作命令</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2021年10月06日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;2&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">查看ceph的实时运行状态
-</span></span><span class="line"><span class="cl">ceph -w
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看ceph存储空间
-</span></span><span class="line"><span class="cl">ceph df/ceph df detail
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看集群的详细配置
-</span></span><span class="line"><span class="cl">ceph daemon mon.ceph001 config show <span class="p">|</span> more
-</span></span><span class="line"><span class="cl">or
-</span></span><span class="line"><span class="cl">ceph --admin-daemon /var/run/ceph/ceph-mon.ceph001.asok config show
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看集群版本信息
-</span></span><span class="line"><span class="cl">ceph versions
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看集群认证信息
-</span></span><span class="line"><span class="cl">ceph auth list
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看gc时间
-</span></span><span class="line"><span class="cl">radosgw-admin gc list --include-all <span class="p">|</span> grep <span class="nb">time</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">mon命令
-</span></span><span class="line"><span class="cl">ceph mon stat#查看mon的状态信息
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">mds命令
-</span></span><span class="line"><span class="cl">ceph mds stat <span class="c1">#查看msd状态</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">osd命令
-</span></span><span class="line"><span class="cl">ceph osd stat <span class="c1">#查看osd状态</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ceph osd df <span class="c1">#查看osd磁盘</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ceph osd dump <span class="c1">#osd的映射信息</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ceph osd perf <span class="c1">#查看osd性能和延迟</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ceph osd tree#查看osd目录树
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">rgw命令
-</span></span><span class="line"><span class="cl">radosgw-admin bucket list <span class="c1">#查看所有桶</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket list --bucket<span class="o">=</span>asdas <span class="c1">#查看桶内对象</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>asdas <span class="c1">#查看桶信息</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 <span class="c1">#删除一个桶</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket rm --bucket<span class="o">=</span>s3test1 --purge-objects <span class="c1">#默认只能删空的bucket，强制删除非空的bucket需要加上“--purge-objects ”选项</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket check --bucket<span class="o">=</span>s3test1 <span class="c1">#查看桶的索引信息</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin object rm --object<span class="o">=</span>1.jpg --bucket<span class="o">=</span>s3test3 <span class="c1">#删除桶中的对象</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin object unlink --bucket<span class="o">=</span>s3test3 —object<span class="o">=</span>1.jpg <span class="c1">#从桶索引里去除对象</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket limit check <span class="o">[</span>--uid test<span class="o">]</span> <span class="c1">#查看Sharding Stat</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">radosgw-admin bucket stats --bucket<span class="o">=</span>bucketname<span class="p">|</span>grep -w <span class="s1">&#39;num_objects&#39;</span> <span class="c1">#查询桶的对象个数</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">创建realm：
-</span></span><span class="line"><span class="cl">realm里所有的元數據名稱都是全局唯一的，無法創建同名的用戶（uid）和bucket， container；
-</span></span><span class="line"><span class="cl">radosgw-admin realm create --rgw-realm<span class="o">=</span>Giant --default
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看存在的realm：
-</span></span><span class="line"><span class="cl">radosgw-admin realm list
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看bucket 的信息
-</span></span><span class="line"><span class="cl">radosgw-admin metadata get bucket:bucketname
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">获取bucket id 并根据 bucket id 从bucket.instace中获取真实shards，可以看到num_shards的值
-</span></span><span class="line"><span class="cl">radosgw-admin  metadata get bucket.instance:api_image_test:4fb0079d-88d8-404e-9e3f-1375ba40a870.324279.2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看index 下保留的shard数量（包含历史的分片）
-</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看bucket : bucketname 当前的shard分片,首先找到 当前bucket id
-</span></span><span class="line"><span class="cl">找到bucket id后查询具体的shard编号，如下
-</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">统计当前使用的shard数
-</span></span><span class="line"><span class="cl">rados ls -p default.rgw.buckets.index <span class="p">|</span> grep <span class="s2">&#34;555c6dcf-7320-4b34-8922-5e005dedc130.164465.1&#34;</span> <span class="p">|</span> wc -l
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">查看当前shard 存在的index数据
-</span></span><span class="line"><span class="cl">rados -p default.rgw.buckets.index listomapkeys .dir.555c6dcf-7320-4b34-8922-5e005dedc130.164465.1.769
-</span></span></code></pre></div>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
             
 
 
@@ -2723,6 +2530,11 @@
       
       
         <li ><a href="/page/6/">6</a></li>
+      
+    
+      
+      
+        <li ><a href="/page/7/">7</a></li>
       
     
   </ul>
@@ -3754,7 +3566,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.143.1</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.146.3</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>
