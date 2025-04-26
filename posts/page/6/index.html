@@ -1372,9 +1372,9 @@
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
 
-<meta name="created" content="2025-04-21T20:05:11&#43;0800">
-<meta name="modified" content="2025-04-21T20:05:11&#43;0800">
-<meta property="article:published_time" content="2025-04-21T20:05:11&#43;0800">
+<meta name="created" content="2025-04-26T21:11:16&#43;0800">
+<meta name="modified" content="2025-04-26T21:11:16&#43;0800">
+<meta property="article:published_time" content="2025-04-26T21:11:16&#43;0800">
 
 <meta name="author" content="飞鸟">
 
@@ -1385,7 +1385,7 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="The site of Flybird&#39;s Blog">
 
-<meta name="generator" content="Hugo 0.146.6">
+<meta name="generator" content="Hugo 0.147.0">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1984,6 +1984,47 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/how-to-use-cmake-to-compile-static-library/'>使用CMake编译跨平台静态库</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月17日 </time>
+          
+          <time title="更新日期" dir="ltr"> &middot; 📝&nbsp;2018年08月19日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;5&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;0owen</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            <p>在开始介绍如何使用CMake编译跨平台的静态库之前，先讲讲我在没有使用CMake之前所趟过的坑。因为很多开源的程序，比如png，都是自带编译脚本的。我们可以使用下列脚本来进行编译：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">.</span><span class="o">/</span><span class="n">configure</span>  <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">xxx</span><span class="o">/</span><span class="n">xx</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="k">static</span><span class="o">=</span><span class="n">YES</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> 
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">install</span>
+</span></span></code></pre></div><p>相信手动在类Unix系统上面编译过开源程序的同学对上面的命令肯定非常熟悉。但是，如果不配置编译器和一些编译、链接参数，这样的操作，最后编译出来的静态库只能在本系统上面被链接使用。比如你在mac上面运行上面的命令，编译出来的静态库就只能给mac程序链接使用。如果在Linux上面运行上述命令，则也只能给Linux上面的程序所链接使用。如果我们想要在Mac上面编译出ios和android的静态库，就必须要用到交叉编译。</p>
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+            
+                
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/learning-something/'>Learning Something</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2018年08月17日 </time>
@@ -2409,41 +2450,6 @@
 
 
             
-                
-  <article class="summary-classic" data-ani="true">
-  <div class="summary-classic__flex-box" >
-
-    
-
-    <div class="summary-classic__content">
-      <header>
-        <h5 class="title h5"><a href='https://starifly.github.io/posts/cmake-clang/'>使用 CMake 不用路径地调用 libclang</a> </h5>
-        <h6 class="subtitle caption">
-          <time title="创建日期" dir="ltr">📅&nbsp;2018年08月16日 </time>
-          
-          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;4&nbsp;分钟 </span>
-          
-          &middot; <span title="作者" dir="ltr">✍️&nbsp;ice1000</span>
-          
-        </h6>
-      </header>
-      <div>
-        <div class="summary-classic__text p2">
-          
-            <p>作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。</p>
-          
-        </div>
-      </div>
-    </div>
-
-    
-    
-  </div>
-  <hr />
-</article>
-
-
-            
             
 
 
@@ -2537,6 +2543,10 @@
     
         
         <li class="sidebar-recent">
+            <a href="/posts/jenkins-library/" class="sidebar-recent__title p1">jenkins共享库笔记</a>
+        </li>
+        
+        <li class="sidebar-recent">
             <a href="/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/" class="sidebar-recent__title p1">keepalived&#43;mysql双主集群单主可写</a>
         </li>
         
@@ -2550,10 +2560,6 @@
         
         <li class="sidebar-recent">
             <a href="/posts/install-redhat-via-usb-disk/" class="sidebar-recent__title p1">U盘安装RedHat</a>
-        </li>
-        
-        <li class="sidebar-recent">
-            <a href="/posts/k8s-cronjob-time-zone/" class="sidebar-recent__title p1">k8s cronjob执行时区问题</a>
         </li>
         
         <hr class="hr-fade sidebar-hr" />
@@ -2720,6 +2726,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
             <span class="tag">
@@ -2968,6 +2976,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
@@ -3386,7 +3396,7 @@ jQuery(document).ready(function($) {
 
         
 	    <div class="github-badge">
-	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.146.6</a></span>
+	      <span class="badge-subject">构建工具</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://gohugo.io/" target="_blank">Hugo v0.147.0</a></span>
               <span class="badge-subject">托管于</span><span class="badge-value bg-brightgreen"><a style="color:#fff" href="https://github.com/" target="_blank">Github</a></span>
 	      <span class="badge-subject">集成</span><span class="badge-value bg-blueviolet"><a style="color:#fff" href="https://github.com/actions" target="_blank">Github-Actions</a></span>
 	      <span class="badge-subject">主题</span><span class="badge-value bg-blue"><a style="color:#fff" href="https://github.com/zzossig/hugo-theme-zzo" target="_blank">Zzo theme</a></span>

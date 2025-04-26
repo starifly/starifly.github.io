@@ -14,12 +14,30 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 04 Nov 2023 11:11:17 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 26 Apr 2025 21:11:16 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    
+      <item>
+        <title>Jenkins</title>
+        <link>https://starifly.github.io/categories/jenkins/</link>
+        <pubDate>Sat, 26 Apr 2025 21:11:16 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        
+        <guid>https://starifly.github.io/categories/jenkins/</guid>
+        <description></description>
+        <content:encoded>&lt;![CDATA[]]></content:encoded>
+        <dc:creator>飞鸟</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
     
       <item>
         <title>Keepalived</title>

@@ -14,7 +14,7 @@
     <managingEditor>efim@163.com (飞鸟)</managingEditor>
     <webMaster>efim@163.com (飞鸟)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 21 Apr 2025 20:05:11 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 26 Apr 2025 21:11:16 +0800</lastBuildDate>
     <sy:updatePeriod>daily</sy:updatePeriod>
     
         <atom:link href="https://starifly.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,72 @@
     
 
       
+      
+      <item>
+        <title>jenkins共享库笔记</title>
+        <link>https://starifly.github.io/posts/jenkins-library/</link>
+        <pubDate>Sat, 26 Apr 2025 21:11:16 +0800</pubDate>
+        <author>efim@163.com (飞鸟)</author>
+        <atom:modified>Sat, 26 Apr 2025 21:11:16 +0800</atom:modified>
+        <guid>https://starifly.github.io/posts/jenkins-library/</guid>
+        <description>&lt;p&gt;使用共享库：@Library(&amp;lsquo;pipeline-library-demo@dev&amp;rsquo;)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名&lt;/p&gt;</description>
+        <content:encoded>&lt;p&gt;使用共享库：@Library(&amp;lsquo;pipeline-library-demo@dev&amp;rsquo;)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;org&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;devops&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PrintMes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;colors&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[40;31m &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;${value}&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; \033[0m&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		  &lt;span class=&#34;s1&#34;&gt;&amp;#39;blue&amp;#39;&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[47;34m ${value} \033[0m&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		  &lt;span class=&#34;s1&#34;&gt;&amp;#39;green&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[1;32m&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;${value}&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;[m&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		  &lt;span class=&#34;s1&#34;&gt;&amp;#39;green1&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[40;32m &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;${value}&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; \033[0m&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;ansiColor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;xterm&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;n&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;pipeline调用：在外部定义def tools = new org.devops.tools()，再在流水线中使用tools.PrintMes(&amp;ldquo;获取代码&amp;rdquo;,&amp;lsquo;green&amp;rsquo;)&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;vars下定义的方法的是全局，也就是在pipeline或者src下都可以直接调用。在pipeline中可以直接通过文件名调用如sayHi &amp;lsquo;var&amp;rsquo;，但是如果一个文件存在多个方法推荐sayHi.call(&amp;lsquo;阳明&amp;rsquo;)这种方式调用以区分不同的方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;vars下的文件命名以驼峰命名，如sayHi.groovy，且方法名也以驼峰方式命名：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/usr/bin/env groovy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;QIKQIAK&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Hello, ${name}.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;Jenkins - 共享库（Shared Libraries） - 
+
+&lt;a href=&#34;https://www.cnblogs.com/anliven/p/13693871.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cnblogs.com/anliven/p/13693871.html&lt;/a&gt;&lt;br /&gt;
+Jenkins 共享库使用示例 - 
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/n5pmHYRoAYVbpUs6VadQ_w&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mp.weixin.qq.com/s/n5pmHYRoAYVbpUs6VadQ_w&lt;/a&gt;&lt;br /&gt;
+实践: 使用Jenkins共享库对流水线进行扩展 - 
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/x3YVXo4geTgEZE-Gga6lkQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mp.weixin.qq.com/s/x3YVXo4geTgEZE-Gga6lkQ&lt;/a&gt;&lt;br /&gt;
+使用Jenkins扩展共享库进行钉钉消息推送 - 
+
+&lt;a href=&#34;https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
+        <dc:creator>starifly</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>jenkins</category>
+            
+          
+        
+        
+            
+              <category>[jenkins]</category>
+            
+        
+        
+      </item>
       
       <item>
         <title>keepalived&#43;mysql双主集群单主可写</title>
@@ -4538,61 +4604,6 @@
         
             
               <category>[k8s]</category>
-            
-        
-        
-      </item>
-      
-      <item>
-        <title>ceph硬件布置参考</title>
-        <link>https://starifly.github.io/posts/ceph-hardware-layout-reference/</link>
-        <pubDate>Thu, 26 Jan 2023 19:06:05 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Thu, 26 Jan 2023 19:06:05 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/ceph-hardware-layout-reference/</guid>
-        <description>&lt;p&gt;1、网络拓扑参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-01.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;2、设备位置图参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-02.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;3、服务器配置信息及运行服务统计&lt;/p&gt;
-&lt;p&gt;一般来说，内存越多越好。&lt;/p&gt;
-&lt;p&gt;对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。&lt;/p&gt;</description>
-        <content:encoded>&lt;p&gt;1、网络拓扑参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-01.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;2、设备位置图参考&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-02.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;3、服务器配置信息及运行服务统计&lt;/p&gt;
-&lt;p&gt;一般来说，内存越多越好。&lt;/p&gt;
-&lt;p&gt;对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。&lt;/p&gt;
-&lt;p&gt;OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以&lt;/p&gt;
-&lt;p&gt;最低硬件建议，详解见
-
-&lt;a href=&#34;https://docs.ceph.com/en/latest/start/hardware-recommendations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/start/hardware-recommendations/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-03.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-04.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-05.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://starifly.github.io/images/ceph-06.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-
-&lt;a href=&#34;https://zhuanlan.zhihu.com/p/387112707&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;附录2、ceph安装配置介绍与主机优化&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content:encoded>
-        <dc:creator>starifly</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>ceph</category>
-            
-          
-        
-        
-            
-              <category>[ceph]</category>
             
         
         
