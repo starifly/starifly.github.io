@@ -1372,9 +1372,9 @@
 <meta name="description" content="The site of Flybird&#39;s Blog" />
 
 
-<meta name="created" content="2023-11-04T10:17:22&#43;0800">
-<meta name="modified" content="2023-11-04T10:17:22&#43;0800">
-<meta property="article:published_time" content="2023-11-04T10:17:22&#43;0800">
+<meta name="created" content="2025-04-26T21:18:50&#43;0800">
+<meta name="modified" content="2025-04-26T21:18:50&#43;0800">
+<meta property="article:published_time" content="2025-04-26T21:18:50&#43;0800">
 
 <meta name="author" content="飞鸟">
 
@@ -1992,6 +1992,68 @@
 
     <div class="summary-classic__content">
       <header>
+        <h5 class="title h5"><a href='https://starifly.github.io/posts/rocky-linux-install-gitea/'>Rocky Linux 安装 Gitea</a> </h5>
+        <h6 class="subtitle caption">
+          <time title="创建日期" dir="ltr">📅&nbsp;2025年04月26日 </time>
+          
+          <span title="阅读时长" dir="ltr"> &middot; ☕&nbsp;1&nbsp;分钟 </span>
+          
+          &middot; <span title="作者" dir="ltr">✍️&nbsp;starifly</span>
+          
+        </h6>
+      </header>
+      <div>
+        <div class="summary-classic__text p2">
+          
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dnf install -y sqlite
+</span></span><span class="line"><span class="cl">wget -O /usr/local//bin/gitea https://dl.gitea.com/gitea/1.23.1/gitea-1.23.1-linux-amd64
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/bin/gitea
+</span></span><span class="line"><span class="cl">groupadd --system gitea
+</span></span><span class="line"><span class="cl">adduser --system --shell /bin/bash --home-dir /var/lib/gitea --create-home  --gid gitea gitea
+</span></span><span class="line"><span class="cl">mkdir -p /var/lib/gitea/<span class="o">{</span>custom,data,log<span class="o">}</span>
+</span></span><span class="line"><span class="cl">chown -R gitea:gitea /var/lib/gitea
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># cat  /etc/systemd/system/gitea.service</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>Gitea <span class="o">(</span>Git with a cup of tea<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">After</span><span class="o">=</span>network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RestartSec</span><span class="o">=</span>2s
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>simple
+</span></span><span class="line"><span class="cl"><span class="nv">User</span><span class="o">=</span>gitea
+</span></span><span class="line"><span class="cl"><span class="nv">Group</span><span class="o">=</span>gitea
+</span></span><span class="line"><span class="cl"><span class="nv">WorkingDirectory</span><span class="o">=</span>/var/lib/gitea/
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/gitea web --config /var/lib/gitea/custom/conf/app.ini
+</span></span><span class="line"><span class="cl"><span class="nv">Restart</span><span class="o">=</span>always
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="nv">USER</span><span class="o">=</span>gitea <span class="nv">HOME</span><span class="o">=</span>/var/lib/gitea <span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/var/lib/gitea
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">systemctl start gitea
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> gitea
+</span></span></code></pre></div>
+          
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+  <hr />
+</article>
+
+
+      
+        
+  <article class="summary-classic" data-ani="true">
+  <div class="summary-classic__flex-box" >
+
+    
+
+    <div class="summary-classic__content">
+      <header>
         <h5 class="title h5"><a href='https://starifly.github.io/posts/install-redhat-via-usb-disk/'>U盘安装RedHat</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2023年11月04日 </time>
@@ -2187,6 +2249,10 @@
     
         
         <li class="sidebar-recent">
+            <a href="/posts/rocky-linux-install-gitea/" class="sidebar-recent__title p1">Rocky Linux 安装 Gitea</a>
+        </li>
+        
+        <li class="sidebar-recent">
             <a href="/posts/install-redhat-via-usb-disk/" class="sidebar-recent__title p1">U盘安装RedHat</a>
         </li>
         
@@ -2312,6 +2378,8 @@
 	
         
 	
+        
+	
             <span class="tag">
                 <a href="/tags/github/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
@@ -2395,7 +2463,7 @@
                         Linux
                     </span>
                     <span class="taxo__num" dir="auto">
-                        4
+                        5
                     </span>
                 </a>
             </span>
@@ -2601,6 +2669,8 @@
                 </a>
             </span>
         
+        
+	
         
 	
         
