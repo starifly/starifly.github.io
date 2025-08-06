@@ -4083,6 +4083,11 @@ Jenkins 共享库使用示例 -
 &lt;p&gt;
 
 &lt;a href=&#34;https://mp.weixin.qq.com/s/Aylj4do7YNO8VC0BTyHNBA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;开源流程图神器LogicFlow&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;smart-mermaid-ai-驱动的文本转-mermaid-图表工具&#34;&gt;Smart Mermaid: AI 驱动的文本转 Mermaid 图表工具&lt;/h3&gt;
+&lt;p&gt;Smart Mermaid 是一款利用人工智能技术，将您的文本描述智能转换为 Mermaid 格式图表代码，并实时渲染成可视化图表的 Web 应用。无论是流程图、序列图、甘特图还是状态图，只需输入文本，AI 即可为您生成相应的图表。&lt;/p&gt;
+&lt;p&gt;
+
+&lt;a href=&#34;https://github.com/liujuntao123/smart-mermaid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Smart Mermaid&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;在线流程图mermaid&#34;&gt;在线流程图mermaid&lt;/h3&gt;
 &lt;p&gt;可以在线根据代码生成流程图&lt;/p&gt;
 &lt;p&gt;
