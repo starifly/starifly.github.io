@@ -12,8 +12,8 @@
   <meta itemprop="datePublished" content="2021-10-06T19:31:32+08:00">
   <meta itemprop="dateModified" content="2021-10-06T19:31:32+08:00">
   <meta itemprop="wordCount" content="1808">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="ceph,rgw,bucket,shard"><meta property="og:url" content="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="ceph,rgw,bucket,shard"><meta property="og:url" content="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="ceph rgw桶分片问题">
   <meta property="og:description" content="1 背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。">
@@ -26,16 +26,16 @@
     <meta property="article:tag" content="rgw">
     <meta property="article:tag" content="bucket">
     <meta property="article:tag" content="shard">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="ceph rgw桶分片问题">
   <meta name="twitter:description" content="1 背景说明 RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/" title="ceph rgw桶分片问题 | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/grafana-prometheus-monitor-ceph-cluster/" title="使用grafana&#43;prometheus监控ceph集群并实现钉钉报警" /><link rel="next" type="text/html" href="http://localhost:1313/posts/ceph-rgw-create-a-new-region/" title="ceph rgw创建新的region" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/index.md" title="ceph rgw桶分片问题 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/" title="ceph rgw桶分片问题 | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/" title="使用grafana&#43;prometheus监控ceph集群并实现钉钉报警" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/ceph-rgw-create-a-new-region/" title="ceph rgw创建新的region" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/index.md" title="ceph rgw桶分片问题 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -45,11 +45,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/ceph-rgw-bucket-shard-problem\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, rgw, bucket, shard","wordcount":  1808 ,
-    "url": "http:\/\/localhost:1313\/posts\/ceph-rgw-bucket-shard-problem\/","datePublished": "2021-10-06T19:31:32+08:00","dateModified": "2021-10-06T19:31:32+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/ceph-rgw-bucket-shard-problem\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, rgw, bucket, shard","wordcount":  1808 ,
+    "url": "https:\/\/starifly.github.io\/posts\/ceph-rgw-bucket-shard-problem\/","datePublished": "2021-10-06T19:31:32+08:00","dateModified": "2021-10-06T19:31:32+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "starifly"
       },"description": ""
@@ -441,11 +441,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/ceph-rgw-bucket-shard-problem/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题" data-hashtags="ceph,rgw,bucket,shard"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题" data-hashtags="ceph,rgw,bucket,shard"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/" data-title="Ceph Rgw桶分片问题"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

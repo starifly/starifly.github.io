@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>centos - 标签 | 飞鸟</title>
-    <link>http://localhost:1313/tags/centos/</link>
+    <link>https://starifly.github.io/tags/centos/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Sat, 30 May 2020 21:59:57 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux中病毒后的处理过程</title>
-      <link>http://localhost:1313/posts/virus-process-in-linux-system/</link>
+      <link>https://starifly.github.io/posts/virus-process-in-linux-system/</link>
       <pubDate>Sat, 30 May 2020 21:59:57 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/virus-process-in-linux-system/</guid>
-      <category domain="http://localhost:1313/categories/linux/">linux</category>
+      <guid>https://starifly.github.io/posts/virus-process-in-linux-system/</guid>
+      <category domain="https://starifly.github.io/categories/linux/">linux</category>
       <description>&lt;p&gt;之前一台 centos 虚拟机中毒，导致CPU飙升，这里记录下处理过程。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;查找可疑进程&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;执行命令&lt;code&gt;ll /proc/ID/exe&lt;/code&gt;，通过进程ID确定其执行路径，先删掉可疑应用，然后再利用&lt;code&gt;chattr +ai /path&lt;/code&gt;再次生成，并 kill 掉可疑进程。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;删除定时任务及文件以及开机启动文件&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;进入以下目录&lt;code&gt;/etc/init.d/&lt;/code&gt;、&lt;code&gt;/etc/rc.d/rc#.d/&lt;/code&gt;、&lt;code&gt;/etc/cron.d&lt;/code&gt;、&lt;code&gt;/usr/lib/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/systemd/system/&lt;/code&gt;、&lt;code&gt;/etc/profile.d&lt;/code&gt;，并清理可疑文件。&lt;/p&gt;</description>
     </item>
   </channel>

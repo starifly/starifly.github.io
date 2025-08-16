@@ -717,5 +717,5 @@ spec:
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/loki/  
+> URL: https://starifly.github.io/posts/loki/  
 

@@ -41,5 +41,5 @@ systemctl enable gitea
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/rocky-linux-install-gitea/  
+> URL: https://starifly.github.io/posts/rocky-linux-install-gitea/  
 

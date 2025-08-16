@@ -44,5 +44,5 @@ Jenkins 共享库使用示例 - https://mp.weixin.qq.com/s/n5pmHYRoAYVbpUs6VadQ_
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/jenkins-library/  
+> URL: https://starifly.github.io/posts/jenkins-library/  
 

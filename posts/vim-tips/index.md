@@ -128,5 +128,5 @@ c[n]h | 改写光标前n个字母
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/vim-tips/  
+> URL: https://starifly.github.io/posts/vim-tips/  
 

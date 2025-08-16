@@ -14,8 +14,8 @@
   <meta itemprop="datePublished" content="2021-10-06T19:11:07+08:00">
   <meta itemprop="dateModified" content="2021-10-06T19:11:07+08:00">
   <meta itemprop="wordCount" content="831">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="ceph"><meta property="og:url" content="http://localhost:1313/posts/ceph-three-node-failure-recovery/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="ceph"><meta property="og:url" content="https://starifly.github.io/posts/ceph-three-node-failure-recovery/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="ceph三节点故障恢复">
   <meta property="og:description" content="ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（/etc/ceph和/var/lib/ceph目录），而当前三个节点全部出现系统故障导致集群瘫痪的情况下，我们怎么恢复 ceph 集群。
@@ -26,17 +26,17 @@
     <meta property="article:published_time" content="2021-10-06T19:11:07+08:00">
     <meta property="article:modified_time" content="2021-10-06T19:11:07+08:00">
     <meta property="article:tag" content="ceph">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="ceph三节点故障恢复">
   <meta name="twitter:description" content="ceph 集群有三个节点，每台节点都用 docker 容器部署了 mon、osd、mgr、rgw、mds 服务，现在假设在其它机器备份了ceph集群的配置和认证信息（/etc/ceph和/var/lib/ceph目录），而当前三个节点全部出现系统故障导致集群瘫痪的情况下，我们怎么恢复 ceph 集群。
 1 恢复 mon 节点 当三个节点系统恢复正常后，首先我们要把备用配置拷贝至三节点对应目录，然后开始恢复三个 mon 节点。">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/ceph-three-node-failure-recovery/" title="ceph三节点故障恢复 | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/ceph-osd-troubleshooting/" title="ceph常见OSD故障处理" /><link rel="next" type="text/html" href="http://localhost:1313/posts/grafana-prometheus-monitor-ceph-cluster/" title="使用grafana&#43;prometheus监控ceph集群并实现钉钉报警" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/ceph-three-node-failure-recovery/index.md" title="ceph三节点故障恢复 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/ceph-three-node-failure-recovery/" title="ceph三节点故障恢复 | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/ceph-osd-troubleshooting/" title="ceph常见OSD故障处理" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/" title="使用grafana&#43;prometheus监控ceph集群并实现钉钉报警" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/ceph-three-node-failure-recovery/index.md" title="ceph三节点故障恢复 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -46,11 +46,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/ceph-three-node-failure-recovery\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph","wordcount":  831 ,
-    "url": "http:\/\/localhost:1313\/posts\/ceph-three-node-failure-recovery\/","datePublished": "2021-10-06T19:11:07+08:00","dateModified": "2021-10-06T19:11:07+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/ceph-three-node-failure-recovery\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph","wordcount":  831 ,
+    "url": "https:\/\/starifly.github.io\/posts\/ceph-three-node-failure-recovery\/","datePublished": "2021-10-06T19:11:07+08:00","dateModified": "2021-10-06T19:11:07+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "starifly"
       },"description": ""
@@ -413,11 +413,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/ceph-three-node-failure-recovery/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复" data-hashtags="ceph"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/ceph-three-node-failure-recovery/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/ceph-three-node-failure-recovery/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复" data-hashtags="ceph"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/ceph-three-node-failure-recovery/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/ceph-three-node-failure-recovery/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/ceph-three-node-failure-recovery/" data-title="Ceph三节点故障恢复"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

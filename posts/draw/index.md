@@ -161,5 +161,5 @@ PDDON是一款完全免费的轻量级专业在线画图和低代码工具。
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/draw/  
+> URL: https://starifly.github.io/posts/draw/  
 

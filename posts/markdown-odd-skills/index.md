@@ -224,5 +224,5 @@ N 与图片高度有关。
 ---
 
 > 作者: 码志  
-> URL: http://localhost:1313/posts/markdown-odd-skills/  
+> URL: https://starifly.github.io/posts/markdown-odd-skills/  
 

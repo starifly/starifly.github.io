@@ -233,5 +233,5 @@ Removed object 'hw'.
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-librados-c-use/  
+> URL: https://starifly.github.io/posts/ceph-librados-c-use/  
 

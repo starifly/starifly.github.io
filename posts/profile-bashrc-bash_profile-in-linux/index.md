@@ -37,5 +37,5 @@
 ---
 
 > 作者: 茶歇驿站  
-> URL: http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/  
+> URL: https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/  
 

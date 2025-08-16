@@ -347,5 +347,5 @@ PT_THREAD(driver_thread(struct pt *pt))
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/a-c-coroutine/  
+> URL: https://starifly.github.io/posts/a-c-coroutine/  
 

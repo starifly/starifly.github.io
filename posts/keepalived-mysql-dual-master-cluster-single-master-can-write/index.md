@@ -1361,5 +1361,5 @@ logging_log_error 'info' 'start to arping on change_to_backup'
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/  
+> URL: https://starifly.github.io/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/  
 

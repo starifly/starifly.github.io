@@ -91,5 +91,5 @@ rados -p default.rgw.buckets.index listomapkeys .dir.555c6dcf-7320-4b34-8922-5e0
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-commands/  
+> URL: https://starifly.github.io/posts/ceph-commands/  
 

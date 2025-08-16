@@ -234,5 +234,5 @@ target_link_libraries(clang_test ${LIBCLANG_LIBRARIES})
 ---
 
 > 作者: ice1000  
-> URL: http://localhost:1313/posts/cmake-clang/  
+> URL: https://starifly.github.io/posts/cmake-clang/  
 

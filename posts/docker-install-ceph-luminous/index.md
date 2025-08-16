@@ -265,5 +265,5 @@ docker run -d --net=host --name=mds3 --restart=always -v /etc/localtime:/etc/loc
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/docker-install-ceph-luminous/  
+> URL: https://starifly.github.io/posts/docker-install-ceph-luminous/  
 

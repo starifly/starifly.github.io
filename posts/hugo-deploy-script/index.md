@@ -67,5 +67,5 @@ That's all, 祝你好运！
 ---
 
 > 作者: CoderZh  
-> URL: http://localhost:1313/posts/hugo-deploy-script/  
+> URL: https://starifly.github.io/posts/hugo-deploy-script/  
 

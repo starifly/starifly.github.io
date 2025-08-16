@@ -25,5 +25,5 @@ Uploading and copying objects using multipart upload - https://docs.aws.amazon.c
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-s3-java-related/  
+> URL: https://starifly.github.io/posts/ceph-s3-java-related/  
 

@@ -246,5 +246,5 @@ spec:
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/k8s-efk/  
+> URL: https://starifly.github.io/posts/k8s-efk/  
 

@@ -148,5 +148,5 @@ go version
 ---
 
 > 作者: coderzh  
-> URL: http://localhost:1313/posts/use-webhook-automated-deploy-hugo/  
+> URL: https://starifly.github.io/posts/use-webhook-automated-deploy-hugo/  
 

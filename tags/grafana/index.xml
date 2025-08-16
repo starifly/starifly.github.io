@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>grafana - 标签 | 飞鸟</title>
-    <link>http://localhost:1313/tags/grafana/</link>
+    <link>https://starifly.github.io/tags/grafana/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Wed, 06 Oct 2021 19:20:04 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用grafana&#43;prometheus监控ceph集群并实现钉钉报警</title>
-      <link>http://localhost:1313/posts/grafana-prometheus-monitor-ceph-cluster/</link>
+      <link>https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/</link>
       <pubDate>Wed, 06 Oct 2021 19:20:04 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/grafana-prometheus-monitor-ceph-cluster/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;p&gt;在Ceph Luminous之前的版本，可以使用第三方的Prometheus exporter ceph_exporter。 Ceph Luminous 12.2.1后的mgr中自带了Prometheus插件，内置了 Prometheus ceph exporter，可以使用Ceph mgr内置的exporter作为Prometheus的target。&lt;/p&gt;&#xA;&lt;p&gt;本系统组件（都是部署在 docker 容器中）如下：&lt;/p&gt;</description>
     </item>
   </channel>

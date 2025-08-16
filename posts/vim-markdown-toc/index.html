@@ -14,8 +14,8 @@
   <meta itemprop="datePublished" content="2018-08-15T22:31:38+08:00">
   <meta itemprop="dateModified" content="2018-08-16T00:00:00+08:00">
   <meta itemprop="wordCount" content="1047">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="vim,markdown"><meta property="og:url" content="http://localhost:1313/posts/vim-markdown-toc/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="vim,markdown"><meta property="og:url" content="https://starifly.github.io/posts/vim-markdown-toc/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="为 Markdown 生成 TOC 的 Vim 插件">
   <meta property="og:description" content="因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。
@@ -27,17 +27,17 @@
     <meta property="article:modified_time" content="2018-08-16T00:00:00+08:00">
     <meta property="article:tag" content="vim">
     <meta property="article:tag" content="markdown">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="为 Markdown 生成 TOC 的 Vim 插件">
   <meta name="twitter:description" content="因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。
 这算是我真正意义上完全独立开发的第一款实用 Vim 插件，当然开发过程中也参考了别人的做法。">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/vim-markdown-toc/" title="为 Markdown 生成 TOC 的 Vim 插件 | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/use-ubuntu-notes/" title="Ubuntu 使用笔记" /><link rel="next" type="text/html" href="http://localhost:1313/posts/travis-basis/" title="持续集成教程 1 通识科普" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/vim-markdown-toc/index.md" title="为 Markdown 生成 TOC 的 Vim 插件 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/vim-markdown-toc/" title="为 Markdown 生成 TOC 的 Vim 插件 | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/use-ubuntu-notes/" title="Ubuntu 使用笔记" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/travis-basis/" title="持续集成教程 1 通识科普" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/vim-markdown-toc/index.md" title="为 Markdown 生成 TOC 的 Vim 插件 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -47,11 +47,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/vim-markdown-toc\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "vim, markdown","wordcount":  1047 ,
-    "url": "http:\/\/localhost:1313\/posts\/vim-markdown-toc\/","datePublished": "2018-08-15T22:31:38+08:00","dateModified": "2018-08-16T00:00:00+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/vim-markdown-toc\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "vim, markdown","wordcount":  1047 ,
+    "url": "https:\/\/starifly.github.io\/posts\/vim-markdown-toc\/","datePublished": "2018-08-15T22:31:38+08:00","dateModified": "2018-08-16T00:00:00+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "码志"
       },"description": ""
@@ -399,11 +399,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/vim-markdown-toc/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件" data-hashtags="vim,markdown"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/vim-markdown-toc/" data-hashtag="vim"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/vim-markdown-toc/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件" data-hashtags="vim,markdown"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/vim-markdown-toc/" data-hashtag="vim"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/vim-markdown-toc/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/vim-markdown-toc/" data-title="为 Markdown 生成 TOC 的 Vim 插件"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

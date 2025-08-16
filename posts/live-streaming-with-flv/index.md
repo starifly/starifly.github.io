@@ -135,5 +135,5 @@ export class HttpFlv extends PureComponent {
 ---
 
 > 作者: 浩麟  
-> URL: http://localhost:1313/posts/live-streaming-with-flv/  
+> URL: https://starifly.github.io/posts/live-streaming-with-flv/  
 

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>日常记录 - 分类 | 飞鸟</title>
-    <link>http://localhost:1313/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/</link>
+    <link>https://starifly.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Sat, 18 Aug 2018 15:48:56 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>日常记录</title>
-      <link>http://localhost:1313/daily-notes/</link>
+      <link>https://starifly.github.io/daily-notes/</link>
       <pubDate>Sat, 18 Aug 2018 15:48:56 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/daily-notes/</guid>
-      <category domain="http://localhost:1313/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</category>
+      <guid>https://starifly.github.io/daily-notes/</guid>
+      <category domain="https://starifly.github.io/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</category>
       <description>&lt;p&gt;keep&lt;/p&gt;</description>
     </item>
   </channel>

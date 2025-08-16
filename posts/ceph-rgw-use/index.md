@@ -11,5 +11,5 @@
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-rgw-use/  
+> URL: https://starifly.github.io/posts/ceph-rgw-use/  
 

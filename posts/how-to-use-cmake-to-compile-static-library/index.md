@@ -159,5 +159,5 @@ cmake -DCMAKE_TOOLCHAIN_FILE=../android.toolchain.cmake -DANDROID_ABI="armeabi" 
 ---
 
 > 作者: 0owen  
-> URL: http://localhost:1313/posts/how-to-use-cmake-to-compile-static-library/  
+> URL: https://starifly.github.io/posts/how-to-use-cmake-to-compile-static-library/  
 

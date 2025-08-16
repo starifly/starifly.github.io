@@ -122,5 +122,5 @@ groups:
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/grafana-prometheus-monitor-ceph-cluster/  
+> URL: https://starifly.github.io/posts/grafana-prometheus-monitor-ceph-cluster/  
 

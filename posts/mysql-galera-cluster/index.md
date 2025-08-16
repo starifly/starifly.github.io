@@ -313,5 +313,5 @@ show status like 'wsrep_local_state_comment'；
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/mysql-galera-cluster/  
+> URL: https://starifly.github.io/posts/mysql-galera-cluster/  
 

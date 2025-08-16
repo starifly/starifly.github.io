@@ -119,5 +119,5 @@ https://itlaws.cn:9000/hooks/itlaws.cn-deploy
 ---
 
 > 作者: zhoucaiqi@gmail.com  
-> URL: http://localhost:1313/posts/webhook-github-autodeploy/  
+> URL: https://starifly.github.io/posts/webhook-github-autodeploy/  
 

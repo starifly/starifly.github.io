@@ -213,5 +213,5 @@ ssh-add ~/.ssh/id_rsa
 ---
 
 > 作者: 码志  
-> URL: http://localhost:1313/posts/use-ubuntu-notes/  
+> URL: https://starifly.github.io/posts/use-ubuntu-notes/  
 

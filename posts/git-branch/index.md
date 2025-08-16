@@ -240,5 +240,5 @@ $ git pull --rebase <远程主机名> <远程分支名>:<本地分支名>
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/git-branch/  
+> URL: https://starifly.github.io/posts/git-branch/  
 

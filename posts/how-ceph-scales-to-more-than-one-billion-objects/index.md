@@ -7,5 +7,5 @@
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/how-ceph-scales-to-more-than-one-billion-objects/  
+> URL: https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/  
 

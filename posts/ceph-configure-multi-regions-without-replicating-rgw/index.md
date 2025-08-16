@@ -7,5 +7,5 @@ ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-configure-multi-regions-without-replicating-rgw/  
+> URL: https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/  
 

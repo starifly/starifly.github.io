@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vim - 分类 | 飞鸟</title>
-    <link>http://localhost:1313/categories/vim/</link>
+    <link>https://starifly.github.io/categories/vim/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Mon, 20 Aug 2018 00:00:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/vim/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/categories/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vim Tips</title>
-      <link>http://localhost:1313/posts/vim-tips/</link>
+      <link>https://starifly.github.io/posts/vim-tips/</link>
       <pubDate>Fri, 17 Aug 2018 21:15:03 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/vim-tips/</guid>
-      <category domain="http://localhost:1313/categories/vim/">vim</category>
+      <guid>https://starifly.github.io/posts/vim-tips/</guid>
+      <category domain="https://starifly.github.io/categories/vim/">vim</category>
       <description>&lt;p&gt;Vim Tips.&lt;/p&gt;</description>
     </item>
     <item>
       <title>为 Markdown 生成 TOC 的 Vim 插件</title>
-      <link>http://localhost:1313/posts/vim-markdown-toc/</link>
+      <link>https://starifly.github.io/posts/vim-markdown-toc/</link>
       <pubDate>Wed, 15 Aug 2018 22:31:38 +0800</pubDate>
-      <guid>http://localhost:1313/posts/vim-markdown-toc/</guid>
-      <category domain="http://localhost:1313/categories/vim/">vim</category>
+      <guid>https://starifly.github.io/posts/vim-markdown-toc/</guid>
+      <category domain="https://starifly.github.io/categories/vim/">vim</category>
       <description>&lt;p&gt;因为饱受 GFM 和 Redcarpet 两种 Markdown 引擎生成 TOC 链接的差异的折磨，而我又不得不同时使用它们——博客基于 Jekyll 使用 Redcarpet（&lt;em&gt;Update 2016/09/16: GitHub Pages 现在已经改为只支持 kramdown&lt;/em&gt;），而其它放在 GitHub 仓库里的文档使用 GFM，我决定为我常用的 Markdown 编辑器 Vim 做一款同时支持 GFM 和 Redcarpet 两种 TOC 链接风格的 Table of Contents 自动生成插件。&lt;/p&gt;&#xA;&lt;p&gt;这算是我真正意义上完全独立开发的第一款实用 Vim 插件，当然开发过程中也参考了别人的做法。&lt;/p&gt;</description>
     </item>
   </channel>

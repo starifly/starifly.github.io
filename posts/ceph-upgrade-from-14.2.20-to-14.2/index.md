@@ -173,5 +173,5 @@ Ceph Nautilus 升级方案 - https://blog.csdn.net/zzboat0422/article/details/11
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-upgrade-from-14.2.20-to-14.2/  
+> URL: https://starifly.github.io/posts/ceph-upgrade-from-14.2.20-to-14.2/  
 

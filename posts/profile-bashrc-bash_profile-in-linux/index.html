@@ -20,8 +20,8 @@
   <meta itemprop="datePublished" content="2018-08-17T11:52:00+08:00">
   <meta itemprop="dateModified" content="2018-08-19T00:00:00+08:00">
   <meta itemprop="wordCount" content="695">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="linux,profile,bashrc"><meta property="og:url" content="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="linux,profile,bashrc"><meta property="og:url" content="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="Linux 中 profile，bashrc，bash_profile等的区别">
   <meta property="og:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
@@ -37,10 +37,10 @@
     <meta property="article:tag" content="linux">
     <meta property="article:tag" content="profile">
     <meta property="article:tag" content="bashrc">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="Linux 中 profile，bashrc，bash_profile等的区别">
   <meta name="twitter:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
 /etc/bashrc: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。
@@ -50,7 +50,7 @@
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/" title="Linux 中 profile，bashrc，bash_profile等的区别 | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/what-the-hell-is-devops/" title="一分钟告诉你究竟DevOps是什么鬼？" /><link rel="next" type="text/html" href="http://localhost:1313/posts/alfred-workflow/" title="无比强大的 Alfred Workflow" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/index.md" title="Linux 中 profile，bashrc，bash_profile等的区别 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/" title="Linux 中 profile，bashrc，bash_profile等的区别 | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/what-the-hell-is-devops/" title="一分钟告诉你究竟DevOps是什么鬼？" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/alfred-workflow/" title="无比强大的 Alfred Workflow" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/index.md" title="Linux 中 profile，bashrc，bash_profile等的区别 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -60,11 +60,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/profile-bashrc-bash_profile-in-linux\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "linux, profile, bashrc","wordcount":  695 ,
-    "url": "http:\/\/localhost:1313\/posts\/profile-bashrc-bash_profile-in-linux\/","datePublished": "2018-08-17T11:52:00+08:00","dateModified": "2018-08-19T00:00:00+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/profile-bashrc-bash_profile-in-linux\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "linux, profile, bashrc","wordcount":  695 ,
+    "url": "https:\/\/starifly.github.io\/posts\/profile-bashrc-bash_profile-in-linux\/","datePublished": "2018-08-17T11:52:00+08:00","dateModified": "2018-08-19T00:00:00+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "茶歇驿站"
       },"description": ""
@@ -255,11 +255,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/profile-bashrc-bash_profile-in-linux/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别" data-hashtags="linux,profile,bashrc"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/" data-hashtag="linux"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别" data-hashtags="linux,profile,bashrc"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/" data-hashtag="linux"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/" data-title="Linux 中 Profile，bashrc，bash_profile等的区别"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

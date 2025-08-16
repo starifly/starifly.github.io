@@ -29,5 +29,5 @@ Query OK, 0 rows affected (0.00 sec)
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/mysql-account-permission-grant-problem/  
+> URL: https://starifly.github.io/posts/mysql-account-permission-grant-problem/  
 

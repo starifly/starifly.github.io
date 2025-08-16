@@ -305,5 +305,5 @@ make 的一大缺点是当项目不断成长时，会变得越来越麻烦。
 ---
 
 > 作者: liuchengxu  
-> URL: http://localhost:1313/posts/portable-makefile-tutorial/  
+> URL: https://starifly.github.io/posts/portable-makefile-tutorial/  
 

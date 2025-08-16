@@ -252,5 +252,5 @@ ceph osd pool set cephfs_data crush_rule replicated_rule_rack
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-crushmap/  
+> URL: https://starifly.github.io/posts/ceph-crushmap/  
 

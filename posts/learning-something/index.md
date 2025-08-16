@@ -19,5 +19,5 @@
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/learning-something/  
+> URL: https://starifly.github.io/posts/learning-something/  
 

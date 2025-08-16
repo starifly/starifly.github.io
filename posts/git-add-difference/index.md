@@ -26,5 +26,5 @@ Git Version 2.x:
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/git-add-difference/  
+> URL: https://starifly.github.io/posts/git-add-difference/  
 

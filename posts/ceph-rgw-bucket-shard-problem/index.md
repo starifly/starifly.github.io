@@ -141,5 +141,5 @@ radosgw-admin zonegroup modify  --rgw-zonegroup=default --rgw-realm=my-realm
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/  
+> URL: https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/  
 

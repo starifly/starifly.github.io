@@ -21,5 +21,5 @@
 ---
 
 > 作者: 浩麟  
-> URL: http://localhost:1313/posts/audio-video-tech-references/  
+> URL: https://starifly.github.io/posts/audio-video-tech-references/  
 

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog - 标签 | 飞鸟</title>
-    <link>http://localhost:1313/tags/blog/</link>
+    <link>https://starifly.github.io/tags/blog/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>为 Github Pages 自定义域名博客开启 HTTPS</title>
-      <link>http://localhost:1313/posts/using-https-with-custom-domain-name-on-github-pages/</link>
+      <link>https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/</link>
       <pubDate>Fri, 17 Aug 2018 12:11:32 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/using-https-with-custom-domain-name-on-github-pages/</guid>
-      <category domain="http://localhost:1313/categories/github/">github</category>
-      <category domain="http://localhost:1313/categories/blog/">blog</category>
+      <guid>https://starifly.github.io/posts/using-https-with-custom-domain-name-on-github-pages/</guid>
+      <category domain="https://starifly.github.io/categories/github/">github</category>
+      <category domain="https://starifly.github.io/categories/blog/">blog</category>
       <description>&lt;pre&gt;&lt;code&gt;这是转载文章。&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 class=&#34;heading-element&#34; id=&#34;为什么要使用-https-协议呢&#34;&gt;&lt;span&gt;1 为什么要使用 HTTPS 协议呢？&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e4%bd%bf%e7%94%a8-https-%e5%8d%8f%e8%ae%ae%e5%91%a2&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;在浏览器和网站之间提供更安全的通讯&lt;/li&gt;&#xA;&lt;li&gt;HTTPS 比 HTTP 的速度更快&lt;/li&gt;&#xA;&lt;li&gt;能提高搜索引擎的优化排名&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;HTTPS 协议的网站在地址栏前会有绿色锁的图标，感觉有点逼格，就冲着这点，果断 HTTPS 走起。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Github Pages 本身支持 HTTPS，但仅支持 &lt;code&gt;github.io&lt;/code&gt; 域名。如果绑定了自己的域名，就不支持 HTTPS 了。幸运的是，CloudFlare 提供免费的启用 HTTPS 的解决方案。&lt;/p&gt;</description>
     </item>
   </channel>

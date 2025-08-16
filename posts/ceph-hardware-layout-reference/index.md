@@ -35,5 +35,5 @@ OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-hardware-layout-reference/  
+> URL: https://starifly.github.io/posts/ceph-hardware-layout-reference/  
 

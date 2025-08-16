@@ -14,8 +14,8 @@
   <meta itemprop="datePublished" content="2021-10-06T16:16:07+08:00">
   <meta itemprop="dateModified" content="2021-10-06T16:16:07+08:00">
   <meta itemprop="wordCount" content="1894">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="ceph,docker,luminous"><meta property="og:url" content="http://localhost:1313/posts/docker-install-ceph-luminous/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="ceph,docker,luminous"><meta property="og:url" content="https://starifly.github.io/posts/docker-install-ceph-luminous/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="Docker安装ceph luminous">
   <meta property="og:description" content="本文基于centos7以docker方式安装ceph 12.2.13版本
@@ -28,17 +28,17 @@
     <meta property="article:tag" content="ceph">
     <meta property="article:tag" content="docker">
     <meta property="article:tag" content="luminous">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="Docker安装ceph luminous">
   <meta name="twitter:description" content="本文基于centos7以docker方式安装ceph 12.2.13版本
 1 操作系统基础配置 三节点创建文件夹： 1 2 mkdir -p /etc/ceph/ /var/lib/ceph/ /var/log/ceph/ chown -R 167:167 /var/log/ceph/ 配置定时任务 1 2 3 systemctl start ntpd &amp;&amp; systemctl enable ntpd # 将时间每隔1小时自动校准同步 0 */1 * * * ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;&amp;1; /sbin/hwclock -w 内核优化 1 2 3 4 5 6 7 8 9 10 11 #调整内核参数 [root@CENTOS7-1 ~]# cat &gt;&gt; /etc/sysctl.conf &lt;&lt; EOF &gt; kernel.pid_max=4194303 &gt; vm.swappiness = 0 &gt; EOF [root@CENTOS7-1 ~]# sysctl -p # read_ahead, 通过数据预读并且记载到随机访问内存方式提高磁盘读操作，8192是比较理想的值 [root@CENTOS7-1 ~]# echo &#34;8192&#34; &gt; /sys/block/sda/queue/read_ahead_kb # I/O Scheduler优化，如果SSD要用noop，SATA/SAS设备采用deadline。 [root@CENTOS7-1 ~]#echo &#34;deadline&#34; &gt; /sys/block/sda/queue/scheduler [root@CENTOS7-1 ~]#echo &#34;noop&#34; &gt; /sys/block/sda/queue/scheduler 关闭selinux 1 2 3 4 5 # vi /etc/selinux/config文件， 将SELINUX设为disabled, 永久生效。 SELINUX=disabled # 临时生效： setenforce 0 编辑别名 1 2 3 4 5 6 7 8 echo &#39;alias ceph=&#34;docker exec mon ceph&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias ceph-fuse=&#34;docker exec mon ceph-fuse&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias ceph-mon=&#34;docker exec mon ceph-mon&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias ceph-osd=&#34;docker exec mon ceph-osd&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias radosgw=&#34;docker exec mon radosgw&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias radosgw-admin=&#34;docker exec mon radosgw-admin&#34;&#39; &gt;&gt; /etc/profile echo &#39;alias rados=&#34;docker exec mon rados&#34;&#39; &gt;&gt; /etc/profile source /etc/profile 2 启动mon 主节点启动mon：">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/docker-install-ceph-luminous/" title="Docker安装ceph luminous | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/virus-process-in-linux-system/" title="Linux中病毒后的处理过程" /><link rel="next" type="text/html" href="http://localhost:1313/posts/ceph-pg-and-pgp/" title="Ceph中的PG和PGP的关系" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/docker-install-ceph-luminous/index.md" title="Docker安装ceph luminous | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/docker-install-ceph-luminous/" title="Docker安装ceph luminous | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/virus-process-in-linux-system/" title="Linux中病毒后的处理过程" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/ceph-pg-and-pgp/" title="Ceph中的PG和PGP的关系" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/docker-install-ceph-luminous/index.md" title="Docker安装ceph luminous | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -48,11 +48,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/docker-install-ceph-luminous\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, docker, luminous","wordcount":  1894 ,
-    "url": "http:\/\/localhost:1313\/posts\/docker-install-ceph-luminous\/","datePublished": "2021-10-06T16:16:07+08:00","dateModified": "2021-10-06T16:16:07+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/docker-install-ceph-luminous\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, docker, luminous","wordcount":  1894 ,
+    "url": "https:\/\/starifly.github.io\/posts\/docker-install-ceph-luminous\/","datePublished": "2021-10-06T16:16:07+08:00","dateModified": "2021-10-06T16:16:07+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "starifly"
       },"description": ""
@@ -641,11 +641,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/docker-install-ceph-luminous/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous" data-hashtags="ceph,docker,luminous"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/docker-install-ceph-luminous/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/docker-install-ceph-luminous/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous" data-hashtags="ceph,docker,luminous"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/docker-install-ceph-luminous/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/docker-install-ceph-luminous/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/docker-install-ceph-luminous/" data-title="Docker安装ceph Luminous"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

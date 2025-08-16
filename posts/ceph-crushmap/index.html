@@ -14,8 +14,8 @@
   <meta itemprop="datePublished" content="2023-01-26T19:01:44+08:00">
   <meta itemprop="dateModified" content="2023-01-26T19:01:44+08:00">
   <meta itemprop="wordCount" content="2255">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="ceph"><meta property="og:url" content="http://localhost:1313/posts/ceph-crushmap/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="ceph"><meta property="og:url" content="https://starifly.github.io/posts/ceph-crushmap/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="ceph故障域">
   <meta property="og:description" content="1 准备 1、执行ceph -s确认存储集群状态，保证为健康状态。
@@ -26,17 +26,17 @@
     <meta property="article:published_time" content="2023-01-26T19:01:44+08:00">
     <meta property="article:modified_time" content="2023-01-26T19:01:44+08:00">
     <meta property="article:tag" content="ceph">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="ceph故障域">
   <meta name="twitter:description" content="1 准备 1、执行ceph -s确认存储集群状态，保证为健康状态。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 [root@ceph001 ~]# ceph -s cluster: id: d00c744a-17f6-4768-95de-1243202557f2 health: HEALTH_OK services: mon: 3 daemons, quorum ceph001,ceph002,ceph003 (age 41m) mgr: ceph001(active, since 43m), standbys: ceph003 mds: cephfs:1 {0=ceoh002=up:active} 2 up:standby osd: 6 osds: 6 up (since 3m), 6 in (since 3m) rgw: 3 daemons active (ceph001, ceph002, ceph003) task status: data: pools: 10 pools, 96 pgs objects: 803 objects, 2.1 GiB usage: 13 GiB used, 62 GiB / 75 GiB avail pgs: 96 active&#43;clean 2、执行ceph osd tree ,记录变更前的结构。以及存储池pool及其他信息。">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/ceph-crushmap/" title="ceph故障域 | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/how-ceph-scales-to-more-than-one-billion-objects/" title="Ceph如何扩展到超过十亿个对象" /><link rel="next" type="text/html" href="http://localhost:1313/posts/ceph-hardware-layout-reference/" title="ceph硬件布置参考" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/ceph-crushmap/index.md" title="ceph故障域 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/ceph-crushmap/" title="ceph故障域 | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/how-ceph-scales-to-more-than-one-billion-objects/" title="Ceph如何扩展到超过十亿个对象" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/ceph-hardware-layout-reference/" title="ceph硬件布置参考" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/ceph-crushmap/index.md" title="ceph故障域 | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -46,11 +46,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/ceph-crushmap\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph","wordcount":  2255 ,
-    "url": "http:\/\/localhost:1313\/posts\/ceph-crushmap\/","datePublished": "2023-01-26T19:01:44+08:00","dateModified": "2023-01-26T19:01:44+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/ceph-crushmap\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph","wordcount":  2255 ,
+    "url": "https:\/\/starifly.github.io\/posts\/ceph-crushmap\/","datePublished": "2023-01-26T19:01:44+08:00","dateModified": "2023-01-26T19:01:44+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "starifly"
       },"description": ""
@@ -639,11 +639,11 @@ replicated_rule_rack_ssd：用于普通ssd分区为osd，以rack为故障域的�
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/ceph-crushmap/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/ceph-crushmap/" data-title="Ceph故障域" data-hashtags="ceph"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/ceph-crushmap/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/ceph-crushmap/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/ceph-crushmap/" data-title="Ceph故障域"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/ceph-crushmap/" data-title="Ceph故障域"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/ceph-crushmap/" data-title="Ceph故障域" data-hashtags="ceph"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/ceph-crushmap/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/ceph-crushmap/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/ceph-crushmap/" data-title="Ceph故障域"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/ceph-crushmap/" data-title="Ceph故障域"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

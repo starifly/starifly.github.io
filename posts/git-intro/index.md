@@ -102,5 +102,5 @@ $ git push # 提交到github
 ---
 
 > 作者: Bruce Zhao  
-> URL: http://localhost:1313/posts/git-intro/  
+> URL: https://starifly.github.io/posts/git-intro/  
 

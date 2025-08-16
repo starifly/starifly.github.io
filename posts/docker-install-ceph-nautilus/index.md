@@ -278,5 +278,5 @@ docker run -d --net=host --name=mds --restart=always -v /etc/localtime:/etc/loca
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/docker-install-ceph-nautilus/  
+> URL: https://starifly.github.io/posts/docker-install-ceph-nautilus/  
 

@@ -124,5 +124,5 @@ set pool 2 pgp_num to 12
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-pg-and-pgp/  
+> URL: https://starifly.github.io/posts/ceph-pg-and-pgp/  
 

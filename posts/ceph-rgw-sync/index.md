@@ -94,5 +94,5 @@ rgw zone = sync
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-rgw-sync/  
+> URL: https://starifly.github.io/posts/ceph-rgw-sync/  
 

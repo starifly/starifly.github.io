@@ -19,5 +19,5 @@ Github: [https://github.com/starifly/][1]
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/about/  
+> URL: https://starifly.github.io/about/  
 

@@ -2,60 +2,60 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rgw - 标签 | 飞鸟</title>
-    <link>http://localhost:1313/tags/rgw/</link>
+    <link>https://starifly.github.io/tags/rgw/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Thu, 26 Jan 2023 18:56:35 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/rgw/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/tags/rgw/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ceph在不复制rgw的情况下配置多个区域</title>
-      <link>http://localhost:1313/posts/ceph-configure-multi-regions-without-replicating-rgw/</link>
+      <link>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</link>
       <pubDate>Thu, 26 Jan 2023 18:56:35 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-configure-multi-regions-without-replicating-rgw/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-configure-multi-regions-without-replicating-rgw/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;p&gt;ceph 在同一个集群配置多个zone，但不同 zone 之间的 rgw 不复制，这种情形应该可以适应多租户环境，因为希望每个租户之间的数据是相互独立的，具体配置可以参考 &lt;a href=&#34;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/3/html-single/object_gateway_guide_for_red_hat_enterprise_linux/index#configuring-multiple-zones-without-replication-rgw&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>ceph rgw同步</title>
-      <link>http://localhost:1313/posts/ceph-rgw-sync/</link>
+      <link>https://starifly.github.io/posts/ceph-rgw-sync/</link>
       <pubDate>Thu, 26 Jan 2023 18:53:34 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-rgw-sync/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-rgw-sync/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;环境&#34;&gt;&lt;span&gt;1 环境&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e7%8e%af%e5%a2%83&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;源 ceph 集群（192.168.5.203:20003）&lt;/li&gt;&#xA;&lt;li&gt;基于源集群创建一个新的 rgw 端点(192.168.5.128:7480)，用于将数据同步到另一个 S3提供者&lt;/li&gt;&#xA;&lt;li&gt;S3 目标（192.168.4.13:7480）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 class=&#34;heading-element&#34; id=&#34;操作步骤&#34;&gt;&lt;span&gt;2 操作步骤&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;准备存储池&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>ceph s3 java开发相关</title>
-      <link>http://localhost:1313/posts/ceph-s3-java-related/</link>
+      <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
       <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-s3-java-related/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-s3-java-related/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;&#xA;&lt;p&gt;AWS s3 java api使用 - &lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - &lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;适用于 Java 的 AWS 开发工具包 - &lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Uploading and copying objects using multipart upload - &lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;另外可以使用 &lt;a href=&#34;https://github.com/minio/minio-java&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/minio/minio-java&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt; 开发&lt;/p&gt;</description>
     </item>
     <item>
       <title>Ceph RGW使用</title>
-      <link>http://localhost:1313/posts/ceph-rgw-use/</link>
+      <link>https://starifly.github.io/posts/ceph-rgw-use/</link>
       <pubDate>Wed, 06 Oct 2021 21:07:15 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-rgw-use/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-rgw-use/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/openinfra/article/details/106856875&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Ceph使用系列之——Ceph RGW使用&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u012720518/article/details/106650382/&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Ceph-对象存储：S3使用手册实践&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt; 中的文件夹部分&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386561293&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;06 分布式存储ceph创建rgw接口&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>ceph rgw创建新的region</title>
-      <link>http://localhost:1313/posts/ceph-rgw-create-a-new-region/</link>
+      <link>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</link>
       <pubDate>Wed, 06 Oct 2021 19:35:17 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-rgw-create-a-new-region/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-rgw-create-a-new-region/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;p&gt;概念：   &lt;br&gt;&#xA;1、zone：可用区，有一个或多个对象网关实例组成。zone不可以跨集群，配置zone不同于其他典型配置，因为不需要在ceph.conf中配置。&lt;br&gt;&#xA;2、zonegroup：以前叫做“region”，有多个zone组成,一个zonegroup里面有一个master zone，在同一个zonegroup中的多个zone可以同步元数据和数据，提供灾难恢复能力。&lt;br&gt;&#xA;3、realm：代表一个唯一的命名空间，有一个或多个zonegroup组成。在同一个realm中的不同zonegroup只能同步元数据。在realm中有period的概念，表示zonegroup的配置状态，修改zonegroup，必须更新period。&lt;/p&gt;</description>
     </item>
     <item>
       <title>ceph rgw桶分片问题</title>
-      <link>http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/</link>
+      <link>https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/</link>
       <pubDate>Wed, 06 Oct 2021 19:31:32 +0800</pubDate><author>efim@163.com (starifly)</author>
-      <guid>http://localhost:1313/posts/ceph-rgw-bucket-shard-problem/</guid>
-      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <guid>https://starifly.github.io/posts/ceph-rgw-bucket-shard-problem/</guid>
+      <category domain="https://starifly.github.io/categories/ceph/">ceph</category>
       <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;背景说明&#34;&gt;&lt;span&gt;1 背景说明&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e8%83%8c%e6%99%af%e8%af%b4%e6%98%8e&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;RGW 为每个 bucket 维护了一份索引，里面保存了 bucket 中全部对象的元数据。RGW 本身并没有足够有效的遍历对象的能力，所以在处理请求时，这些索引数据非常重要，比如遍历 bucket 中全部对象时。bucket 索引信息还有其他用处，比如为版本控制的对象维护日志、bucket 配额元数据和跨区同步的日志。bucket 索引不会影响对象的读操作，但写和修改确实会增加一些额外的操作。&lt;/p&gt;</description>
     </item>
   </channel>

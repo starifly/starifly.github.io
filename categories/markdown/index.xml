@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>markdown - 分类 | 飞鸟</title>
-    <link>http://localhost:1313/categories/markdown/</link>
+    <link>https://starifly.github.io/categories/markdown/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/markdown/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/categories/markdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>关于 Markdown 的一些奇技淫巧</title>
-      <link>http://localhost:1313/posts/markdown-odd-skills/</link>
+      <link>https://starifly.github.io/posts/markdown-odd-skills/</link>
       <pubDate>Wed, 15 Aug 2018 15:35:40 +0800</pubDate>
-      <guid>http://localhost:1313/posts/markdown-odd-skills/</guid>
-      <category domain="http://localhost:1313/categories/markdown/">markdown</category>
+      <guid>https://starifly.github.io/posts/markdown-odd-skills/</guid>
+      <category domain="https://starifly.github.io/categories/markdown/">markdown</category>
       <description>&lt;p&gt;自从几年前开始在 GitHub 玩耍，接触到 Markdown 之后，就一发不可收拾，在各种文档编辑上，有条件用 Markdown 的尽量用，不能用的创造条件也要用——README、博客、公众号、接口文档等等全都是，比如当前这篇文章就是用 Markdown 编辑而成。&lt;/p&gt;&#xA;&lt;p&gt;这几年也发现越来越多的网站和程序提供了对 Markdown 的支持，从最初接触的 GitHub、Jekyll，到简书、掘金、CSDN 等等，由此也从别人做得好的文档中，学到了一些『奇技淫巧』，所以本文不是对 Markdown 基础语法的介绍，而是一些相对高级、能将 Markdown 玩出更多花样的小技巧。&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;注：如下技巧大多是利用 Markdown 兼容部分 HTML 标签的特性来完成，不一定在所有网站和软件里都完全支持，主要以 GitHub 支持为准。&lt;/em&gt;&lt;/p&gt;</description>
     </item>
   </channel>

@@ -81,5 +81,5 @@
 ---
 
 > 作者: ice1000  
-> URL: http://localhost:1313/posts/travis-basis/  
+> URL: https://starifly.github.io/posts/travis-basis/  
 

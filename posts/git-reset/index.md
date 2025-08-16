@@ -96,5 +96,5 @@ $ git push origin master
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/git-reset/  
+> URL: https://starifly.github.io/posts/git-reset/  
 

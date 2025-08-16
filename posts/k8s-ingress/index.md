@@ -248,5 +248,5 @@ tomcat.k8s.com  / tomcat-service:8080(10.244.1.94:8080,10.244.1.95:8080,10.244.2
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/k8s-ingress/  
+> URL: https://starifly.github.io/posts/k8s-ingress/  
 

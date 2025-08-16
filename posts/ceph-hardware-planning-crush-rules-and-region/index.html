@@ -11,8 +11,8 @@
   <meta itemprop="datePublished" content="2021-10-06T17:14:18+08:00">
   <meta itemprop="dateModified" content="2021-10-06T21:00:00+08:00">
   <meta itemprop="wordCount" content="312">
-  <meta itemprop="image" content="http://localhost:1313/images/apple-devices-preview.webp">
-  <meta itemprop="keywords" content="ceph,crush"><meta property="og:url" content="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/">
+  <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
+  <meta itemprop="keywords" content="ceph,crush"><meta property="og:url" content="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="Ceph 硬件选型、crush规则及region">
   <meta property="og:description" content="1 Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 &#43; luminous） 03 分布式存储ceph之crush规则配置 动态设置bucket_index_max_shards参数 实弹军演-基于Ceph对象存储的实战兵法 从传统运维到云运维演进历程之软件定义存储（一） 从传统运维到云运维演进历程之软件定义存储（三）上 从传统运维到云运维演进历程之软件定义存储（三）下 从传统运维到云运维演进历程之软件定义存储（五）上 从传统运维到云运维演进历程之软件定义存储（五）中 从传统运维到云运维演进历程之软件定义存储（五）下 Ceph-RGW多活机制 BlueStore-先进的用户态文件系统《一》 Ceph之对象存储网关RADOS Gateway(RGW)">
@@ -23,16 +23,16 @@
     <meta property="article:modified_time" content="2021-10-06T21:00:00+08:00">
     <meta property="article:tag" content="ceph">
     <meta property="article:tag" content="crush">
-    <meta property="og:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+    <meta property="og:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/apple-devices-preview.webp">
+  <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="Ceph 硬件选型、crush规则及region">
   <meta name="twitter:description" content="1 Reference 附录2、ceph安装配置介绍与主机优化 [ ceph ] CEPH 部署完整版（CentOS 7 &#43; luminous） 03 分布式存储ceph之crush规则配置 动态设置bucket_index_max_shards参数 实弹军演-基于Ceph对象存储的实战兵法 从传统运维到云运维演进历程之软件定义存储（一） 从传统运维到云运维演进历程之软件定义存储（三）上 从传统运维到云运维演进历程之软件定义存储（三）下 从传统运维到云运维演进历程之软件定义存储（五）上 从传统运维到云运维演进历程之软件定义存储（五）中 从传统运维到云运维演进历程之软件定义存储（五）下 Ceph-RGW多活机制 BlueStore-先进的用户态文件系统《一》 Ceph之对象存储网关RADOS Gateway(RGW)">
 <meta name="application-name" content="菠菜眾長">
 <meta name="apple-mobile-web-app-title" content="菠菜眾長"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/" title="Ceph 硬件选型、crush规则及region | 飞鸟" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/docker-install-ceph-nautilus/" title="Docker安装ceph nautilus" /><link rel="next" type="text/html" href="http://localhost:1313/posts/ceph-rbd/" title="Ceph rbd简单使用" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/index.md" title="Ceph 硬件选型、crush规则及region | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" type="text/html" href="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/" title="Ceph 硬件选型、crush规则及region | 飞鸟" /><link rel="prev" type="text/html" href="https://starifly.github.io/posts/docker-install-ceph-nautilus/" title="Docker安装ceph nautilus" /><link rel="next" type="text/html" href="https://starifly.github.io/posts/ceph-rbd/" title="Ceph rbd简单使用" /><link rel="alternate" type="text/markdown" href="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/index.md" title="Ceph 硬件选型、crush规则及region | 飞鸟"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"></noscript><link rel="preload" href="https://unpkg.com/animate.css@4.1.1/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -42,11 +42,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/posts\/ceph-hardware-planning-crush-rules-and-region\/"
-    },"image": ["http:\/\/localhost:1313\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, crush","wordcount":  312 ,
-    "url": "http:\/\/localhost:1313\/posts\/ceph-hardware-planning-crush-rules-and-region\/","datePublished": "2021-10-06T17:14:18+08:00","dateModified": "2021-10-06T21:00:00+08:00","publisher": {
+      "@id": "https:\/\/starifly.github.io\/posts\/ceph-hardware-planning-crush-rules-and-region\/"
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "ceph, crush","wordcount":  312 ,
+    "url": "https:\/\/starifly.github.io\/posts\/ceph-hardware-planning-crush-rules-and-region\/","datePublished": "2021-10-06T17:14:18+08:00","dateModified": "2021-10-06T21:00:00+08:00","publisher": {
       "@type": "Organization",
-      "name": "FlyBird","logo": "http:\/\/localhost:1313\/images\/avatar.webp"},"author": {
+      "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
         "@type": "Person",
         "name": "starifly"
       },"description": ""
@@ -236,11 +236,11 @@
           </div></div><div class="post-info-line">
         <div class="post-info-md"><span><a href="/posts/ceph-hardware-planning-crush-rules-and-region/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region" data-hashtags="ceph,crush"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="http://localhost:1313/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region" data-hashtags="ceph,crush"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/" data-hashtag="ceph"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/"><i class="fa-brands fa-linkedin fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://starifly.github.io/posts/ceph-hardware-planning-crush-rules-and-region/" data-title="Ceph 硬件选型、crush规则及region"><i data-svg-src="https://unpkg.com/simple-icons@9.19.0/icons/baidu.svg" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>

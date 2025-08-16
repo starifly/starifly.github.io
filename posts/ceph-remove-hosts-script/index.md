@@ -90,5 +90,5 @@ done
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-remove-hosts-script/  
+> URL: https://starifly.github.io/posts/ceph-remove-hosts-script/  
 

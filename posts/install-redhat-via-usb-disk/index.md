@@ -16,5 +16,5 @@
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/install-redhat-via-usb-disk/  
+> URL: https://starifly.github.io/posts/install-redhat-via-usb-disk/  
 

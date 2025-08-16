@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>clang - 标签 | 飞鸟</title>
-    <link>http://localhost:1313/tags/clang/</link>
+    <link>https://starifly.github.io/tags/clang/</link>
     <description>喜欢瞎折腾</description>
     <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Thu, 16 Aug 2018 10:36:02 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/clang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://starifly.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 CMake 不用路径地调用 libclang</title>
-      <link>http://localhost:1313/posts/cmake-clang/</link>
+      <link>https://starifly.github.io/posts/cmake-clang/</link>
       <pubDate>Thu, 16 Aug 2018 10:36:02 +0800</pubDate>
-      <guid>http://localhost:1313/posts/cmake-clang/</guid>
-      <category domain="http://localhost:1313/categories/cmake/">cmake</category>
+      <guid>https://starifly.github.io/posts/cmake-clang/</guid>
+      <category domain="https://starifly.github.io/categories/cmake/">cmake</category>
       <description>&lt;p&gt;作为一个有高尚的情操的程序员，应该学会在写非练手项目的时候构建流程不使用与本机路径相关的依赖，这样把代码往 CI 上部署、在公司与个人电脑间传输、或者给别人用的时候都方便的多。&lt;/p&gt;&#xA;&lt;p&gt;如果有 gradle, pip, gem, maven, sbt 这类基于包的构建工具的话，这根本就不是问题。别人写的依赖可以在远端调用，自己写的依赖也可以本地调用。&lt;br&gt;&#xA;如果有 npm, go get 这类基于版本控制的构建工具的话，这当作也只有一个小问题，就是项目维护者脑抽了一下，可能就会误伤在此期间构建程序的程序员。&lt;/p&gt;</description>
     </item>
   </channel>

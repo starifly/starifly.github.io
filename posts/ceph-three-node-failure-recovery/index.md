@@ -121,5 +121,5 @@ docker run -d --net=host --name=mds --restart=always -v /etc/localtime:/etc/loca
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-three-node-failure-recovery/  
+> URL: https://starifly.github.io/posts/ceph-three-node-failure-recovery/  
 

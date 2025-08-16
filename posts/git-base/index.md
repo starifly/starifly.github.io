@@ -176,5 +176,5 @@ $ git add RenameFile
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/git-base/  
+> URL: https://starifly.github.io/posts/git-base/  
 

@@ -57,5 +57,5 @@ radosgw-admin realm create --rgw-realm=my-realm --default
 ---
 
 > 作者: [starifly](https://github.com/starifly)  
-> URL: http://localhost:1313/posts/ceph-rgw-create-a-new-region/  
+> URL: https://starifly.github.io/posts/ceph-rgw-create-a-new-region/  
 

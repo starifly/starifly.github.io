@@ -56,5 +56,5 @@ Github Search: alfred workflow：
 ---
 
 > 作者: 茶歇驿站  
-> URL: http://localhost:1313/posts/alfred-workflow/  
+> URL: https://starifly.github.io/posts/alfred-workflow/  
 

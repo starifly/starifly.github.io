@@ -101,5 +101,5 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 ---
 
 > 作者: 0owen  
-> URL: http://localhost:1313/posts/a-promising-cross-compile-framework/  
+> URL: https://starifly.github.io/posts/a-promising-cross-compile-framework/  
 
