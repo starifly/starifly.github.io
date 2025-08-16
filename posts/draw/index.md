@@ -1,0 +1,165 @@
+# 画图
+
+
+## AI画图
+
+[Trae一键生成系统架构图，简直不要太轻松](https://mp.weixin.qq.com/s/hB1i4MkQcahMogwH40uJgA)
+[架构师必备：用 AI 快速生成架构图](https://mp.weixin.qq.com/s/f0ekrmZVR8xHveST0XfC2g)
+
+## 工具
+
+### draw.io
+
+这个网站是大家一提到思维导图流程图啥的就会搬出来的“大佬级”的网站，几乎全平台都可用，Windows、MAC、在线网站都可以直接使用。[干掉visio，这个画图神器真的绝了！！！](https://mp.weixin.qq.com/s/139F5K6yGEYNAAT-yaEmBA)
+
+[draw.io](https://app.diagrams.net/)
+
+### 开源流程图神器LogicFlow
+
+[开源流程图神器LogicFlow](https://mp.weixin.qq.com/s/Aylj4do7YNO8VC0BTyHNBA)
+
+### Smart Mermaid: AI 驱动的文本转 Mermaid 图表工具
+
+Smart Mermaid 是一款利用人工智能技术，将您的文本描述智能转换为 Mermaid 格式图表代码，并实时渲染成可视化图表的 Web 应用。无论是流程图、序列图、甘特图还是状态图，只需输入文本，AI 即可为您生成相应的图表。
+
+[Smart Mermaid](https://github.com/liujuntao123/smart-mermaid)
+
+### 在线流程图mermaid
+
+可以在线根据代码生成流程图
+
+[mermaid.live](https://mermaid.live/)
+
+### Excalidraw
+
+Excalidraw 是一款虚拟白板开源在线应用，方便画出流程图、示意图等图表。多语言支持(包含中文)。白板为手绘风格的图画，可导入第三方图形素材库，支持多人协作、支持快捷键，可从 Excel 粘贴表格等功能。
+
+功能特色
+
+- 界面简洁，交互细致，上手简单
+- 免注册，支持中文界面，打开浏览器就能开始画图
+- 支持众多键盘快捷键操作，配合鼠标能快速画图
+- 支持通过网页Web链接共享协作
+
+[Excalidraw](https://excalidraw.com/)
+
+### mermaid
+
+以类似markdown的文本生成流程图或序列图等图表，可以结合 ChatGPT 使用。
+
+[mermaid](https://github.com/mermaid-js/mermaid) 
+
+### Gliffy
+
+Gliffy是一款在线绘图工具，专注于帮助用户创建各种类型的图表，包括流程图、组织架构图、思维导图等。
+
+- 丰富的图形库：Gliffy提供了多样化的图标、符号和形状，你可以轻松地将其拖放到绘图区域，以表示不同的职位、部门和人员。
+- 拖放式编辑：Gliffy的拖放式编辑使绘图过程变得简单和直观。你可以轻松添加、移动和调整元素，从而创建出清晰的组织架构图。
+- 自定义样式：你可以自由调整元素的颜色、大小、字体等样式，以适应你的设计需求，使图表更具个性化。
+- 实时协作：Gliffy支持多人实时协作，团队成员可以同时编辑图表，共同完善组织架构图，有效地协同工作。
+- 模板选择：Gliffy提供了多种组织架构图的预设模板，你可以基于这些模板快速开始绘制，节省时间并确保图表的一致性。
+- 导出和分享：绘制完成后，你可以将图表导出为常见的文件格式（如PNG、PDF、SVG），方便与团队、同事或其他人分享和交流。
+- 云存储支持：Gliffy允许你将绘制的图表保存在云端，随时随地进行访问和编辑，使工作更加灵活。
+
+[Gliffy](https://www.gliffy.com/)
+
+### boardmix
+
+boardmix是一款国产的协作性绘图工具，使用方便，功能强大。
+
+- 实时多人协作：提供投票、留言、贴图、音视频交流等多种功能，支持多人实时协作编辑，团队成员能够同时参与图表设计和修改。
+- 丰富的图形库：提供丰富多样的图标、符号、形状和模板，可用于创建独特的组织架构图。
+- 灵活的绘图工具：提供圆珠笔、钢笔、虚线笔、套索、纸胶带等多种画笔工具，以及线条、形状、图标、文本等工具，自由绘制，高颜值创作！
+- 导出和分享：完成图表后，你可以将其导出为多种文件格式，如PNG、PDF，链接分享，网页使用，无需下载即可查看。
+- 协作工具：除了绘图，boardmix还提供了丰富的协作工具，如评论、讨论区和实时聊天，有助于团队成员在图表中交流想法和提供建议。
+- 云端存储：你的绘图内容可以保存在boardmix的云端，随时在不同设备上进行访问和编辑。
+- AIGC生成能力：内置强大AIGC生成能力，支持调用AI一键生成流程图、思维导图、SWOT分析等，高效灵感来源！
+
+[boardmix](https://boardmix.cn/)
+
+### Visual Paradigm Online
+
+这个网站最大的一个优点就是直截了当的给你提供了各方面各类型的流程图模板，能够直接选择并使用。多功能设计及制图工具，包括信息图编辑器、电子书编辑器、图表编辑器、拼贴画编辑器等。在线创建惊人的视觉效果、UML、BPMN、ArchiMate。
+
+产品特色
+
+- 在线 PDF 工具套件：使用这款高效的多合一 PDF 编辑套件管理您的 PDF。您还可以将 PDF 文件转换为各种文档格式，反之亦然。
+- 设计编辑器：利用 Visual Paradigm 直观的在线图形设计工具，轻松自如地创建伟大的在线设计。
+- 设计资源：用我们直观的在线图形设计编辑工具创建令人惊叹的设计，它具有各种各样的图形资源。
+- 免费翻页电子书工具：为你的受众提供一个无缝的在线图书阅读体验，用一个强大的书架来组织你的目录。
+- 统计图表工具：用免费的图表制作工具在线制作漂亮的图表。在几分钟内创建具有自定义风格的图表。
+- 照片编辑：一个具有强大功能的简单编辑工具。轻松地创建、增强和编辑照片图像。
+- 表单设计工具：收集数据。获得反馈。分享结果。不需要编码。开始使用我们易于使用的表格生成器。
+- 试算表编辑器：用一个在线电子表格编辑器来组织、存储和分析数据。
+
+[visual paradigm online](https://online.visual-paradigm.com/cn/)
+
+### 迅捷画图
+
+要论模板，论制作简单，迅捷画图也拿得出手！国产的软件，可能大家更能接受。但是，比较差的体验就是好多模板要付费，这也是我最讨厌的地方。
+
+[迅捷画图](https://www.liuchengtu.com/)
+
+### Visio
+
+Visio是微软推出的画图工具。
+
+[Microsoft Visio](https://www.microsoft.com/zh-cn/microsoft-365/visio/flowchart-software)
+
+### le5le 
+
+[在线绘图（微服务架构图、网络拓扑图、流程图）工具](https://blog.csdn.net/weixin_35032509/article/details/112120712)，le5le-topology是一个开源、易扩展、方便集成的在线绘图（微服务架构图、网络拓扑图、流程图、活动图、时序图、类图等）工具。
+
+[乐吾乐](https://t.le5le.com/)
+
+### 飞书文档
+
+支持文档、脑图、流程图、表格等等，还可以很好的外链分享和协作。
+
+[飞书文档](https://docs.feishu.cn/)
+
+### Zen Flowchart
+
+zen flowchart是一个在线画流程图的工具，英文界面
+
+[zen flowchart](https://www.zenflowchart.com/)
+
+### D2
+
+[D2: 一款专用文本绘制流程图的神器](https://mp.weixin.qq.com/s/N7vNWap2M_j0MKHm4dFZdA)
+
+### PDDON
+
+PDDON是一款完全免费的轻量级专业在线画图和低代码工具。
+
+[PDDON](https://www.pddon.com/)
+
+## 思维导图
+
+- [xmind](https://xmind.cn)
+- [gitmind](https://gitmind.cn)
+
+## 图标
+
+- [https://github.com/cncf/artwork](https://github.com/cncf/artwork)
+- [阿里巴巴矢量图标库](https://www.iconfont.cn/)
+- [https://github.com/edent/SuperTinyIcons](https://github.com/edent/SuperTinyIcons)
+- [https://icons8.com/icons](https://icons8.com/icons)
+- [https://github.com/kubernetes/community/tree/master/icons](https://github.com/kubernetes/community/tree/master/icons)
+
+## 一些案例
+
+![](/images/arch-02.jpg)
+
+![](/images/arch-03.png)
+
+![](/images/arch-04.png)
+
+![](/images/arch-05.png)
+
+
+---
+
+> 作者: [starifly](https://github.com/starifly)  
+> URL: http://localhost:1313/posts/draw/  
+

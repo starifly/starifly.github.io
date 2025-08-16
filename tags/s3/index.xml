@@ -1,122 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" 
-  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
-  xmlns:dc="http://purl.org/dc/elements/1.1/" 
-  xmlns:atom="http://www.w3.org/2005/Atom" 
-  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
-  xmlns:media="http://search.yahoo.com/mrss/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>S3 on 飞鸟的博客站</title>
-    <link>https://starifly.github.io/tags/s3/</link>
-    <description>Recent content in S3 on 飞鸟的博客站</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <managingEditor>efim@163.com (飞鸟)</managingEditor>
-    <webMaster>efim@163.com (飞鸟)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <title>s3 - 标签 | 飞鸟</title>
+    <link>http://localhost:1313/tags/s3/</link>
+    <description>喜欢瞎折腾</description>
+    <generator>Hugo 0.148.2 &amp; FixIt v0.4.0-alpha-20250814132913-e04bb611</generator>
+    <language>zh-cn</language>
+    <managingEditor>efim@163.com (starifly)</managingEditor>
+    <webMaster>efim@163.com (starifly)</webMaster>
     <lastBuildDate>Wed, 06 Oct 2021 21:18:38 +0800</lastBuildDate>
-    <sy:updatePeriod>daily</sy:updatePeriod>
-    
-        <atom:link href="https://starifly.github.io/tags/s3/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    
-      <item>
-        <title>ceph s3 java开发相关</title>
-        <link>https://starifly.github.io/posts/ceph-s3-java-related/</link>
-        <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate>
-        <author>efim@163.com (飞鸟)</author>
-        <atom:modified>Wed, 06 Oct 2021 21:18:38 +0800</atom:modified>
-        <guid>https://starifly.github.io/posts/ceph-s3-java-related/</guid>
-        <description>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
-&lt;p&gt;AWS s3 java api使用 - 
-
-&lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - 
-
-&lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;适用于 Java 的 AWS 开发工具包 - 
-
-&lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Uploading and copying objects using multipart upload - 
-
-&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;另外可以使用 
-
-&lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;</description>
-        <content:encoded>&lt;![CDATA[&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;
-&lt;p&gt;AWS s3 java api使用 - 
-
-&lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - 
-
-&lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;适用于 Java 的 AWS 开发工具包 - 
-
-&lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-
-&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Uploading and copying objects using multipart upload - 
-
-&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;另外可以使用 
-
-&lt;a href=&#34;https://github.com/minio/minio-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/minio/minio-java&lt;/a&gt; 开发&lt;/p&gt;
-]]></content:encoded>
-        <dc:creator>starifly</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>ceph</category>
-            
-          
-            
-              <category>rgw</category>
-            
-          
-            
-              <category>s3</category>
-            
-          
-            
-              <category>java</category>
-            
-          
-        
-        
-          
-            
-              <category>ceph</category>
-            
-          
-        
-        
-      </item>
-    
+    <atom:link href="http://localhost:1313/tags/s3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ceph s3 java开发相关</title>
+      <link>http://localhost:1313/posts/ceph-s3-java-related/</link>
+      <pubDate>Wed, 06 Oct 2021 21:18:38 +0800</pubDate><author>efim@163.com (starifly)</author>
+      <guid>http://localhost:1313/posts/ceph-s3-java-related/</guid>
+      <category domain="http://localhost:1313/categories/ceph/">ceph</category>
+      <description>&lt;p&gt;ceps s3 java开发相关：&lt;/p&gt;&#xA;&lt;p&gt;AWS s3 java api使用 - &lt;a href=&#34;https://blog.csdn.net/smallhujiu/article/details/87204090&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://blog.csdn.net/smallhujiu/article/details/87204090&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/aws-samples/aws-java-sample&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/aws-samples/aws-java-sample&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;使用 AWS SDK for Java 的 Amazon S3示例 - &lt;a href=&#34;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.aws.amazon.com/zh_cn/sdk-for-java/v1/developer-guide/examples-s3.html&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/awsdocs/aws-doc-sdk-examples/tree/master/java/example_code/s3&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://hub.fastgit.org/aws/aws-sdk-java&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://hub.fastgit.org/aws/aws-sdk-java&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;适用于 Java 的 AWS 开发工具包 - &lt;a href=&#34;https://aws.amazon.com/cn/sdk-for-java/&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://aws.amazon.com/cn/sdk-for-java/&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.ceph.com/en/latest/radosgw/s3/java/&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.ceph.com/en/latest/radosgw/s3/java/&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Uploading and copying objects using multipart upload - &lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;另外可以使用 &lt;a href=&#34;https://github.com/minio/minio-java&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/minio/minio-java&lt;i class=&#34;fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;&lt;/a&gt; 开发&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
