@@ -8,7 +8,7 @@
     <language>zh-cn</language>
     <managingEditor>efim@163.com (starifly)</managingEditor>
     <webMaster>efim@163.com (starifly)</webMaster>
-    <lastBuildDate>Sat, 16 Aug 2025 13:34:13 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Oct 2021 19:31:32 +0800</lastBuildDate>
     <atom:link href="https://starifly.github.io/tags/bucket/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ceph rgw桶分片问题</title>
