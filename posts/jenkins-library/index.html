@@ -6,11 +6,9 @@
     <meta name="robots" content="noodp" />
     <title>Jenkins共享库笔记 | 飞鸟</title><meta name="author" content="starifly">
 <meta name="description" content="使用共享库：@Library(&lsquo;pipeline-library-demo@dev&rsquo;)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名
-src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名： 1 2 3 4 5 6 7 8 9 10 11 package org.devops def PrintMes(value,color){ colors = [&#39;red&#39; : &#34;\033[40;31m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34;, &#39;blue&#39; : &#34;\033[47;34m ${value} \033[0m&#34;, &#39;green&#39; : &#34;[1;32m&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[m&#34;, &#39;green1&#39; : &#34;\033[40;32m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34; ] ansiColor(&#39;xterm&#39;) { println(colors[color]) } } pipeline调用：在外部定义def tools = new org.devops.tools()，再在流水线中使用tools.PrintMes(&ldquo;获取代码&rdquo;,&lsquo;green&rsquo;)
 "><meta name="keywords" content=''>
   <meta itemprop="name" content="jenkins共享库笔记">
-  <meta itemprop="description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名
-src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名： 1 2 3 4 5 6 7 8 9 10 11 package org.devops def PrintMes(value,color){ colors = [&#39;red&#39; : &#34;\033[40;31m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34;, &#39;blue&#39; : &#34;\033[47;34m ${value} \033[0m&#34;, &#39;green&#39; : &#34;[1;32m&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[m&#34;, &#39;green1&#39; : &#34;\033[40;32m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34; ] ansiColor(&#39;xterm&#39;) { println(colors[color]) } } pipeline调用：在外部定义def tools = new org.devops.tools()，再在流水线中使用tools.PrintMes(“获取代码”,‘green’)">
+  <meta itemprop="description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名">
   <meta itemprop="datePublished" content="2025-04-26T21:11:16+08:00">
   <meta itemprop="dateModified" content="2025-04-26T21:11:16+08:00">
   <meta itemprop="wordCount" content="588">
@@ -18,8 +16,7 @@ src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这
   <meta itemprop="keywords" content=""><meta property="og:url" content="https://starifly.github.io/posts/jenkins-library/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="jenkins共享库笔记">
-  <meta property="og:description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名
-src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名： 1 2 3 4 5 6 7 8 9 10 11 package org.devops def PrintMes(value,color){ colors = [&#39;red&#39; : &#34;\033[40;31m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34;, &#39;blue&#39; : &#34;\033[47;34m ${value} \033[0m&#34;, &#39;green&#39; : &#34;[1;32m&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[m&#34;, &#39;green1&#39; : &#34;\033[40;32m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34; ] ansiColor(&#39;xterm&#39;) { println(colors[color]) } } pipeline调用：在外部定义def tools = new org.devops.tools()，再在流水线中使用tools.PrintMes(“获取代码”,‘green’)">
+  <meta property="og:description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -31,8 +28,7 @@ src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="jenkins共享库笔记">
-  <meta name="twitter:description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名
-src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名： 1 2 3 4 5 6 7 8 9 10 11 package org.devops def PrintMes(value,color){ colors = [&#39;red&#39; : &#34;\033[40;31m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34;, &#39;blue&#39; : &#34;\033[47;34m ${value} \033[0m&#34;, &#39;green&#39; : &#34;[1;32m&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[m&#34;, &#39;green1&#39; : &#34;\033[40;32m &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;${value}&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; \033[0m&#34; ] ansiColor(&#39;xterm&#39;) { println(colors[color]) } } pipeline调用：在外部定义def tools = new org.devops.tools()，再在流水线中使用tools.PrintMes(“获取代码”,‘green’)">
+  <meta name="twitter:description" content="使用共享库：@Library(‘pipeline-library-demo@dev’)_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名">
 <meta name="application-name" content="飞鸟">
 <meta name="apple-mobile-web-app-title" content="飞鸟"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -255,8 +251,7 @@ src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这
 </h2><p>Jenkins - 共享库（Shared Libraries） - <a href="https://www.cnblogs.com/anliven/p/13693871.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/anliven/p/13693871.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
 Jenkins 共享库使用示例 - <a href="https://mp.weixin.qq.com/s/n5pmHYRoAYVbpUs6VadQ_w"target="_blank" rel="external nofollow noopener noreferrer">https://mp.weixin.qq.com/s/n5pmHYRoAYVbpUs6VadQ_w<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
 实践: 使用Jenkins共享库对流水线进行扩展 - <a href="https://mp.weixin.qq.com/s/x3YVXo4geTgEZE-Gga6lkQ"target="_blank" rel="external nofollow noopener noreferrer">https://mp.weixin.qq.com/s/x3YVXo4geTgEZE-Gga6lkQ<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
-使用Jenkins扩展共享库进行钉钉消息推送 - <a href="https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA"target="_blank" rel="external nofollow noopener noreferrer">https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</div><hr class="awesome-hr" />
+使用Jenkins扩展共享库进行钉钉消息推送 - <a href="https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA"target="_blank" rel="external nofollow noopener noreferrer">https://mp.weixin.qq.com/s/svLUitWqAhhHAuYjZgjqmA<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p></div><hr class="awesome-hr" />
     <h2 id="see-also">相关内容</h2>
     <ul><li>
           <a href="/posts/mysql-galera-cluster/" title="Mysql Galera Cluster">Mysql Galera Cluster</a></li><li>

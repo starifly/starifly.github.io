@@ -206,119 +206,12 @@
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       茶歇驿站</span></span>&nbsp;<span class="post-publish" title='2018-08-17 11:58:38'>发布于 <time datetime="2018-08-17">2018-08-17</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/tools/" class="post-category" title="分类 - tools"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> tools</a></span></div><div class="content"><p>这是一篇非常有价值，里面的每一个都非常值得大家实践。</p>
 <hr>
-<p>Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：</p>
-<table>
-  <thead>
-      <tr>
-          <th>插件名</th>
-          <th>插件快捷键</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Baidu Weather</td>
-          <td>tq</td>
-      </tr>
-      <tr>
-          <td>Chrome Bookmarks</td>
-          <td>,b</td>
-      </tr>
-      <tr>
-          <td>Dash</td>
-          <td>dash</td>
-      </tr>
-      <tr>
-          <td>Douban</td>
-          <td>book/music/movie</td>
-      </tr>
-      <tr>
-          <td>Evernote</td>
-          <td>en/ennew/typenote</td>
-      </tr>
-      <tr>
-          <td>Github repos</td>
-          <td>gh</td>
-      </tr>
-      <tr>
-          <td>Github Trending</td>
-          <td>all</td>
-      </tr>
-      <tr>
-          <td>Kill Process</td>
-          <td>kill</td>
-      </tr>
-      <tr>
-          <td>MacVim</td>
-          <td>vi/vim/mvim</td>
-      </tr>
-      <tr>
-          <td>Network Tools</td>
-          <td>flush/ping/nslookup/traceroute</td>
-      </tr>
-      <tr>
-          <td>Open with Visual Studio Code</td>
-          <td>code</td>
-      </tr>
-      <tr>
-          <td><a href="https://github.com/wensonsmith/QRcodeCreator"target="_blank" rel="external nofollow noopener noreferrer">QRcode Creator<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-          <td>qr</td>
-      </tr>
-      <tr>
-          <td>Search</td>
-          <td>复制内容，然后按快捷键：option+w</td>
-      </tr>
-      <tr>
-          <td>Slack</td>
-          <td>slack</td>
-      </tr>
-      <tr>
-          <td>StackOverflow</td>
-          <td>.so</td>
-      </tr>
-      <tr>
-          <td>Sublime Text</td>
-          <td>subl/subl*</td>
-      </tr>
-      <tr>
-          <td>V2EX</td>
-          <td>v2ex new</td>
-      </tr>
-      <tr>
-          <td><a href="https://github.com/TKkk-iOSer/wechat-alfred-workflow"target="_blank" rel="external nofollow noopener noreferrer">WeChat Plugin<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-          <td>wx xxx 选中人，然后直接在Alfred输入框中输入内容即可发送</td>
-      </tr>
-      <tr>
-          <td>What&rsquo;s my ip</td>
-          <td>ip</td>
-      </tr>
-      <tr>
-          <td>YouTube</td>
-          <td>yt/youtube xxx</td>
-      </tr>
-      <tr>
-          <td><a href="https://github.com/wensonsmith/YoudaoTranslate"target="_blank" rel="external nofollow noopener noreferrer">有道翻译加强版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-          <td>yd</td>
-      </tr>
-      <tr>
-          <td><a href="https://github.com/KJlmfe/Alfred-workflows/"target="_blank" rel="external nofollow noopener noreferrer">知乎<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-          <td>zh/zhdaily</td>
-      </tr>
-  </tbody>
-</table>
-<p>Github Search: alfred workflow：</p></div><div class="post-footer">
+<p>Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：</p></div><div class="post-footer">
     <a href="/posts/alfred-workflow/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/alfred/' class="post-tag">alfred</a><a href='/tags/workflow/' class="post-tag">workflow</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/posts/profile-bashrc-bash_profile-in-linux/">Linux 中 Profile，bashrc，bash_profile等的区别</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       茶歇驿站</span></span>&nbsp;<span class="post-publish" title='2018-08-17 11:52:00'>发布于 <time datetime="2018-08-17">2018-08-17</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/linux/" class="post-category" title="分类 - linux"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> linux</a></span></div><div class="content"><pre><code>这是一篇有关环境变量加载的入门介绍（不太确定）。
-</code></pre>
-<hr>
-<p><code>/etc/profile</code>: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 <code>/etc/profile.d</code> 目录的配置文件中收集 shell 的设置。如果你有对 <code>/etc/profile</code> 有修改的话必须得 source 一下 你的修改才会生效，此修改对<em>每个用户</em>都生效。</p>
-<p><code>/etc/bashrc</code>: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。</p>
-<p><code>~/.bash_profile</code>: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。
-此文件类似于 <code>/etc/profile</code>，也是需要需要 source 才会生效，<code>/etc/profile</code> 对所有用户生效，<code>~/.bash_profile</code> 只对当前用户生效。</p>
-<p><code>~/.bashrc</code>: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 <code>.bashrc</code> 文件，在用户目录下）
-此文件类似于 <code>/etc/bashrc</code>，不需要重启就可以生效，重新打开一个 bash 即可生效，<code>/etc/bashrc</code> 对所有用户新打开的 bash 都生效，但 <code>~/.bashrc</code> 只对当前用户新打开的 bash 生效。</p>
-<p><code>~/.bash_logout</code>: 当每次退出系统(退出 bash shell)时，执行该文件。</p></div><div class="post-footer">
+</code></pre></div><div class="post-footer">
     <a href="/posts/profile-bashrc-bash_profile-in-linux/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/linux/' class="post-tag">linux</a><a href='/tags/profile/' class="post-tag">profile</a><a href='/tags/bashrc/' class="post-tag">bashrc</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/posts/what-the-hell-is-devops/">一分钟告诉你究竟DevOps是什么鬼？</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>

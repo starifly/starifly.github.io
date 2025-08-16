@@ -5,6 +5,8 @@
 
 后面查询其它的教程，得知可以使用Rufus制作，先格式化U盘，卷标名称位数不要超过11位，具体的刻录过程这里就不说明了。
 
+<!--more-->
+
 ## Reference
 
 - [U盘安装红帽 Redhat Linux 8.4 有感_redhat8.4制作u盘启动_元宇宙隐市的博客-CSDN博客](https://blog.csdn.net/subicman/article/details/124840396)

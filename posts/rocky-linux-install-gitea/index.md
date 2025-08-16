@@ -11,6 +11,8 @@ mkdir -p /var/lib/gitea/{custom,data,log}
 chown -R gitea:gitea /var/lib/gitea
 ```
 
+<!--more-->
+
 ```bash
 [root@master ~]# cat  /etc/systemd/system/gitea.service
 [Unit]

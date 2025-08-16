@@ -5,6 +5,8 @@
 
 经过查资料才得知，是k8s中时区的问题，所以需要修改`/etc/kubernetes/manifests/kube-scheduler.yaml`配置文件，增加相应的时区设置：
 
+<!--more-->
+
 ```yml
     volumeMounts:
     -  name: localtime

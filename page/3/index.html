@@ -179,43 +179,7 @@
   </a>
 </h3><p>安装依赖</p>
 <p><code>yum install pcre-devel.x86_64 openssl-devel   zlib-devel  systemd-devel gcc gcc-c++</code></p>
-<p>内核调优</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#vim /etc/sysctl.conf</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">vm.swappiness <span class="o">=</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_nonlocal_bind <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.tcp_tw_reuse <span class="o">=</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">net.ipv4.ip_local_port_range <span class="o">=</span> <span class="m">1025</span> <span class="m">65023</span>
-</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">10240</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>检查</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_nonlocal_bind
-</span></span><span class="line"><span class="cl">/usr/sbin/sysctl net.ipv4.ip_forward
-</span></span><span class="line"><span class="cl">cat /proc/sys/net/ipv4/ip_forward</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>查看是否开启了ip转发功能
-如果上述文件中的值为0,说明禁止进行IP转发；如果是1,则说明IP转发功能已经打开。</p></div><div class="post-footer">
+<p>内核调优</p></div><div class="post-footer">
     <a href="/posts/ceph-rgw-ha-and-load-balance/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/ceph/' class="post-tag">ceph</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/posts/ceph-commands/">Ceph 操作命令</a>
   </h2><div class="post-meta"><span class="post-author"><a href="https://github.com/starifly" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img class="avatar" src='https://gravatar.loli.net/avatar/6138b0dbd40e3fc92a5321892282dd7a?s=32&d=mp' alt="starifly" height="16" width="16">&nbsp;starifly</a></span>&nbsp;<span class="post-publish" title='2021-10-06 19:43:27'>发布于 <time datetime="2021-10-06">2021-10-06</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ceph/" class="post-category" title="分类 - ceph"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ceph</a></span></div><div class="content"><div class="highlight"><div class="chroma">

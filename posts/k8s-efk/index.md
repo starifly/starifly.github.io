@@ -1,6 +1,10 @@
 # K8s部署EFK
 
 
+K8S部署EFK教程
+
+<!--more-->
+
 ## elasticsearch
 
 ```yml

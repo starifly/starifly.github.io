@@ -10,6 +10,8 @@ ERROR 1045 (28000): Access denied for user 'root'@'%' (using password: YES)
 
 解决方案：
 
+<!--more-->
+
 ```sql
 mysql> update mysql.user set Grant_priv='Y' where user = 'root' and host = '%';
 Query OK, 1 row affected (0.00 sec)

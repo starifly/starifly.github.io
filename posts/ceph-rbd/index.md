@@ -12,6 +12,8 @@
 pool 'rbd' created
 ```
 
+<!--more-->
+
 #### 创建客户端帐号
 
 ```bash

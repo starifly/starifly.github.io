@@ -6,19 +6,9 @@
     <meta name="robots" content="noodp" />
     <title>Ceph硬件布置参考 | 飞鸟</title><meta name="author" content="starifly">
 <meta name="description" content="1、网络拓扑参考
-2、设备位置图参考
-3、服务器配置信息及运行服务统计
-一般来说，内存越多越好。
-对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。
-OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以
 "><meta name="keywords" content='ceph'>
   <meta itemprop="name" content="ceph硬件布置参考">
-  <meta itemprop="description" content="1、网络拓扑参考
-2、设备位置图参考
-3、服务器配置信息及运行服务统计
-一般来说，内存越多越好。
-对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。
-OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以">
+  <meta itemprop="description" content="1、网络拓扑参考">
   <meta itemprop="datePublished" content="2023-01-26T19:06:05+08:00">
   <meta itemprop="dateModified" content="2023-01-26T19:06:05+08:00">
   <meta itemprop="wordCount" content="249">
@@ -26,12 +16,7 @@ OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬
   <meta itemprop="keywords" content="ceph"><meta property="og:url" content="https://starifly.github.io/posts/ceph-hardware-layout-reference/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="ceph硬件布置参考">
-  <meta property="og:description" content="1、网络拓扑参考
-2、设备位置图参考
-3、服务器配置信息及运行服务统计
-一般来说，内存越多越好。
-对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。
-OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以">
+  <meta property="og:description" content="1、网络拓扑参考">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -43,12 +28,7 @@ OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="ceph硬件布置参考">
-  <meta name="twitter:description" content="1、网络拓扑参考
-2、设备位置图参考
-3、服务器配置信息及运行服务统计
-一般来说，内存越多越好。
-对于一个中等规模的集群，监视/管理器节点可以使用64GB；对于具有数百个osd的大型集群，128GB是一个合理的目标。
-OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬件参数附件，或者参考下述配置也可以">
+  <meta name="twitter:description" content="1、网络拓扑参考">
 <meta name="application-name" content="飞鸟">
 <meta name="apple-mobile-web-app-title" content="飞鸟"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -232,8 +212,7 @@ OSD节点一般情况下每1T硬盘对应1G内存，详见egon整理的项目硬
   </a>
 </h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/387112707"target="_blank" rel="external nofollow noopener noreferrer">附录2、ceph安装配置介绍与主机优化<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-</div><hr class="awesome-hr" />
+</ul></div><hr class="awesome-hr" />
     <h2 id="see-also">相关内容</h2>
     <ul><li>
           <a href="/posts/ceph-crushmap/" title="Ceph故障域">Ceph故障域</a></li><li>

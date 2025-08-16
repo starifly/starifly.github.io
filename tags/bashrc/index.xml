@@ -16,7 +16,7 @@
       <pubDate>Fri, 17 Aug 2018 11:52:00 +0800</pubDate>
       <guid>https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/</guid>
       <category domain="https://starifly.github.io/categories/linux/">linux</category>
-      <description>&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;code&gt;/etc/profile&lt;/code&gt;: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 &lt;code&gt;/etc/profile.d&lt;/code&gt; 目录的配置文件中收集 shell 的设置。如果你有对 &lt;code&gt;/etc/profile&lt;/code&gt; 有修改的话必须得 source 一下 你的修改才会生效，此修改对&lt;em&gt;每个用户&lt;/em&gt;都生效。&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;/etc/bashrc&lt;/code&gt;: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;~/.bash_profile&lt;/code&gt;: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。&#xA;此文件类似于 &lt;code&gt;/etc/profile&lt;/code&gt;，也是需要需要 source 才会生效，&lt;code&gt;/etc/profile&lt;/code&gt; 对所有用户生效，&lt;code&gt;~/.bash_profile&lt;/code&gt; 只对当前用户生效。&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;~/.bashrc&lt;/code&gt;: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 &lt;code&gt;.bashrc&lt;/code&gt; 文件，在用户目录下）&#xA;此文件类似于 &lt;code&gt;/etc/bashrc&lt;/code&gt;，不需要重启就可以生效，重新打开一个 bash 即可生效，&lt;code&gt;/etc/bashrc&lt;/code&gt; 对所有用户新打开的 bash 都生效，但 &lt;code&gt;~/.bashrc&lt;/code&gt; 只对当前用户新打开的 bash 生效。&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;~/.bash_logout&lt;/code&gt;: 当每次退出系统(退出 bash shell)时，执行该文件。&lt;/p&gt;</description>
+      <description>&lt;pre&gt;&lt;code&gt;这是一篇有关环境变量加载的入门介绍（不太确定）。&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

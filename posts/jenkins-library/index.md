@@ -3,6 +3,8 @@
 
 使用共享库：@Library('pipeline-library-demo@dev')_，其中pipeline-library-demo是Jenkins中配置的共享库名称，dev是共享库的分支名
 
+<!--more-->
+
 1. src下的文件建议以tools.groovy小写方式命名，方法名以PrintMes这种方式命名：
 
 ```groovy

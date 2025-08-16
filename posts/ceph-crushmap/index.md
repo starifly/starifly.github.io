@@ -5,6 +5,8 @@
 
 1、执行ceph -s确认存储集群状态，保证为健康状态。
 
+<!--more-->
+
 ```bash
 [root@ceph001 ~]# ceph -s
   cluster:

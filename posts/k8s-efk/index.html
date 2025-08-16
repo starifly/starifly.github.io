@@ -10,7 +10,7 @@
   <meta itemprop="description" content="本文介绍了如何在k8s中部署efk">
   <meta itemprop="datePublished" content="2023-01-29T22:24:18+08:00">
   <meta itemprop="dateModified" content="2023-01-29T22:24:18+08:00">
-  <meta itemprop="wordCount" content="666">
+  <meta itemprop="wordCount" content="676">
   <meta itemprop="image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta itemprop="keywords" content="k8s,efk"><meta property="og:url" content="https://starifly.github.io/posts/k8s-efk/">
   <meta property="og:site_name" content="飞鸟">
@@ -43,7 +43,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/starifly.github.io\/posts\/k8s-efk\/"
-    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "k8s, efk","wordcount":  666 ,
+    },"image": ["https:\/\/starifly.github.io\/images\/apple-devices-preview.webp"],"genre": "posts","keywords": "k8s, efk","wordcount":  676 ,
     "url": "https:\/\/starifly.github.io\/posts\/k8s-efk\/","datePublished": "2023-01-29T22:24:18+08:00","dateModified": "2023-01-29T22:24:18+08:00","publisher": {
       "@type": "Organization",
       "name": "FlyBird","logo": "https:\/\/starifly.github.io\/images\/avatar.webp"},"author": {
@@ -174,7 +174,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>K8s部署EFK</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/starifly" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img class="avatar" src='https://gravatar.loli.net/avatar/6138b0dbd40e3fc92a5321892282dd7a?s=32&d=mp' alt="starifly" height="16" width="16">&nbsp;starifly</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/k8s/" class="post-category" title="分类 - k8s"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> k8s</a></span></div><div class="post-meta-line"><span title="发布于 2023-01-29 22:24:18"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-01-29">2023-01-29</time></span>&nbsp;<span title="666 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;<span id="busuanzi_container_page_pv" class="busuanzi_visitors comment-visitors" data-flag-title="K8s部署EFK"><i class="fa-regular fa-eye fa-fw me-1" aria-hidden="true"></i><span id="busuanzi_value_page_pv">-</span>&nbsp;次阅读
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/starifly" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img class="avatar" src='https://gravatar.loli.net/avatar/6138b0dbd40e3fc92a5321892282dd7a?s=32&d=mp' alt="starifly" height="16" width="16">&nbsp;starifly</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/k8s/" class="post-category" title="分类 - k8s"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> k8s</a></span></div><div class="post-meta-line"><span title="发布于 2023-01-29 22:24:18"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-01-29">2023-01-29</time></span>&nbsp;<span title="676 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;<span id="busuanzi_container_page_pv" class="busuanzi_visitors comment-visitors" data-flag-title="K8s部署EFK"><i class="fa-regular fa-eye fa-fw me-1" aria-hidden="true"></i><span id="busuanzi_value_page_pv">-</span>&nbsp;次阅读
           </span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
@@ -196,7 +196,8 @@
       <div class="details-content">
         <div class="admonition-content">本文最后更新于 2023-01-29，文中内容可能已过时。</div>
       </div>
-    </div><h2 class="heading-element" id="elasticsearch"><span>1 elasticsearch</span>
+    </div><p>K8S部署EFK教程</p>
+<h2 class="heading-element" id="elasticsearch"><span>1 elasticsearch</span>
   <a href="#elasticsearch" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -672,8 +673,7 @@
 </h2><ul>
 <li><a href="https://developer.aliyun.com/article/908135#slide-21"target="_blank" rel="external nofollow noopener noreferrer">Kubernetes 集群日志和 EFK架构日志方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://xie.infoq.cn/article/fea1fe9dffe70b1d729dc04cb"target="_blank" rel="external nofollow noopener noreferrer">基于 EFK 的 Kubernetes 日志采集方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-</div><hr class="awesome-hr" />
+</ul></div><hr class="awesome-hr" />
     <h2 id="see-also">相关内容</h2>
     <ul><li>
           <a href="/posts/k8s-ingress/" title="K8s Ingress">K8s Ingress</a></li><li>

@@ -9,6 +9,8 @@
 yum install librados2-devel
 ```
 
+<!--more-->
+
 ## 源程序
 
 ```c

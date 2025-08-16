@@ -3,6 +3,8 @@
 
 ## keepalived高可用介绍及改造方案
 
+<!--more-->
+
 ![](/images/keealived_01.png)
 
 ![](/images/keealived_02.png)

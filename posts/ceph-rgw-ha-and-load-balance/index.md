@@ -9,6 +9,8 @@
 
 内核调优
 
+<!--more-->
+
 ```bash
 #vim /etc/sysctl.conf
 

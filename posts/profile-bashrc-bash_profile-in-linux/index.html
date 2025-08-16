@@ -5,18 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Linux 中 Profile，bashrc，bash_profile等的区别 | 飞鸟</title><meta name="author" content="茶歇驿站">
-<meta name="description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
-/etc/bashrc: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。
-~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。 此文件类似于 /etc/profile，也是需要需要 source 才会生效，/etc/profile 对所有用户生效，~/.bash_profile 只对当前用户生效。
-~/.bashrc: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 .bashrc 文件，在用户目录下） 此文件类似于 /etc/bashrc，不需要重启就可以生效，重新打开一个 bash 即可生效，/etc/bashrc 对所有用户新打开的 bash 都生效，但 ~/.bashrc 只对当前用户新打开的 bash 生效。
-~/.bash_logout: 当每次退出系统(退出 bash shell)时，执行该文件。
-"><meta name="keywords" content='linux, profile, bashrc'>
+<meta name="description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 "><meta name="keywords" content='linux, profile, bashrc'>
   <meta itemprop="name" content="Linux 中 profile，bashrc，bash_profile等的区别">
-  <meta itemprop="description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
-/etc/bashrc: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。
-~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。 此文件类似于 /etc/profile，也是需要需要 source 才会生效，/etc/profile 对所有用户生效，~/.bash_profile 只对当前用户生效。
-~/.bashrc: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 .bashrc 文件，在用户目录下） 此文件类似于 /etc/bashrc，不需要重启就可以生效，重新打开一个 bash 即可生效，/etc/bashrc 对所有用户新打开的 bash 都生效，但 ~/.bashrc 只对当前用户新打开的 bash 生效。
-~/.bash_logout: 当每次退出系统(退出 bash shell)时，执行该文件。">
+  <meta itemprop="description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。">
   <meta itemprop="datePublished" content="2018-08-17T11:52:00+08:00">
   <meta itemprop="dateModified" content="2018-08-19T00:00:00+08:00">
   <meta itemprop="wordCount" content="695">
@@ -24,11 +15,7 @@
   <meta itemprop="keywords" content="linux,profile,bashrc"><meta property="og:url" content="https://starifly.github.io/posts/profile-bashrc-bash_profile-in-linux/">
   <meta property="og:site_name" content="飞鸟">
   <meta property="og:title" content="Linux 中 profile，bashrc，bash_profile等的区别">
-  <meta property="og:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
-/etc/bashrc: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。
-~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。 此文件类似于 /etc/profile，也是需要需要 source 才会生效，/etc/profile 对所有用户生效，~/.bash_profile 只对当前用户生效。
-~/.bashrc: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 .bashrc 文件，在用户目录下） 此文件类似于 /etc/bashrc，不需要重启就可以生效，重新打开一个 bash 即可生效，/etc/bashrc 对所有用户新打开的 bash 都生效，但 ~/.bashrc 只对当前用户新打开的 bash 生效。
-~/.bash_logout: 当每次退出系统(退出 bash shell)时，执行该文件。">
+  <meta property="og:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -42,11 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://starifly.github.io/images/apple-devices-preview.webp">
   <meta name="twitter:title" content="Linux 中 profile，bashrc，bash_profile等的区别">
-  <meta name="twitter:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。 /etc/profile: 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从 /etc/profile.d 目录的配置文件中收集 shell 的设置。如果你有对 /etc/profile 有修改的话必须得 source 一下 你的修改才会生效，此修改对每个用户都生效。
-/etc/bashrc: 为每一个运行 bash shell 的用户执行此文件。当 bash shell 被打开时，该文件被读取。如果你想对所有的使用 bash 的用户修改某个配置并在以后打开的 bash 都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个 bash 即可生效。
-~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次!默认情况下,他设置一些环境变量，执行用户的 .bashrc 文件。 此文件类似于 /etc/profile，也是需要需要 source 才会生效，/etc/profile 对所有用户生效，~/.bash_profile 只对当前用户生效。
-~/.bashrc: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 .bashrc 文件，在用户目录下） 此文件类似于 /etc/bashrc，不需要重启就可以生效，重新打开一个 bash 即可生效，/etc/bashrc 对所有用户新打开的 bash 都生效，但 ~/.bashrc 只对当前用户新打开的 bash 生效。
-~/.bash_logout: 当每次退出系统(退出 bash shell)时，执行该文件。">
+  <meta name="twitter:description" content="这是一篇有关环境变量加载的入门介绍（不太确定）。">
 <meta name="application-name" content="飞鸟">
 <meta name="apple-mobile-web-app-title" content="飞鸟"><meta name="theme-color" data-light="#ffffff" data-dark="#252627" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -220,6 +203,7 @@
 <p><code>~/.bashrc</code>: 该文件包含专用于你的 bash shell 的 bash 信息，当登录时以及每次打开新的 shell 时，该文件被读取。（每个用户都有一个 <code>.bashrc</code> 文件，在用户目录下）
 此文件类似于 <code>/etc/bashrc</code>，不需要重启就可以生效，重新打开一个 bash 即可生效，<code>/etc/bashrc</code> 对所有用户新打开的 bash 都生效，但 <code>~/.bashrc</code> 只对当前用户新打开的 bash 生效。</p>
 <p><code>~/.bash_logout</code>: 当每次退出系统(退出 bash shell)时，执行该文件。</p>
+<!--more-->
 <h2 class="heading-element" id="总结"><span>1 总结</span>
   <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>

@@ -9,6 +9,8 @@
 
 2. 配置定时任务
 
+<!--more-->
+
 ```bash
 systemctl start ntpd && systemctl enable ntpd
 将时间每隔1小时自动校准同步

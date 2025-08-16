@@ -8,6 +8,8 @@
 
 Alfred workflow 的详细说明，我就不再赘述了，大家可以直接看最后的参考资料，我把我在用的 Alfred workflow 列一下，以供参考：
 
+<!--more-->
+
 | 插件名 | 插件快捷键 |
 |----|----|
 | Baidu Weather | tq |
