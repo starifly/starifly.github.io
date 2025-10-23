@@ -9,7 +9,7 @@
 <details open>
 <summary>共计 1 篇文章</summary>
 
-- 10-23 [k8s+Jenkins发布与回滚流程简介](https://oosz.nyc.mn/posts/5e7b177/ "2025-10-23 22:17:18")
+- 10-23 [k8s+Jenkins发布与回滚流程简介](https://oosz.nyc.mn/posts/overview--of-k8s-cicd/ "2025-10-23 22:17:18")
 
 </details>
 
