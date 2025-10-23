@@ -2,29 +2,13 @@
 
 > 喜欢瞎折腾
 
-共计 68 篇文章 by [starifly](https://github.com/starifly).
-
-## 2025
-
-<details open>
-<summary>共计 2 篇文章</summary>
-
-- 04-26 [Rocky Linux 安装 Gitea](https://oosz.nyc.mn/posts/rocky-linux-install-gitea/ "2025-04-26 21:18:50")
-- 04-26 [jenkins共享库笔记](https://oosz.nyc.mn/posts/jenkins-library/ "2025-04-26 21:11:16")
-
-</details>
+共计 89 篇文章 by [starifly](https://github.com/starifly).
 
 ## 2023
 
 <details>
-<summary>共计 17 篇文章</summary>
+<summary>共计 11 篇文章</summary>
 
-- 11-04 [keepalived+mysql双主集群单主可写](https://oosz.nyc.mn/posts/keepalived-mysql-dual-master-cluster-single-master-can-write/ "2023-11-04 11:11:17")
-- 11-04 [Mysql Galera Cluster](https://oosz.nyc.mn/posts/mysql-galera-cluster/ "2023-11-04 10:58:51")
-- 11-04 [mysql授予账户权限问题](https://oosz.nyc.mn/posts/mysql-account-permission-grant-problem/ "2023-11-04 10:49:13")
-- 11-04 [U盘安装RedHat](https://oosz.nyc.mn/posts/install-redhat-via-usb-disk/ "2023-11-04 10:17:22")
-- 11-04 [k8s cronjob执行时区问题](https://oosz.nyc.mn/posts/k8s-cronjob-time-zone/ "2023-11-04 09:50:50")
-- 11-04 [docker部署java应用乱码问题](https://oosz.nyc.mn/posts/java-application-garbled-code-in-docker/ "2023-11-04 09:42:36")
 - 02-17 [k8s中部署loki](https://oosz.nyc.mn/posts/loki/ "2023-02-17 16:25:55")
 - 01-30 [画图](https://oosz.nyc.mn/posts/draw/ "2023-01-30 18:38:49")
 - 01-29 [k8s部署EFK](https://oosz.nyc.mn/posts/k8s-efk/ "2023-01-29 22:24:18")
