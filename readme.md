@@ -1,4 +1,4 @@
-# [飞鸟](https://oosz.nyc.mn/ "主页")
+# [Starlight](https://oosz.nyc.mn/ "主页")
 
 > 喜欢瞎折腾
 
@@ -6,7 +6,7 @@
 
 ## 2025
 
-<details open>
+<details>
 <summary>共计 1 篇文章</summary>
 
 - 10-23 [k8s+Jenkins发布与回滚流程简介](https://oosz.nyc.mn/posts/overview--of-k8s-cicd/ "2025-10-23 22:17:18")
