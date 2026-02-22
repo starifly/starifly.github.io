@@ -2,13 +2,14 @@
 
 > 喜欢瞎折腾
 
-共计 93 篇文章 by [starifly](https://github.com/starifly).
+共计 94 篇文章 by [starifly](https://github.com/starifly).
 
 ## 2026
 
 <details open>
-<summary>共计 3 篇文章</summary>
+<summary>共计 4 篇文章</summary>
 
+- 02-22 [Jenkins+argocd+argo rollouts实现金丝雀发布](https://oosz.nyc.mn/posts/jenkins-argocd-argo-rollouts/ "2026-02-22 13:48:42")
 - 02-22 [使用argo-rollouts实现金丝雀发布](https://oosz.nyc.mn/posts/argo-rollouts/ "2026-02-22 13:45:51")
 - 02-22 [使用ArgoCD进行持续部署](https://oosz.nyc.mn/posts/argocd/ "2026-02-22 13:39:59")
 - 02-22 [使用Jenkins和Argocd实现CI_CD](https://oosz.nyc.mn/posts/jenkins-argocd/ "2026-02-22 13:27:28")
