@@ -2,7 +2,16 @@
 
 > 喜欢瞎折腾
 
-共计 90 篇文章 by [starifly](https://github.com/starifly).
+共计 91 篇文章 by [starifly](https://github.com/starifly).
+
+## 2026
+
+<details open>
+<summary>共计 1 篇文章</summary>
+
+- 02-22 [使用Jenkins和Argocd实现CI_CD](https://oosz.nyc.mn/posts/jenkins-argocd/ "2026-02-22 13:27:28")
+
+</details>
 
 ## 2025
 
